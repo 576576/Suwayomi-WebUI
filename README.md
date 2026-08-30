@@ -1,6 +1,6 @@
 # Suwayomi-WebUI
 
-This is the repository of the default client of [Suwayomi-Server](https://github.com/Suwayomi/Suwayomi-Server).
+This is the repository of the web-ui client of [Suwayomi-Next](https://github.com/576576/Suwayomi-next).
 
 The server has this web app bundled by default and is able to automatically update to the latest versions.
 Thus, there is no need to manually download any builds unless you want to host the app yourself instead of having it hosted by the Suwayomi-Server.
