@@ -3,13 +3,15 @@ name: CI build
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
     name: Build artifacts and deploy preview
     if: "!startsWith(github.event.head_commit.message, '[SKIP CI]')"
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Cancel previous runs
@@ -17,10 +19,10 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
-      - name: Checkout master branch
+      - name: Checkout main branch
         uses: actions/checkout@v4
         with:
-          ref: master
+          ref: main
           path: master
           fetch-depth: 0
 
@@ -56,9 +58,10 @@ jobs:
           cd master/build
           genTag="r$(git rev-list HEAD --count)"
           echo "$genTag"
-          echo "::set-output name=value::$genTag"
+          echo "value=$genTag" >> "$GITHUB_OUTPUT"
 
       - name: Checkout preview branch
+        if: github.repository == 'Suwayomi/Suwayomi-WebUI'
         uses: actions/checkout@v4
         with:
           repository: "Suwayomi/Suwayomi-WebUI-preview"
@@ -67,6 +70,7 @@ jobs:
           token: ${{ secrets.BUILD_PREVIEW_TOKEN }}
 
       - name: Create Tag
+        if: github.repository == 'Suwayomi/Suwayomi-WebUI'
         run: |
           TAG="${{ steps.GenTagName.outputs.value }}"
           echo "tag: $TAG"
@@ -84,13 +88,14 @@ jobs:
       - name: Upload CI Release
         uses: ncipollo/release-action@v1
         with:
-          token: ${{ secrets.BUILD_PREVIEW_TOKEN }}
+          token: ${{ github.token }}
           artifacts: "master/buildZip/*"
-          owner: "Suwayomi"
-          repo: "Suwayomi-WebUI-preview"
           tag: ${{ steps.GenTagName.outputs.value }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Checkout github pages repo
+        if: github.repository == 'Suwayomi/Suwayomi-WebUI'
         uses: actions/checkout@v4
         with:
           repository: "Suwayomi-WebUI-preview/suwayomi-webui-preview.github.io"
@@ -99,6 +104,7 @@ jobs:
           token: ${{ secrets.DEPLOY_PREVIEW_TOKEN }}
 
       - name: Deploy github pages
+        if: github.repository == 'Suwayomi/Suwayomi-WebUI'
         run: |
           TAG="${{ steps.GenTagName.outputs.value }}"
           rm -rf gh-pages/*
