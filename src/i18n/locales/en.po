@@ -2907,6 +2907,7 @@ msgid "Original size"
 msgstr "Original size"
 
 #: src/base/utils/Languages.ts
+#: src/features/browse/sources/components/SourceCard.tsx
 #: src/features/extension/Extensions.constants.ts
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Other"

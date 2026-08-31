@@ -74,12 +74,13 @@ export const SourceCard: React.FC<IProps> = (props: IProps) => {
             >
                 <ListCardContent>
                     {Sources.isLocalSource(source) ? (
-                        // 本地源没有扩展图标——以文件夹图标作为封面
+                        // 本地源没有扩展图标——以文件夹图标作为封面；
+                        // 颜色跟随主题文本色（深色=白、浅色=黑）
                         <Avatar
                             variant="rounded"
                             sx={{ width: 56, height: 56, flex: '0 0 auto', background: 'transparent' }}
                         >
-                            <FolderIcon fontSize="large" />
+                            <FolderIcon fontSize="large" sx={{ color: 'text.primary' }} />
                         </Avatar>
                     ) : (
                         <ListCardAvatar
@@ -104,7 +105,7 @@ export const SourceCard: React.FC<IProps> = (props: IProps) => {
                             {sourceName}
                         </Typography>
                         <Typography variant="caption">
-                            {showLanguage && languageCodeToName(lang)}
+                            {showLanguage && (Sources.isLocalSource(source) ? t`Other` : languageCodeToName(lang))}
                             {isNsfw(contentWarning) && (
                                 <Typography variant="caption" color="error">
                                     {' 18+'}
