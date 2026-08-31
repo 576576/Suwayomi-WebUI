@@ -4372,3 +4372,11 @@ msgstr ""
 #: src/features/settings/screens/ServerSettings.tsx
 msgid "Shows a dialog in case the version of the server has changed"
 msgstr "當伺服器版本變更時，將顯示提示對話框"
+
+#: src/features/settings/screens/Settings.tsx
+msgid "Data & Storage"
+msgstr "資料與儲存"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Storage location"
+msgstr "儲存位置"

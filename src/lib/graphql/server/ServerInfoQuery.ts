@@ -19,6 +19,7 @@ export const GET_ABOUT = gql`
             github
             name
             version
+            dataDir
             platformInfo {
                 os {
                     name

@@ -3022,6 +3022,7 @@ export type GetAboutQuery = {
         github: string;
         name: string;
         version: string;
+        dataDir: string;
         platformInfo: {
             __typename: 'PlatformInfo';
             arch: string;

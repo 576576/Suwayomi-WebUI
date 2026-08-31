@@ -8,19 +8,16 @@
 
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import List from '@mui/material/List';
-import BackupIcon from '@mui/icons-material/Backup';
+import StorageIcon from '@mui/icons-material/Storage';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import CollectionsOutlinedBookmarkIcon from '@mui/icons-material/CollectionsBookmarkOutlined';
 import GetAppOutlinedIcon from '@mui/icons-material/GetAppOutlined';
-import DnsIcon from '@mui/icons-material/Dns';
-import WebIcon from '@mui/icons-material/Web';
 import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined';
 import DevicesIcon from '@mui/icons-material/Devices';
 import SyncIcon from '@mui/icons-material/Sync';
 import PaletteIcon from '@mui/icons-material/Palette';
-import HistoryIcon from '@mui/icons-material/History';
-import ImageIcon from '@mui/icons-material/Image';
+import SettingsEthernetIcon from '@mui/icons-material/SettingsEthernet';
 import { useLingui } from '@lingui/react/macro';
 import { ListItemLink } from '@/base/components/lists/ListItemLink.tsx';
 import { AppRoutes } from '@/base/AppRoute.constants.ts';
@@ -57,23 +54,11 @@ export function Settings() {
                 </ListItemIcon>
                 <ListItemText primary={t`Downloads`} />
             </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.children.images.path}>
-                <ListItemIcon>
-                    <ImageIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`Images`} />
-            </ListItemLink>
             <ListItemLink to={AppRoutes.settings.children.tracking.path}>
                 <ListItemIcon>
                     <SyncIcon />
                 </ListItemIcon>
                 <ListItemText primary={t`Tracking`} />
-            </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.children.backup.path}>
-                <ListItemIcon>
-                    <BackupIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`Backup`} />
             </ListItemLink>
             <ListItemLink to={AppRoutes.settings.children.browse.path}>
                 <ListItemIcon>
@@ -81,11 +66,11 @@ export function Settings() {
                 </ListItemIcon>
                 <ListItemText primary={t`Browse`} />
             </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.children.history.path}>
+            <ListItemLink to={AppRoutes.settings.children.backup.path}>
                 <ListItemIcon>
-                    <HistoryIcon />
+                    <StorageIcon />
                 </ListItemIcon>
-                <ListItemText primary={t`History`} />
+                <ListItemText primary={t`Data & Storage`} />
             </ListItemLink>
             <ListItemLink to={AppRoutes.settings.children.device.path}>
                 <ListItemIcon>
@@ -93,17 +78,11 @@ export function Settings() {
                 </ListItemIcon>
                 <ListItemText primary={t`Device`} />
             </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.children.webui.path}>
+            <ListItemLink to={AppRoutes.settings.children.advanced.path}>
                 <ListItemIcon>
-                    <WebIcon />
+                    <SettingsEthernetIcon />
                 </ListItemIcon>
-                <ListItemText primary={t`WebUI`} />
-            </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.children.server.path}>
-                <ListItemIcon>
-                    <DnsIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`Server`} />
+                <ListItemText primary={t`Advanced`} />
             </ListItemLink>
         </List>
     );

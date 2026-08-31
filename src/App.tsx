@@ -71,14 +71,15 @@ const { DownloadSettings } = loadable(
     () => import('@/features/downloads/screens/DownloadSettings.tsx'),
     lazyLoadFallback,
 );
-const { ImagesSettings } = loadable(() => import('@/features/settings/screens/ImagesSettings.tsx'), lazyLoadFallback);
 const { ImageProcessingSetting } = loadable(
     () => import('@/features/settings/screens/ImageProcessingSetting.tsx'),
     lazyLoadFallback,
 );
-const { ServerSettings } = loadable(() => import('@/features/settings/screens/ServerSettings.tsx'), lazyLoadFallback);
 const { BrowseSettings } = loadable(() => import('@/features/browse/screens/BrowseSettings.tsx'), lazyLoadFallback);
-const { WebUISettings } = loadable(() => import('@/features/settings/screens/WebUISettings.tsx'), lazyLoadFallback);
+const { AdvancedSettings } = loadable(
+    () => import('@/features/settings/screens/AdvancedSettings.tsx'),
+    lazyLoadFallback,
+);
 const { Migration } = loadable(() => import('@/features/migration/screens/Migration.tsx'), lazyLoadFallback);
 const { DeviceSetting } = loadable(() => import('@/features/device/screens/DeviceSetting.tsx'), lazyLoadFallback);
 const { TrackingSettings } = loadable(
@@ -100,7 +101,6 @@ const { GlobalReaderSettings } = loadable(
 );
 const { More } = loadable(() => import('@/features/settings/screens/More.tsx'), lazyLoadFallback);
 const { Reader } = loadable(() => import('@/features/reader/screens/Reader.tsx'), lazyLoadFallback);
-const { HistorySettings } = loadable(() => import('@/features/history/screens/HistorySettings.tsx'), lazyLoadFallback);
 const { ExtensionStores } = loadable(
     () => import('@/features/extension/store/screens/ExtensionStores.tsx'),
     lazyLoadFallback,
@@ -315,20 +315,15 @@ const MainApp = () => {
                                     }
                                 />
                             </Route>
-                            <Route path={AppRoutes.settings.children.images.match}>
-                                <Route index element={<ImagesSettings />} />
-                                <Route
-                                    path={AppRoutes.settings.children.images.children.processingDownloads.match}
-                                    element={<ImageProcessingSetting type={ImageProcessingType.DOWNLOAD} />}
-                                />
-                                <Route
-                                    path={AppRoutes.settings.children.images.children.processingServe.match}
-                                    element={<ImageProcessingSetting type={ImageProcessingType.SERVE} />}
-                                />
-                            </Route>
+                            <Route
+                                path={AppRoutes.settings.children.images.children.processingDownloads.match}
+                                element={<ImageProcessingSetting type={ImageProcessingType.DOWNLOAD} />}
+                            />
+                            <Route
+                                path={AppRoutes.settings.children.images.children.processingServe.match}
+                                element={<ImageProcessingSetting type={ImageProcessingType.SERVE} />}
+                            />
                             <Route path={AppRoutes.settings.children.backup.match} element={<Backup />} />
-                            <Route path={AppRoutes.settings.children.server.match} element={<ServerSettings />} />
-                            <Route path={AppRoutes.settings.children.webui.match} element={<WebUISettings />} />
                             <Route path={AppRoutes.settings.children.browse.match}>
                                 <Route index element={<BrowseSettings />} />
                                 <Route
@@ -336,10 +331,10 @@ const MainApp = () => {
                                     element={<ExtensionStores />}
                                 />
                             </Route>
-                            <Route path={AppRoutes.settings.children.history.match} element={<HistorySettings />} />
                             <Route path={AppRoutes.settings.children.device.match} element={<DeviceSetting />} />
                             <Route path={AppRoutes.settings.children.tracking.match} element={<TrackingSettings />} />
                             <Route path={AppRoutes.settings.children.appearance.match} element={<Appearance />} />
+                            <Route path={AppRoutes.settings.children.advanced.match} element={<AdvancedSettings />} />
                         </Route>
 
                         {/* Manga Routes */}

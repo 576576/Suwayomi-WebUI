@@ -51,9 +51,11 @@ const resetBackupState = () => {
 export function Backup() {
     const { t } = useLingui();
 
-    useAppTitle(t`Backup`);
+    useAppTitle(t`Data & Storage`);
 
     const { data: settingsData, loading, error, refetch } = requestManager.useGetServerSettings();
+    const { data: aboutData } = requestManager.useGetAbout();
+    const dataDir = aboutData?.aboutServer.dataDir;
     const [mutateSettings] = requestManager.useUpdateServerSettings();
 
     const { data } = requestManager.useGetBackupRestoreStatus(backupRestoreId ?? '', {
@@ -251,6 +253,9 @@ export function Backup() {
     return (
         <>
             <List sx={{ padding: 0 }}>
+                <ListItemButton>
+                    <ListItemText primary={t`Storage location`} secondary={dataDir ?? t`Unable to load data`} />
+                </ListItemButton>
                 <ListItemButton onClick={createBackup}>
                     <ListItemText primary={t`Create backup`} secondary={t`Back up library as a Tachiyomi backup`} />
                 </ListItemButton>

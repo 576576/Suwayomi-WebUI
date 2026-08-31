@@ -4466,3 +4466,11 @@ msgstr "移至顶部"
 #: src/features/downloads/screens/DownloadQueue.tsx
 msgid "Retry all"
 msgstr "全部重试"
+
+#: src/features/settings/screens/Settings.tsx
+msgid "Data & Storage"
+msgstr "数据与存储"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Storage location"
+msgstr "存储位置"

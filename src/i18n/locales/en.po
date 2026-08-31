@@ -14,11 +14,6 @@ msgstr ""
 "Plural-Forms: \n"
 "X-Message-Format: ICU\n"
 
-#. placeholder {0}: t(SYNC_STATE_TRANSLATION[syncState])
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "— State: {0}"
-msgstr "— State: {0}"
-
 #: src/features/browse/extensions/components/ExtensionCard.tsx
 msgid "\"{name}\" and its sources will be removed from Suwayomi."
 msgstr "\"{name}\" and its sources will be removed from Suwayomi."
@@ -44,15 +39,8 @@ msgstr "{0, plural, one {# day} other {# days}}"
 msgid "{0, plural, one {# manga} other {# manga}}"
 msgstr "{0, plural, one {# manga} other {# manga}}"
 
-#. placeholder {0}: serverSettings.flareSolverrSessionTtl
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "{0, plural, one {# minute} other {# minutes}}"
-msgstr "{0, plural, one {# minute} other {# minutes}}"
-
 #. placeholder {0}: autoScroll.value
-#. placeholder {0}: serverSettings.flareSolverrTimeout
 #: src/features/reader/auto-scroll/settings/ReaderSettingAutoScroll.tsx
-#: src/features/settings/screens/ServerSettings.tsx
 msgid "{0, plural, one {# second} other {# seconds}}"
 msgstr "{0, plural, one {# second} other {# seconds}}"
 
@@ -348,10 +336,6 @@ msgstr "{progress}% | Updating…"
 msgid "{ttl, plural, one {Delete backups that are older than # day} other {Delete backups that are older than # days}}"
 msgstr "{ttl, plural, one {Delete backups that are older than # day} other {Delete backups that are older than # days}}"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "{ttl, plural, one {Delete log files that are older than # day} other {Delete log files that are older than # days}}"
-msgstr "{ttl, plural, one {Delete log files that are older than # day} other {Delete log files that are older than # days}}"
-
 #: src/features/reader/settings/components/DefaultSettingFootnote.tsx
 msgid "*: Active setting"
 msgstr "*: Active setting"
@@ -443,6 +427,8 @@ msgid "Added manga to library!"
 msgstr "Added manga to library!"
 
 #: src/features/library/screens/LibrarySettings.tsx
+#: src/features/settings/screens/AdvancedSettings.tsx
+#: src/features/settings/screens/Settings.tsx
 msgid "Advanced"
 msgstr "Advanced"
 
@@ -514,17 +500,8 @@ msgid "Artist"
 msgstr "Artist"
 
 #: src/features/migration/Migration.constants.ts
-#: src/features/settings/screens/ServerSettings.tsx
 msgid "Ascending"
 msgstr "Ascending"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Authentication"
-msgstr "Authentication"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Authentication Mode"
-msgstr "Authentication Mode"
 
 #: src/features/manga/components/details/MangaDetails.tsx
 msgid "Author"
@@ -577,10 +554,6 @@ msgstr "Automatic updates"
 msgid "Automatically download the latest version"
 msgstr "Automatically download the latest version"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Automatically mark chapters as read when you download them."
-msgstr "Automatically mark chapters as read when you download them."
-
 #: src/features/settings/components/globalUpdate/GlobalUpdateSettings.tsx
 msgid "Automatically refresh metadata"
 msgstr "Automatically refresh metadata"
@@ -612,11 +585,6 @@ msgstr "Back up library as a Tachiyomi backup"
 #: src/features/reader/settings/general/components/ReaderSettingBackgroundColor.tsx
 msgid "Background color"
 msgstr "Background color"
-
-#: src/features/backup/screens/Backup.tsx
-#: src/features/settings/screens/Settings.tsx
-msgid "Backup"
-msgstr "Backup"
 
 #: src/features/backup/screens/Backup.tsx
 msgid "Backup cleanup"
@@ -661,10 +629,6 @@ msgstr "Behaviour"
 #: src/features/settings/Settings.constants.ts
 msgid "Binary"
 msgstr "Binary"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Binary file size"
-msgstr "Binary file size"
 
 #: src/features/reader/settings/general/components/ReaderSettingBackgroundColor.tsx
 msgid "Black"
@@ -832,10 +796,6 @@ msgstr "Category Name"
 msgid "Category selection dialog"
 msgstr "Category selection dialog"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "CBZ MIME-Type"
-msgstr "CBZ MIME-Type"
-
 #: src/features/manga/Manga.constants.ts
 msgid "Change categories"
 msgstr "Change categories"
@@ -853,10 +813,6 @@ msgstr "Changelog"
 #: src/features/settings/screens/Appearance.tsx
 msgid "Changes the theme colors on the manga page based on the thumbnail"
 msgstr "Changes the theme colors on the manga page based on the thumbnail"
-
-#: src/features/settings/screens/WebUISettings.tsx
-msgid "Channel"
-msgstr "Channel"
 
 #: src/features/chapter/components/cards/ChapterCard.tsx
 #: src/features/downloads/components/DownloadAheadSetting.tsx
@@ -884,10 +840,6 @@ msgstr "Chapter list"
 msgid "Chapter number"
 msgstr "Chapter number"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Chapter sort order"
-msgstr "Chapter sort order"
-
 #: src/features/reader/services/ReaderControls.ts
 msgid "Chapter transition warning"
 msgstr "Chapter transition warning"
@@ -912,10 +864,6 @@ msgstr "Check out"
 msgid "Checking for update"
 msgstr "Checking for update"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Choose the order in which chapters are displayed."
-msgstr "Choose the order in which chapters are displayed."
-
 #: src/features/library/screens/LibrarySettings.tsx
 msgid "Cleanup database"
 msgstr "Cleanup database"
@@ -924,33 +872,21 @@ msgstr "Cleanup database"
 msgid "Clear"
 msgstr "Clear"
 
-#: src/features/settings/screens/ImagesSettings.tsx
+#: src/features/settings/screens/AdvancedSettings.tsx
 msgid "Clear cache"
 msgstr "Clear cache"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Clear cookies and cache"
-msgstr "Clear cookies and cache"
 
 #: src/features/manga/components/details/MangaNotes.tsx
 msgid "Clear notes"
 msgstr "Clear notes"
 
-#: src/features/settings/screens/ImagesSettings.tsx
+#: src/features/settings/screens/AdvancedSettings.tsx
 msgid "Cleared the cache"
 msgstr "Cleared the cache"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Cleared WebView cookies and cache"
-msgstr "Cleared WebView cookies and cache"
 
 #: src/features/reader/hotkeys/settings/ReaderHotkeysSettings.tsx
 msgid "Click key to remove binding"
 msgstr "Click key to remove binding"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Client"
-msgstr "Client"
 
 #: src/features/backup/Backup.constants.ts
 #: src/features/migration/components/MigrationOptionsDialog.tsx
@@ -962,10 +898,6 @@ msgstr "Client data"
 #: src/features/migration/components/migration-entry/MigrationDestinationEntry.tsx
 msgid "Close"
 msgstr "Close"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Cloudflare bypass"
-msgstr "Cloudflare bypass"
 
 #: src/features/reader/filters/settings/components/ReaderSettingRGBA.tsx
 msgid "Color filter blend mode"
@@ -986,10 +918,6 @@ msgstr "Comic"
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Compact grid"
 msgstr "Compact grid"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Compatible"
-msgstr "Compatible"
 
 #: src/features/manga/Manga.constants.ts
 msgid "Completed"
@@ -1043,12 +971,6 @@ msgstr "Continuous horizontal"
 msgid "Continuous vertical"
 msgstr "Continuous vertical"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Controls the MimeType that Suwayomi sends in OPDS entries for CBZ archives. Also affects global CBZ download.\n"
-"Modern follows recent IANA standard (2017), while LEGACY (deprecated mimetype for .cbz) and COMPATIBLE (deprecated mimetype for all comic archives) might be more compatible with older clients."
-msgstr "Controls the MimeType that Suwayomi sends in OPDS entries for CBZ archives. Also affects global CBZ download.\n"
-"Modern follows recent IANA standard (2017), while LEGACY (deprecated mimetype for .cbz) and COMPATIBLE (deprecated mimetype for all comic archives) might be more compatible with older clients."
-
 #: src/features/settings/Settings.constants.ts
 msgid "Convert images to different formats"
 msgstr "Convert images to different formats"
@@ -1091,13 +1013,9 @@ msgstr "Could not check for update"
 msgid "Could not check for updates"
 msgstr "Could not check for updates"
 
-#: src/features/settings/screens/ImagesSettings.tsx
+#: src/features/settings/screens/AdvancedSettings.tsx
 msgid "Could not clear the cache"
 msgstr "Could not clear the cache"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Could not clear WebView cookies and cache"
-msgstr "Could not clear WebView cookies and cache"
 
 #: src/lib/HelperFunctions.ts
 msgid "Could not copy to clipboard"
@@ -1250,10 +1168,6 @@ msgstr "Could not save theme changes"
 msgid "Could not search source"
 msgstr "Could not search source"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Could not start sync"
-msgstr "Could not start sync"
-
 #: src/features/updates/components/UpdateChecker.tsx
 msgid "Could not stop global update"
 msgstr "Could not stop global update"
@@ -1378,22 +1292,14 @@ msgstr "Dark"
 msgid "Darken"
 msgstr "Darken"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Database"
-msgstr "Database"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Database url"
-msgstr "Database url"
+#: src/features/backup/screens/Backup.tsx
+#: src/features/settings/screens/Settings.tsx
+msgid "Data & Storage"
+msgstr "Data & Storage"
 
 #: src/features/backup/screens/Backup.tsx
-#: src/features/settings/screens/ServerSettings.tsx
 msgid "Day"
 msgstr "Day"
-
-#: src/features/settings/screens/About.tsx
-msgid "Debug information"
-msgstr "Debug information"
 
 #: src/features/reader/hotkeys/settings/components/ReaderSettingHotkey.tsx
 msgid "Decrease auto scroll speed"
@@ -1406,7 +1312,6 @@ msgstr "Decrease auto scroll speed"
 #: src/features/device/screens/DeviceSetting.tsx
 #: src/features/downloads/screens/DownloadSettings.tsx
 #: src/features/reader/settings/ReaderSettings.constants.tsx
-#: src/features/settings/screens/WebUISettings.tsx
 #: src/features/theme/Themes.ts
 msgid "Default"
 msgstr "Default"
@@ -1467,7 +1372,6 @@ msgid "Deleting theme \"{0}\"…"
 msgstr "Deleting theme \"{0}\"…"
 
 #: src/features/migration/Migration.constants.ts
-#: src/features/settings/screens/ServerSettings.tsx
 msgid "Descending"
 msgstr "Descending"
 
@@ -1522,10 +1426,6 @@ msgstr "Disconnected"
 #: src/features/settings/screens/Appearance.tsx
 msgid "Display"
 msgstr "Display"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Display file sizes in binary (KiB, MiB, GiB) instead of decimal (KB, MB, GB)"
-msgstr "Display file sizes in binary (KiB, MiB, GiB) instead of decimal (KB, MB, GB)"
 
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Display mode"
@@ -1665,25 +1565,9 @@ msgstr "Edit theme"
 msgid "Electron"
 msgstr "Electron"
 
-#: src/features/settings/screens/WebUISettings.tsx
-msgid "Electron path"
-msgstr "Electron path"
-
 #: src/features/reader/settings/general/components/ReaderSettingBackgroundColor.tsx
 msgid "Enable auto background color in continuous reading mode"
 msgstr "Enable auto background color in continuous reading mode"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Enable debug logs"
-msgstr "Enable debug logs"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Enable page read progress"
-msgstr "Enable page read progress"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Enable the WebView via CEF (Chromium)"
-msgstr "Enable the WebView via CEF (Chromium)"
 
 #: src/features/downloads/screens/DownloadSettings.tsx
 msgid "Entries in excluded categories will not be downloaded even if they are also in included categories"
@@ -1732,10 +1616,6 @@ msgstr "Every 6 hours"
 msgid "Every hour"
 msgstr "Every hour"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Example for possible values: 1 (bytes), 1KB (kilobytes), 1MB (megabytes), 1GB (gigabytes)"
-msgstr "Example for possible values: 1 (bytes), 1KB (kilobytes), 1MB (megabytes), 1GB (gigabytes)"
-
 #: src/features/migration/components/migration-entry/MigrationEntrySearchExcludeActions.tsx
 msgid "Exclude"
 msgstr "Exclude"
@@ -1748,10 +1628,6 @@ msgstr "Exclude scanlators"
 #: src/features/category/components/CategoriesInclusionSetting.tsx
 msgid "Exclude: {excludedCategoriesText}"
 msgstr "Exclude: {excludedCategoriesText}"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Exclude: {excludedSyncDataText}"
-msgstr "Exclude: {excludedSyncDataText}"
 
 #: src/features/migration/Migration.constants.ts
 msgid "Excluded"
@@ -1808,16 +1684,14 @@ msgstr "Failed to disconnect from KOReader Sync server."
 #: src/features/downloads/screens/DownloadSettings.tsx
 #: src/features/extension/info/components/SourceCard.tsx
 #: src/features/global-search/screens/SearchAll.tsx
-#: src/features/history/screens/HistorySettings.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 #: src/features/migration/screens/MigrationSelectSource.tsx
 #: src/features/settings/components/globalUpdate/GlobalUpdateSettings.tsx
 #: src/features/settings/components/globalUpdate/GlobalUpdateSettingsEntries.tsx
 #: src/features/settings/components/webUI/WebUIUpdateIntervalSetting.tsx
+#: src/features/settings/screens/AdvancedSettings.tsx
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/ImageProcessingSetting.tsx
-#: src/features/settings/screens/ServerSettings.tsx
-#: src/features/settings/screens/WebUISettings.tsx
 #: src/features/source/browse/screens/SourceMangas.tsx
 #: src/features/source/components/SourceLanguageSelect.tsx
 #: src/features/source/configuration/screens/SourceConfigure.tsx
@@ -1861,14 +1735,6 @@ msgstr "Filter"
 msgid "Filter and sort"
 msgstr "Filter and sort"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Filter manga feed to display only chapters you have downloaded."
-msgstr "Filter manga feed to display only chapters you have downloaded."
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Filter manga feed to display only chapters you haven’t read yet."
-msgstr "Filter manga feed to display only chapters you haven’t read yet."
-
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "Finish date"
 msgstr "Finish date"
@@ -1893,42 +1759,6 @@ msgstr "Fit screen"
 #: src/features/reader/settings/ReaderSettings.constants.tsx
 msgid "Fit width"
 msgstr "Fit width"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "FlareSolverr enabled"
-msgstr "FlareSolverr enabled"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Flaresolverr is a <0><1>separate</1></0>, Suwayomi <2><3>unrelated</3></2> program that needs to be manually <4><5>installed</5></4> and <6><7>run</7></6>.<8/>See <9>FlareSolverr</9> for information on how to set it up<10/><11/>If it is <12><13>not</13></12> properly set up and running, enabling this setting <14><15>won't</15></14> do anything"
-msgstr "Flaresolverr is a <0><1>separate</1></0>, Suwayomi <2><3>unrelated</3></2> program that needs to be manually <4><5>installed</5></4> and <6><7>run</7></6>.<8/>See <9>FlareSolverr</9> for information on how to set it up<10/><11/>If it is <12><13>not</13></12> properly set up and running, enabling this setting <14><15>won't</15></14> do anything"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "FlareSolverr request timeout"
-msgstr "FlareSolverr request timeout"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "FlareSolverr server url"
-msgstr "FlareSolverr server url"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "FlareSolverr session name"
-msgstr "FlareSolverr session name"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "FlareSolverr session TTL"
-msgstr "FlareSolverr session TTL"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Flaresolverr setup confirmation"
-msgstr "Flaresolverr setup confirmation"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "FlareSolverr will automatically rotate expired sessions based on the TTL provided in minutes"
-msgstr "FlareSolverr will automatically rotate expired sessions based on the TTL provided in minutes"
-
-#: src/features/settings/screens/WebUISettings.tsx
-msgid "Flavor"
-msgstr "Flavor"
 
 #: src/features/theme/Themes.ts
 msgid "Forest Dew"
@@ -1989,10 +1819,6 @@ msgstr "Green"
 msgid "h"
 msgstr "h"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "H2"
-msgstr "H2"
-
 #: src/features/global-search/screens/SearchAll.tsx
 msgid "Has results"
 msgstr "Has results"
@@ -2019,19 +1845,13 @@ msgstr "Hidden"
 msgid "Hide entries already in library"
 msgstr "Hide entries already in library"
 
-#: src/features/history/screens/HistorySettings.tsx
+#: src/features/settings/screens/AdvancedSettings.tsx
 msgid "Hide history"
 msgstr "Hide history"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Hikari connection pool"
-msgstr "Hikari connection pool"
-
 #: src/features/backup/Backup.constants.ts
 #: src/features/history/screens/History.tsx
-#: src/features/history/screens/HistorySettings.tsx
 #: src/features/navigation-bar/NavigationBar.constants.ts
-#: src/features/settings/screens/Settings.tsx
 msgid "History"
 msgstr "History"
 
@@ -2046,10 +1866,6 @@ msgstr "Hotkey already exists"
 #: src/features/downloads/components/DownloadAheadSetting.tsx
 msgid "How many chapters should get downloaded while reading."
 msgstr "How many chapters should get downloaded while reading."
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "How much time FlareSolverr has to handle the request"
-msgstr "How much time FlareSolverr has to handle the request"
 
 #: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
 msgid "If enabled, chooses the match furthest ahead.\n"
@@ -2090,28 +1906,19 @@ msgid "Image"
 msgstr "Image"
 
 #: src/features/downloads/screens/DownloadSettings.tsx
-#: src/features/settings/screens/ImagesSettings.tsx
+#: src/features/settings/screens/AdvancedSettings.tsx
 #: src/features/settings/Settings.constants.ts
 msgid "Image download processing"
 msgstr "Image download processing"
 
-#: src/features/settings/screens/ImagesSettings.tsx
+#: src/features/settings/screens/AdvancedSettings.tsx
 msgid "Image processing"
 msgstr "Image processing"
 
-#: src/features/settings/screens/ImagesSettings.tsx
+#: src/features/settings/screens/AdvancedSettings.tsx
 #: src/features/settings/Settings.constants.ts
 msgid "Image serve processing"
 msgstr "Image serve processing"
-
-#: src/features/settings/screens/ImagesSettings.tsx
-#: src/features/settings/screens/Settings.tsx
-msgid "Images"
-msgstr "Images"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Improves performance, but may cause issues for some installations where data cannot be read from the database"
-msgstr "Improves performance, but may cause issues for some installations where data cannot be read from the database"
 
 #: src/features/settings/screens/ImageProcessingSetting.tsx
 msgid "In case no MIME-Type is defined, the \"default\" one will be used for the processing.\n"
@@ -2134,18 +1941,9 @@ msgstr "Include"
 msgid "Include: {includedCategoriesText}"
 msgstr "Include: {includedCategoriesText}"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Include: {includedSyncDataText}"
-msgstr "Include: {includedSyncDataText}"
-
 #: src/features/reader/hotkeys/settings/components/ReaderSettingHotkey.tsx
 msgid "Increase auto scroll speed"
 msgstr "Increase auto scroll speed"
-
-#: src/features/settings/screens/ServerSettings.tsx
-#: src/features/settings/screens/WebUISettings.tsx
-msgid "Inform about available update"
-msgstr "Inform about available update"
 
 #: src/features/reader/settings/behaviour/ReaderBehaviourSettings.tsx
 msgid "Inform about changing scanlator on chapter transition"
@@ -2154,14 +1952,6 @@ msgstr "Inform about changing scanlator on chapter transition"
 #: src/features/reader/settings/behaviour/ReaderBehaviourSettings.tsx
 msgid "Inform about missing chapters on chapter transition"
 msgstr "Inform about missing chapters on chapter transition"
-
-#: src/features/settings/screens/WebUISettings.tsx
-msgid "Inform about updated version"
-msgstr "Inform about updated version"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Inform about version update"
-msgstr "Inform about version update"
 
 #: src/base/components/feedback/SnackbarWithDescription.tsx
 msgid "Information"
@@ -2187,10 +1977,6 @@ msgstr "Installing"
 #: src/features/browse/extensions/Extensions.tsx
 msgid "Installing extension file…"
 msgstr "Installing extension file…"
-
-#: src/features/settings/screens/WebUISettings.tsx
-msgid "Interface"
-msgstr "Interface"
 
 #: src/features/backup/screens/Backup.tsx
 #: src/features/browse/extensions/Extensions.tsx
@@ -2218,30 +2004,6 @@ msgstr "Invert"
 #: src/features/reader/settings/layout/components/ReaderSettingTapZoneInvertMode.tsx
 msgid "Invert tap zones"
 msgstr "Invert tap zones"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "IP"
-msgstr "IP"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "item"
-msgstr "item"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Items per page"
-msgstr "Items per page"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "JWT access token expiry"
-msgstr "JWT access token expiry"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "JWT audience claim"
-msgstr "JWT audience claim"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "JWT refresh token expiry"
-msgstr "JWT refresh token expiry"
 
 #: src/features/settings/Settings.constants.ts
 msgid "Keep local"
@@ -2292,10 +2054,6 @@ msgstr "Large"
 msgid "Last read chapter"
 msgstr "Last read chapter"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Last sync: {syncDate}"
-msgstr "Last sync: {syncDate}"
-
 #: src/features/updates/screens/Updates.tsx
 msgid "Last update: {date}"
 msgstr "Last update: {date}"
@@ -2339,10 +2097,6 @@ msgstr "Left"
 #: src/features/reader/settings/ReaderSettings.constants.tsx
 msgid "Left to right"
 msgstr "Left to right"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Legacy"
-msgstr "Legacy"
 
 #: src/features/backup/screens/Backup.tsx
 msgid "legacy backups are not supported!"
@@ -2411,10 +2165,6 @@ msgstr "Local source guide"
 #: src/features/browse/screens/BrowseSettings.tsx
 msgid "Local source location"
 msgstr "Local source location"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Log file cleanup"
-msgstr "Log file cleanup"
 
 #: src/base/components/modals/LoginDialog.tsx
 #: src/features/authentication/screens/LoginPage.tsx
@@ -2520,10 +2270,6 @@ msgstr "Mark as read"
 msgid "Mark as unread"
 msgstr "Mark as unread"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Mark chapters as read on download"
-msgstr "Mark chapters as read on download"
-
 #: src/features/chapter/components/actions/ChapterActionMenuItems.tsx
 msgid "Mark previous as read"
 msgstr "Mark previous as read"
@@ -2547,14 +2293,6 @@ msgstr "Match found"
 #: src/features/migration/components/migration-entry/MigrationEntry.tsx
 msgid "Matches"
 msgstr "Matches"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Maximum log file size"
-msgstr "Maximum log file size"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Maximum size of all log files"
-msgstr "Maximum size of all log files"
 
 #: src/features/reader/settings/behaviour/components/ReaderSettingScrollAmount.tsx
 msgid "Medium"
@@ -2631,14 +2369,6 @@ msgstr "MIME-Type target"
 msgid "Minty Miracles"
 msgstr "Minty Miracles"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Minute"
-msgstr "Minute"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Misc"
-msgstr "Misc"
-
 #. placeholder {0}: entry.missingChapters
 #: src/features/migration/components/migration-entry/MigrationEntryMetadataText.tsx
 msgid "Missing: {0}"
@@ -2647,10 +2377,6 @@ msgstr "Missing: {0}"
 #: src/features/reader/overlay/settings/ReaderSettingOverlayMode.tsx
 msgid "Mobile"
 msgstr "Mobile"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Modern"
-msgstr "Modern"
 
 #: src/features/navigation-bar/NavigationBar.constants.ts
 #: src/features/settings/screens/More.tsx
@@ -2692,7 +2418,6 @@ msgid "Name"
 msgstr "Name"
 
 #: src/features/backup/Backup.utils.ts
-#: src/features/settings/screens/ServerSettings.tsx
 msgid "Never"
 msgstr "Never"
 
@@ -2799,12 +2524,6 @@ msgstr "Novel"
 msgid "NSFW (18+) sources"
 msgstr "NSFW (18+) sources"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Number of items per page in OPDS feeds (e.g., Library History, Manga Chapters).\n"
-"Higher values may affect client performance."
-msgstr "Number of items per page in OPDS feeds (e.g., Library History, Manga Chapters).\n"
-"Higher values may affect client performance."
-
 #: src/features/downloads/components/DownloadAheadSetting.tsx
 msgid "Number of unread chapters to download"
 msgstr "Number of unread chapters to download"
@@ -2866,10 +2585,6 @@ msgstr "Only outdated matches found"
 msgid "Only works if the current chapter plus the next chapter are already downloaded."
 msgstr "Only works if the current chapter plus the next chapter are already downloaded."
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "OPDS"
-msgstr "OPDS"
-
 #: src/features/reader/services/ReaderControls.ts
 msgid "Open"
 msgstr "Open"
@@ -2901,10 +2616,6 @@ msgstr "Open page on exit"
 #: src/features/library/components/LibraryToolbarMenu.tsx
 msgid "Open random entry"
 msgstr "Open random entry"
-
-#: src/features/settings/screens/WebUISettings.tsx
-msgid "Open the WebUI when starting the server"
-msgstr "Open the WebUI when starting the server"
 
 #: src/features/extension/store/screens/ExtensionStores.tsx
 msgid "Open website"
@@ -2954,7 +2665,6 @@ msgid "Parallel source requests"
 msgstr "Parallel source requests"
 
 #: src/base/components/inputs/PasswordTextField.tsx
-#: src/features/settings/screens/ServerSettings.tsx
 msgid "Password"
 msgstr "Password"
 
@@ -2983,14 +2693,6 @@ msgstr "Pinned"
 #: src/features/source/browse/screens/SourceMangas.tsx
 msgid "Popular"
 msgstr "Popular"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Port"
-msgstr "Port"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "PostgreSQL"
-msgstr "PostgreSQL"
 
 #: src/features/reader/settings/behaviour/ReaderBehaviourSettings.tsx
 msgid "Preload images"
@@ -3186,10 +2888,6 @@ msgstr "Reset"
 msgid "Reset to Default"
 msgstr "Reset to Default"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Response fallback"
-msgstr "Response fallback"
-
 #: src/features/backup/component/BackupValidationDialog.tsx
 msgid "Restore"
 msgstr "Restore"
@@ -3355,17 +3053,12 @@ msgid "Searching…"
 msgstr "Searching…"
 
 #: src/features/settings/components/images/Processing.tsx
-#: src/features/settings/screens/ServerSettings.tsx
 msgid "Second"
 msgstr "Second"
 
 #: src/features/downloads/components/DeleteChaptersWhileReadingSetting.tsx
 msgid "Second to last read chapter"
 msgstr "Second to last read chapter"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "See <0>FlareSolverr</0> for information on how to set it up"
-msgstr "See <0>FlareSolverr</0> for information on how to set it up"
 
 #: src/features/theme/components/CreateThemeDialog.tsx
 msgid "See the official <0>MUI documentation</0> for how to customize the theme.<1/>The palette API is not supported, you have to use the new <2>color schemes API</2>.<3/><4/>You can use theme creators like <5>MUI Theme Creator</5>, however, you have to adjust the created object according to the new color schemes API.<6/><7/>In case no background is defined, a background will be calculated based on the primary color."
@@ -3415,8 +3108,6 @@ msgid "Series settings"
 msgstr "Series settings"
 
 #: src/features/settings/screens/About.tsx
-#: src/features/settings/screens/ServerSettings.tsx
-#: src/features/settings/screens/Settings.tsx
 msgid "Server"
 msgstr "Server"
 
@@ -3424,10 +3115,6 @@ msgstr "Server"
 #: src/features/settings/components/ServerAddressSetting.tsx
 msgid "Server address"
 msgstr "Server address"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Server bindings"
-msgstr "Server bindings"
 
 #: src/features/backup/Backup.constants.ts
 msgid "Server settings"
@@ -3502,10 +3189,6 @@ msgstr "Show continue reading button"
 msgid "Show entry"
 msgstr "Show entry"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Show icon in system tray"
-msgstr "Show icon in system tray"
-
 #: src/features/browse/screens/BrowseSettings.tsx
 msgid "Show in sources and extensions lists"
 msgstr "Show in sources and extensions lists"
@@ -3527,14 +3210,6 @@ msgstr "Show more"
 msgid "Show number of items"
 msgstr "Show number of items"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Show only downloaded chapters"
-msgstr "Show only downloaded chapters"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Show only unread chapters"
-msgstr "Show only unread chapters"
-
 #: src/features/reader/settings/general/ReaderGeneralSettings.tsx
 msgid "Show page number"
 msgstr "Show page number"
@@ -3555,19 +3230,6 @@ msgstr "Show the category selection dialog when adding a manga to the library"
 msgid "Show transition page"
 msgstr "Show transition page"
 
-#: src/features/settings/screens/ServerSettings.tsx
-#: src/features/settings/screens/WebUISettings.tsx
-msgid "Shows a dialog in case a new version is available"
-msgstr "Shows a dialog in case a new version is available"
-
-#: src/features/settings/screens/WebUISettings.tsx
-msgid "Shows a dialog in case the version got updated. This dialog will be shown in case an app refresh is required, regardless of this setting."
-msgstr "Shows a dialog in case the version got updated. This dialog will be shown in case an app refresh is required, regardless of this setting."
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Shows a dialog in case the version of the server has changed"
-msgstr "Shows a dialog in case the version of the server has changed"
-
 #: src/features/settings/Settings.constants.ts
 msgid "Simple Login"
 msgstr "Simple Login"
@@ -3575,10 +3237,6 @@ msgstr "Simple Login"
 #: src/features/reader/settings/ReaderSettings.constants.tsx
 msgid "Single page"
 msgstr "Single page"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Skip chapter metadata feed"
-msgstr "Skip chapter metadata feed"
 
 #: src/features/reader/settings/behaviour/ReaderBehaviourSettings.tsx
 msgid "Skip duplicate chapters"
@@ -3603,30 +3261,6 @@ msgstr "Smartphone_Name-1 | length: 16, chars: letters, numbers, -, _"
 #: src/features/reader/auto-scroll/settings/ReaderSettingAutoScroll.tsx
 msgid "Smooth auto scrolling"
 msgstr "Smooth auto scrolling"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "SOCKS host"
-msgstr "SOCKS host"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "SOCKS password"
-msgstr "SOCKS password"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "SOCKS port"
-msgstr "SOCKS port"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "SOCKS proxy"
-msgstr "SOCKS proxy"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "SOCKS username"
-msgstr "SOCKS username"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "SOCKS version"
-msgstr "SOCKS version"
 
 #: src/base/components/feedback/ErrorBoundary.tsx
 msgid "Something went wrong\n"
@@ -3696,10 +3330,6 @@ msgstr "Start reading\n"
 msgid "Start Search"
 msgstr "Start Search"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Start sync"
-msgstr "Start sync"
-
 #: src/features/library/components/LibraryOptionsPanel.tsx
 #: src/features/settings/Settings.constants.ts
 #: src/features/tracker/components/cards/TrackerMangaCard.tsx
@@ -3725,6 +3355,10 @@ msgstr "Stop"
 msgid "Stop global update"
 msgstr "Stop global update"
 
+#: src/features/backup/screens/Backup.tsx
+msgid "Storage location"
+msgstr "Storage location"
+
 #: src/features/reader/overlay/navigation/desktop/quick-settings/components/ReaderNavBarDesktopPageScale.tsx
 #: src/features/reader/settings/layout/components/ReaderSettingStretchPage.tsx
 msgid "Stretch small pages"
@@ -3748,14 +3382,6 @@ msgstr "Successfully migrated"
 msgid "Successfully migrated manga"
 msgstr "Successfully migrated manga"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Sync"
-msgstr "Sync"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Sync data"
-msgstr "Sync data"
-
 #: src/features/settings/Settings.constants.ts
 msgid "Sync disabled"
 msgstr "Sync disabled"
@@ -3764,16 +3390,11 @@ msgstr "Sync disabled"
 msgid "Sync in progress"
 msgstr "Sync in progress"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Sync interval"
-msgstr "Sync interval"
-
 #: src/features/settings/Settings.constants.ts
 msgid "Sync started"
 msgstr "Sync started"
 
 #: src/features/settings/components/koreaderSync/KoreaderSyncSettings.tsx
-#: src/features/settings/screens/ServerSettings.tsx
 msgid "Sync status"
 msgstr "Sync status"
 
@@ -3788,22 +3409,6 @@ msgstr "Sync to an older state"
 #: src/features/settings/components/koreaderSync/KoreaderSyncSettings.tsx
 msgid "Sync will not be triggered if the progress difference is within this tolerance."
 msgstr "Sync will not be triggered if the progress difference is within this tolerance."
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "SyncYomi"
-msgstr "SyncYomi"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "SyncYomi API key"
-msgstr "SyncYomi API key"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "SyncYomi enabled"
-msgstr "SyncYomi enabled"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "SyncYomi host"
-msgstr "SyncYomi host"
 
 #: src/features/settings/screens/Appearance.tsx
 msgid "System"
@@ -3825,11 +3430,7 @@ msgstr "Target mode"
 msgid "That haven't been started"
 msgstr "That haven't been started"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "The address of the FlareSolverr server"
-msgstr "The address of the FlareSolverr server"
-
-#: src/features/settings/screens/ImagesSettings.tsx
+#: src/features/settings/screens/AdvancedSettings.tsx
 msgid "The cache of the client (browser, electron) should get cleared alongside it, otherwise, the client cache will keep getting used"
 msgstr "The cache of the client (browser, electron) should get cleared alongside it, otherwise, the client cache will keep getting used"
 
@@ -3881,10 +3482,6 @@ msgstr "The path to the directory on the server where downloaded files should ge
 msgid "The path to the directory on the server where local source files are saved in"
 msgstr "The path to the directory on the server where local source files are saved in"
 
-#: src/features/settings/screens/WebUISettings.tsx
-msgid "The path to the electron installation on the server"
-msgstr "The path to the electron installation on the server"
-
 #: src/features/reader/services/ReaderControls.ts
 msgid "The previous chapter has a different scanlator then the current one.\n"
 "Previous: {nextScanlator}\n"
@@ -3926,10 +3523,6 @@ msgstr "Third to last read chapter"
 #: src/features/browse/screens/BrowseSettings.tsx
 msgid "This does not prevent unofficial or potentially incorrectly flagged extensions from surfacing NSFW (18+) content within the app."
 msgstr "This does not prevent unofficial or potentially incorrectly flagged extensions from surfacing NSFW (18+) content within the app."
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "This icon will be shown on the system that is running the server"
-msgstr "This icon will be shown on the system that is running the server"
 
 #: src/features/app-updates/components/VersionInfo.tsx
 msgid "This is the latest version"
@@ -3984,10 +3577,6 @@ msgstr "Total chapters"
 msgid "Track"
 msgstr "Track"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Track and update your reading progress by page for each chapter during page streaming"
-msgstr "Track and update your reading progress by page for each chapter during page streaming"
-
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 #: src/features/tracker/components/TrackerSearch.tsx
 msgid "Track privately"
@@ -4022,7 +3611,6 @@ msgstr "Tracking"
 msgid "Tree Frog Green"
 msgstr "Tree Frog Green"
 
-#: src/features/settings/screens/ServerSettings.tsx
 #: src/features/tracker/components/cards/TrackerMangaCard.tsx
 msgid "Type"
 msgstr "Type"
@@ -4042,7 +3630,6 @@ msgstr "UI Login"
 #: src/features/extension/info/screens/ExtensionInfo.tsx
 #: src/features/global-search/screens/SearchAll.tsx
 #: src/features/history/screens/History.tsx
-#: src/features/history/screens/HistorySettings.tsx
 #: src/features/library/screens/Library.tsx
 #: src/features/library/screens/LibraryDuplicates.tsx
 #: src/features/library/screens/LibrarySettings.tsx
@@ -4053,10 +3640,9 @@ msgstr "UI Login"
 #: src/features/reader/settings/screens/GlobalReaderSettings.tsx
 #: src/features/reader/viewer/ReaderChapterViewer.tsx
 #: src/features/settings/screens/About.tsx
+#: src/features/settings/screens/AdvancedSettings.tsx
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/ImageProcessingSetting.tsx
-#: src/features/settings/screens/ServerSettings.tsx
-#: src/features/settings/screens/WebUISettings.tsx
 #: src/features/source/browse/screens/SourceMangas.tsx
 #: src/features/source/configuration/screens/SourceConfigure.tsx
 #: src/features/theme/components/CreateThemeDialog.tsx
@@ -4077,7 +3663,6 @@ msgid "Unable to load sources"
 msgstr "Unable to load sources"
 
 #: src/features/migration/MigrationManager.ts
-#: src/features/settings/screens/ServerSettings.tsx
 msgid "Understood"
 msgstr "Understood"
 
@@ -4197,17 +3782,9 @@ msgid "Use a custom WebUI.\n"
 msgstr "Use a custom WebUI.\n"
 "To use a custom WebUI replace the content of the \"webUI\" directory in the root directory on the server with the files of the custom WebUI"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Use SOCKS proxy"
-msgstr "Use SOCKS proxy"
-
 #: src/features/settings/Settings.constants.ts
 msgid "Use the default WebUI"
 msgstr "Use the default WebUI"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Use the FlareSolverr response in case the server runs into a Cloudflare challenge while FlareSolverr does not and is therefore unable to solve the challenge (does not work for images)"
-msgstr "Use the FlareSolverr response in case the server runs into a Cloudflare challenge while FlareSolverr does not and is therefore unable to solve the challenge (does not work for images)"
 
 #: src/features/settings/Settings.constants.ts
 msgid "Use the latest features and help us get them ready for a stable release."
@@ -4223,7 +3800,6 @@ msgstr "Use the version that was delivered with the server release"
 
 #: src/base/components/modals/LoginDialog.tsx
 #: src/features/authentication/screens/LoginPage.tsx
-#: src/features/settings/screens/ServerSettings.tsx
 msgid "Username"
 msgstr "Username"
 
@@ -4266,8 +3842,6 @@ msgid "entry-type-detection-webtoon"
 msgstr "Webtoon"
 
 #: src/features/settings/screens/About.tsx
-#: src/features/settings/screens/Settings.tsx
-#: src/features/settings/screens/WebUISettings.tsx
 #: src/features/settings/Settings.constants.ts
 msgid "WebUI"
 msgstr "WebUI"
@@ -4295,17 +3869,9 @@ msgstr "WebUI version {0} ({1}) available for download"
 msgid "WebUI was updated to version {newVersion} ({0})"
 msgstr "WebUI was updated to version {newVersion} ({0})"
 
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "WebView"
-msgstr "WebView"
-
 #: src/features/settings/Settings.constants.ts
 msgid "Weekly"
 msgstr "Weekly"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "When enabled, download and streaming links are provided directly in the chapter list. KoSync strategies are applied, but PROMPT conflicts are ignored (treating local progress as priority)"
-msgstr "When enabled, download and streaming links are provided directly in the chapter list. KoSync strategies are applied, but PROMPT conflicts are ignored (treating local progress as priority)"
 
 #: src/features/settings/Settings.constants.ts
 msgid "When you enable this, you may need to refresh this tab for the login page to appear."

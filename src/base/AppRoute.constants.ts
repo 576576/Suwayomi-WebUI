@@ -98,14 +98,6 @@ export const AppRoutes = {
                 match: 'backup',
                 path: '/settings/backup',
             },
-            server: {
-                match: 'server',
-                path: '/settings/server',
-            },
-            webui: {
-                match: 'webui',
-                path: '/settings/webui',
-            },
             browse: {
                 match: 'browse',
                 path: '/settings/browse',
@@ -128,9 +120,9 @@ export const AppRoutes = {
                 match: 'appearance',
                 path: '/settings/appearance',
             },
-            history: {
-                match: 'history',
-                path: '/settings/history',
+            advanced: {
+                match: 'advanced',
+                path: '/settings/advanced',
             },
         },
     },

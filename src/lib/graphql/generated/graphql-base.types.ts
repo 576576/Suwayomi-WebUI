@@ -24,6 +24,7 @@ export type AboutServerPayload = {
     /** @deprecated The version includes the revision as the patch number */
     revision: Scalars['String']['output'];
     version: Scalars['String']['output'];
+    dataDir: Scalars['String']['output'];
 };
 
 export type AboutWebUi = {
