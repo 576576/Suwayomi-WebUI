@@ -15,6 +15,8 @@ import { Link } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
+import FolderIcon from '@mui/icons-material/Folder';
+import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import { useLingui } from '@lingui/react/macro';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
@@ -71,15 +73,25 @@ export const SourceCard: React.FC<IProps> = (props: IProps) => {
                 })}
             >
                 <ListCardContent>
-                    <ListCardAvatar
-                        iconUrl={requestManager.getValidImgUrlFor(iconUrl)}
-                        alt={sourceName}
-                        slots={{
-                            spinnerImageProps: {
-                                ignoreQueue: true,
-                            },
-                        }}
-                    />
+                    {Sources.isLocalSource(source) ? (
+                        // 本地源没有扩展图标——以文件夹图标作为封面
+                        <Avatar
+                            variant="rounded"
+                            sx={{ width: 56, height: 56, flex: '0 0 auto', background: 'transparent' }}
+                        >
+                            <FolderIcon fontSize="large" />
+                        </Avatar>
+                    ) : (
+                        <ListCardAvatar
+                            iconUrl={requestManager.getValidImgUrlFor(iconUrl)}
+                            alt={sourceName}
+                            slots={{
+                                spinnerImageProps: {
+                                    ignoreQueue: true,
+                                },
+                            }}
+                        />
+                    )}
                     <Stack
                         sx={{
                             justifyContent: 'center',
