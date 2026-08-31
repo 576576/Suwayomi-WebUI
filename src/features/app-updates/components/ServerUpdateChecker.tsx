@@ -60,10 +60,12 @@ export const ServerUpdateChecker = () => {
         selectedServerChannelInfo?.tag,
     );
 
+    // Suwayomi-next fork：正式版跳具体 tag；alpha 的 tag 带 build 后缀
+    // （r3118-alpha.xxx），与 version 不一致，跳 releases 列表页最稳。
     const changelogUrl =
         aboutServer?.buildType.toLowerCase() === 'stable'
-            ? `https://github.com/Suwayomi/Suwayomi-Server/releases/tag/${aboutServer.version}`
-            : 'https://github.com/Suwayomi/Suwayomi-Server/blob/master/CHANGELOG.md';
+            ? `https://github.com/576576/Suwayomi-next/releases/tag/${aboutServer.version}`
+            : 'https://github.com/576576/Suwayomi-next/releases';
 
     const isSameAsCurrent = !version || !serverVersion || serverVersion === version;
 

@@ -65,10 +65,11 @@ export const WebUIUpdateChecker = () => {
         webUIUpdateData?.checkForWebUIUpdate.tag,
     );
 
+    // 正式产物来自 fork（576576/Suwayomi-WebUI），跳转保持与出包源一致
     const changelogUrl =
         updateStatus.info?.channel === WebUiChannel.Stable
-            ? 'https://github.com/Suwayomi/Suwayomi-WebUI/releases/latest'
-            : 'https://github.com/Suwayomi/Suwayomi-WebUI/blob/master/CHANGELOG.md';
+            ? 'https://github.com/576576/Suwayomi-WebUI/releases/latest'
+            : 'https://github.com/576576/Suwayomi-WebUI/blob/master/CHANGELOG.md';
 
     const newVersion = aboutWebUI?.tag;
     const isSameAsCurrent = !newVersion || !webUIVersion || webUIVersion === newVersion;
