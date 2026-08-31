@@ -483,6 +483,10 @@ msgstr "Alpha"
 msgid "Also remove from {0}"
 msgstr "Also remove from {0}"
 
+#: src/features/manga/components/details/MangaDetails.tsx
+msgid "Alternative title: {altTitle}"
+msgstr "Alternative title: {altTitle}"
+
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/Settings.tsx
 msgid "Appearance"
@@ -1466,6 +1470,10 @@ msgstr "Deleting theme \"{0}\"…"
 #: src/features/settings/screens/ServerSettings.tsx
 msgid "Descending"
 msgstr "Descending"
+
+#: src/features/manga/components/details/MangaDetails.tsx
+msgid "Description"
+msgstr "Description"
 
 #: src/features/chapter/components/cards/ChapterCard.tsx
 #: src/features/manga/components/MangaOptionButton.tsx
@@ -2717,6 +2725,10 @@ msgstr "No chapters found"
 #: src/features/chapter/components/ChapterList.tsx
 msgid "No chapters matching filter"
 msgstr "No chapters matching filter"
+
+#: src/features/manga/components/details/MangaDetails.tsx
+msgid "No description"
+msgstr "No description"
 
 #: src/features/downloads/screens/DownloadQueue.tsx
 msgid "No downloads"

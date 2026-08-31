@@ -2495,6 +2495,7 @@ export type GetMangaScreenQuery = {
         artist: string | null;
         author: string | null;
         description: string | null;
+        altTitles: Array<string>;
         status: Types.MangaStatus;
         realUrl: string | null;
         sourceId: string;

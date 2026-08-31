@@ -1366,6 +1366,7 @@ export type MangaStatusFilterInput = {
 export type MangaType = {
     __typename?: 'MangaType';
     age?: Maybe<Scalars['LongString']['output']>;
+    altTitles: Array<Scalars['String']['output']>;
     artist?: Maybe<Scalars['String']['output']>;
     author?: Maybe<Scalars['String']['output']>;
     bookmarkCount: Scalars['Int']['output'];

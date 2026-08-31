@@ -127,6 +127,7 @@ export const MANGA_LIBRARY_FIELDS = gql`
         artist
         author
         description
+        altTitles
 
         meta {
             ...MANGA_META_FIELDS
@@ -178,6 +179,7 @@ export const MANGA_SCREEN_FIELDS = gql`
         artist
         author
         description
+        altTitles
 
         status
         realUrl

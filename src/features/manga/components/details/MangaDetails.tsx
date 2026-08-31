@@ -31,6 +31,7 @@ import type { MangaType, SourceType } from '@/lib/graphql/generated/graphql-base
 import { useMetadataServerSettings } from '@/features/settings/services/ServerSettingsMetadata.ts';
 import { MANGA_STATUS_TO_TRANSLATION } from '@/features/manga/Manga.constants.ts';
 import type {
+    MangaAltTitlesInfo,
     MangaArtistInfo,
     MangaAuthorInfo,
     MangaDescriptionInfo,
@@ -220,6 +221,7 @@ export const MangaDetails = ({
         MangaAuthorInfo &
         MangaArtistInfo &
         MangaDescriptionInfo &
+        MangaAltTitlesInfo &
         MangaGenreInfo &
         MangaThumbnailInfo &
         MangaSourceIdInfo &
@@ -277,6 +279,20 @@ export const MangaDetails = ({
                         )}
                         <Metadata title={t`Status`} value={t(MANGA_STATUS_TO_TRANSLATION[manga.status])} />
                         <Metadata title={t`Source`} value={getSourceName(manga.source)} />
+                        <Metadata
+                            title={t`Description`}
+                            value={
+                                manga.altTitles && manga.altTitles.length > 0 ? (
+                                    manga.altTitles.map((altTitle) => (
+                                        <span key={altTitle} style={{ display: 'block' }}>
+                                            {t`Alternative title: ${altTitle}`}
+                                        </span>
+                                    ))
+                                ) : (
+                                    <span style={{ opacity: 0.6 }}>{t`No description`}</span>
+                                )
+                            }
+                        />
                     </MetadataContainer>
                 </ThumbnailMetadataWrapper>
                 <MangaButtonsContainer>
