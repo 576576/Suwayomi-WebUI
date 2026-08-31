@@ -11,11 +11,14 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
+import FolderIcon from '@mui/icons-material/Folder';
 import type { DragEndEvent } from '@dnd-kit/core';
 import { closestCenter, DndContext } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useLingui } from '@lingui/react/macro';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
+import { Sources } from '@/features/source/services/Sources';
 import { DndSortableItem } from '@/lib/dnd-kit/DndSortableItem.tsx';
 import { DndKitUtil } from '@/lib/dnd-kit/DndKitUtil.ts';
 import { ListCardAvatar } from '@/base/components/lists/cards/ListCardAvatar.tsx';
@@ -59,16 +62,29 @@ const SourceCard = memo(
                     <CardActionArea onClick={() => onToggle(source.id)}>
                         <ListCardContent sx={{ justifyContent: 'space-between' }}>
                             <Stack sx={{ flexFlow: 'row', gap: 1, alignItems: 'center' }}>
-                                <ListCardAvatar
-                                    iconUrl={requestManager.getValidImgUrlFor(source.iconUrl)}
-                                    alt={source.name}
-                                    slots={{ spinnerImageProps: { ignoreQueue: true } }}
-                                />
+                                {Sources.isLocalSource(source) ? (
+                                    // 本地源没有扩展图标——以文件夹图标作为封面；
+                                    // 颜色跟随主题文本色（深色=白、浅色=黑）
+                                    <Avatar
+                                        variant="rounded"
+                                        sx={{ width: 56, height: 56, flex: '0 0 auto', background: 'transparent' }}
+                                    >
+                                        <FolderIcon fontSize="large" sx={{ color: 'text.primary' }} />
+                                    </Avatar>
+                                ) : (
+                                    <ListCardAvatar
+                                        iconUrl={requestManager.getValidImgUrlFor(source.iconUrl)}
+                                        alt={source.name}
+                                        slots={{ spinnerImageProps: { ignoreQueue: true } }}
+                                    />
+                                )}
                                 <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                                     <Typography variant="h6" component="h3">
                                         {source.name}
                                     </Typography>
-                                    <Typography variant="caption">{languageCodeToName(source.lang)}</Typography>
+                                    <Typography variant="caption">
+                                        {Sources.isLocalSource(source) ? t`Other` : languageCodeToName(source.lang)}
+                                    </Typography>
                                 </Box>
                             </Stack>
                             <Stack sx={{ flexDirection: 'row', gap: 4 }}>

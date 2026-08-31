@@ -2910,6 +2910,7 @@ msgstr "Original size"
 #: src/features/browse/sources/components/SourceCard.tsx
 #: src/features/extension/Extensions.constants.ts
 #: src/features/library/components/LibraryOptionsPanel.tsx
+#: src/features/migration/components/MigrationDestinationSourceList.tsx
 msgid "Other"
 msgstr "Other"
 

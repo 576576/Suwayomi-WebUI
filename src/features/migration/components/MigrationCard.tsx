@@ -11,6 +11,8 @@ import Box from '@mui/material/Box';
 import CardActionArea from '@mui/material/CardActionArea';
 import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
+import FolderIcon from '@mui/icons-material/Folder';
 import { useLingui } from '@lingui/react/macro';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
 import { translateExtensionLanguage } from '@/features/extension/Extensions.utils.ts';
@@ -39,15 +41,26 @@ export const MigrationCard = memo((source: TMigratableSource) => {
             >
                 <ListCardContent sx={{ justifyContent: 'space-between' }}>
                     <Box sx={{ display: 'flex', gap: 1 }}>
-                        <ListCardAvatar
-                            iconUrl={requestManager.getValidImgUrlFor(iconUrl)}
-                            alt={sourceName}
-                            slots={{
-                                spinnerImageProps: {
-                                    ignoreQueue: true,
-                                },
-                            }}
-                        />
+                        {Sources.isLocalSource(source) ? (
+                            // 本地源没有扩展图标——以文件夹图标作为封面；
+                            // 颜色跟随主题文本色（深色=白、浅色=黑）
+                            <Avatar
+                                variant="rounded"
+                                sx={{ width: 56, height: 56, flex: '0 0 auto', background: 'transparent' }}
+                            >
+                                <FolderIcon fontSize="large" sx={{ color: 'text.primary' }} />
+                            </Avatar>
+                        ) : (
+                            <ListCardAvatar
+                                iconUrl={requestManager.getValidImgUrlFor(iconUrl)}
+                                alt={sourceName}
+                                slots={{
+                                    spinnerImageProps: {
+                                        ignoreQueue: true,
+                                    },
+                                }}
+                            />
+                        )}
                         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                             <Typography variant="h6" component="h3">
                                 {sourceName}
