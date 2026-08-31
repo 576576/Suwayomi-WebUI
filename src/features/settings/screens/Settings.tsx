@@ -39,17 +39,17 @@ export function Settings() {
                 </ListItemIcon>
                 <ListItemText primary={t`Appearance`} />
             </ListItemLink>
-            <ListItemLink to={AppRoutes.settings.children.reader.path}>
-                <ListItemIcon>
-                    <AutoStoriesIcon />
-                </ListItemIcon>
-                <ListItemText primary={t`Reader`} />
-            </ListItemLink>
             <ListItemLink to={AppRoutes.settings.children.library.path}>
                 <ListItemIcon>
                     <CollectionsOutlinedBookmarkIcon />
                 </ListItemIcon>
                 <ListItemText primary={t`Library`} />
+            </ListItemLink>
+            <ListItemLink to={AppRoutes.settings.children.reader.path}>
+                <ListItemIcon>
+                    <AutoStoriesIcon />
+                </ListItemIcon>
+                <ListItemText primary={t`Reader`} />
             </ListItemLink>
             <ListItemLink to={AppRoutes.settings.children.download.path}>
                 <ListItemIcon>

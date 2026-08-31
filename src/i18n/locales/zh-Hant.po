@@ -2732,7 +2732,7 @@ msgstr "追蹤器"
 #: src/features/settings/screens/Settings.tsx
 #: src/features/tracker/screens/TrackingSettings.tsx
 msgid "Tracking"
-msgstr "追蹤"
+msgstr "進度記錄"
 
 #: src/features/theme/Themes.ts
 msgid "Tree Frog Green"

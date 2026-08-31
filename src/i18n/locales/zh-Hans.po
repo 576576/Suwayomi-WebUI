@@ -2896,7 +2896,7 @@ msgstr "追踪列表"
 #: src/features/settings/screens/Settings.tsx
 #: src/features/tracker/screens/TrackingSettings.tsx
 msgid "Tracking"
-msgstr "追踪"
+msgstr "进度记录"
 
 #: src/features/theme/Themes.ts
 msgid "Tree Frog Green"
