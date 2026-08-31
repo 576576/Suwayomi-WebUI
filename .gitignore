@@ -9,3 +9,6 @@ dev-dist/*
 
 src/lib/graphql/schema.json
 .oxlintrc.jsonc
+
+# 编译产物（lingui compile 生成），不入库
+src/i18n/locales/*.js
