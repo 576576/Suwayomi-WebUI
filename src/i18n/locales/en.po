@@ -2392,6 +2392,7 @@ msgstr "Loading…"
 #: src/features/browse/sources/components/SourceCard.tsx
 #: src/features/manga/components/details/MangaDetails.tsx
 #: src/features/migration/components/MigrationCard.tsx
+#: src/features/source/browse/screens/SourceMangas.tsx
 msgid "Local source"
 msgstr "Local source"
 

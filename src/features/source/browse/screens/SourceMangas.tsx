@@ -424,7 +424,7 @@ export function SourceMangas() {
     }, [clearCache]);
 
     useAppTitleAndAction(
-        source?.displayName ?? t`Source`,
+        source && Sources.isLocalSource(source) ? t`Local source` : (source?.displayName ?? t`Source`),
         <>
             <AppbarSearch />
             <SourceGridLayout />
