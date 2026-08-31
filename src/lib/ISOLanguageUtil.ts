@@ -8,6 +8,7 @@
 
 import type { ISOLanguage } from '@/base/IsoLanguages.ts';
 import { IsoLanguages } from '@/base/IsoLanguages.ts';
+import type { I18nResourceCode } from '@/i18n';
 import { i18nResources } from '@/i18n';
 import { AppStorage } from '@/lib/storage/AppStorage.ts';
 
@@ -145,15 +146,64 @@ export function getLanguageReadingDirection(code: string): 'ltr' | 'rtl' {
     return 'ltr';
 }
 
+/**
+ * Maps any browser/system language code to one of the shipped i18n resource
+ * codes (e.g. "zh-CN" -> "zh-Hans", "zh-TW" -> "zh-Hant", "pt-BR" -> "pt",
+ * "en-US" -> "en"). Returns null when no supported catalog matches.
+ *
+ * Without this normalisation `navigator.languages` values such as "zh-CN"
+ * would never match the catalogs (which use "zh-Hans"/"zh-Hant") and the UI
+ * would silently fall back to English.
+ */
+export function getSupportedLocale(locale: string): I18nResourceCode | null {
+    const asResource = locale as I18nResourceCode;
+
+    // exact match against the shipped catalogs
+    if (i18nResources.includes(asResource)) {
+        return asResource;
+    }
+
+    // Chinese region variants resolve to the correct script catalog
+    const ZH_SIMPLIFIED = new Set(['zh', 'zh-CN', 'zh-SG', 'zh-MY', 'zh-Hans-CN']);
+    const ZH_TRADITIONAL = new Set(['zh-TW', 'zh-HK', 'zh-MO', 'zh-Hant-TW']);
+    if (ZH_SIMPLIFIED.has(locale)) {
+        return 'zh-Hans';
+    }
+    if (ZH_TRADITIONAL.has(locale)) {
+        return 'zh-Hant';
+    }
+
+    // base-language match (e.g. navigator reports "pt-BR" -> "pt")
+    const [base] = locale.split('-');
+    if (base !== locale && i18nResources.includes(base as I18nResourceCode)) {
+        return base as I18nResourceCode;
+    }
+
+    // ISO-normalised match (e.g. "zh-Hans-CN" -> isoCode "zh-Hans")
+    const isoCode = getISOLanguage(locale)?.isoCode;
+    if (isoCode && isoCode !== locale && i18nResources.includes(isoCode as I18nResourceCode)) {
+        return isoCode as I18nResourceCode;
+    }
+
+    return null;
+}
+
 export function detectLocale(): string {
     const storedLanguage = AppStorage.local.getItem(SELECTED_LANGUAGE_CODE_KEY);
     const preferredLanguages = getPreferredISOLanguageCodes();
     const languageCodes = [storedLanguage, ...preferredLanguages];
 
-    const normalizedLanguageCodes = languageCodes
-        .filter((code) => code !== null)
-        .filter((code) => getISOLanguage(code))
-        .filter((code) => i18nResources.includes(code as (typeof i18nResources)[number]));
+    for (const code of languageCodes) {
+        if (!code) {
+            continue;
+        }
 
-    return normalizedLanguageCodes[0] ?? DEFAULT_LANGUAGE;
+        const supportedLocale = getSupportedLocale(code);
+
+        if (supportedLocale) {
+            return supportedLocale;
+        }
+    }
+
+    return DEFAULT_LANGUAGE;
 }

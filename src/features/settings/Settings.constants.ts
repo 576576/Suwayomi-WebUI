@@ -31,7 +31,7 @@ import {
     WebUiInterface,
 } from '@/lib/graphql/generated/graphql-base.types.ts';
 import { ThemeMode } from '@/features/theme/AppTheme.types.ts';
-import { getPreferredISOLanguageCodes } from '@/lib/ISOLanguageUtil.ts';
+import { DEFAULT_LANGUAGE, getPreferredISOLanguageCodes, getSupportedLocale } from '@/lib/ISOLanguageUtil.ts';
 import type { BackupFlag } from '@/features/backup/Backup.types.ts';
 
 export const MANGA_GRID_WIDTH = {
@@ -90,7 +90,7 @@ export const SERVER_SETTINGS_METADATA_DEFAULT: MetadataServerSettings = {
     serverInformVersionUpdated: true,
 
     // themes
-    locale: getPreferredISOLanguageCodes()[0],
+    locale: getSupportedLocale(getPreferredISOLanguageCodes()[0]) ?? DEFAULT_LANGUAGE,
     appTheme: 'default',
     themeMode: ThemeMode.SYSTEM,
     shouldUsePureBlackMode: false,
