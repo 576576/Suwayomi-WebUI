@@ -71,7 +71,7 @@ export const MigrationCard = memo((source: TMigratableSource) => {
                                     display: 'block',
                                 }}
                             >
-                                {translateExtensionLanguage(lang)}
+                                {Sources.isLocalSource(source) ? t`Other` : translateExtensionLanguage(lang)}
                             </Typography>
                         </Box>
                     </Box>

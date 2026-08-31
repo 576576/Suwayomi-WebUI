@@ -40,6 +40,7 @@ import uniqBy from 'lodash/fp/uniqBy';
 import mapValues from 'lodash/fp/mapValues';
 import { StyledGroupItemWrapper } from '@/base/components/virtuoso/StyledGroupItemWrapper.tsx';
 import type { SourceIdInfo } from '@/features/source/Source.types.ts';
+import { Sources } from '@/features/source/services/Sources';
 import { languageCodeToName } from '@/base/utils/Languages.ts';
 import { DownloadGroupHeader } from '@/features/downloads/components/DownloadGroupHeader.tsx';
 import { plural } from '@lingui/core/macro';
@@ -49,6 +50,13 @@ import { useOffsetComponent } from '@/base/OffsetComponent.tsx';
 
 export const DownloadQueue: React.FC = () => {
     const { t } = useLingui();
+
+    // 源分组头语言标签：本地源显示「其他」，其余走 languageCodeToName
+    const sourceLanguageLabel = (source: { id: string; lang?: string } | null | undefined): string | undefined => {
+        if (!source) {return undefined;}
+        if (Sources.isLocalSource(source)) {return t`Other`;}
+        return source.lang ? languageCodeToName(source.lang) : undefined;
+    };
 
     useAppTitle(t`Download queue`);
     const { topOffset } = useOffsetComponent();
@@ -304,7 +312,7 @@ export const DownloadQueue: React.FC = () => {
                                 sourceIndex={sourceIndex}
                                 title={source.name}
                                 itemCount={chaptersBySource[source.id].length}
-                                language={source.lang ? languageCodeToName(source.lang) : undefined}
+                                language={sourceLanguageLabel(source)}
                             />
                             <DndContext
                                 sensors={dndSensors}
@@ -364,7 +372,7 @@ export const DownloadQueue: React.FC = () => {
                         sourceIndex={sources.indexOf(dndActiveSource)}
                         title={dndActiveSource?.name}
                         itemCount={chaptersBySource[dndActiveSource?.id]?.length ?? -1}
-                        language={dndActiveSource?.lang ? languageCodeToName(dndActiveSource.lang) : undefined}
+                        language={sourceLanguageLabel(dndActiveSource)}
                     />
                 </DndOverlayItem>
             </DndContext>
