@@ -108,10 +108,6 @@ export const AppRoutes = {
                     },
                 },
             },
-            device: {
-                match: 'device',
-                path: '/settings/device',
-            },
             tracking: {
                 match: 'tracking',
                 path: '/settings/tracking',

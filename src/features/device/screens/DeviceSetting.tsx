@@ -25,12 +25,10 @@ import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts'
 import { DEFAULT_DEVICE } from '@/features/device/services/Device.ts';
 import type { MetadataServerSettingKeys, MetadataServerSettings } from '@/features/settings/Settings.types.ts';
 import { getErrorMessage } from '@/lib/HelperFunctions.ts';
-import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
 
+// 设备管理内容（内嵌于"高级"设置页；不再有独立页面标题）
 export const DeviceSetting = () => {
     const { t } = useLingui();
-
-    useAppTitle(t`Device`);
 
     const {
         metadata,

@@ -1301,6 +1301,10 @@ msgstr "Data & Storage"
 msgid "Day"
 msgstr "Day"
 
+#: src/features/settings/components/DebugInformation.tsx
+msgid "Debug information"
+msgstr "Debug information"
+
 #: src/features/reader/hotkeys/settings/components/ReaderSettingHotkey.tsx
 msgid "Decrease auto scroll speed"
 msgstr "Decrease auto scroll speed"
@@ -1392,11 +1396,6 @@ msgstr "Desktop"
 #: src/features/migration/components/migration-entry/MigrationDestinationEntry.tsx
 msgid "Destination — {0}"
 msgstr "Destination — {0}"
-
-#: src/features/device/screens/DeviceSetting.tsx
-#: src/features/settings/screens/Settings.tsx
-msgid "Device"
-msgstr "Device"
 
 #: src/features/device/screens/DeviceSetting.tsx
 msgid "Devices"
@@ -3170,10 +3169,6 @@ msgstr "Settings"
 #: src/features/reader/overlay/navigation/desktop/components/ReaderNavBarDesktopActions.tsx
 msgid "Share"
 msgstr "Share"
-
-#: src/features/settings/components/DebugInformation.tsx
-msgid "Show"
-msgstr "Show"
 
 #: src/features/library/screens/LibrarySettings.tsx
 msgid "Show all duplicated entries in your library"

@@ -29,6 +29,8 @@ import { AppRoutes } from '@/base/AppRoute.constants.ts';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
 import { ImageCache } from '@/lib/service-worker/ImageCache.ts';
 import { DebugInformation } from '@/features/settings/components/DebugInformation.tsx';
+import { DeviceSetting } from '@/features/device/screens/DeviceSetting.tsx';
+import Stack from '@mui/material/Stack';
 
 export const AdvancedSettings = () => {
     const { t } = useLingui();
@@ -105,7 +107,10 @@ export const AdvancedSettings = () => {
                     </ListItemLink>
                 </List>
             </List>
-            <DebugInformation />
+            <DeviceSetting />
+            <Stack sx={{ px: 2, py: 1 }}>
+                <DebugInformation />
+            </Stack>
         </>
     );
 };

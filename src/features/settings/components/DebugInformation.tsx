@@ -312,8 +312,9 @@ export const DebugInformation = () => {
             About: {
                 WebUI: {
                     Version: aboutWebUI?.tag,
-                    Channel: aboutWebUI?.channel,
-                    'Update timestamp': aboutWebUI?.updateTimestamp
+                    // WebUI 随 server 捆绑部署，Channel 固定为 Bundled
+                    Channel: 'Bundled',
+                    'Build time': aboutWebUI?.updateTimestamp
                         ? dayjs(Number(aboutWebUI.updateTimestamp)).toISOString()
                         : '-',
                 },
@@ -528,7 +529,7 @@ export const DebugInformation = () => {
             }}
             header={
                 <Stack sx={{ flexDirection: 'row', alignItems: 'center', gap: 1 }}>
-                    {t`Show`}
+                    {t`Debug information`}
                     {!!navigator.clipboard && (
                         <Button
                             variant="text"
