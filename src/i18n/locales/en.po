@@ -397,6 +397,7 @@ msgid "Active setting ({title})"
 msgstr "Active setting ({title})"
 
 #: src/base/components/settings/MutableListSetting.tsx
+#: src/features/browse/extensions/Extensions.tsx
 #: src/features/extension/store/screens/ExtensionStores.tsx
 #: src/features/manga/components/details/MangaNotes.tsx
 #: src/features/manga/hooks/useManageMangaLibraryState.tsx
@@ -989,6 +990,10 @@ msgstr "Completed"
 #: src/features/settings/components/images/Processing.tsx
 msgid "Compression level"
 msgstr "Compression level"
+
+#: src/features/browse/extensions/Extensions.tsx
+msgid "Configure extension stores"
+msgstr "Configure extension stores"
 
 #: src/features/settings/components/images/Processing.tsx
 msgid "Connect timeout"

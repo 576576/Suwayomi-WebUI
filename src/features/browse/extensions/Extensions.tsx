@@ -10,11 +10,13 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { fromEvent } from 'file-selector';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import { StringParam, useQueryParam } from 'use-query-params';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useWindowEvent } from '@mantine/hooks';
 import { useLingui } from '@lingui/react/macro';
 import { CustomTooltip } from '@/base/components/CustomTooltip.tsx';
@@ -171,6 +173,10 @@ export function Extensions({ tabsMenuHeight }: { tabsMenuHeight: number }) {
 
     const handleExtensionUpdate = useCallback(() => setRefetchExtensions({}), []);
 
+    const navigate = useNavigate();
+    // 右上角加号（+）的次级菜单锚点：配置插件仓库 / 安装外部插件
+    const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
+
     const submitExternalExtension = (file: File) => {
         if (!file.name.toLowerCase().match(/\.(apk|jar)$/g)) {
             makeToast(t`Invalid filetype`, 'error');
@@ -187,6 +193,22 @@ export function Extensions({ tabsMenuHeight }: { tabsMenuHeight: number }) {
             .catch((e) => makeToast(t`Could not install the extension`, 'error', getErrorMessage(e)));
     };
 
+    const openExternalFilePicker = () => {
+        const input = document.createElement('input');
+        input.style.display = 'none';
+        input.type = 'file';
+        input.onchange = () => {
+            const file = input.files?.[0];
+            if (file) {
+                submitExternalExtension(file);
+            }
+        };
+
+        document.documentElement.appendChild(input);
+        input.click();
+        document.documentElement.removeChild(input);
+    };
+
     useEffect(() => {
         fetchExtensions();
     }, [refetchExtensions]);
@@ -194,28 +216,29 @@ export function Extensions({ tabsMenuHeight }: { tabsMenuHeight: number }) {
     useAppAction(
         <>
             <AppbarSearch />
-            <CustomTooltip title={t`Install external extension`}>
-                <IconButton
-                    onClick={() => {
-                        const input = document.createElement('input');
-                        input.style.display = 'none';
-                        input.type = 'file';
-                        input.onchange = () => {
-                            const file = input.files?.[0];
-                            if (file) {
-                                submitExternalExtension(file);
-                            }
-                        };
-
-                        document.documentElement.appendChild(input);
-                        input.click();
-                        document.documentElement.removeChild(input);
-                    }}
-                    color="inherit"
-                >
+            <CustomTooltip title={t`Add`}>
+                <IconButton onClick={(e) => setMenuAnchor(e.currentTarget)} color="inherit">
                     <AddIcon />
                 </IconButton>
             </CustomTooltip>
+            <Menu anchorEl={menuAnchor} open={!!menuAnchor} onClose={() => setMenuAnchor(null)}>
+                <MenuItem
+                    onClick={() => {
+                        setMenuAnchor(null);
+                        navigate(AppRoutes.settings.children.browse.children.extensionStores.path);
+                    }}
+                >
+                    {t`Configure extension stores`}
+                </MenuItem>
+                <MenuItem
+                    onClick={() => {
+                        setMenuAnchor(null);
+                        openExternalFilePicker();
+                    }}
+                >
+                    {t`Install external extension`}
+                </MenuItem>
+            </Menu>
 
             <LanguageSelect
                 selectedLanguages={shownLangs}
@@ -225,7 +248,7 @@ export function Extensions({ tabsMenuHeight }: { tabsMenuHeight: number }) {
                 languages={allLangs}
             />
         </>,
-        [t, shownLangs, allLangs],
+        [t, shownLangs, allLangs, menuAnchor],
     );
 
     useWindowEvent('drop', async (e) => {
