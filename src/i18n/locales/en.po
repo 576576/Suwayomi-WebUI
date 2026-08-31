@@ -19,6 +19,10 @@ msgstr ""
 msgid "— State: {0}"
 msgstr "— State: {0}"
 
+#: src/features/browse/extensions/components/ExtensionCard.tsx
+msgid "\"{name}\" and its sources will be removed from Suwayomi."
+msgstr "\"{name}\" and its sources will be removed from Suwayomi."
+
 #. placeholder {0}: selectedChapters.length
 #. placeholder {0}: visibleChapters.length
 #: src/features/chapter/components/ChapterList.tsx
@@ -4067,6 +4071,10 @@ msgstr "Understood"
 #: src/features/extension/Extensions.constants.ts
 msgid "Uninstall"
 msgstr "Uninstall"
+
+#: src/features/browse/extensions/components/ExtensionCard.tsx
+msgid "Uninstall extension?"
+msgstr "Uninstall extension?"
 
 #: src/features/extension/Extensions.constants.ts
 msgid "Uninstalling"

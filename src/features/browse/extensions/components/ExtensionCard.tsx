@@ -25,6 +25,7 @@ import {
     INSTALLED_STATE_TO_TRANSLATION_MAP,
 } from '@/features/extension/Extensions.constants.ts';
 import { getInstalledState, isNsfw, updateExtension } from '@/features/extension/Extensions.utils.ts';
+import { Confirmation } from '@/base/AppAwaitableComponent.ts';
 import { CustomTooltip } from '@/base/components/CustomTooltip.tsx';
 import { ListCardAvatar } from '@/base/components/lists/cards/ListCardAvatar.tsx';
 import { ListCardContent } from '@/base/components/lists/cards/ListCardContent.tsx';
@@ -110,23 +111,44 @@ export function ExtensionCard(props: IProps) {
     };
 
     function handleButtonClick() {
+        let action: ExtensionAction | null = null;
         switch (installedState) {
             case ExtensionAction.INSTALL:
             case ExtensionAction.UPDATE:
             case ExtensionAction.UNINSTALL:
-                requestExtensionAction(installedState).catch(
-                    defaultPromiseErrorHandler(`ExtensionCard:handleButtonClick(${installedState})`),
-                );
+                action = installedState;
                 break;
             case ExtensionState.OBSOLETE:
-                requestExtensionAction(ExtensionAction.UNINSTALL).catch(
-                    defaultPromiseErrorHandler(`ExtensionCard:handleButtonClick(${installedState})`),
-                );
+                action = ExtensionAction.UNINSTALL;
                 break;
             default:
                 break;
         }
+        if (!action) {return;}
+
+        const runAction = () => {
+            requestExtensionAction(action as ExtensionAction).catch(
+                defaultPromiseErrorHandler(`ExtensionCard:handleButtonClick(${installedState})`),
+            );
+        };
+
+        // 卸载是破坏性操作：红底按钮 + 二次确认
+        if (action === ExtensionAction.UNINSTALL) {
+            Confirmation.show({
+                title: t`Uninstall extension?`,
+                message: t`"${name}" and its sources will be removed from Suwayomi.`,
+            })
+                .then(() => runAction())
+                .catch(() => {
+                    // cancelled — keep current state
+                });
+            return;
+        }
+        runAction();
     }
+
+    const isUninstallAction =
+        installedState === ExtensionAction.UNINSTALL || installedState === ExtensionState.OBSOLETE;
 
     return (
         <Card>
@@ -195,7 +217,8 @@ export function ExtensionCard(props: IProps) {
                         </CustomTooltip>
                     )}
                     <Button
-                        variant="outlined"
+                        variant={isUninstallAction ? 'contained' : 'outlined'}
+                        color={isUninstallAction ? 'error' : 'inherit'}
                         sx={{ flexShrink: 0 }}
                         {...MUIUtil.preventRippleProp()}
                         onClick={(e) => {
