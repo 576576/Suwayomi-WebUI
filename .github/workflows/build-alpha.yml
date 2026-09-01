@@ -1,4 +1,4 @@
-name: build-alpha
+name: Auto build
 
 on:
   push:
@@ -7,8 +7,7 @@ on:
 
 jobs:
   build:
-    name: Build artifacts and deploy preview
-    if: "!startsWith(github.event.head_commit.message, '[SKIP CI]')"
+    name: Build artifacts and publish release
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -36,45 +35,26 @@ jobs:
         with:
           version: 11.1.2
 
-      - name: Build webUI
+      - name: Build webUI (alpha)
         run: |
           cd main
           pnpm ci
           pnpm build
-          pnpm build-zip
-          pnpm build-md5
-          ls buildZip
+          SUWAYOMI_WEBUI_CHANNEL=Alpha pnpm build-zip
 
       - name: Generate Tag Name
         id: GenTagName
         run: |
           cd main/build
           genTag="r$(git rev-list HEAD --count)"
-          echo "$genTag"
           echo "value=$genTag" >> "$GITHUB_OUTPUT"
 
-      - name: Checkout preview branch
-        if: github.repository == 'Suwayomi/Suwayomi-WebUI'
-        uses: actions/checkout@v4
-        with:
-          repository: "Suwayomi/Suwayomi-WebUI-preview"
-          ref: main
-          path: preview
-          token: ${{ secrets.BUILD_PREVIEW_TOKEN }}
-
       - name: Create Tag
-        if: github.repository == 'Suwayomi/Suwayomi-WebUI'
         run: |
           TAG="${{ steps.GenTagName.outputs.value }}"
-          echo "tag: $TAG"
-          cd preview
-          echo "{ \"latest\": \"$TAG\" }" > index.json
-          git add index.json
+          cd main
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-          git commit -m "Updated to $TAG"
-          git push origin main
-
           git tag $TAG
           git push origin $TAG
 
@@ -84,28 +64,4 @@ jobs:
           token: ${{ github.token }}
           artifacts: "main/buildZip/*"
           tag: ${{ steps.GenTagName.outputs.value }}
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-
-      - name: Checkout github pages repo
-        if: github.repository == 'Suwayomi/Suwayomi-WebUI'
-        uses: actions/checkout@v4
-        with:
-          repository: "Suwayomi-WebUI-preview/suwayomi-webui-preview.github.io"
-          ref: main
-          path: gh-pages
-          token: ${{ secrets.DEPLOY_PREVIEW_TOKEN }}
-
-      - name: Deploy github pages
-        if: github.repository == 'Suwayomi/Suwayomi-WebUI'
-        run: |
-          TAG="${{ steps.GenTagName.outputs.value }}"
-          rm -rf gh-pages/*
-          cp -r main/build/* gh-pages
-          cd gh-pages
-          cp index.html 404.html
-          git add -A
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          git commit -m "$TAG"
-          git push origin main
+          prerelease: true

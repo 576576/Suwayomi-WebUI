@@ -111,7 +111,7 @@ export function About() {
                 <ListItem>
                     <ListItemText
                         primary={t`Build time`}
-                        secondary={epochToDate(Number(aboutServer.buildTime)).format('YYYY.M.D')}
+                        secondary={epochToDate(Number(aboutServer.buildTime)).format('YYYY.M.D HH:mm')}
                     />
                 </ListItem>
             </List>
