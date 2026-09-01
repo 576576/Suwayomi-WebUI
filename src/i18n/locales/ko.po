@@ -1952,14 +1952,6 @@ msgstr "챕터 전환 시 스캔 번역자 변경에 대해 알림"
 msgid "Inform about missing chapters on chapter transition"
 msgstr "챕터 전환 시 누락된 챕터에 대해 알림"
 
-#: src/features/settings/screens/About.tsx
-msgid "Inform about server update"
-msgstr ""
-
-#: src/features/settings/screens/About.tsx
-msgid "Inform about WebUI update"
-msgstr ""
-
 #: src/base/components/feedback/SnackbarWithDescription.tsx
 msgid "Information"
 msgstr "정보"

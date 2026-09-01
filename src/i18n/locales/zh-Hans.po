@@ -1952,14 +1952,6 @@ msgstr "在章节切换时提示扫描组变更信息"
 msgid "Inform about missing chapters on chapter transition"
 msgstr "在章节切换时提示缺失章节信息"
 
-#: src/features/settings/screens/About.tsx
-msgid "Inform about server update"
-msgstr ""
-
-#: src/features/settings/screens/About.tsx
-msgid "Inform about WebUI update"
-msgstr ""
-
 #: src/base/components/feedback/SnackbarWithDescription.tsx
 msgid "Information"
 msgstr "信息"
@@ -3957,3 +3949,7 @@ msgstr "你的书架是空的"
 #: src/features/settings/Settings.constants.ts
 msgid "Your library will be accessible. Use this only on private networks or when otherwise securing access."
 msgstr "你的书架将对外可访问。仅在私有网络中或确保已采取其他安全措施的情况下使用此功能。"
+
+#: src/features/settings/screens/About.tsx
+msgid "Inform about updates"
+msgstr "更新提示"

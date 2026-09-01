@@ -1951,14 +1951,6 @@ msgstr "Thông báo về việc thay đổi nhóm dịch khi chuyển chương"
 msgid "Inform about missing chapters on chapter transition"
 msgstr "Thông báo về các chương bị thiếu trong quá trình chuyển đổi chương"
 
-#: src/features/settings/screens/About.tsx
-msgid "Inform about server update"
-msgstr ""
-
-#: src/features/settings/screens/About.tsx
-msgid "Inform about WebUI update"
-msgstr ""
-
 #: src/base/components/feedback/SnackbarWithDescription.tsx
 msgid "Information"
 msgstr "Thông tin"

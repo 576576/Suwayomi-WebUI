@@ -1952,14 +1952,6 @@ msgstr "Beri tahu tentang pergantian scanlator saat berganti bab"
 msgid "Inform about missing chapters on chapter transition"
 msgstr "Beri tahu tentang bab yang hilang saat berganti bab"
 
-#: src/features/settings/screens/About.tsx
-msgid "Inform about server update"
-msgstr ""
-
-#: src/features/settings/screens/About.tsx
-msgid "Inform about WebUI update"
-msgstr ""
-
 #: src/base/components/feedback/SnackbarWithDescription.tsx
 msgid "Information"
 msgstr "Informasi"

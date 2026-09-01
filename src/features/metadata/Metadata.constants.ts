@@ -143,16 +143,7 @@ export const APP_METADATA: Record<
     updateProgressManualMarkRead: {
         convert: convertToBoolean,
     },
-    webUIInformAvailableUpdate: {
-        convert: convertToBoolean,
-    },
-    webUIInformVersionUpdated: {
-        convert: convertToBoolean,
-    },
-    serverInformAvailableUpdate: {
-        convert: convertToBoolean,
-    },
-    serverInformVersionUpdated: {
+    informAboutUpdates: {
         convert: convertToBoolean,
     },
     readerWidth: {
@@ -485,10 +476,7 @@ export const GLOBAL_METADATA_KEYS: AppMetadataKeys[] = [
     'updateProgressManualMarkRead',
 
     // updates
-    'webUIInformAvailableUpdate',
-    'webUIInformVersionUpdated',
-    'serverInformAvailableUpdate',
-    'serverInformVersionUpdated',
+    'informAboutUpdates',
 
     // sources
     'savedSearches',

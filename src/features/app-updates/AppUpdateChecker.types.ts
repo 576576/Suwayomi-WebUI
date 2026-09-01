@@ -7,8 +7,6 @@
  */
 
 export type MetadataUpdateSettings = {
-    webUIInformAvailableUpdate: boolean;
-    webUIInformVersionUpdated: boolean;
-    serverInformAvailableUpdate: boolean;
-    serverInformVersionUpdated: boolean;
+    /** Master switch for all update dialogs: server/WebUI "available" and "updated" popups. */
+    informAboutUpdates: boolean;
 };

@@ -84,10 +84,7 @@ export const SERVER_SETTINGS_METADATA_DEFAULT: MetadataServerSettings = {
     updateProgressManualMarkRead: false,
 
     // updates
-    webUIInformAvailableUpdate: true,
-    webUIInformVersionUpdated: false,
-    serverInformAvailableUpdate: true,
-    serverInformVersionUpdated: false,
+    informAboutUpdates: false,
 
     // themes
     locale: getSupportedLocale(getPreferredISOLanguageCodes()[0]) ?? DEFAULT_LANGUAGE,

@@ -1954,14 +1954,6 @@ msgstr "Informer du changement de traducteur lors de la transition des chapitres
 msgid "Inform about missing chapters on chapter transition"
 msgstr "Informer sur les chapitres manquants lors de la transition des chapitres"
 
-#: src/features/settings/screens/About.tsx
-msgid "Inform about server update"
-msgstr ""
-
-#: src/features/settings/screens/About.tsx
-msgid "Inform about WebUI update"
-msgstr ""
-
 #: src/base/components/feedback/SnackbarWithDescription.tsx
 msgid "Information"
 msgstr "Information"

@@ -1951,14 +1951,6 @@ msgstr "Информировать о изменении сканлейтера 
 msgid "Inform about missing chapters on chapter transition"
 msgstr "Информировать о недостающих главах на переходе между главами"
 
-#: src/features/settings/screens/About.tsx
-msgid "Inform about server update"
-msgstr ""
-
-#: src/features/settings/screens/About.tsx
-msgid "Inform about WebUI update"
-msgstr ""
-
 #: src/base/components/feedback/SnackbarWithDescription.tsx
 msgid "Information"
 msgstr "Информация"

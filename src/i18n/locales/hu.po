@@ -1951,14 +1951,6 @@ msgstr "Tájékoztasson változó fordító csoportról fejezetátfedésnél"
 msgid "Inform about missing chapters on chapter transition"
 msgstr "Tájékoztasson hiányzó fejezetekről fejezetátfedésnél"
 
-#: src/features/settings/screens/About.tsx
-msgid "Inform about server update"
-msgstr ""
-
-#: src/features/settings/screens/About.tsx
-msgid "Inform about WebUI update"
-msgstr ""
-
 #: src/base/components/feedback/SnackbarWithDescription.tsx
 msgid "Information"
 msgstr "Adatok"

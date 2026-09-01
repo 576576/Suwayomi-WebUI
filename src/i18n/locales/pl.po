@@ -1953,14 +1953,6 @@ msgstr "Poinformuj o zmianie skanlatora przy przejściu rozdziału"
 msgid "Inform about missing chapters on chapter transition"
 msgstr "Poinformuj o brakujących rozdziałach przy przechodzeniu do kolejnych rozdziałów"
 
-#: src/features/settings/screens/About.tsx
-msgid "Inform about server update"
-msgstr ""
-
-#: src/features/settings/screens/About.tsx
-msgid "Inform about WebUI update"
-msgstr ""
-
 #: src/base/components/feedback/SnackbarWithDescription.tsx
 msgid "Information"
 msgstr "Informacje"

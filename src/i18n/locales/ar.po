@@ -1951,14 +1951,6 @@ msgstr "الإبلاغ عند تغير فريق الترجمة أثناء الا
 msgid "Inform about missing chapters on chapter transition"
 msgstr "إبلاغ عن الفصول المفقودة عند انتقال الفصل"
 
-#: src/features/settings/screens/About.tsx
-msgid "Inform about server update"
-msgstr ""
-
-#: src/features/settings/screens/About.tsx
-msgid "Inform about WebUI update"
-msgstr ""
-
 #: src/base/components/feedback/SnackbarWithDescription.tsx
 msgid "Information"
 msgstr "معلومات"

@@ -32,7 +32,7 @@ export const ServerUpdateChecker = () => {
     const [open, setOpen] = useState(false);
 
     const {
-        settings: { serverInformAvailableUpdate, serverInformVersionUpdated },
+        settings: { informAboutUpdates },
         loading: areMetadataServerSettingsLoading,
     } = useMetadataServerSettings();
 
@@ -56,7 +56,7 @@ export const ServerUpdateChecker = () => {
 
     const updateChecker = useUpdateChecker(
         'server',
-        serverInformAvailableUpdate ? checkForUpdate : disabledUpdateCheck,
+        informAboutUpdates ? checkForUpdate : disabledUpdateCheck,
         selectedServerChannelInfo?.tag,
     );
 
@@ -75,7 +75,7 @@ export const ServerUpdateChecker = () => {
     }
 
     if (!areMetadataServerSettingsLoading && !isSameAsCurrent && !open) {
-        if (serverInformVersionUpdated) {
+        if (informAboutUpdates) {
             setOpen(true);
         } else {
             setServerVersion(version);
@@ -91,7 +91,7 @@ export const ServerUpdateChecker = () => {
     }
 
     if (isServerUpdateAvailable) {
-        if (!serverInformAvailableUpdate) {
+        if (!informAboutUpdates) {
             return null;
         }
 
