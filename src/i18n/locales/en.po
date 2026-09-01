@@ -131,11 +131,6 @@ msgstr "{0} / {1}"
 msgid "{0} / {1}{2}"
 msgstr "{0} / {1}{2}"
 
-#. placeholder {0}: updateStatus.progress
-#: src/features/app-updates/components/WebUIUpdateChecker.tsx
-msgid "{0}% | Updating…"
-msgstr "{0}% | Updating…"
-
 #: src/features/navigation-bar/NavigationBar.constants.ts
 msgid "{availableUpdates, plural, one {# update available} other {# updates available}}"
 msgstr "{availableUpdates, plural, one {# update available} other {# updates available}}"
@@ -1172,10 +1167,6 @@ msgstr "Could not track manga"
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "Could not untrack manga"
 msgstr "Could not untrack manga"
-
-#: src/features/app-updates/components/WebUIUpdateChecker.tsx
-msgid "Could not update WebUI"
-msgstr "Could not update WebUI"
 
 #: src/features/backup/screens/Backup.tsx
 msgid "Could not validate backup"

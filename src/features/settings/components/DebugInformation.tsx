@@ -266,7 +266,6 @@ export const DebugInformation = () => {
     const serverSettingsRequest = requestManager.useGetServerSettings();
     const clientSettings = useMetadataServerSettings();
     const defaultReaderSettings = useDefaultReaderSettings();
-    const webUIUpdateStatusRequest = requestManager.useGetWebUIUpdateStatus();
     const globalUpdateRequest = requestManager.useGetGlobalUpdateSummary();
     const downloadStatusRequest = requestManager.useGetDownloadStatus();
     const syncStatusRequest = requestManager.useGetSyncStatus();
@@ -298,7 +297,6 @@ export const DebugInformation = () => {
     const nsfwSourcesCount = useMemo(() => Sources.filter(sources, { isNsfw: true }).length, [sources]);
     const pinnedSourcesCount = useMemo(() => Sources.filter(sources, { pinned: true }).length, [sources]);
 
-    const webUIUpdateStatus = webUIUpdateStatusRequest.data?.getWebUIUpdateStatus;
     const globalUpdateStatus = globalUpdateRequest.data?.libraryUpdateStatus;
     const downloadStatus = downloadStatusRequest.data?.downloadStatus;
     const syncStatus = syncStatusRequest.data?.lastSyncStatus;
@@ -397,7 +395,6 @@ export const DebugInformation = () => {
                 },
             },
             'Sync status': syncStatus,
-            'WebUI update status': webUIUpdateStatus,
             'Migration state': migrationState?.state,
             Client: browserDebugInfo,
         }),
@@ -420,7 +417,6 @@ export const DebugInformation = () => {
             categories,
             libraryMangasCount,
             nonLibraryMangasInCategoriesCount,
-            webUIUpdateStatus,
             globalUpdateStatus,
             downloadStatus,
             syncStatus,
@@ -470,7 +466,6 @@ export const DebugInformation = () => {
         categoriesRequest.loading ||
         libraryMangasCountRequest.loading ||
         nonLibraryCategoryMangasCountRequest.loading ||
-        webUIUpdateStatusRequest.loading ||
         downloadStatusRequest.loading ||
         syncStatusRequest.loading ||
         trackersRequest.loading;
@@ -489,7 +484,6 @@ export const DebugInformation = () => {
         categoriesRequest.error ||
         libraryMangasCountRequest.error ||
         nonLibraryCategoryMangasCountRequest.error ||
-        webUIUpdateStatusRequest.error ||
         downloadStatusRequest.error ||
         syncStatusRequest.error ||
         trackersRequest.error;
@@ -509,7 +503,6 @@ export const DebugInformation = () => {
                         categoriesRequest.error && categoriesRequest.refetch(),
                         libraryMangasCountRequest.error && libraryMangasCountRequest.refetch(),
                         nonLibraryCategoryMangasCountRequest.error && nonLibraryCategoryMangasCountRequest.refetch(),
-                        webUIUpdateStatusRequest.error && webUIUpdateStatusRequest.refetch(),
                         downloadStatusRequest.error && downloadStatusRequest.refetch(),
                         syncStatusRequest.error && syncStatusRequest.refetch(),
                         trackersRequest.error && trackersRequest.refetch(),

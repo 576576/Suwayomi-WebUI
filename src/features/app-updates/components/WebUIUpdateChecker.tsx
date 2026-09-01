@@ -6,7 +6,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -14,17 +14,13 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import { useLingui } from '@lingui/react/macro';
-import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts';
-import type { WebUiUpdateStatus } from '@/lib/graphql/generated/graphql-base.types.ts';
-import { UpdateState, WebUiChannel } from '@/lib/graphql/generated/graphql-base.types.ts';
+import { WebUiChannel } from '@/lib/graphql/generated/graphql-base.types.ts';
 import { useLocalStorage } from '@/base/hooks/useStorage.tsx';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
-import { makeToast } from '@/base/utils/Toast.ts';
-import { ABOUT_WEBUI, WEBUI_UPDATE_CHECK } from '@/lib/graphql/server/InfoFragments.ts';
 import { VersionUpdateInfoDialog } from '@/features/app-updates/components/VersionUpdateInfoDialog.tsx';
 import { useUpdateChecker } from '@/features/app-updates/hooks/useUpdateChecker.tsx';
 import { useMetadataServerSettings } from '@/features/settings/services/ServerSettingsMetadata.ts';
-import { getErrorMessage, noOp } from '@/lib/HelperFunctions.ts';
+import { noOp } from '@/lib/HelperFunctions.ts';
 import { STABLE_EMPTY_OBJECT } from '@/base/Base.constants.ts';
 import { AppSession } from '@/base/AppSession.ts';
 
@@ -52,13 +48,6 @@ export const WebUIUpdateChecker = () => {
         fetchPolicy: 'cache-only',
     });
 
-    const { data: webUIUpdateStatusData } = requestManager.useGetWebUIUpdateStatus();
-    const { state: webUIUpdateState, ...updateStatus } = (webUIUpdateStatusData?.getWebUIUpdateStatus ?? {
-        state: UpdateState.Idle,
-        progress: 0,
-        info: undefined,
-    }) satisfies OptionalProperty<WebUiUpdateStatus, 'info'>;
-
     const updateChecker = useUpdateChecker(
         'webUI',
         shouldCheckForUpdate ? checkForUpdate : disabledUpdateCheck,
@@ -67,7 +56,7 @@ export const WebUIUpdateChecker = () => {
 
     // 正式产物来自 fork（576576/Suwayomi-WebUI），跳转保持与出包源一致
     const changelogUrl =
-        updateStatus.info?.channel === WebUiChannel.Stable
+        webUIUpdateData?.checkForWebUIUpdate.channel === WebUiChannel.Stable
             ? 'https://github.com/576576/Suwayomi-WebUI/releases/latest'
             : 'https://github.com/576576/Suwayomi-WebUI/blob/master/CHANGELOG.md';
 
@@ -89,65 +78,15 @@ export const WebUIUpdateChecker = () => {
         }
     }
 
-    useEffect(() => {
-        const isError = webUIUpdateState === UpdateState.Error;
-        if (isError) {
-            makeToast(t`Could not update WebUI`, 'error');
-        }
-
-        const updateFinished = webUIUpdateState === UpdateState.Finished;
-
-        const resetUpdateStatus = isError || updateFinished;
-        if (resetUpdateStatus) {
-            requestManager
-                .resetWebUIUpdateStatus()
-                .response.catch(defaultPromiseErrorHandler('WebUIUpdateChecker::resetWebUIUpdateStatus'));
-        }
-
-        if (!updateFinished) {
-            return;
-        }
-
-        if (!updateStatus.info) {
-            return;
-        }
-
-        requestManager.graphQLClient.client.cache.writeFragment({
-            fragment: ABOUT_WEBUI,
-            data: {
-                __typename: 'AboutWebUI',
-                channel: webUIUpdateStatusData!.getWebUIUpdateStatus.info.channel,
-                tag: webUIUpdateStatusData!.getWebUIUpdateStatus.info.tag,
-                updateTimestamp: Date.now(),
-            },
-        });
-        requestManager.graphQLClient.client.cache.writeFragment({
-            fragment: WEBUI_UPDATE_CHECK,
-            data: {
-                __typename: 'WebUIUpdateCheck',
-                channel: webUIUpdateStatusData!.getWebUIUpdateStatus.info.channel,
-                tag: webUIUpdateStatusData!.getWebUIUpdateStatus.info.tag,
-                updateAvailable: false,
-            },
-        });
-    }, [webUIUpdateState]);
-
     const isUpdateAvailable =
         shouldCheckForUpdate && updateChecker.handleUpdate && webUIUpdateData?.checkForWebUIUpdate.updateAvailable;
     if (isUpdateAvailable) {
-        const isUpdateInProgress = webUIUpdateState === UpdateState.Downloading;
-
         return (
             <VersionUpdateInfoDialog
                 info={t`WebUI version ${webUIUpdateData?.checkForWebUIUpdate.tag} (${webUIUpdateData?.checkForWebUIUpdate.channel}) available for download`}
                 changelogUrl={changelogUrl}
-                disabled={isUpdateInProgress}
-                onAction={() =>
-                    requestManager
-                        .updateWebUI()
-                        .response.catch((e) => makeToast(t`Could not update WebUI`, 'error', getErrorMessage(e)))
-                }
-                actionTitle={isUpdateInProgress ? t`${updateStatus.progress}% | Updating…` : t`Update`}
+                onAction={() => window.open(changelogUrl, '_blank', 'noreferrer')}
+                actionTitle={t`Update`}
                 updateCheckerProps={[
                     'webUI',
                     isAutoUpdateEnabled ? disabledUpdateCheck : checkForUpdate,

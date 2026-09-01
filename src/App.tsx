@@ -201,7 +201,6 @@ const BackgroundSubscriptions = () => {
 
     requestManager.useDownloadSubscription({ skip: skipConnection });
     requestManager.useUpdaterSubscription({ skip: skipConnection });
-    requestManager.useWebUIUpdateSubscription({ skip: skipConnection });
     requestManager.useSyncSubscription({ skip: skipConnection });
 
     return null;

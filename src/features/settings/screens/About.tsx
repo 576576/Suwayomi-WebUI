@@ -16,7 +16,6 @@ import { useLingui } from '@lingui/react/macro';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
 import { ListItemLink } from '@/base/components/lists/ListItemLink.tsx';
 import { LoadingPlaceholder } from '@/base/components/feedback/LoadingPlaceholder.tsx';
-import { UpdateState } from '@/lib/graphql/generated/graphql-base.types.ts';
 import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts';
 import { EmptyViewAbsoluteCentered } from '@/base/components/feedback/EmptyViewAbsoluteCentered.tsx';
 import { VersionInfo } from '@/features/app-updates/components/VersionInfo.tsx';
@@ -50,12 +49,6 @@ export function About() {
         error: orgWebUIUpdateCheckError,
     } = requestManager.useCheckForWebUIUpdate();
     const webUIUpdateCheckError = orgWebUIUpdateCheckError || webUIUpdateData?.checkForWebUIUpdate.tag === '';
-
-    const { data: webUIUpdateStatusData } = requestManager.useGetWebUIUpdateStatus();
-    const { state: webUIUpdateState, progress: webUIUpdateProgress } = webUIUpdateStatusData?.getWebUIUpdateStatus ?? {
-        state: UpdateState.Idle,
-        progress: 0,
-    };
 
     const {
         settings: { informAboutUpdates },
@@ -110,7 +103,7 @@ export function About() {
                                 updateCheckError={serverUpdateCheckError}
                                 checkForUpdate={checkForServerUpdate}
                                 downloadAsLink
-                                url={selectedServerChannelInfo?.url ?? ''}
+                                url="https://github.com/576576/Suwayomi-next/releases"
                             />
                         }
                     />
@@ -118,7 +111,7 @@ export function About() {
                 <ListItem>
                     <ListItemText
                         primary={t`Build time`}
-                        secondary={epochToDate(Number(aboutServer.buildTime)).toString()}
+                        secondary={epochToDate(Number(aboutServer.buildTime)).format('YYYY.M.D')}
                     />
                 </ListItem>
             </List>
@@ -144,13 +137,8 @@ export function About() {
                                 isUpdateAvailable={isWebUIUpdateAvailable}
                                 updateCheckError={webUIUpdateCheckError}
                                 checkForUpdate={checkForWebUIUpdate}
-                                triggerUpdate={() =>
-                                    requestManager
-                                        .updateWebUI()
-                                        .response.catch(defaultPromiseErrorHandler('About::updateWebUI'))
-                                }
-                                progress={webUIUpdateProgress}
-                                updateState={webUIUpdateState}
+                                downloadAsLink
+                                url="https://github.com/576576/Suwayomi-WebUI/releases"
                             />
                         }
                     />
