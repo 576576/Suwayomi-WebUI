@@ -2964,6 +2964,7 @@ export type AboutWebuiFragment = {
     channel: Types.WebUiChannel;
     tag: string;
     updateTimestamp: string;
+    buildTime: string;
 };
 
 export type WebuiUpdateCheckFragment = {
@@ -3031,7 +3032,13 @@ export type GetAboutQuery = {
             jvm: { __typename: 'JvmInfo'; javaVersion: string; vmName: string; vmVendor: string; vmVersion: string };
         };
     };
-    aboutWebUI: { __typename: 'AboutWebUI'; channel: Types.WebUiChannel; tag: string; updateTimestamp: string };
+    aboutWebUI: {
+        __typename: 'AboutWebUI';
+        channel: Types.WebUiChannel;
+        tag: string;
+        updateTimestamp: string;
+        buildTime: string;
+    };
 };
 
 export type CheckForServerUpdatesQueryVariables = Exact<{ [key: string]: never }>;

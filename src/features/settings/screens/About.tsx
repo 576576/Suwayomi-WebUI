@@ -111,7 +111,7 @@ export function About() {
                 <ListItem>
                     <ListItemText
                         primary={t`Build time`}
-                        secondary={epochToDate(Number(aboutServer.buildTime)).format('YYYY.M.D HH:mm')}
+                        secondary={epochToDate(Number(aboutServer.buildTime)).toISOString()}
                     />
                 </ListItem>
             </List>
@@ -149,6 +149,16 @@ export function About() {
                         edge="end"
                         checked={informAboutUpdates}
                         onChange={() => updateMetadataServerSettings('informAboutUpdates', !informAboutUpdates)}
+                    />
+                </ListItem>
+                <ListItem>
+                    <ListItemText
+                        primary={t`Build time`}
+                        secondary={
+                            Number(aboutWebUI.buildTime) > 0
+                                ? epochToDate(Number(aboutWebUI.buildTime)).toISOString()
+                                : 'n/a'
+                        }
                     />
                 </ListItem>
             </List>

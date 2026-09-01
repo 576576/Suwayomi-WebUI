@@ -13,6 +13,7 @@ export const ABOUT_WEBUI = gql`
         channel
         tag
         updateTimestamp
+        buildTime
     }
 `;
 

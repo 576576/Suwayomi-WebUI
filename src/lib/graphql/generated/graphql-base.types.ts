@@ -32,6 +32,8 @@ export type AboutWebUi = {
     channel: WebUiChannel;
     tag: Scalars['String']['output'];
     updateTimestamp: Scalars['LongString']['output'];
+    /** Build time as Unix epoch seconds (line 3 of version.txt; 0 when absent). */
+    buildTime: Scalars['LongString']['output'];
 };
 
 export type AddExtensionStoreInput = {
