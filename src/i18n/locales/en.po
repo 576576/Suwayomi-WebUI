@@ -1299,7 +1299,6 @@ msgstr "Decrease auto scroll speed"
 
 #: src/base/components/buttons/SelectButton.tsx
 #: src/base/components/buttons/ValueRotationButton.tsx
-#: src/features/backup/screens/Backup.tsx
 #: src/features/device/screens/DeviceSetting.tsx
 #: src/features/reader/settings/ReaderSettings.constants.tsx
 #: src/features/theme/Themes.ts

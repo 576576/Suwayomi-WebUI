@@ -300,7 +300,8 @@ export function Backup() {
 
     const backupSettings = settingsData!.settings as ServerSettings;
 
-    const dirPlaceholder = (folder: string) => (dataDir ? `${dataDir}/${folder}` : t`Default`);
+    // 占位符用本地化的「存储位置」文案 + 中括号，如 [存储位置]/autobackup
+    const dirPlaceholder = (folder: string) => `[${t`Storage location`}]/${folder}`;
 
     return (
         <>
