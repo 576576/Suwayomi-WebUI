@@ -1688,7 +1688,7 @@ msgstr "Failed to disconnect from KOReader Sync server."
 #: src/features/settings/components/globalUpdate/GlobalUpdateSettings.tsx
 #: src/features/settings/components/globalUpdate/GlobalUpdateSettingsEntries.tsx
 #: src/features/settings/components/webUI/WebUIUpdateIntervalSetting.tsx
-#: src/features/settings/screens/AdvancedSettings.tsx
+#: src/features/settings/screens/About.tsx
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/ImageProcessingSetting.tsx
 #: src/features/source/browse/screens/SourceMangas.tsx
@@ -1844,7 +1844,7 @@ msgstr "Hidden"
 msgid "Hide entries already in library"
 msgstr "Hide entries already in library"
 
-#: src/features/settings/screens/AdvancedSettings.tsx
+#: src/features/browse/screens/BrowseSettings.tsx
 msgid "Hide history"
 msgstr "Hide history"
 
@@ -1951,6 +1951,10 @@ msgstr "Inform about changing scanlator on chapter transition"
 #: src/features/reader/settings/behaviour/ReaderBehaviourSettings.tsx
 msgid "Inform about missing chapters on chapter transition"
 msgstr "Inform about missing chapters on chapter transition"
+
+#: src/features/settings/screens/About.tsx
+msgid "Inform about updated version"
+msgstr "Inform about updated version"
 
 #: src/base/components/feedback/SnackbarWithDescription.tsx
 msgid "Information"

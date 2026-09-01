@@ -7,22 +7,16 @@
  */
 
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListSubheader from '@mui/material/ListSubheader';
-import Switch from '@mui/material/Switch';
 import { useLingui } from '@lingui/react/macro';
-import {
-    createUpdateMetadataServerSettings,
-    useMetadataServerSettings,
-} from '@/features/settings/services/ServerSettingsMetadata.ts';
+import { useMetadataServerSettings } from '@/features/settings/services/ServerSettingsMetadata.ts';
 import { LoadingPlaceholder } from '@/base/components/feedback/LoadingPlaceholder.tsx';
 import { EmptyViewAbsoluteCentered } from '@/base/components/feedback/EmptyViewAbsoluteCentered.tsx';
 import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts';
 import { makeToast } from '@/base/utils/Toast.ts';
 import { getErrorMessage } from '@/lib/HelperFunctions.ts';
-import type { MetadataHistorySettings } from '@/features/history/History.types.ts';
 import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
 import { ListItemLink } from '@/base/components/lists/ListItemLink.tsx';
 import { AppRoutes } from '@/base/AppRoute.constants.ts';
@@ -38,12 +32,8 @@ export const AdvancedSettings = () => {
     useAppTitle(t`Advanced`);
 
     const {
-        settings: { hideHistory },
         request: { loading, error, refetch },
     } = useMetadataServerSettings();
-    const updateMetadataServerSettings = createUpdateMetadataServerSettings<keyof MetadataHistorySettings>((e) =>
-        makeToast(t`Failed to save changes`, 'error', getErrorMessage(e)),
-    );
 
     const [triggerClearServerCache, { loading: isClearingServerCache }] = requestManager.useClearServerCache();
 
@@ -75,16 +65,6 @@ export const AdvancedSettings = () => {
 
     return (
         <>
-            <List sx={{ pt: 0 }}>
-                <ListItem>
-                    <ListItemText primary={t`Hide history`} />
-                    <Switch
-                        edge="end"
-                        checked={hideHistory}
-                        onChange={() => updateMetadataServerSettings('hideHistory', !hideHistory)}
-                    />
-                </ListItem>
-            </List>
             <List sx={{ pt: 0 }}>
                 <ListItemButton disabled={isClearingServerCache} onClick={clearCache}>
                     <ListItemText

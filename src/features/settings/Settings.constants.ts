@@ -85,7 +85,7 @@ export const SERVER_SETTINGS_METADATA_DEFAULT: MetadataServerSettings = {
 
     // updates
     webUIInformAvailableUpdate: true,
-    webUIInformVersionUpdated: true,
+    webUIInformVersionUpdated: false,
     serverInformAvailableUpdate: true,
     serverInformVersionUpdated: true,
 

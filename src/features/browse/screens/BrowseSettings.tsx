@@ -24,6 +24,7 @@ import { EmptyViewAbsoluteCentered } from '@/base/components/feedback/EmptyViewA
 import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts';
 import { makeToast } from '@/base/utils/Toast.ts';
 import type { MetadataBrowseSettings } from '@/features/browse/Browse.types.ts';
+import type { MetadataHistorySettings } from '@/features/history/History.types.ts';
 import type { ServerSettings as GqlServerSettings } from '@/features/settings/Settings.types.ts';
 import { getErrorMessage } from '@/lib/HelperFunctions.ts';
 import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
@@ -57,11 +58,11 @@ export const BrowseSettings = () => {
     };
 
     const {
-        settings: { hideLibraryEntries, showNsfw },
+        settings: { hideLibraryEntries, hideHistory, showNsfw },
     } = useMetadataServerSettings();
-    const updateMetadataServerSettings = createUpdateMetadataServerSettings<keyof MetadataBrowseSettings>((e) =>
-        makeToast(t`Failed to save changes`, 'error', getErrorMessage(e)),
-    );
+    const updateMetadataServerSettings = createUpdateMetadataServerSettings<
+        keyof MetadataBrowseSettings | keyof MetadataHistorySettings
+    >((e) => makeToast(t`Failed to save changes`, 'error', getErrorMessage(e)));
 
     if (loading) {
         return <LoadingPlaceholder />;
@@ -95,6 +96,14 @@ export const BrowseSettings = () => {
                         edge="end"
                         checked={hideLibraryEntries}
                         onChange={() => updateMetadataServerSettings('hideLibraryEntries', !hideLibraryEntries)}
+                    />
+                </ListItem>
+                <ListItem>
+                    <ListItemText primary={t`Hide history`} />
+                    <Switch
+                        edge="end"
+                        checked={hideHistory}
+                        onChange={() => updateMetadataServerSettings('hideHistory', !hideHistory)}
                     />
                 </ListItem>
                 <NumberSetting

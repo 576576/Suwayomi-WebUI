@@ -11,6 +11,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import Divider from '@mui/material/Divider';
+import Switch from '@mui/material/Switch';
 import { useLingui } from '@lingui/react/macro';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
 import { ListItemLink } from '@/base/components/lists/ListItemLink.tsx';
@@ -22,6 +23,12 @@ import { VersionInfo } from '@/features/app-updates/components/VersionInfo.tsx';
 import { getErrorMessage } from '@/lib/HelperFunctions.ts';
 import { epochToDate } from '@/base/utils/DateHelper.ts';
 import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
+import {
+    createUpdateMetadataServerSettings,
+    useMetadataServerSettings,
+} from '@/features/settings/services/ServerSettingsMetadata.ts';
+import { makeToast } from '@/base/utils/Toast.ts';
+import type { MetadataServerSettingKeys } from '@/features/settings/Settings.types.ts';
 
 export function About() {
     const { t } = useLingui();
@@ -49,6 +56,13 @@ export function About() {
         state: UpdateState.Idle,
         progress: 0,
     };
+
+    const {
+        settings: { webUIInformVersionUpdated },
+    } = useMetadataServerSettings();
+    const updateMetadataServerSettings = createUpdateMetadataServerSettings<MetadataServerSettingKeys>((e) =>
+        makeToast(t`Failed to save changes`, 'error', getErrorMessage(e)),
+    );
 
     if (loading) {
         return <LoadingPlaceholder />;
@@ -138,6 +152,16 @@ export function About() {
                                 progress={webUIUpdateProgress}
                                 updateState={webUIUpdateState}
                             />
+                        }
+                    />
+                </ListItem>
+                <ListItem>
+                    <ListItemText primary={t`Inform about updated version`} />
+                    <Switch
+                        edge="end"
+                        checked={webUIInformVersionUpdated}
+                        onChange={() =>
+                            updateMetadataServerSettings('webUIInformVersionUpdated', !webUIInformVersionUpdated)
                         }
                     />
                 </ListItem>
