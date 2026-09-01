@@ -58,7 +58,7 @@ export function About() {
     };
 
     const {
-        settings: { webUIInformVersionUpdated },
+        settings: { serverInformVersionUpdated, webUIInformVersionUpdated },
     } = useMetadataServerSettings();
     const updateMetadataServerSettings = createUpdateMetadataServerSettings<MetadataServerSettingKeys>((e) =>
         makeToast(t`Failed to save changes`, 'error', getErrorMessage(e)),
@@ -121,6 +121,16 @@ export function About() {
                         secondary={epochToDate(Number(aboutServer.buildTime)).toString()}
                     />
                 </ListItem>
+                <ListItem>
+                    <ListItemText primary={t`Inform about server update`} />
+                    <Switch
+                        edge="end"
+                        checked={serverInformVersionUpdated}
+                        onChange={() =>
+                            updateMetadataServerSettings('serverInformVersionUpdated', !serverInformVersionUpdated)
+                        }
+                    />
+                </ListItem>
             </List>
             <Divider />
             <List
@@ -156,7 +166,7 @@ export function About() {
                     />
                 </ListItem>
                 <ListItem>
-                    <ListItemText primary={t`Inform about updated version`} />
+                    <ListItemText primary={t`Inform about WebUI update`} />
                     <Switch
                         edge="end"
                         checked={webUIInformVersionUpdated}

@@ -1953,8 +1953,12 @@ msgid "Inform about missing chapters on chapter transition"
 msgstr "Inform about missing chapters on chapter transition"
 
 #: src/features/settings/screens/About.tsx
-msgid "Inform about updated version"
-msgstr "Inform about updated version"
+msgid "Inform about server update"
+msgstr "Inform about server update"
+
+#: src/features/settings/screens/About.tsx
+msgid "Inform about WebUI update"
+msgstr "Inform about WebUI update"
 
 #: src/base/components/feedback/SnackbarWithDescription.tsx
 msgid "Information"
