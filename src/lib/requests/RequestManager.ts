@@ -3792,6 +3792,12 @@ export class RequestManager {
                         } as UpdateServerSettingsMutation['setSettings']['settings'],
                     },
                 },
+                // The optimistic write only carries the changed field(s), so a
+                // cache-first GET_SERVER_SETTINGS does not observe the update
+                // (settings toggles appeared frozen — e.g. 'Save as CBZ
+                // archive' saved server-side but the switch never flipped).
+                // Refetch the full settings after the mutation lands.
+                refetchQueries: [{ query: GET_SERVER_SETTINGS }],
                 ...mutateOptions,
             });
 
