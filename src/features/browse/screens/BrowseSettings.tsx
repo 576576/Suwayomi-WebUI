@@ -45,7 +45,10 @@ export const BrowseSettings = () => {
     const [mutateSettings] = requestManager.useUpdateServerSettings();
     const extensionStoresRequest = requestManager.useGetExtensionStores();
 
-    const extensionStoreCount = extensionStoresRequest.data?.extensionStores.totalCount;
+    // 条目正文显示商店的完整索引地址；副文为扩展数量
+    const firstExtensionStore = extensionStoresRequest.data?.extensionStores.nodes[0];
+    const storeIndexUrl = firstExtensionStore?.indexUrl;
+    const storeExtensionCount = firstExtensionStore?.extensions.totalCount;
 
     const updateSetting = <Setting extends keyof ExtensionsSettings>(
         setting: Setting,
@@ -122,12 +125,12 @@ export const BrowseSettings = () => {
                 />
                 <ListItemLink to={AppRoutes.settings.children.browse.children.extensionStores.path}>
                     <ListItemText
-                        primary={t`Extension stores`}
+                        primary={storeIndexUrl ?? t`Extension stores`}
                         secondary={
-                            !!extensionStoreCount &&
-                            plural(extensionStoreCount, {
-                                one: '# extension store',
-                                other: '# extension stores',
+                            storeExtensionCount != null &&
+                            plural(storeExtensionCount, {
+                                one: '# extension',
+                                other: '# extensions',
                             })
                         }
                     />

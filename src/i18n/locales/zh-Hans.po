@@ -3998,3 +3998,7 @@ msgstr "服务器上自动备份保存的目录路径"
 #: src/features/backup/screens/Backup.tsx
 msgid "Off"
 msgstr "关闭"
+
+#: src/features/browse/screens/BrowseSettings.tsx
+msgid "{storeExtensionCount, plural, one {# extension} other {# extensions}}"
+msgstr "{storeExtensionCount, plural, one {# 个扩展} other {# 个扩展}}"
