@@ -14,23 +14,23 @@ jobs:
 
     steps:
       - name: Cancel previous runs
-        uses: styfle/cancel-workflow-action@0.12.1
+        uses: styfle/cancel-workflow-action@0.13.1
         with:
           access_token: ${{ github.token }}
 
       - name: Checkout main branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: main
           path: main
           fetch-depth: 0
 
       - name: Set up NodeJs
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: './main/package.json'
 
-      - uses: pnpm/action-setup@v4.2.0
+      - uses: pnpm/action-setup@v6
         name: Install pnpm
         with:
           version: 11.1.2
