@@ -29,11 +29,6 @@ msgstr "{0, plural, one {# chapter} other {# chapters}}"
 msgid "{0, plural, one {# Chapter} other {# Chapters}}"
 msgstr "{0, plural, one {# Chapter} other {# Chapters}}"
 
-#. placeholder {0}: backupSettings.backupInterval
-#: src/features/backup/screens/Backup.tsx
-msgid "{0, plural, one {# day} other {# days}}"
-msgstr "{0, plural, one {# day} other {# days}}"
-
 #. placeholder {0}: selectedItemIds.length
 #: src/features/library/screens/Library.tsx
 msgid "{0, plural, one {# manga} other {# manga}}"
@@ -107,6 +102,11 @@ msgstr "{0, plural, one {1 searching} other {# searching}}"
 #: src/features/downloads/screens/DownloadQueue.tsx
 msgid "{0, plural, one {Could not reorder download} other {Could not reorder downloads}}"
 msgstr "{0, plural, one {Could not reorder download} other {Could not reorder downloads}}"
+
+#. placeholder {0}: idx - 12
+#: src/features/backup/screens/Backup.tsx
+msgid "{0, plural, one {Every day} other {Every # days}}"
+msgstr "{0, plural, one {Every day} other {Every # days}}"
 
 #. placeholder {0}: autoScroll.value
 #: src/features/reader/auto-scroll/settings/quick-setting/ReaderNavBarDesktopAutoScroll.tsx
@@ -309,6 +309,10 @@ msgstr "{extensionCount, plural, one {# extension} other {# extensions}}"
 #: src/features/browse/screens/BrowseSettings.tsx
 msgid "{extensionStoreCount, plural, one {# extension store} other {# extension stores}}"
 msgstr "{extensionStoreCount, plural, one {# extension store} other {# extension stores}}"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "{idx, plural, one {Every hour} other {Every # hours}}"
+msgstr "{idx, plural, one {Every hour} other {Every # hours}}"
 
 #: src/features/extension/store/screens/ExtensionStores.tsx
 msgid "{installedExtensionCount, plural, one {# installed} other {# installed}}"
@@ -513,6 +517,10 @@ msgstr "Author"
 msgid "Auto"
 msgstr "Auto"
 
+#: src/features/backup/screens/Backup.tsx
+msgid "Auto backup frequency"
+msgstr "Auto backup frequency"
+
 #: src/features/downloads/components/DownloadAheadSetting.tsx
 msgid "Auto download while reading"
 msgstr "Auto download while reading"
@@ -533,10 +541,6 @@ msgstr "Auto webtoon mode"
 #: src/features/downloads/screens/DownloadSettings.tsx
 msgid "Auto-download"
 msgstr "Auto-download"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "Automated backup"
-msgstr "Automated backup"
 
 #: src/features/reader/overlay/progress-bar/settings/components/ReaderSettingProgressBarPosition.tsx
 msgid "Automatic progress bar vertical position"
@@ -587,16 +591,8 @@ msgid "Background color"
 msgstr "Background color"
 
 #: src/features/backup/screens/Backup.tsx
-msgid "Backup cleanup"
-msgstr "Backup cleanup"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "Backup data"
-msgstr "Backup data"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "Backup interval"
-msgstr "Backup interval"
+msgid "Backup & Restore"
+msgstr "Backup & Restore"
 
 #: src/features/backup/screens/Backup.tsx
 msgid "Backup location"
@@ -605,10 +601,6 @@ msgstr "Backup location"
 #: src/features/backup/screens/Backup.tsx
 msgid "Backup restored."
 msgstr "Backup restored."
-
-#: src/features/backup/screens/Backup.tsx
-msgid "Backup time"
-msgstr "Backup time"
 
 #: src/features/backup/component/BackupValidationDialog.tsx
 msgid "Backup validation"
@@ -1297,10 +1289,6 @@ msgstr "Darken"
 msgid "Data & Storage"
 msgstr "Data & Storage"
 
-#: src/features/backup/screens/Backup.tsx
-msgid "Day"
-msgstr "Day"
-
 #: src/features/settings/components/DebugInformation.tsx
 msgid "Debug information"
 msgstr "Debug information"
@@ -1312,9 +1300,7 @@ msgstr "Decrease auto scroll speed"
 #: src/base/components/buttons/SelectButton.tsx
 #: src/base/components/buttons/ValueRotationButton.tsx
 #: src/features/backup/screens/Backup.tsx
-#: src/features/browse/screens/BrowseSettings.tsx
 #: src/features/device/screens/DeviceSetting.tsx
-#: src/features/downloads/screens/DownloadSettings.tsx
 #: src/features/reader/settings/ReaderSettings.constants.tsx
 #: src/features/theme/Themes.ts
 msgid "Default"
@@ -1473,7 +1459,7 @@ msgstr "Download ahead ({count})"
 msgid "Download badges"
 msgstr "Download badges"
 
-#: src/features/downloads/screens/DownloadSettings.tsx
+#: src/features/backup/screens/Backup.tsx
 msgid "Download location"
 msgstr "Download location"
 
@@ -1615,6 +1601,10 @@ msgstr "Every 6 hours"
 msgid "Every hour"
 msgstr "Every hour"
 
+#: src/features/backup/screens/Backup.tsx
+msgid "Every week"
+msgstr "Every week"
+
 #: src/features/migration/components/migration-entry/MigrationEntrySearchExcludeActions.tsx
 msgid "Exclude"
 msgstr "Exclude"
@@ -1623,7 +1613,6 @@ msgstr "Exclude"
 msgid "Exclude scanlators"
 msgstr "Exclude scanlators"
 
-#: src/features/backup/screens/Backup.tsx
 #: src/features/category/components/CategoriesInclusionSetting.tsx
 msgid "Exclude: {excludedCategoriesText}"
 msgstr "Exclude: {excludedCategoriesText}"
@@ -1935,7 +1924,6 @@ msgstr "In Library"
 msgid "Include"
 msgstr "Include"
 
-#: src/features/backup/screens/Backup.tsx
 #: src/features/category/components/CategoriesInclusionSetting.tsx
 msgid "Include: {includedCategoriesText}"
 msgstr "Include: {includedCategoriesText}"
@@ -2165,7 +2153,7 @@ msgstr "Local source"
 msgid "Local source guide"
 msgstr "Local source guide"
 
-#: src/features/browse/screens/BrowseSettings.tsx
+#: src/features/backup/screens/Backup.tsx
 msgid "Local source location"
 msgstr "Local source location"
 
@@ -2539,6 +2527,10 @@ msgstr "Obsolete"
 #: src/features/tracker/Tracker.constants.ts
 msgid "OEL"
 msgstr "OEL"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Off"
+msgstr "Off"
 
 #: src/features/reader/overlay/navigation/desktop/quick-settings/components/ReaderNavBarDesktopOffsetDoubleSpread.tsx
 #: src/features/reader/settings/behaviour/ReaderBehaviourSettings.tsx
@@ -3473,11 +3465,11 @@ msgstr "The next chapter has a different scanlator then the current one.\n"
 msgid "The path to the directory on the server where automated backups should get saved in"
 msgstr "The path to the directory on the server where automated backups should get saved in"
 
-#: src/features/downloads/screens/DownloadSettings.tsx
-msgid "The path to the directory on the server where downloaded files should get saved in"
-msgstr "The path to the directory on the server where downloaded files should get saved in"
+#: src/features/backup/screens/Backup.tsx
+msgid "The path to the directory on the server where downloads should get saved in"
+msgstr "The path to the directory on the server where downloads should get saved in"
 
-#: src/features/browse/screens/BrowseSettings.tsx
+#: src/features/backup/screens/Backup.tsx
 msgid "The path to the directory on the server where local source files are saved in"
 msgstr "The path to the directory on the server where local source files are saved in"
 

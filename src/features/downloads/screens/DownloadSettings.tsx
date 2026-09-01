@@ -13,7 +13,6 @@ import Switch from '@mui/material/Switch';
 import ListSubheader from '@mui/material/ListSubheader';
 import { useLingui } from '@lingui/react/macro';
 import { plural } from '@lingui/core/macro';
-import { TextSetting } from '@/base/components/settings/text/TextSetting.tsx';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
 import { DownloadAheadSetting } from '@/features/downloads/components/DownloadAheadSetting.tsx';
 import {
@@ -42,7 +41,6 @@ import { AppRoutes } from '@/base/AppRoute.constants.ts';
 type DownloadSettingsType = Pick<
     ServerSettings,
     | 'downloadAsCbz'
-    | 'downloadsPath'
     | 'autoDownloadNewChapters'
     | 'autoDownloadNewChaptersLimit'
     | 'excludeEntryWithUnreadChapters'
@@ -116,15 +114,6 @@ export const DownloadSettings = () => {
 
     return (
         <List sx={{ pt: 0 }}>
-            <TextSetting
-                settingName={t`Download location`}
-                dialogDescription={t`The path to the directory on the server where downloaded files should get saved in`}
-                value={downloadSettings?.downloadsPath}
-                settingDescription={
-                    downloadSettings?.downloadsPath.length ? downloadSettings.downloadsPath : t`Default`
-                }
-                handleChange={(path) => updateSetting('downloadsPath', path)}
-            />
             <ListItem>
                 <ListItemText primary={t`Save as CBZ archive`} />
                 <Switch

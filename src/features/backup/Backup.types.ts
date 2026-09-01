@@ -34,9 +34,9 @@ export type AutoBackupFlagInclusionState = Record<keyof AutoBackupFlag, boolean>
 export type BackupSettingsType = Pick<
     ServerSettings,
     | 'backupPath'
-    | 'backupTime'
-    | 'backupInterval'
-    | 'backupTTL'
+    | 'downloadsPath'
+    | 'localSourcePath'
+    | 'autoBackupFrequency'
     | 'autoBackupIncludeCategories'
     | 'autoBackupIncludeChapters'
     | 'autoBackupIncludeClientData'

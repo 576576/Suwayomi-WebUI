@@ -14,7 +14,6 @@ import { useLingui } from '@lingui/react/macro';
 import { plural } from '@lingui/core/macro';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
 import { NumberSetting } from '@/base/components/settings/NumberSetting.tsx';
-import { TextSetting } from '@/base/components/settings/text/TextSetting.tsx';
 import {
     createUpdateMetadataServerSettings,
     useMetadataServerSettings,
@@ -35,7 +34,7 @@ import ListSubheader from '@mui/material/ListSubheader';
 import { ListItemLink } from '@/base/components/lists/ListItemLink.tsx';
 import { AppRoutes } from '@/base/AppRoute.constants.ts';
 
-type ExtensionsSettings = Pick<GqlServerSettings, 'maxSourcesInParallel' | 'localSourcePath'>;
+type ExtensionsSettings = Pick<GqlServerSettings, 'maxSourcesInParallel'>;
 
 export const BrowseSettings = () => {
     const { t } = useLingui();
@@ -133,15 +132,6 @@ export const BrowseSettings = () => {
                         }
                     />
                 </ListItemLink>
-                <TextSetting
-                    settingName={t`Local source location`}
-                    dialogDescription={t`The path to the directory on the server where local source files are saved in`}
-                    value={serverSettings.localSourcePath}
-                    settingDescription={
-                        serverSettings.localSourcePath.length ? serverSettings.localSourcePath : t`Default`
-                    }
-                    handleChange={(path) => updateSetting('localSourcePath', path)}
-                />
             </List>
             <List
                 subheader={

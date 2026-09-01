@@ -40,7 +40,11 @@ export interface ISearchSettings {
     ignoreFilters: boolean;
 }
 
-export type ServerSettings = Omit<GetServerSettingsQuery['settings'], '__typename'>;
+export type ServerSettings = Omit<GetServerSettingsQuery['settings'], '__typename'> & {
+    // Not yet in the checked-in codegen output (koreader doc drift blocks
+    // gql:codegen); the field exists in the server schema.
+    autoBackupFrequency?: number;
+};
 
 export type WebUISettingsType = Pick<
     ServerSettings,

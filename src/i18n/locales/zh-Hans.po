@@ -3953,3 +3953,48 @@ msgstr "你的书架将对外可访问。仅在私有网络中或确保已采取
 #: src/features/settings/screens/About.tsx
 msgid "Inform about updates"
 msgstr "更新提示"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Backup & Restore"
+msgstr "备份与还原"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Auto backup frequency"
+msgstr "自动备份频率"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "{idx, plural, one {Every hour} other {Every # hours}}"
+msgstr "{idx, plural, one {每小时} other {每 # 小时}}"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "{idx, plural, one {Every day} other {Every # days}}"
+msgstr "{idx, plural, one {每天} other {每 # 天}}"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Every week"
+msgstr "每周"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Download location"
+msgstr "下载位置"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Local source location"
+msgstr "本地源位置"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "The path to the directory on the server where downloads should get saved in"
+msgstr "服务器上保存下载文件的目录路径"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "The path to the directory on the server where local source files are saved in"
+msgstr "服务器上本地源文件保存的目录路径"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "The path to the directory on the server where automated backups should get saved in"
+msgstr "服务器上自动备份保存的目录路径"
+
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Off"
+msgstr "关闭"
