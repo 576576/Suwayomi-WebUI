@@ -25,6 +25,7 @@ import { useEffect } from 'react';
 import { ListItemLink } from '@/base/components/lists/ListItemLink.tsx';
 import { AppRoutes } from '@/base/AppRoute.constants.ts';
 import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
+import { useNavBarContext } from '@/features/navigation-bar/NavbarContext.tsx';
 
 export function SettingsMenu() {
     const { t } = useLingui();
@@ -80,6 +81,7 @@ export function SettingsIndex() {
 export function Settings() {
     const { t } = useLingui();
     const isWide = useMediaQuery('(min-width:900px)');
+    const { appBarHeight, bottomBarHeight } = useNavBarContext();
 
     useAppTitle(t`Settings`);
 
@@ -88,11 +90,31 @@ export function Settings() {
     }
 
     return (
-        <Box sx={{ display: 'flex', height: '100%', overflow: 'hidden' }}>
-            <Box sx={{ width: 280, flexShrink: 0, overflowY: 'auto', borderRight: 1, borderColor: 'divider' }}>
+        <Box
+            sx={{
+                display: 'flex',
+                // 用视口高度减去顶栏/底栏来限定内容区实际高度。父级
+                // (#appMainContainer) 只设置了 minHeight 而没有定高，
+                // 因此 height:'100%' 会退化为 auto —— 左右两栏无法在内部
+                // 滚动，整页变成文档滚动：滚动右侧时左侧菜单被一起带跑，
+                // 窗口滚动条也会贯穿顶栏区域。
+                height: `calc(100vh - ${appBarHeight + bottomBarHeight}px)`,
+                overflow: 'hidden',
+            }}
+        >
+            <Box
+                sx={{
+                    width: 280,
+                    flexShrink: 0,
+                    overflowY: 'auto',
+                    borderRight: 1,
+                    borderColor: 'divider',
+                    minHeight: 0,
+                }}
+            >
                 <SettingsMenu />
             </Box>
-            <Box sx={{ flex: 1, overflowY: 'auto' }}>
+            <Box sx={{ flex: 1, overflowY: 'auto', minHeight: 0 }}>
                 <Outlet />
             </Box>
         </Box>
