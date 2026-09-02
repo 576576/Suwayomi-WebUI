@@ -43,7 +43,11 @@ export function UpdateChecker({
     const { data: lastUpdateTimestampData, refetch: reFetchLastTimestamp } =
         requestManager.useGetLastGlobalUpdateTimestamp();
 
-    const { data: updaterData } = requestManager.useGetGlobalUpdateSummary();
+    // Poll the update status as a fallback for the subscription updates: the
+    // broadcast events can be missed (e.g. short runs emitting before the
+    // client subscribed), which would otherwise leave the progress ring
+    // spinning forever after the run already finished on the server.
+    const { data: updaterData } = requestManager.useGetGlobalUpdateSummary({ pollInterval: 3000 });
     const status = updaterData?.libraryUpdateStatus;
 
     const lastUpdateTimestamp = lastUpdateTimestampData?.lastUpdateTimestamp.timestamp;

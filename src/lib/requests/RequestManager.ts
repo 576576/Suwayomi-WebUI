@@ -3717,8 +3717,14 @@ export class RequestManager {
 
                     const cache = this.graphQLClient.client.cache as InMemoryCache;
 
-                    if (!updatesChanged?.omittedUpdates) {
-                        updatesChanged?.mangaUpdates
+                    if (!updatesChanged) {
+                        return;
+                    }
+
+                    const {isRunning} = updatesChanged.jobsInfo;
+
+                    if (!updatesChanged.omittedUpdates) {
+                        updatesChanged.mangaUpdates
                             .filter((update) => update.status === MangaJobStatus.Complete)
                             .forEach((update) =>
                                 Object.keys(cache.extract().ROOT_QUERY as object)
@@ -3728,15 +3734,23 @@ export class RequestManager {
                                     )
                                     .forEach((key) => cache.evict({ fieldName: key })),
                             );
-                        return;
                     }
 
+                    // Refresh the global-update status on every event: progress keeps
+                    // ticking while running and — most importantly — the final
+                    // isRunning:false event must clear the spinner / progress ring.
                     this.graphQLClient.client.refetchQueries({
+                        include: ['GET_UPDATE_STATUS'],
                         updateCache() {
-                            cache.evict({ fieldName: 'chapters' });
                             cache.evict({ fieldName: 'libraryUpdateStatus' });
                         },
                     });
+
+                    // Once the whole library update finished, refetch the updates feed
+                    // so newly discovered chapters show up right away.
+                    if (!isRunning) {
+                        this.graphQLClient.client.refetchQueries({ include: ['GET_CHAPTERS_UPDATES'] });
+                    }
                 },
             } as SubscriptionHookOptions<UpdaterSubscription, UpdaterSubscriptionVariables>,
         ) as useSubscription.Result<UpdaterSubscription>;
