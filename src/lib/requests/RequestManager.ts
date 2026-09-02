@@ -3287,7 +3287,10 @@ export class RequestManager {
         file: File,
         options?: QueryOptions<ValidateBackupQueryVariables, ValidateBackupQuery>,
     ): AbortabaleApolloQueryResponse<ValidateBackupQuery> {
-        return this.doRequest(GQLMethod.QUERY, VALIDATE_BACKUP, { backup: file }, options);
+        // The backup file rides inside ValidateBackupInput: async-graphql
+        // rejects a top-level `$backup: Upload!` variable on a query.
+        const variables = { input: { backup: file } } as unknown as ValidateBackupQueryVariables;
+        return this.doRequest(GQLMethod.QUERY, VALIDATE_BACKUP, variables, options);
     }
 
     public useGetBackupRestoreStatus(
@@ -3721,7 +3724,7 @@ export class RequestManager {
                         return;
                     }
 
-                    const {isRunning} = updatesChanged.jobsInfo;
+                    const { isRunning } = updatesChanged.jobsInfo;
 
                     if (!updatesChanged.omittedUpdates) {
                         updatesChanged.mangaUpdates
