@@ -39,6 +39,7 @@ import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts'
 import { LoadingPlaceholder } from '@/base/components/feedback/LoadingPlaceholder.tsx';
 import { GET_CHAPTERS_MANGA } from '@/lib/graphql/chapter/ChapterQuery.ts';
 import { useNavBarContext } from '@/features/navigation-bar/NavbarContext.tsx';
+import { useScrollHost } from '@/base/contexts/ScrollHost.tsx';
 import { MediaQuery } from '@/base/utils/MediaQuery.tsx';
 import { shouldForwardProp } from '@/base/utils/ShouldForwardProp.ts';
 import { getErrorMessage } from '@/lib/HelperFunctions.ts';
@@ -115,6 +116,7 @@ export const ChapterList = ({
 }) => {
     const { t } = useLingui();
     const { appBarHeight } = useNavBarContext();
+    const scrollHost = useScrollHost();
 
     const isMobileWidth = MediaQuery.useIsBelowWidth('md');
 
@@ -251,7 +253,7 @@ export const ChapterList = ({
                             onSelect={onSelect}
                         />
                     )}
-                    useWindowScroll={isMobileWidth}
+                    customScrollParent={isMobileWidth ? (scrollHost ?? undefined) : undefined}
                     overscan={window.innerHeight * 0.5}
                 />
             </Stack>

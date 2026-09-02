@@ -18,6 +18,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { MigrationEntry } from '@/features/migration/components/migration-entry/MigrationEntry.tsx';
 import { MigrationManager } from '@/features/migration/MigrationManager.ts';
 import { OffsetComponentWithContainer } from '@/base/OffsetComponent.tsx';
+import { useScrollHost } from '@/base/contexts/ScrollHost.tsx';
 import { Virtuoso } from 'react-virtuoso';
 
 const VirtuosoListWrapper = memo(({ children, ...props }: { children?: ReactNode }) => (
@@ -43,6 +44,7 @@ export const MigrationEntryGroup = memo(
         isAborted?: boolean;
     }) => {
         const isExpanded = MigrationManager.useGroupExpandState(status);
+        const scrollHost = useScrollHost();
 
         if (!entries.length) {
             return null;
@@ -76,7 +78,7 @@ export const MigrationEntryGroup = memo(
                 >
                     <Collapse in={isExpanded}>
                         <Virtuoso
-                            useWindowScroll
+                            customScrollParent={scrollHost ?? undefined}
                             totalCount={entries.length}
                             components={{
                                 List: VirtuosoListWrapper,

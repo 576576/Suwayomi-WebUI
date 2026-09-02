@@ -10,6 +10,7 @@ import type { ContextProp, TopItemListProps } from 'react-virtuoso';
 import type { ComponentProps } from 'react';
 import { useMemo } from 'react';
 import { useNavBarContext } from '@/features/navigation-bar/NavbarContext.tsx';
+import { useScrollHost } from '@/base/contexts/ScrollHost.tsx';
 import { GroupedVirtuosoPersisted } from '@/lib/virtuoso/Component/GroupedVirtuosoPersisted.tsx';
 import { OffsetComponent } from '@/base/OffsetComponent.tsx';
 
@@ -27,12 +28,13 @@ export const StyledGroupedVirtuoso = <ItemData = any, Context = any>({
     ...props
 }: ComponentProps<typeof GroupedVirtuosoPersisted<ItemData, Context>> & { heightToSubtract?: number }) => {
     const { appBarHeight, bottomBarHeight } = useNavBarContext();
+    const scrollHost = useScrollHost();
 
     const TopItemList = useMemo(() => StickyVirtuosoHeaderWithOffset(), []);
 
     return (
         <GroupedVirtuosoPersisted
-            useWindowScroll
+            customScrollParent={scrollHost ?? undefined}
             {...props}
             components={{
                 TopItemList,

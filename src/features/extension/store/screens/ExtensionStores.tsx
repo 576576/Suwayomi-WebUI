@@ -15,6 +15,7 @@ import { LoadingPlaceholder } from '@/base/components/feedback/LoadingPlaceholde
 import { STABLE_EMPTY_ARRAY } from '@/base/Base.constants.ts';
 import type { ExtensionStoreFieldsFragment } from '@/lib/graphql/generated/graphql.ts';
 import { VirtuosoPersisted } from '@/lib/virtuoso/Component/VirtuosoPersisted.tsx';
+import { useScrollHost } from '@/base/contexts/ScrollHost.tsx';
 import Card from '@mui/material/Card';
 import { ListCardContent } from '@/base/components/lists/cards/ListCardContent.tsx';
 import { TypographyMaxLines } from '@/base/components/texts/TypographyMaxLines.tsx';
@@ -213,6 +214,7 @@ const AddExtensionStoreDialog = ({
 
 export const ExtensionStores = () => {
     const { t } = useLingui();
+    const scrollHost = useScrollHost();
 
     useAppTitle(t`Extension stores`);
 
@@ -248,7 +250,7 @@ export const ExtensionStores = () => {
         <Box sx={{ pb: DEFAULT_FULL_FAB_HEIGHT }}>
             <VirtuosoPersisted
                 persistKey="extension-store-list"
-                useWindowScroll
+                customScrollParent={scrollHost ?? undefined}
                 overscan={window.innerHeight * 0.5}
                 totalCount={extensionStores.length}
                 computeItemKey={(index) => extensionStores[index].indexUrl}

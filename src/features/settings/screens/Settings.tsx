@@ -21,11 +21,12 @@ import SettingsEthernetIcon from '@mui/icons-material/SettingsEthernet';
 import Box from '@mui/material/Box';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useLingui } from '@lingui/react/macro';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ListItemLink } from '@/base/components/lists/ListItemLink.tsx';
 import { AppRoutes } from '@/base/AppRoute.constants.ts';
 import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
 import { useNavBarContext } from '@/features/navigation-bar/NavbarContext.tsx';
+import { ScrollHostProvider } from '@/base/contexts/ScrollHost.tsx';
 
 export function SettingsMenu() {
     const { t } = useLingui();
@@ -83,6 +84,10 @@ export function Settings() {
     const isWide = useMediaQuery('(min-width:900px)');
     const { appBarHeight, bottomBarHeight } = useNavBarContext();
 
+    // The settings content pane is its own scroll container: nested pages (e.g. the
+    // extension store list) must scroll with it instead of the main scroll host.
+    const [settingsScrollHost, setSettingsScrollHost] = useState<HTMLElement | null>(null);
+
     useAppTitle(t`Settings`);
 
     if (!isWide) {
@@ -114,8 +119,19 @@ export function Settings() {
             >
                 <SettingsMenu />
             </Box>
-            <Box sx={{ flex: 1, overflowY: 'auto', minHeight: 0 }}>
-                <Outlet />
+            <Box
+                ref={(el: HTMLDivElement | null) => {
+                    if (el && !settingsScrollHost) {
+                        setSettingsScrollHost(el);
+                    }
+                }}
+                sx={{ flex: 1, overflowY: 'auto', minHeight: 0 }}
+            >
+                {settingsScrollHost ? (
+                    <ScrollHostProvider value={settingsScrollHost}>
+                        <Outlet />
+                    </ScrollHostProvider>
+                ) : null}
             </Box>
         </Box>
     );

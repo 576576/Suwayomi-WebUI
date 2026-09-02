@@ -47,14 +47,20 @@ import { plural } from '@lingui/core/macro';
 import { Chapters } from '@/features/chapter/services/Chapters.ts';
 import Refresh from '@mui/icons-material/Refresh';
 import { useOffsetComponent } from '@/base/OffsetComponent.tsx';
+import { useScrollHost } from '@/base/contexts/ScrollHost.tsx';
 
 export const DownloadQueue: React.FC = () => {
     const { t } = useLingui();
+    const scrollHost = useScrollHost();
 
     // 源分组头语言标签：本地源显示「其他」，其余走 languageCodeToName
     const sourceLanguageLabel = (source: { id: string; lang?: string } | null | undefined): string | undefined => {
-        if (!source) {return undefined;}
-        if (Sources.isLocalSource(source)) {return t`Other`;}
+        if (!source) {
+            return undefined;
+        }
+        if (Sources.isLocalSource(source)) {
+            return t`Other`;
+        }
         return source.lang ? languageCodeToName(source.lang) : undefined;
     };
 
@@ -332,7 +338,7 @@ export const DownloadQueue: React.FC = () => {
                                 >
                                     <VirtuosoPersisted
                                         persistKey={`download-queue-${source.id}`}
-                                        useWindowScroll
+                                        customScrollParent={scrollHost ?? undefined}
                                         totalCount={!dndActiveSource ? chaptersBySource[source.id].length : 0}
                                         computeItemKey={(index) =>
                                             `source-${source.id}-chapter-${chaptersBySource[source.id][index].id}`

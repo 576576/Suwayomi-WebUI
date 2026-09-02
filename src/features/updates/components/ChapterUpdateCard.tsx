@@ -18,6 +18,7 @@ import { ChapterCardThumbnail } from '@/features/chapter/components/cards/Chapte
 import { ChapterCardMetadata } from '@/features/chapter/components/cards/ChapterCardMetadata.tsx';
 import { ChapterDownloadButton } from '@/features/chapter/components/buttons/ChapterDownloadButton.tsx';
 import { ChapterDownloadRetryButton } from '@/features/chapter/components/buttons/ChapterDownloadRetryButton.tsx';
+import { useScrollHost } from '@/base/contexts/ScrollHost.tsx';
 import { Chapters } from '@/features/chapter/services/Chapters.ts';
 import { ListCardContent } from '@/base/components/lists/cards/ListCardContent.tsx';
 import { plural } from '@lingui/core/macro';
@@ -44,6 +45,7 @@ export const ChapterUpdateCard = memo(
         const { manga } = chapter;
 
         const theme = useTheme();
+        const scrollHost = useScrollHost();
 
         const [isExpanded, setIsExpanded] = useState(false);
 
@@ -139,7 +141,7 @@ export const ChapterUpdateCard = memo(
                 {isGroup && (
                     <Collapse in={isExpanded}>
                         <Virtuoso
-                            useWindowScroll
+                            customScrollParent={scrollHost ?? undefined}
                             data={otherChapters}
                             computeItemKey={(index) => otherChapters[index].id}
                             itemContent={(_index, otherChapter) => <ChapterUpdateCard chapter={otherChapter} />}
