@@ -172,7 +172,7 @@ export const DEFAULT_READER_SETTINGS: IReaderSettings = {
     progressBarSize: PROGRESS_BAR_SIZE.default,
     progressBarPosition: ProgressBarPosition.AUTO,
     progressBarPositionAutoVertical: ProgressBarPosition.RIGHT,
-    pageScaleMode: ReaderPageScaleMode.ORIGINAL,
+    pageScaleMode: ReaderPageScaleMode.SCREEN,
     shouldStretchPage: false,
     shouldOffsetDoubleSpreads: false,
     shouldSkipDupChapters: true,
@@ -297,9 +297,14 @@ export const PAGE_SCALE_VALUE_TO_DISPLAY_DATA: ValueToDisplayData<ReaderPageScal
     },
 };
 
-export const READER_PAGE_SCALE_MODE_VALUES = Object.values(ReaderPageScaleMode).filter(
-    (value) => typeof value === 'number',
-);
+// 显示顺序：Fit screen 优先（紧随其后才是 Fit width 等）；数值与枚举声明保持
+// 稳定（持久化按数值存储，不可重排枚举本身）。
+export const READER_PAGE_SCALE_MODE_VALUES: ReaderPageScaleMode[] = [
+    ReaderPageScaleMode.SCREEN,
+    ReaderPageScaleMode.WIDTH,
+    ReaderPageScaleMode.HEIGHT,
+    ReaderPageScaleMode.ORIGINAL,
+];
 
 export const READER_PAGE_SCALE_MODE_TO_SCALING_ALLOWED: Record<ReaderPageScaleMode, boolean> = {
     [ReaderPageScaleMode.WIDTH]: true,
