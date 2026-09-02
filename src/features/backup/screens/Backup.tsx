@@ -28,7 +28,7 @@ import { TextSetting } from '@/base/components/settings/text/TextSetting.tsx';
 import { LoadingPlaceholder } from '@/base/components/feedback/LoadingPlaceholder.tsx';
 import { EmptyViewAbsoluteCentered } from '@/base/components/feedback/EmptyViewAbsoluteCentered.tsx';
 import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts';
-import { getErrorMessage } from '@/lib/HelperFunctions.ts';
+import { copyToClipboard, getErrorMessage } from '@/lib/HelperFunctions.ts';
 import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
 import { BackupFlagInclusionDialog } from '@/features/backup/component/BackupFlagInclusionDialog.tsx';
 import { BackupValidationDialog } from '@/features/backup/component/BackupValidationDialog.tsx';
@@ -306,7 +306,7 @@ export function Backup() {
     return (
         <>
             <List sx={{ padding: 0 }}>
-                <ListItemButton>
+                <ListItemButton onClick={() => dataDir && void copyToClipboard(dataDir)}>
                     <ListItemText primary={t`Storage location`} secondary={dataDir ?? t`Unable to load data`} />
                 </ListItemButton>
                 <TextSetting
