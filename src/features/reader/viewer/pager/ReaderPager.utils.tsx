@@ -246,7 +246,8 @@ export const getImageMarginStyling = (doublePage: boolean, objectFitPosition?: '
 export const createSinglePageData = (url: string, index: number): ReaderStatePages['pages'][number]['primary'] => ({
     index,
     alt: `Page #${index + 1}`,
-    url: `${requestManager.getBaseUrl()}${url}`,
+    // 完整外部 URL（http/https，如源 CDN）直接使用；仅相对路径拼 server base
+    url: url.startsWith('http') ? url : `${requestManager.getBaseUrl()}${url}`,
 });
 
 export const createPageData = (url: string, index: number): ReaderStatePages['pages'][number] => ({
