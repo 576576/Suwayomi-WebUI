@@ -39,11 +39,6 @@ msgstr "{0, plural, one {# manga} other {# manga}}"
 msgid "{0, plural, one {# second} other {# seconds}}"
 msgstr "{0, plural, one {# second} other {# seconds}}"
 
-#. placeholder {0}: serverSettings.maxSourcesInParallel
-#: src/features/browse/screens/BrowseSettings.tsx
-msgid "{0, plural, one {# Source} other {# Sources}}"
-msgstr "{0, plural, one {# Source} other {# Sources}}"
-
 #. placeholder {0}: trackersInUse.length
 #: src/features/manga/components/TrackMangaButton.tsx
 msgid "{0, plural, one {# Tracker} other {# Tracker}}"
@@ -304,6 +299,10 @@ msgstr "{extensionCount, plural, one {# extension} other {# extensions}}"
 #: src/features/browse/screens/BrowseSettings.tsx
 msgid "{extensionStoreCount, plural, one {# extension store} other {# extension stores}}"
 msgstr "{extensionStoreCount, plural, one {# extension store} other {# extension stores}}"
+
+#: src/features/browse/screens/BrowseSettings.tsx
+msgid "{idx, plural, one {# Source} other {# Sources}}"
+msgstr "{idx, plural, one {# Source} other {# Sources}}"
 
 #: src/features/backup/screens/Backup.tsx
 msgid "{idx, plural, one {Every hour} other {Every # hours}}"
@@ -3243,7 +3242,6 @@ msgid "Sort"
 msgstr "Sort"
 
 #: src/features/browse/screens/Browse.tsx
-#: src/features/browse/screens/BrowseSettings.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 #: src/features/manga/components/details/MangaDetails.tsx
 #: src/features/source/browse/screens/SourceMangas.tsx
@@ -3658,6 +3656,10 @@ msgstr "Unknown"
 #: src/features/migration/MigrationManager.ts
 msgid "Unknown source"
 msgstr "Unknown source"
+
+#: src/features/browse/screens/BrowseSettings.tsx
+msgid "Unlimited"
+msgstr "Unlimited"
 
 #: src/features/browse/sources/components/SourceCard.tsx
 msgid "Unpin source"

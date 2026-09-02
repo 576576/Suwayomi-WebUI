@@ -6,14 +6,16 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+import { useEffect, useState } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import Slider from '@mui/material/Slider';
 import Switch from '@mui/material/Switch';
 import { useLingui } from '@lingui/react/macro';
 import { plural } from '@lingui/core/macro';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
-import { NumberSetting } from '@/base/components/settings/NumberSetting.tsx';
 import {
     createUpdateMetadataServerSettings,
     useMetadataServerSettings,
@@ -35,6 +37,50 @@ import { ListItemLink } from '@/base/components/lists/ListItemLink.tsx';
 import { AppRoutes } from '@/base/AppRoute.constants.ts';
 
 type ExtensionsSettings = Pick<GqlServerSettings, 'maxSourcesInParallel'>;
+
+// ---- Parallel source requests ----
+// Discrete steps on a single slider, mirroring the auto-backup frequency
+// UI in Data & Storage. Index 0 = unlimited (server stores 0); indices
+// 1..=16 map to the number of parallel sources. Dragging updates an
+// optimistic local index and persists on release (onChangeCommitted) so the
+// thumb doesn't snap back before the server setting round-trips.
+const MAX_PARALLEL_SOURCES = 16;
+
+const ParallelSourceRequestsSetting: React.FC<{
+    value: number;
+    handleChange: (parallelSources: number) => void;
+}> = ({ value, handleChange }) => {
+    const { t } = useLingui();
+
+    const toIndex = (v: number): number => (v <= 0 ? 0 : Math.min(v, MAX_PARALLEL_SOURCES));
+    const [uiIndex, setUiIndex] = useState<number | null>(null);
+    useEffect(() => {
+        setUiIndex(null);
+    }, [value]);
+    const shown = uiIndex ?? toIndex(value);
+    const display = (idx: number): string =>
+        idx === 0 ? t`Unlimited` : plural(idx, { one: '# Source', other: '# Sources' });
+
+    return (
+        <ListItemButton sx={{ display: 'block', alignItems: 'center', overflowX: 'hidden' }}>
+            <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
+                <Typography>{t`Parallel source requests`}</Typography>
+                <Typography color="text.secondary" variant="body2">
+                    {display(shown)}
+                </Typography>
+            </Stack>
+            <Slider
+                value={shown}
+                min={0}
+                max={MAX_PARALLEL_SOURCES}
+                step={1}
+                valueLabelDisplay="off"
+                onChange={(_e, v) => setUiIndex(v as number)}
+                onChangeCommitted={(_e, v) => handleChange(v as number)}
+            />
+        </ListItemButton>
+    );
+};
 
 export const BrowseSettings = () => {
     const { t } = useLingui();
@@ -105,20 +151,9 @@ export const BrowseSettings = () => {
                         onChange={() => updateMetadataServerSettings('hideHistory', !hideHistory)}
                     />
                 </ListItem>
-                <NumberSetting
-                    settingTitle={t`Parallel source requests`}
-                    settingValue={plural(serverSettings.maxSourcesInParallel, {
-                        one: '# Source',
-                        other: '# Sources',
-                    })}
-                    valueUnit={t`Source`}
+                <ParallelSourceRequestsSetting
                     value={serverSettings.maxSourcesInParallel}
-                    defaultValue={6}
-                    minValue={1}
-                    maxValue={20}
-                    showSlider
-                    stepSize={1}
-                    handleUpdate={(parallelSources) => updateSetting('maxSourcesInParallel', parallelSources)}
+                    handleChange={(parallelSources) => updateSetting('maxSourcesInParallel', parallelSources)}
                 />
                 <ListItemLink to={AppRoutes.settings.children.browse.children.extensionStores.path}>
                     <ListItemText

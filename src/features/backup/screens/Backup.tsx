@@ -77,6 +77,17 @@ const AutoBackupFrequencySetting: React.FC<{
 
     const step = findIndex(value);
 
+    // Dragging must track the pointer immediately and only persist on
+    // release: the server value (parent `value`) does not round-trip until
+    // the mutation resolves, so a fully controlled slider snaps back to the
+    // old position and feels unresponsive. Keep an optimistic local index
+    // and resync it whenever the stored server value actually changes.
+    const [uiStep, setUiStep] = useState<number | null>(null);
+    useEffect(() => {
+        setUiStep(null);
+    }, [value]);
+    const shownStep = uiStep ?? step;
+
     const display = (idx: number): string => {
         if (idx === 0) {
             return t`Off`;
@@ -91,20 +102,21 @@ const AutoBackupFrequencySetting: React.FC<{
     };
 
     return (
-        <ListItemButton sx={{ display: 'block', alignItems: 'center' }}>
+        <ListItemButton sx={{ display: 'block', alignItems: 'center', overflowX: 'hidden' }}>
             <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography>{t`Auto backup frequency`}</Typography>
                 <Typography color="text.secondary" variant="body2">
-                    {display(step)}
+                    {display(shownStep)}
                 </Typography>
             </Stack>
             <Slider
-                value={step}
+                value={shownStep}
                 min={0}
                 max={19}
                 step={1}
                 valueLabelDisplay="off"
-                onChange={(_e, v) => handleChange(FREQ_MINUTES[v as number])}
+                onChange={(_e, v) => setUiStep(v as number)}
+                onChangeCommitted={(_e, v) => handleChange(FREQ_MINUTES[v as number])}
             />
         </ListItemButton>
     );
