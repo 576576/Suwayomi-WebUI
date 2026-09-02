@@ -113,9 +113,14 @@ export function DefaultNavBar() {
                 ref={appBarRef}
                 sx={{
                     position: 'fixed',
-                    marginLeft: actualNavBarWidth,
+                    // Anchor to the left edge of the viewport (after the
+                    // sidebar) and size with `100vw` instead of `100%`, so
+                    // the AppBar extends behind the page's vertical scrollbar
+                    // gutter. Otherwise the scrollbar visually abuts the top
+                    // bar (looking like it 'invades' the top-bar area).
+                    left: actualNavBarWidth,
+                    width: `calc(100vw - ${actualNavBarWidth}px)`,
                     pt: 'env(safe-area-inset-top)',
-                    width: `calc(100% - ${actualNavBarWidth}px)`,
                     zIndex: theme.zIndex.drawer,
                 }}
             >
