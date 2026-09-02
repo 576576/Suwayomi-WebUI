@@ -90,6 +90,7 @@ export const SERVER_SETTINGS = gql`
         backupTime
         backupInterval
         backupTTL
+        autoBackupFrequency
 
         autoBackupIncludeCategories
         autoBackupIncludeChapters
