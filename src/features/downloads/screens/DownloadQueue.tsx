@@ -75,7 +75,11 @@ export const DownloadQueue: React.FC = () => {
         dataState,
         error,
         refetch,
-    } = requestManager.useGetDownloadStatus();
+    } = requestManager.useGetDownloadStatus({
+        // The downloadStatusChanged subscription may not be live (WebSocket
+        // unavailable); poll so queue/progress always stay current.
+        pollInterval: 3000,
+    });
     const downloaderData = downloadStatusData?.downloadStatus;
 
     const queue = downloaderData?.queue ?? STABLE_EMPTY_ARRAY;
