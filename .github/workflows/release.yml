@@ -28,6 +28,24 @@ jobs:
           path: main
           fetch-depth: 0
 
+      - name: Compute Version
+        id: ver
+        shell: bash
+        run: |
+          cd main
+          COUNT="$(git rev-list HEAD --count)"
+          if [ "${{ inputs.channel }}" = "release" ]; then
+            # 稳定版：commit 数按位拆点成 3.x.y（千位=主版、百位=次版、余下=补丁），
+            # 如 r3516 -> 3.5.16，单调递增且可与 r{count} 数字等价比较。
+            TAG="$((COUNT/1000)).$(((COUNT/100)%10)).$((COUNT%100))"
+          else
+            # alpha/beta 保持 r{count}（与旧产物/自动版本比较兼容）
+            TAG="r${COUNT}"
+          fi
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version tag: $TAG (channel ${{ inputs.channel }}, commits $COUNT)"
+
       - name: Set up NodeJs
         uses: actions/setup-node@v7
         with:
@@ -41,6 +59,7 @@ jobs:
       - name: Build webUI
         env:
           CHANNEL: ${{ inputs.channel }}
+          SUWAYOMI_WEBUI_TAG: ${{ steps.ver.outputs.tag }}
         run: |
           cd main
           pnpm ci
@@ -52,16 +71,9 @@ jobs:
           esac
           SUWAYOMI_WEBUI_CHANNEL="$chan" pnpm build-zip
 
-      - name: Generate Tag Name
-        id: GenTagName
-        run: |
-          cd main/build
-          genTag="r$(git rev-list HEAD --count)"
-          echo "value=$genTag" >> "$GITHUB_OUTPUT"
-
       - name: Create Tag
         run: |
-          TAG="${{ steps.GenTagName.outputs.value }}"
+          TAG="${{ steps.ver.outputs.tag }}"
           cd main
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
@@ -73,5 +85,5 @@ jobs:
         with:
           token: ${{ github.token }}
           artifacts: "main/buildZip/*"
-          tag: ${{ steps.GenTagName.outputs.value }}
+          tag: ${{ steps.ver.outputs.tag }}
           prerelease: ${{ inputs.channel != 'release' }}

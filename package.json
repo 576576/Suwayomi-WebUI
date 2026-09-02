@@ -10,7 +10,7 @@
         "preview": "pnpm setup && vite preview",
         "build": "pnpm setup && vite build",
         "test": "node -e \"console.log('imagine')\"",
-        "build-zip": "cd build && rev=$(git rev-list HEAD --count) && chan=${SUWAYOMI_WEBUI_CHANNEL:-Alpha} && printf 'r%s\\n%s\\n%s\\n' \"$rev\" \"$chan\" \"$(date +%s)\" > version.txt && zip -9 -r ../buildZip/Suwayomi-WebUI-r$rev *",
+        "build-zip": "cd build && rev=$(git rev-list HEAD --count) && chan=${SUWAYOMI_WEBUI_CHANNEL:-Alpha} && tag=${SUWAYOMI_WEBUI_TAG:-r$rev} && printf '%s\\n%s\\n%s\\n' \"$tag\" \"$chan\" \"$(date +%s)\" > version.txt && zip -9 -r ../buildZip/Suwayomi-WebUI-$tag *",
         "lint": "oxlint src tools",
         "format": "oxfmt --write .",
         "format:check": "oxfmt --check .",
