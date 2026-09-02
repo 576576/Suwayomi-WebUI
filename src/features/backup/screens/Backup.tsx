@@ -99,7 +99,11 @@ const AutoBackupFrequencySetting: React.FC<{
             return idx === 1 ? t`Every hour` : plural(idx, { one: 'Every hour', other: `Every # hours` });
         }
         if (idx <= 18) {
-            return idx === 13 ? t`Every day` : plural(idx - 12, { one: 'Every day', other: `Every # days` });
+            // Keep the plural argument a plain identifier so Lingui extracts
+            // a stable msgid — an inline expression ("idx - 12") would
+            // produce a different id and fall back to English.
+            const dayCount = idx - 12;
+            return idx === 13 ? t`Every day` : plural(dayCount, { one: 'Every day', other: `Every # days` });
         }
         return t`Every week`;
     };

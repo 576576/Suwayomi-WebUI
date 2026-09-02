@@ -3969,3 +3969,8 @@ msgstr "每天"
 #: src/features/browse/screens/BrowseSettings.tsx
 msgid "{idx, plural, one {# Source} other {# Sources}}"
 msgstr "{idx, plural, one {# 個源} other {# 個源}}"
+
+
+#: src/features/backup/screens/Backup.tsx
+msgid "{dayCount, plural, one {Every day} other {Every # days}}"
+msgstr "{dayCount, plural, one {每天} other {每 # 天}}"

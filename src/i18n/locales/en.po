@@ -98,11 +98,6 @@ msgstr "{0, plural, one {1 searching} other {# searching}}"
 msgid "{0, plural, one {Could not reorder download} other {Could not reorder downloads}}"
 msgstr "{0, plural, one {Could not reorder download} other {Could not reorder downloads}}"
 
-#. placeholder {0}: idx - 12
-#: src/features/backup/screens/Backup.tsx
-msgid "{0, plural, one {Every day} other {Every # days}}"
-msgstr "{0, plural, one {Every day} other {Every # days}}"
-
 #. placeholder {0}: autoScroll.value
 #: src/features/reader/auto-scroll/settings/quick-setting/ReaderNavBarDesktopAutoScroll.tsx
 msgid "{0, plural, one {Second} other {Seconds}}"
@@ -291,6 +286,10 @@ msgstr "{currentAutoUpdateIntervalHours}h"
 #: src/features/downloads/components/DownloadAheadSetting.tsx
 msgid "{currentDownloadAheadLimit, plural, one {# Chapter} other {# Chapters}}"
 msgstr "{currentDownloadAheadLimit, plural, one {# Chapter} other {# Chapters}}"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "{dayCount, plural, one {Every day} other {Every # days}}"
+msgstr "{dayCount, plural, one {Every day} other {Every # days}}"
 
 #: src/features/extension/store/screens/ExtensionStores.tsx
 msgid "{extensionCount, plural, one {# extension} other {# extensions}}"
