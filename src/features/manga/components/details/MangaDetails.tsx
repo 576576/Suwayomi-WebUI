@@ -279,20 +279,6 @@ export const MangaDetails = ({
                         )}
                         <Metadata title={t`Status`} value={t(MANGA_STATUS_TO_TRANSLATION[manga.status])} />
                         <Metadata title={t`Source`} value={getSourceName(manga.source)} />
-                        <Metadata
-                            title={t`Description`}
-                            value={
-                                manga.altTitles && manga.altTitles.length > 0 ? (
-                                    manga.altTitles.map((altTitle) => (
-                                        <span key={altTitle} style={{ display: 'block' }}>
-                                            {t`Alternative title: ${altTitle}`}
-                                        </span>
-                                    ))
-                                ) : (
-                                    <span style={{ opacity: 0.6 }}>{t`No description`}</span>
-                                )
-                            }
-                        />
                     </MetadataContainer>
                 </ThumbnailMetadataWrapper>
                 <MangaButtonsContainer>

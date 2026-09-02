@@ -16,6 +16,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useLocalStorage } from '@/base/hooks/useStorage.tsx';
 import { useResizeObserver } from '@/base/hooks/useResizeObserver.tsx';
 import type {
+    MangaAltTitlesInfo,
     MangaDescriptionInfo,
     MangaGenreInfo,
     MangaIdInfo,
@@ -36,13 +37,26 @@ export const DescriptionGenre = ({
     manga,
     mode,
 }: {
-    manga: MangaDescriptionInfo & MangaGenreInfo & MangaIdInfo & MangaMetaInfo & MangaSourceIdInfo;
+    manga: MangaAltTitlesInfo & MangaDescriptionInfo & MangaGenreInfo & MangaIdInfo & MangaMetaInfo & MangaSourceIdInfo;
     mode: MangaLocationState['mode'];
 }) => {
-    const { description, genre: mangaGenres, sourceId } = manga;
+    const { description, altTitles, genre: mangaGenres, sourceId } = manga;
     const { notes } = useGetMangaMetadata(manga);
     const hasNotes = notes.trim().length > 0;
-    const hasCollapsibleContent = !!description || hasNotes;
+    // Fallback chain for the description block: use `description` when the
+    // source filled it; otherwise the alt titles (which, for local imports
+    // of ComicInfo / meta.json, may carry the description as a substitute
+    // when no description field was present) are joined as the description
+    // body — no separate "Alternative title" label, since they ARE the
+    // description here.
+    const effectiveDescription = useMemo(() => {
+        const d = description?.trim();
+        if (d) {return d;}
+        const at = (altTitles ?? []).map((s) => (s ?? '').trim()).filter(Boolean);
+        return at.length > 0 ? at.join('\n\n') : '';
+    }, [description, altTitles]);
+    const hasDescription = effectiveDescription.length > 0;
+    const hasCollapsibleContent = hasDescription || hasNotes;
     const [descriptionElement, setDescriptionElement] = useState<HTMLDivElement | null>(null);
     const [descriptionHeight, setDescriptionHeight] = useState<number>();
     useResizeObserver(
@@ -69,8 +83,8 @@ export const DescriptionGenre = ({
                                 mb: OPEN_CLOSE_BUTTON_HEIGHT,
                             }}
                         >
-                            <MangaNotes manga={manga} showDivider={!!description} />
-                            {description && <MarkdownViewer markdown={description} />}
+                            <MangaNotes manga={manga} showDivider={hasDescription} />
+                            {hasDescription && <MarkdownViewer markdown={effectiveDescription} />}
                         </Stack>
                     </Collapse>
                     <Stack
