@@ -69,7 +69,10 @@ const ExtensionStoreCard = ({
                 <ListCardContent sx={{ flexWrap: 'wrap', justifyContent: 'space-between' }}>
                     <Stack>
                         <TypographyMaxLines variant="h6" component="h3">
-                            {name}
+                            {/* The index.pb protocol stores usually have no
+                                name; fall back to the store's index URL so the
+                                row isn't blank. */}
+                            {name || indexUrl}
                         </TypographyMaxLines>
                         <TypographyMaxLines variant="caption" color="textSecondary">
                             {isNSfw ? (
