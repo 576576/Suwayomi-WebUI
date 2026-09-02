@@ -1578,6 +1578,11 @@ msgstr "Every 30 minutes"
 msgid "Every 6 hours"
 msgstr "Every 6 hours"
 
+#: src/features/backup/screens/Backup.tsx
+msgid "Every day"
+msgstr "Every day"
+
+#: src/features/backup/screens/Backup.tsx
 #: src/features/settings/Settings.constants.ts
 msgid "Every hour"
 msgstr "Every hour"

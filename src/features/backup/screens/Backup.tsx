@@ -93,10 +93,13 @@ const AutoBackupFrequencySetting: React.FC<{
             return t`Off`;
         }
         if (idx <= 12) {
-            return plural(idx, { one: 'Every hour', other: `Every # hours` });
+            // Count-1 (1 hour) uses the plain "Every hour" message: Chinese has
+            // no plural "one" form, so an ICU plural would render "每 1 小时"
+            // instead of "每小时".
+            return idx === 1 ? t`Every hour` : plural(idx, { one: 'Every hour', other: `Every # hours` });
         }
         if (idx <= 18) {
-            return plural(idx - 12, { one: 'Every day', other: `Every # days` });
+            return idx === 13 ? t`Every day` : plural(idx - 12, { one: 'Every day', other: `Every # days` });
         }
         return t`Every week`;
     };

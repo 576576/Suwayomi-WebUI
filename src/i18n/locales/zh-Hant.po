@@ -3949,3 +3949,23 @@ msgstr "您的書櫃是空的"
 #: src/features/settings/Settings.constants.ts
 msgid "Your library will be accessible. Use this only on private networks or when otherwise securing access."
 msgstr "您的書櫃將可從外部存取。僅在私人網路或者確保存取安全時使用此功能。"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "{idx, plural, one {Every hour} other {Every # hours}}"
+msgstr "{idx, plural, one {每小時} other {每 # 小時}}"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "{idx, plural, one {Every day} other {Every # days}}"
+msgstr "{idx, plural, one {每天} other {每 # 天}}"
+
+#: src/features/browse/screens/BrowseSettings.tsx
+msgid "Unlimited"
+msgstr "無限制"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Every day"
+msgstr "每天"
+
+#: src/features/browse/screens/BrowseSettings.tsx
+msgid "{idx, plural, one {# Source} other {# Sources}}"
+msgstr "{idx, plural, one {# 個源} other {# 個源}}"
