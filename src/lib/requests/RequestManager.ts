@@ -460,6 +460,20 @@ export const SPECIAL_ED_SOURCES = {
 export class RequestManager {
     public static readonly API_VERSION = '/api/v1/';
 
+    /** Listeners fired whenever a chapter download was successfully enqueued. */
+    private readonly downloadStartedListeners = new Set<() => void>();
+
+    public onDownloadStarted = (listener: () => void): (() => void) => {
+        this.downloadStartedListeners.add(listener);
+        return () => {
+            this.downloadStartedListeners.delete(listener);
+        };
+    };
+
+    private notifyDownloadStarted(): void {
+        this.downloadStartedListeners.forEach((listener) => listener());
+    }
+
     public readonly graphQLClient = new GraphQLClient(this.refreshUser.bind(this));
 
     private readonly restClient: RestClient = new RestClient(this.refreshUser.bind(this));
@@ -3337,12 +3351,14 @@ export class RequestManager {
         id: number,
         options?: MutationOptions<EnqueueChapterDownloadMutation, EnqueueChapterDownloadMutationVariables>,
     ): AbortableApolloMutationResponse<EnqueueChapterDownloadMutation> {
-        return this.doRequest<EnqueueChapterDownloadMutation, EnqueueChapterDownloadMutationVariables>(
+        const response = this.doRequest<EnqueueChapterDownloadMutation, EnqueueChapterDownloadMutationVariables>(
             GQLMethod.MUTATION,
             ENQUEUE_CHAPTER_DOWNLOAD,
             { input: { id } },
             options,
         );
+        response.response.then(() => this.notifyDownloadStarted()).catch(() => {});
+        return response;
     }
 
     public removeChapterFromDownloadQueue(
@@ -3465,12 +3481,14 @@ export class RequestManager {
         ids: number[],
         options?: MutationOptions<EnqueueChapterDownloadsMutation, EnqueueChapterDownloadsMutationVariables>,
     ): AbortableApolloMutationResponse<EnqueueChapterDownloadsMutation> {
-        return this.doRequest<EnqueueChapterDownloadsMutation, EnqueueChapterDownloadsMutationVariables>(
+        const response = this.doRequest<EnqueueChapterDownloadsMutation, EnqueueChapterDownloadsMutationVariables>(
             GQLMethod.MUTATION,
             ENQUEUE_CHAPTER_DOWNLOADS,
             { input: { ids } },
             options,
         );
+        response.response.then(() => this.notifyDownloadStarted()).catch(() => {});
+        return response;
     }
 
     public removeChaptersFromDownloadQueue(

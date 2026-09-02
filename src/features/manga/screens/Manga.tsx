@@ -26,9 +26,15 @@ import { LoadingPlaceholder } from '@/base/components/feedback/LoadingPlaceholde
 import type { GetMangaScreenQuery } from '@/lib/graphql/generated/graphql.ts';
 import { GET_MANGA_SCREEN } from '@/lib/graphql/manga/MangaQuery.ts';
 import { getErrorMessage } from '@/lib/HelperFunctions.ts';
+import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts';
 import { STABLE_EMPTY_OBJECT } from '@/base/Base.constants.ts';
 import { useAppTitleAndAction } from '@/features/navigation-bar/hooks/useAppTitleAndAction.ts';
 import type { MangaLocationState } from '@/features/manga/Manga.types.ts';
+
+const refreshMangaChaptersList = () =>
+    requestManager.graphQLClient.client
+        .refetchQueries({ include: ['GET_CHAPTERS_MANGA'] })
+        .catch(defaultPromiseErrorHandler('Manga::refreshChapters'));
 
 export const Manga: React.FC = () => {
     const { t } = useLingui();
@@ -50,6 +56,46 @@ export const Manga: React.FC = () => {
     const [refresh, { loading: refreshing, error: refreshError }] = useRefreshManga(id);
 
     const error = mangaError ?? refreshError;
+
+    // Observe the download queue (refreshed app-wide every 2s). Once the
+    // queue drains (a download finished) the chapter list query is refetched
+    // so the cards flip to their real isDownloaded state.
+    const { data: downloadStatusData } = requestManager.useGetDownloadStatus();
+    const downloadQueueLength = downloadStatusData?.downloadStatus?.queue.length;
+    const refreshChaptersListRef = useRef(refreshMangaChaptersList);
+    refreshChaptersListRef.current = refreshMangaChaptersList;
+    const wasDownloading = useRef(false);
+    useEffect(() => {
+        const hadItems = wasDownloading.current;
+        const hasItems = (downloadQueueLength ?? 0) > 0;
+        wasDownloading.current = hasItems;
+        if (hadItems && !hasItems) {
+            refreshChaptersListRef.current();
+        }
+    }, [downloadQueueLength]);
+
+    // Fast downloads can finish between two queue polls, so when a chapter is
+    // enqueued, refresh the chapter list a few times — the cards flip to
+    // "downloaded" as soon as the server has finished, no matter how quick the
+    // download was.
+    const pendingRefetchTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
+    useEffect(
+        () =>
+            requestManager.onDownloadStarted(() => {
+                pendingRefetchTimers.current.push(
+                    ...[0, 1200, 2500, 4000, 6000, 9000].map((delay) =>
+                        setTimeout(() => refreshChaptersListRef.current(), delay),
+                    ),
+                );
+            }),
+        [],
+    );
+    useEffect(
+        () => () => {
+            pendingRefetchTimers.current.forEach(clearTimeout);
+        },
+        [],
+    );
 
     useEffect(() => {
         if (manga == null) {

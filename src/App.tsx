@@ -203,6 +203,11 @@ const BackgroundSubscriptions = () => {
     requestManager.useDownloadSubscription({ skip: skipConnection });
     requestManager.useUpdaterSubscription({ skip: skipConnection });
     requestManager.useSyncSubscription({ skip: skipConnection });
+    // The downloadStatusChanged WebSocket is not reliably available against
+    // this server, so poll the queue app-wide. This keeps the per-chapter
+    // download indicators (queued/progress) live and lets listeners react
+    // when a download finishes and the queue drains.
+    requestManager.useGetDownloadStatus({ pollInterval: 2000, skip: skipConnection });
 
     return null;
 };
@@ -438,11 +443,11 @@ const ReaderApp = () => (
     </ErrorBoundary>
 );
 
-const OffsetContainerRoot = ({ children }: { children?: ReactNode }) => 
+const OffsetContainerRoot = ({ children }: { children?: ReactNode }) => (
     // Sticky offsets are resolved against #appMainContainer (the page scroll host),
     // which already starts right below the (fixed) app bar -> base offset is 0.
     <OffsetContainer topOffset={0}>{children}</OffsetContainer>
-;
+);
 
 export const App: React.FC = () => (
     <AppContext>

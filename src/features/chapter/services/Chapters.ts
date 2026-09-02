@@ -7,7 +7,6 @@
  */
 
 import type { DocumentNode, MaybeMasked, Unmasked } from '@apollo/client';
-import { useFragment } from '@apollo/client/react';
 import { t } from '@lingui/core/macro';
 import { makeToast } from '@/base/utils/Toast.ts';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
@@ -81,26 +80,18 @@ export class Chapters {
 
     static useDownloadStatusFromCache<T = DownloadTypeFieldsFragment>(
         id: number,
-        fragment: DocumentNode = DOWNLOAD_TYPE_FIELDS,
-        fragmentName: string = 'DOWNLOAD_TYPE_FIELDS',
+        _fragment: DocumentNode = DOWNLOAD_TYPE_FIELDS,
+        _fragmentName: string = 'DOWNLOAD_TYPE_FIELDS',
     ): MaybeMasked<T> | null {
-        const downloadStatus = useFragment<T>({
-            from: {
-                __typename: 'DownloadType',
-                chapter: {
-                    __ref: requestManager.graphQLClient.client.cache.identify({ __typename: 'ChapterType', id }),
-                },
-            },
-            fragment,
-            fragmentName,
-            client: requestManager.graphQLClient.client,
-        });
-
-        if (!downloadStatus.complete || !Object.keys(downloadStatus.data ?? {}).length) {
-            return null;
-        }
-
-        return downloadStatus.data;
+        // The queue is derived from the live GET_DOWNLOAD_STATUS query (the
+        // app polls it app-wide) instead of normalized DownloadType cache
+        // entities: with the WebSocket subscription unavailable, entities
+        // written by the enqueue mutation stayed orphaned in the cache after
+        // a download finished, leaving per-chapter circles stuck on
+        // "queued"/partial progress even though the chapter was downloaded.
+        const { data } = requestManager.useGetDownloadStatus();
+        const item = data?.downloadStatus?.queue.find((download) => Number(download.chapter?.id) === Number(id));
+        return (item as unknown as MaybeMasked<T> | undefined) ?? null;
     }
 
     static isDownloading(id: number): boolean {
