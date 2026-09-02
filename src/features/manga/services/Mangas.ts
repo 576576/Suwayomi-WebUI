@@ -52,11 +52,7 @@ import { MigrationManager } from '@/features/migration/MigrationManager.ts';
 import uniq from 'lodash/fp/uniq';
 import { ReactRouter } from '@/lib/react-router/ReactRouter.ts';
 import { AppRoutes } from '@/base/AppRoute.constants.ts';
-import {
-    ChapterOrderBy,
-    type ChapterConditionInput,
-    type UpdateMangaCategoriesPatchInput,
-} from '@/lib/graphql/generated/graphql-base.types.ts';
+import { ChapterOrderBy, type UpdateMangaCategoriesPatchInput } from '@/lib/graphql/generated/graphql-base.types.ts';
 import { GET_MANGAS_CHAPTER_IDS_WITH_STATE } from '@/lib/graphql/chapter/ChapterQuery.ts';
 import { filterChapters } from '@/features/chapter/utils/ChapterList.util.tsx';
 import mapValues from 'lodash/fp/mapValues';
@@ -198,8 +194,13 @@ export class Mangas {
         mangaIds: number[],
         {
             excludedScanlators,
-            ...state
-        }: Pick<ChapterConditionInput, 'isRead' | 'isDownloaded' | 'isBookmarked'> & {
+            isRead,
+            isDownloaded,
+            isBookmarked,
+        }: {
+            isRead?: boolean;
+            isDownloaded?: boolean;
+            isBookmarked?: boolean;
             excludedScanlators?: string[];
         },
     ): Promise<GetMangasChapterIdsWithStateQuery['chapters']['nodes']> {
@@ -209,8 +210,13 @@ export class Mangas {
         >(
             GET_MANGAS_CHAPTER_IDS_WITH_STATE,
             {
-                filter: { mangaId: { in: mangaIds }, scanlator: { notIncludesInsensitiveAny: excludedScanlators } },
-                condition: { ...state },
+                filter: {
+                    mangaId: { in: mangaIds },
+                    scanlator: { notIncludesInsensitiveAny: excludedScanlators },
+                    ...(isRead != null ? { isRead: { equalTo: isRead } } : {}),
+                    ...(isDownloaded != null ? { isDownloaded: { equalTo: isDownloaded } } : {}),
+                    ...(isBookmarked != null ? { isBookmarked: { equalTo: isBookmarked } } : {}),
+                },
                 order: [{ by: ChapterOrderBy.SourceOrder }],
             },
             {
