@@ -8,7 +8,7 @@
 
 import useMediaQuery from '@mui/material/useMediaQuery';
 import type { Breakpoint, SxProps, Theme } from '@mui/material/styles';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { getCurrentTheme } from '@/features/theme/services/ThemeCreator.ts';
 import { useResizeObserver } from '@/base/hooks/useResizeObserver.tsx';
 import { ThemeMode } from '@/features/theme/AppTheme.types.ts';
@@ -38,7 +38,14 @@ export class MediaQuery {
         return this.useIsBelowWidth(this.TABLET_WIDTH);
     }
 
-    private static getScrollbarSize(type: 'height' | 'width'): number {
+    /**
+     * 量出系统滚动条占多少布局空间：造一个 `overflow: scroll` 的隐藏 div，
+     * 内部再套一个 100% 尺寸的子元素，两者的 offset 差即为滚动条尺寸。
+     *
+     * 覆盖式滚动条（overlay scrollbars，macOS / 多数移动端默认）不占布局空间，
+     * 返回 0。
+     */
+    static getScrollbarSize(type: 'height' | 'width' = 'width'): number {
         const outer = document.createElement('div');
         outer.style.position = 'absolute';
         outer.style.top = '-9999px';
@@ -57,6 +64,26 @@ export class MediaQuery {
         document.body.removeChild(outer);
 
         return type === 'height' ? height : width;
+    }
+
+    /**
+     * 经典滚动条的尺寸，与元素**当前**有没有滚动条无关。
+     *
+     * 与 `useGetScrollbarSize` 的区别：后者只在目标元素此刻确实出现滚动条时才返回
+     * 非零值；而 `scrollbar-gutter: stable` 是**恒定**预留槽位（滚不滚都占着），
+     * 要抵消它就必须无条件测量 —— 元素当前没滚动时 useGetScrollbarSize 只会给 0。
+     */
+    static useGetClassicScrollbarSize(type: 'height' | 'width' = 'width'): number {
+        const [scrollbarSize, setScrollbarSize] = useState(() => MediaQuery.getScrollbarSize(type));
+
+        useEffect(() => {
+            // 系统缩放 / 滚动条设置变化会改变这个宽度，跟一次 resize
+            const remeasure = () => setScrollbarSize(MediaQuery.getScrollbarSize(type));
+            window.addEventListener('resize', remeasure);
+            return () => window.removeEventListener('resize', remeasure);
+        }, [type]);
+
+        return scrollbarSize;
     }
 
     static useGetScrollbarSize(

@@ -27,6 +27,7 @@ import { AppRoutes } from '@/base/AppRoute.constants.ts';
 import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
 import { useNavBarContext } from '@/features/navigation-bar/NavbarContext.tsx';
 import { ScrollHostProvider } from '@/base/contexts/ScrollHost.tsx';
+import { MediaQuery } from '@/base/utils/MediaQuery.tsx';
 
 export function SettingsMenu() {
     const { t } = useLingui();
@@ -88,6 +89,15 @@ export function Settings() {
     // extension store list) must scroll with it instead of the main scroll host.
     const [settingsScrollHost, setSettingsScrollHost] = useState<HTMLElement | null>(null);
 
+    // #appMainContainer 带 `scrollbar-gutter: stable` —— 它**恒定**预留一条滚动条
+    // 槽位（不管此刻滚不滚），而设置页把滚动接管到了右栏，父级那条槽位就成了纯浪费：
+    // 右栏滚动条右边空出约 15px 死区。用等量负外边距把布局推回槽位里，让右栏滚动条
+    // 贴住窗口右边缘。覆盖式滚动条（macOS / 移动端）宽度为 0，负边距自动归零。
+    //
+    // 注意不能直接用 useGetScrollbarSize：它只在元素**当前**出现滚动条时才返回非零值，
+    // 而槽位是无条件预留的，元素没滚动时那个 hook 会给 0。
+    const scrollbarWidth = MediaQuery.useGetClassicScrollbarSize('width');
+
     useAppTitle(t`Settings`);
 
     if (!isWide) {
@@ -105,6 +115,11 @@ export function Settings() {
                 // 窗口滚动条也会贯穿顶栏区域。
                 height: `calc(100vh - ${appBarHeight + bottomBarHeight}px)`,
                 overflow: 'hidden',
+                // 吃掉 #appMainContainer 预留的滚动条槽位，否则右栏滚动条与窗口右边缘
+                // 之间会空出一条死区（见上方 scrollbarWidth 的注释）。
+                // 槽位位于 padding box 之内，所以负边距不会被 overflow 裁掉；
+                // 若父级有 pr: env(safe-area-inset-right)，负边距也恰好只补到安全区内边缘。
+                mr: `${-scrollbarWidth}px`,
             }}
         >
             <Box
