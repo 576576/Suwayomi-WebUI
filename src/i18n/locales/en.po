@@ -904,6 +904,10 @@ msgstr "Compact grid"
 msgid "Completed"
 msgstr "Completed"
 
+#: src/features/settings/screens/AboutLicenses.tsx
+msgid "Components"
+msgstr "Components"
+
 #: src/features/settings/components/images/Processing.tsx
 msgid "Compression level"
 msgstr "Compression level"
@@ -1755,6 +1759,10 @@ msgid "General"
 msgstr "General"
 
 #: src/features/settings/screens/About.tsx
+msgid "GitHub Project"
+msgstr "GitHub Project"
+
+#: src/features/settings/screens/About.tsx
 msgid "GitHub Repo"
 msgstr "GitHub Repo"
 
@@ -2094,6 +2102,10 @@ msgstr "Library entries"
 msgid "Licensed"
 msgstr "Licensed"
 
+#: src/features/settings/screens/AboutLicenses.tsx
+msgid "Licenses"
+msgstr "Licenses"
+
 #: src/features/settings/screens/Appearance.tsx
 msgid "Light"
 msgstr "Light"
@@ -2267,6 +2279,7 @@ msgid "Match found"
 msgstr "Match found"
 
 #: src/features/migration/components/migration-entry/MigrationEntry.tsx
+#: src/features/settings/screens/AboutLicenses.tsx
 msgid "Matches"
 msgstr "Matches"
 
@@ -2592,6 +2605,11 @@ msgstr "Open page on exit"
 #: src/features/library/components/LibraryToolbarMenu.tsx
 msgid "Open random entry"
 msgstr "Open random entry"
+
+#: src/features/settings/screens/About.tsx
+#: src/features/settings/screens/AboutLicenses.tsx
+msgid "Open source licenses"
+msgstr "Open source licenses"
 
 #: src/features/extension/store/screens/ExtensionStores.tsx
 msgid "Open website"
@@ -2981,6 +2999,7 @@ msgstr "Scroll forward"
 
 #: src/base/components/AppbarSearch.tsx
 #: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
+#: src/features/settings/screens/AboutLicenses.tsx
 msgid "Search"
 msgstr "Search"
 
@@ -3499,6 +3518,10 @@ msgstr "This does not prevent unofficial or potentially incorrectly flagged exte
 msgid "This is the latest version"
 msgstr "This is the latest version"
 
+#: src/features/settings/screens/AboutLicenses.tsx
+msgid "This package does not ship a license file."
+msgstr "This package does not ship a license file."
+
 #: src/features/source/browse/components/SourceOptions.tsx
 msgid "This will delete the saved search \"{savedSearch}\""
 msgstr "This will delete the saved search \"{savedSearch}\""
@@ -3611,6 +3634,7 @@ msgstr "UI Login"
 #: src/features/reader/settings/screens/GlobalReaderSettings.tsx
 #: src/features/reader/viewer/ReaderChapterViewer.tsx
 #: src/features/settings/screens/About.tsx
+#: src/features/settings/screens/AboutLicenses.tsx
 #: src/features/settings/screens/AdvancedSettings.tsx
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/ImageProcessingSetting.tsx

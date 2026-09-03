@@ -5,7 +5,8 @@
     "type": "module",
     "scripts": {
         "setup-env-files": "tsx tools/scripts/setupEnvFiles.ts",
-        "setup": "pnpm i --frozen-lockfile && pnpm setup-env-files",
+        "setup": "pnpm i --frozen-lockfile && pnpm setup-env-files && pnpm gen:licenses",
+        "gen:licenses": "tsx tools/scripts/generateLicenses.ts",
         "dev": "pnpm setup && vite",
         "preview": "pnpm setup && vite preview",
         "build": "pnpm setup && vite build && tsx tools/scripts/writeVersionFile.ts",

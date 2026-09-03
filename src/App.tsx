@@ -54,6 +54,7 @@ const { Settings, SettingsIndex } = loadable(
     lazyLoadFallback,
 );
 const { About } = loadable(() => import('@/features/settings/screens/About.tsx'), lazyLoadFallback);
+const { AboutLicenses } = loadable(() => import('@/features/settings/screens/AboutLicenses.tsx'), lazyLoadFallback);
 const { Backup } = loadable(() => import('@/features/backup/screens/Backup.tsx'), lazyLoadFallback);
 const { CategorySettings } = loadable(
     () => import('@/features/category/screens/CategorySettings.tsx'),
@@ -315,7 +316,10 @@ const MainApp = () => {
                                     element={<Navigate to={AppRoutes.root.path} replace />}
                                 />
                                 {isMobileWidth && <Route path={AppRoutes.more.match} element={<More />} />}
-                                <Route path={AppRoutes.about.match} element={<About />} />
+                                <Route path={AppRoutes.about.match}>
+                                    <Route index element={<About />} />
+                                    <Route path={AppRoutes.about.children.licenses.match} element={<AboutLicenses />} />
+                                </Route>
                                 <Route path={AppRoutes.settings.match} element={<Settings />}>
                                     <Route index element={<SettingsIndex />} />
                                     <Route

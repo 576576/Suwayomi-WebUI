@@ -14,6 +14,7 @@ import Divider from '@mui/material/Divider';
 import Switch from '@mui/material/Switch';
 import { useLingui } from '@lingui/react/macro';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
+import { AppRoutes } from '@/base/AppRoute.constants.ts';
 import { ListItemLink } from '@/base/components/lists/ListItemLink.tsx';
 import { LoadingPlaceholder } from '@/base/components/feedback/LoadingPlaceholder.tsx';
 import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts';
@@ -173,6 +174,9 @@ export function About() {
                     </ListSubheader>
                 }
             >
+                <ListItemLink to="https://github.com/Suwayomi" target="_blank" rel="noreferrer">
+                    <ListItemText primary={t`GitHub Project`} secondary="https://github.com/Suwayomi" />
+                </ListItemLink>
                 <ListItemLink to={aboutServer.github} target="_blank" rel="noreferrer">
                     <ListItemText primary={t`GitHub Repo`} secondary={aboutServer.github} />
                 </ListItemLink>
@@ -181,6 +185,9 @@ export function About() {
                 </ListItemLink>
                 <ListItemLink to={aboutServer.discord} target="_blank" rel="noreferrer">
                     <ListItemText primary={t`QQ Group`} secondary={aboutServer.discord} />
+                </ListItemLink>
+                <ListItemLink to={AppRoutes.about.children.licenses.path}>
+                    <ListItemText primary={t`Open source licenses`} />
                 </ListItemLink>
             </List>
         </List>

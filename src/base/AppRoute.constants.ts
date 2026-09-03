@@ -45,6 +45,12 @@ export const AppRoutes = {
     about: {
         match: 'about',
         path: '/about',
+        children: {
+            licenses: {
+                match: 'licenses',
+                path: '/about/licenses',
+            },
+        },
     },
     settings: {
         match: 'settings',

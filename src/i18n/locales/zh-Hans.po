@@ -923,6 +923,10 @@ msgstr "紧凑网格"
 msgid "Completed"
 msgstr "已完结"
 
+#: src/features/settings/screens/AboutLicenses.tsx
+msgid "Components"
+msgstr "组件"
+
 #: src/features/settings/components/images/Processing.tsx
 msgid "Compression level"
 msgstr "压缩级别"
@@ -2117,6 +2121,10 @@ msgstr "书架项目"
 msgid "Licensed"
 msgstr "版权授权"
 
+#: src/features/settings/screens/AboutLicenses.tsx
+msgid "Licenses"
+msgstr "许可证"
+
 #: src/features/settings/screens/Appearance.tsx
 msgid "Light"
 msgstr "浅色"
@@ -2615,6 +2623,11 @@ msgstr "退出后打开漫画页"
 #: src/features/library/components/LibraryToolbarMenu.tsx
 msgid "Open random entry"
 msgstr "打开随机条目"
+
+#: src/features/settings/screens/About.tsx
+#: src/features/settings/screens/AboutLicenses.tsx
+msgid "Open source licenses"
+msgstr "开源许可证"
 
 #: src/features/extension/store/screens/ExtensionStores.tsx
 msgid "Open website"
@@ -3522,6 +3535,10 @@ msgstr "这不会阻止非官方或可能被错误标记的扩展在应用内显
 #: src/features/app-updates/components/VersionInfo.tsx
 msgid "This is the latest version"
 msgstr "已经是最新版本"
+
+#: src/features/settings/screens/AboutLicenses.tsx
+msgid "This package does not ship a license file."
+msgstr "此包未提供许可证文件。"
 
 #: src/features/source/browse/components/SourceOptions.tsx
 msgid "This will delete the saved search \"{savedSearch}\""

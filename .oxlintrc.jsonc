@@ -415,5 +415,5 @@
             },
         },
     ],
-    "ignorePatterns": ["src/lib/graphql/generated/**", "tools/eslint-plugin-header.cjs"],
+    "ignorePatterns": ["src/lib/graphql/generated/**", "src/assets/generated/**", "tools/eslint-plugin-header.cjs"],
 }
