@@ -929,7 +929,7 @@ msgstr "壓縮等級"
 
 #: src/features/browse/extensions/Extensions.tsx
 msgid "Configure extension stores"
-msgstr ""
+msgstr "設定擴充套件商店"
 
 #: src/features/settings/components/images/Processing.tsx
 msgid "Connect timeout"
@@ -2155,15 +2155,15 @@ msgstr "正在載入…"
 #: src/features/migration/components/MigrationCard.tsx
 #: src/features/source/browse/screens/SourceMangas.tsx
 msgid "Local source"
-msgstr "本機來源"
+msgstr "本地圖源"
 
 #: src/features/source/browse/screens/SourceMangas.tsx
 msgid "Local source guide"
-msgstr "本機來源指南"
+msgstr "本地圖源指南"
 
 #: src/features/browse/screens/BrowseSettings.tsx
 msgid "Local source location"
-msgstr "本機來源位置"
+msgstr "本地圖源位置"
 
 #: src/base/components/modals/LoginDialog.tsx
 #: src/features/authentication/screens/LoginPage.tsx
@@ -3475,7 +3475,7 @@ msgstr "伺服器上的下載檔案的儲存目錄路徑"
 
 #: src/features/browse/screens/BrowseSettings.tsx
 msgid "The path to the directory on the server where local source files are saved in"
-msgstr "伺服器上的本機來源檔案的儲存目錄路徑"
+msgstr "伺服器上的本地圖源檔案的儲存目錄路徑"
 
 #: src/features/reader/services/ReaderControls.ts
 msgid "The previous chapter has a different scanlator then the current one.\n"

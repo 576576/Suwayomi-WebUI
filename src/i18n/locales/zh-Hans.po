@@ -47,7 +47,7 @@ msgstr "{0, plural, one {# 秒} other {# 秒}}"
 #. placeholder {0}: serverSettings.maxSourcesInParallel
 #: src/features/browse/screens/BrowseSettings.tsx
 msgid "{0, plural, one {# Source} other {# Sources}}"
-msgstr "{0, plural, one {# 个源} other {# 个源}}"
+msgstr "{0, plural, one {# 个图源} other {# 个图源}}"
 
 #. placeholder {0}: trackersInUse.length
 #: src/features/manga/components/TrackMangaButton.tsx
@@ -933,7 +933,7 @@ msgstr "压缩级别"
 
 #: src/features/browse/extensions/Extensions.tsx
 msgid "Configure extension stores"
-msgstr ""
+msgstr "配置扩展商店"
 
 #: src/features/settings/components/images/Processing.tsx
 msgid "Connect timeout"
@@ -2175,7 +2175,7 @@ msgstr "本地图源指南"
 
 #: src/features/browse/screens/BrowseSettings.tsx
 msgid "Local source location"
-msgstr "本地源位置"
+msgstr "本地图源位置"
 
 #: src/base/components/modals/LoginDialog.tsx
 #: src/features/authentication/screens/LoginPage.tsx
@@ -3208,7 +3208,7 @@ msgstr "显示作品"
 
 #: src/features/browse/screens/BrowseSettings.tsx
 msgid "Show in sources and extensions lists"
-msgstr "在源和扩展列表中显示"
+msgstr "在图源和扩展列表中显示"
 
 #: src/base/components/feedback/EmptyView.tsx
 #: src/features/tracker/components/cards/TrackerMangaCard.tsx
@@ -3296,7 +3296,7 @@ msgstr "排序"
 #: src/features/manga/components/details/MangaDetails.tsx
 #: src/features/source/browse/screens/SourceMangas.tsx
 msgid "Source"
-msgstr "源"
+msgstr "图源"
 
 #: src/features/source/configuration/screens/SourceConfigure.tsx
 msgid "Source Configuration"
@@ -3312,7 +3312,7 @@ msgstr "图源标题"
 
 #: src/features/browse/screens/BrowseSettings.tsx
 msgid "Sources"
-msgstr "源"
+msgstr "图源"
 
 #: src/features/settings/Settings.constants.ts
 msgid "Stable"
@@ -3497,7 +3497,7 @@ msgstr "服务器上存放下载文件的目录的路径"
 
 #: src/features/browse/screens/BrowseSettings.tsx
 msgid "The path to the directory on the server where local source files are saved in"
-msgstr "服务器上保存本地源文件的目录路径"
+msgstr "服务器上保存本地图源文件的目录路径"
 
 #: src/features/reader/services/ReaderControls.ts
 msgid "The previous chapter has a different scanlator then the current one.\n"
