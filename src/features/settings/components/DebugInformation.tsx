@@ -15,7 +15,6 @@ import { Metadata } from '@/base/components/texts/Metadata.tsx';
 import { STABLE_EMPTY_ARRAY, STABLE_EMPTY_OBJECT } from '@/base/Base.constants.ts';
 import type { ServerSettings } from '@/features/settings/Settings.types.ts';
 import { epochToDate } from '@/base/utils/DateHelper.ts';
-import dayjs from 'dayjs';
 import { getReaderSettings, useDefaultReaderSettings } from '@/features/reader/settings/ReaderSettingsMetadata.ts';
 import { getActiveDevice } from '@/features/device/services/Device.ts';
 import {
@@ -309,12 +308,17 @@ export const DebugInformation = () => {
         () => ({
             About: {
                 WebUI: {
+                    // 版本与通道都来自 server 读取的 <webui>/version.txt
+                    // （第 1 行版本、第 2 行通道、第 3 行构建时间）；
+                    // 捆绑部署不再写死 "Bundled"，而是上报真实的 STABLE / PREVIEW。
                     Version: aboutWebUI?.tag,
-                    // WebUI 随 server 捆绑部署，Channel 固定为 Bundled
-                    Channel: 'Bundled',
-                    'Build time': aboutWebUI?.updateTimestamp
-                        ? dayjs(Number(aboutWebUI.updateTimestamp)).toISOString()
-                        : '-',
+                    Channel: aboutWebUI?.channel.toLocaleUpperCase() ?? '-',
+                    // NB: buildTime 才是构建时间戳；updateTimestamp 是「WebUI 更新时间」，
+                    // server 恒返回 0，用它算出来会是 1970-01-01。
+                    'Build time':
+                        aboutWebUI?.buildTime && Number(aboutWebUI.buildTime) > 0
+                            ? epochToDate(Number(aboutWebUI.buildTime)).toISOString()
+                            : '-',
                 },
                 Server: {
                     Version: aboutServer?.version,
