@@ -146,6 +146,9 @@ export const APP_METADATA: Record<
     informAboutUpdates: {
         convert: convertToBoolean,
     },
+    checkForUpdatesOnStartup: {
+        convert: convertToBoolean,
+    },
     readerWidth: {
         convert: convertToObject<IReaderSettings['readerWidth']>,
     },
@@ -477,6 +480,7 @@ export const GLOBAL_METADATA_KEYS: AppMetadataKeys[] = [
 
     // updates
     'informAboutUpdates',
+    'checkForUpdatesOnStartup',
 
     // sources
     'savedSearches',

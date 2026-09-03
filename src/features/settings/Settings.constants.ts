@@ -86,6 +86,7 @@ export const SERVER_SETTINGS_METADATA_DEFAULT: MetadataServerSettings = {
 
     // updates
     informAboutUpdates: false,
+    checkForUpdatesOnStartup: false,
 
     // themes
     locale: getSupportedLocale(getPreferredISOLanguageCodes()[0]) ?? DEFAULT_LANGUAGE,

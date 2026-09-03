@@ -1785,6 +1785,10 @@ msgid "General"
 msgstr "全体"
 
 #: src/features/settings/screens/About.tsx
+msgid "Suwayomi Project"
+msgstr "Suwayomi 项目"
+
+#: src/features/settings/screens/About.tsx
 msgid "GitHub Repo"
 msgstr "Github 仓库"
 
@@ -3971,6 +3975,10 @@ msgstr "你的书架是空的"
 #: src/features/settings/Settings.constants.ts
 msgid "Your library will be accessible. Use this only on private networks or when otherwise securing access."
 msgstr "你的书架将对外可访问。仅在私有网络中或确保已采取其他安全措施的情况下使用此功能。"
+
+#: src/features/settings/screens/About.tsx
+msgid "Check for updates on startup"
+msgstr "启动时检查更新"
 
 #: src/features/settings/screens/About.tsx
 msgid "Inform about updates"

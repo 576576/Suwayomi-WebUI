@@ -32,7 +32,7 @@ export const ServerUpdateChecker = () => {
     const [open, setOpen] = useState(false);
 
     const {
-        settings: { informAboutUpdates },
+        settings: { informAboutUpdates, checkForUpdatesOnStartup },
         loading: areMetadataServerSettingsLoading,
     } = useMetadataServerSettings();
 
@@ -58,6 +58,8 @@ export const ServerUpdateChecker = () => {
         'server',
         informAboutUpdates ? checkForUpdate : disabledUpdateCheck,
         selectedServerChannelInfo?.tag,
+        undefined,
+        checkForUpdatesOnStartup,
     );
 
     // Suwayomi-next fork：正式版跳具体 tag；alpha 的 tag 带 build 后缀

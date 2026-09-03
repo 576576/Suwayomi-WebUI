@@ -9,4 +9,10 @@
 export type MetadataUpdateSettings = {
     /** Master switch for all update dialogs: server/WebUI "available" and "updated" popups. */
     informAboutUpdates: boolean;
+    /**
+     * Whether an update check runs right when the WebUI starts.
+     * Off (default) = the first check is deferred by a full update-check interval;
+     * the periodic check and the manual check on the About page are unaffected.
+     */
+    checkForUpdatesOnStartup: boolean;
 };

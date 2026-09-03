@@ -837,6 +837,10 @@ msgstr "Check description"
 msgid "Check for new cover and details when updating library"
 msgstr "Check for new cover and details when updating library"
 
+#: src/features/settings/screens/About.tsx
+msgid "Check for updates on startup"
+msgstr "Check for updates on startup"
+
 #: src/features/source/browse/screens/SourceMangas.tsx
 msgid "Check out"
 msgstr "Check out"
@@ -1757,10 +1761,6 @@ msgstr "Fullscreen"
 #: src/features/reader/settings/ReaderSettings.constants.tsx
 msgid "General"
 msgstr "General"
-
-#: src/features/settings/screens/About.tsx
-msgid "GitHub Project"
-msgstr "GitHub Project"
 
 #: src/features/settings/screens/About.tsx
 msgid "GitHub Repo"
@@ -3375,6 +3375,10 @@ msgstr "Successfully migrated"
 #: src/features/manga/Manga.constants.ts
 msgid "Successfully migrated manga"
 msgstr "Successfully migrated manga"
+
+#: src/features/settings/screens/About.tsx
+msgid "Suwayomi Project"
+msgstr "Suwayomi Project"
 
 #: src/features/settings/Settings.constants.ts
 msgid "Sync disabled"

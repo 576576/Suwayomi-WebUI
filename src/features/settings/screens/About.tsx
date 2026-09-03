@@ -52,7 +52,7 @@ export function About() {
     const webUIUpdateCheckError = orgWebUIUpdateCheckError || webUIUpdateData?.checkForWebUIUpdate.tag === '';
 
     const {
-        settings: { informAboutUpdates },
+        settings: { informAboutUpdates, checkForUpdatesOnStartup },
     } = useMetadataServerSettings();
     const updateMetadataServerSettings = createUpdateMetadataServerSettings<MetadataServerSettingKeys>((e) =>
         makeToast(t`Failed to save changes`, 'error', getErrorMessage(e)),
@@ -82,6 +82,15 @@ export function About() {
 
     return (
         <List sx={{ pt: 0 }}>
+            <ListItem>
+                <ListItemText primary={t`Check for updates on startup`} />
+                <Switch
+                    edge="end"
+                    checked={checkForUpdatesOnStartup}
+                    onChange={() => updateMetadataServerSettings('checkForUpdatesOnStartup', !checkForUpdatesOnStartup)}
+                />
+            </ListItem>
+            <Divider />
             {/* 更新提示是全局开关（同时管 server 与 WebUI 两个更新检查），放在最顶上
                 而不是塞在 WebUI 段里，免得被误读成只影响 WebUI。 */}
             <ListItem>
@@ -178,7 +187,7 @@ export function About() {
                 }
             >
                 <ListItemLink to="https://github.com/Suwayomi" target="_blank" rel="noreferrer">
-                    <ListItemText primary={t`GitHub Project`} secondary="https://github.com/Suwayomi" />
+                    <ListItemText primary={t`Suwayomi Project`} secondary="https://github.com/Suwayomi" />
                 </ListItemLink>
                 <ListItemLink to={aboutServer.github} target="_blank" rel="noreferrer">
                     <ListItemText primary={t`GitHub Repo`} secondary={aboutServer.github} />

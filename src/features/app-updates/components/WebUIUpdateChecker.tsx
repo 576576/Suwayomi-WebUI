@@ -33,7 +33,7 @@ export const WebUIUpdateChecker = () => {
     const [open, setOpen] = useState(false);
 
     const {
-        settings: { informAboutUpdates },
+        settings: { informAboutUpdates, checkForUpdatesOnStartup },
         loading: areMetadataServerSettingsLoading,
     } = useMetadataServerSettings();
     const serverSettings = requestManager.useGetServerSettings();
@@ -52,6 +52,8 @@ export const WebUIUpdateChecker = () => {
         'webUI',
         shouldCheckForUpdate ? checkForUpdate : disabledUpdateCheck,
         webUIUpdateData?.checkForWebUIUpdate.tag,
+        undefined,
+        checkForUpdatesOnStartup,
     );
 
     // 正式产物来自 fork（576576/Suwayomi-WebUI），跳转保持与出包源一致
