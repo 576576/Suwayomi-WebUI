@@ -14,6 +14,7 @@ import type { IReaderSettings, IReaderSettingsWithDefaultFlag } from '@/features
 import { makeToast } from '@/base/utils/Toast.ts';
 import { READING_MODE_VALUE_TO_DISPLAY_DATA } from '@/features/reader/settings/ReaderSettings.constants.tsx';
 import { getReaderTapZoneStore } from '@/features/reader/stores/ReaderStore.ts';
+import '@/lib/koration/Setup';
 
 const HIDE_PREVIEW_TIMEOUT = d(5).seconds.inWholeMilliseconds;
 

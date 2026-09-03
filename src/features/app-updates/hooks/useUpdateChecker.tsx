@@ -10,6 +10,7 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { d } from 'koration';
 import { useLocalStorage } from '@/base/hooks/useStorage.tsx';
 import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts';
+import '@/lib/koration/Setup';
 
 const UPDATE_CHECK_INTERVAL = d(1).hours.inWholeMilliseconds;
 const UPDATE_REMINDER_THRESHOLD = d(1).hours.inWholeMilliseconds;

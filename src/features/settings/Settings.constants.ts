@@ -33,6 +33,7 @@ import {
 import { ThemeMode } from '@/features/theme/AppTheme.types.ts';
 import { DEFAULT_LANGUAGE, getPreferredISOLanguageCodes, getSupportedLocale } from '@/lib/ISOLanguageUtil.ts';
 import type { BackupFlag } from '@/features/backup/Backup.types.ts';
+import '@/lib/koration/Setup';
 
 export const MANGA_GRID_WIDTH = {
     min: 100,
