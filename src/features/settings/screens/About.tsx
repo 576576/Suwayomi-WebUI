@@ -81,6 +81,17 @@ export function About() {
 
     return (
         <List sx={{ pt: 0 }}>
+            {/* 更新提示是全局开关（同时管 server 与 WebUI 两个更新检查），放在最顶上
+                而不是塞在 WebUI 段里，免得被误读成只影响 WebUI。 */}
+            <ListItem>
+                <ListItemText primary={t`Inform about updates`} />
+                <Switch
+                    edge="end"
+                    checked={informAboutUpdates}
+                    onChange={() => updateMetadataServerSettings('informAboutUpdates', !informAboutUpdates)}
+                />
+            </ListItem>
+            <Divider />
             <List
                 sx={{ padding: 0 }}
                 subheader={
@@ -141,14 +152,6 @@ export function About() {
                                 url="https://github.com/576576/Suwayomi-WebUI/releases"
                             />
                         }
-                    />
-                </ListItem>
-                <ListItem>
-                    <ListItemText primary={t`Inform about updates`} />
-                    <Switch
-                        edge="end"
-                        checked={informAboutUpdates}
-                        onChange={() => updateMetadataServerSettings('informAboutUpdates', !informAboutUpdates)}
                     />
                 </ListItem>
                 <ListItem>
