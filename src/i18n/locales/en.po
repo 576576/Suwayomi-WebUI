@@ -3111,6 +3111,10 @@ msgstr "Server"
 msgid "Server address"
 msgstr "Server address"
 
+#: src/features/settings/screens/About.tsx
+msgid "Server channel"
+msgstr "Server channel"
+
 #: src/features/backup/Backup.constants.ts
 msgid "Server settings"
 msgstr "Server settings"

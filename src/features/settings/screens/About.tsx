@@ -102,7 +102,10 @@ export function About() {
                 }
             >
                 <ListItem>
-                    <ListItemText primary={t`Server`} secondary={`${aboutServer.name} (${aboutServer.buildType})`} />
+                    <ListItemText
+                        primary={t`Server channel`}
+                        secondary={`${aboutServer.name} (${aboutServer.buildType})`}
+                    />
                 </ListItem>
                 <ListItem>
                     <ListItemText

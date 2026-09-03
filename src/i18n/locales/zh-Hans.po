@@ -1786,7 +1786,7 @@ msgstr "全体"
 
 #: src/features/settings/screens/About.tsx
 msgid "GitHub Repo"
-msgstr ""
+msgstr "Github 仓库"
 
 #: src/features/settings/screens/About.tsx
 msgid "GitHub WebUI"
@@ -2298,6 +2298,7 @@ msgid "Match found"
 msgstr "找到匹配项"
 
 #: src/features/migration/components/migration-entry/MigrationEntry.tsx
+#: src/features/settings/screens/AboutLicenses.tsx
 msgid "Matches"
 msgstr "匹配项"
 
@@ -2772,7 +2773,7 @@ msgstr "像素"
 
 #: src/features/settings/screens/About.tsx
 msgid "QQ Group"
-msgstr ""
+msgstr "QQ交流群"
 
 #: src/base/components/downloads/DownloadStateIndicatorCircular.tsx
 msgid "Queued"
@@ -3127,6 +3128,10 @@ msgstr "服务器"
 #: src/features/settings/components/ServerAddressSetting.tsx
 msgid "Server address"
 msgstr "服务器地址"
+
+#: src/features/settings/screens/About.tsx
+msgid "Server channel"
+msgstr "服务器通道"
 
 #: src/features/backup/Backup.constants.ts
 msgid "Server settings"
@@ -3860,7 +3865,7 @@ msgstr "Web面板"
 
 #: src/features/settings/screens/About.tsx
 msgid "WebUI channel"
-msgstr "Web面板 版本选择"
+msgstr "Web面板通道"
 
 #: src/features/migration/MigrationManager.ts
 msgid "WebUI must be kept open. Migration can't be resumed"
@@ -3868,7 +3873,7 @@ msgstr "WebUI 必须保持开启状态。迁移无法恢复"
 
 #: src/features/settings/screens/About.tsx
 msgid "WebUI version"
-msgstr "Web面板 版本"
+msgstr "Web面板版本"
 
 #. placeholder {0}: webUIUpdateData?.checkForWebUIUpdate.tag
 #. placeholder {1}: webUIUpdateData?.checkForWebUIUpdate.channel
