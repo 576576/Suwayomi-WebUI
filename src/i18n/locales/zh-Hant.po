@@ -2521,7 +2521,7 @@ msgstr "小說"
 
 #: src/features/browse/screens/BrowseSettings.tsx
 msgid "NSFW (18+) sources"
-msgstr "NSFW（18+）來源"
+msgstr "NSFW（18+）圖源"
 
 #: src/features/downloads/components/DownloadAheadSetting.tsx
 msgid "Number of unread chapters to download"
