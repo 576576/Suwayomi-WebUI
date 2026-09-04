@@ -2444,6 +2444,10 @@ msgstr "No chapters matching filter"
 msgid "No downloads"
 msgstr "No downloads"
 
+#: src/features/extension/store/screens/ExtensionStores.tsx
+msgid "No extension sources"
+msgstr "No extension sources"
+
 #: src/features/global-search/screens/SearchAll.tsx
 #: src/features/manga/components/MangaGrid.tsx
 #: src/features/source/browse/screens/SourceMangas.tsx

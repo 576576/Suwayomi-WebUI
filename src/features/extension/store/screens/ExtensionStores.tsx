@@ -246,6 +246,48 @@ export const ExtensionStores = () => {
         );
     }
 
+    const addButton = (
+        <StyledFab
+            variant="extended"
+            color="primary"
+            sx={{ gap: 1 }}
+            onClick={() => {
+                const addStoreDialog = AwaitableComponent.showControlled(AddExtensionStoreDialog, {
+                    startCreation: async (indexUrl) => {
+                        const request = addExtensionStore({ variables: { input: { indexUrl } } });
+
+                        addStoreDialog.update({ indexUrl, processing: true });
+
+                        try {
+                            await request;
+
+                            requestManager.clearExtensionCache();
+                            fetchExtensions().catch(defaultPromiseErrorHandler('ExtensionStores::add:fetchExtensions'));
+
+                            addStoreDialog.submit();
+                        } catch (e) {
+                            makeToast(t`Could not add extension store`, 'error', getErrorMessage(e));
+
+                            addStoreDialog.update({ processing: false });
+                        }
+                    },
+                });
+            }}
+        >
+            <AddIcon />
+            {t`Add`}
+        </StyledFab>
+    );
+
+    if (extensionStores.length === 0) {
+        return (
+            <>
+                <EmptyViewAbsoluteCentered message={t`No extension sources`} />
+                {addButton}
+            </>
+        );
+    }
+
     return (
         <Box sx={{ pb: DEFAULT_FULL_FAB_HEIGHT }}>
             <VirtuosoPersisted
@@ -256,38 +298,7 @@ export const ExtensionStores = () => {
                 computeItemKey={(index) => extensionStores[index].indexUrl}
                 itemContent={(index) => <ExtensionStoreCard {...extensionStores[index]} />}
             />
-            <StyledFab
-                variant="extended"
-                color="primary"
-                sx={{ gap: 1 }}
-                onClick={() => {
-                    const addStoreDialog = AwaitableComponent.showControlled(AddExtensionStoreDialog, {
-                        startCreation: async (indexUrl) => {
-                            const request = addExtensionStore({ variables: { input: { indexUrl } } });
-
-                            addStoreDialog.update({ indexUrl, processing: true });
-
-                            try {
-                                await request;
-
-                                requestManager.clearExtensionCache();
-                                fetchExtensions().catch(
-                                    defaultPromiseErrorHandler('ExtensionStores::add:fetchExtensions'),
-                                );
-
-                                addStoreDialog.submit();
-                            } catch (e) {
-                                makeToast(t`Could not add extension store`, 'error', getErrorMessage(e));
-
-                                addStoreDialog.update({ processing: false });
-                            }
-                        },
-                    });
-                }}
-            >
-                <AddIcon />
-                {t`Add`}
-            </StyledFab>
+            {addButton}
         </Box>
     );
 };

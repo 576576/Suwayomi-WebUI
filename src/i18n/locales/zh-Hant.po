@@ -3974,3 +3974,8 @@ msgstr "{idx, plural, one {# 個源} other {# 個源}}"
 #: src/features/backup/screens/Backup.tsx
 msgid "{dayCount, plural, one {Every day} other {Every # days}}"
 msgstr "{dayCount, plural, one {每天} other {每 # 天}}"
+
+
+#: src/features/extension/store/screens/ExtensionStores.tsx
+msgid "No extension sources"
+msgstr "沒有擴充功能來源"
