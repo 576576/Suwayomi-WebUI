@@ -53,17 +53,17 @@ export function CategorySettings() {
         ComponentProps<typeof CategorySettingsCard>['category'] | null
     >(null);
 
-    // 默认分类（服务端 default=true，名称随服务端语言，不能按名字判断）始终
-    // 置顶，且不参与排序 / 编辑 / 删除 —— 因此它不进 SortableContext，既不
-    // 能被拖动，也不会被别的分类拖到它上面。
-    const allCategories = useMemo(() => data?.categories.nodes ?? [], [data]);
-    const defaultCategory = useMemo(() => allCategories.find((category) => category.default), [allCategories]);
-    const sortableCategories = useMemo(() => allCategories.filter((category) => !category.default), [allCategories]);
+    const categories = useMemo(() => {
+        const res = [...(data?.categories.nodes ?? [])];
+        if (res.length > 0 && res[0].name === 'Default') {
+            res.shift();
+        }
+        return res;
+    }, [data]);
 
     const categoryReorder = (list: CategoryIdInfo[], from: number, to: number) => {
         const reorderedCategory = list[from];
 
-        // 默认分类占住第 0 位，可排序列表的下标 i 对应服务端位置 i + 1
         reorderCategory({ variables: { input: { id: reorderedCategory.id, position: to + 1 } } }).catch(() =>
             revertReorder(),
         );
@@ -78,10 +78,10 @@ export function CategorySettings() {
             return;
         }
 
-        const oldIndex = sortableCategories.findIndex((category) => category.id === active.id);
-        const newIndex = sortableCategories.findIndex((category) => category.id === over.id);
+        const oldIndex = categories.findIndex((category) => category.id === active.id);
+        const newIndex = categories.findIndex((category) => category.id === over.id);
 
-        categoryReorder(sortableCategories, oldIndex, newIndex);
+        categoryReorder(categories, oldIndex, newIndex);
     };
 
     const handleDialogOpen = (categoryId?: CategoryIdInfo['id']) => {
@@ -110,39 +110,33 @@ export function CategorySettings() {
 
     return (
         <>
-            <Box sx={{ paddingBottom: DEFAULT_FULL_FAB_HEIGHT }}>
-                {defaultCategory && <CategorySettingsCard category={defaultCategory} isDefault onEdit={noOp} />}
-                <DndContext
-                    sensors={dndSensors}
-                    collisionDetection={closestCenter}
-                    onDragStart={(event) =>
-                        setDndActiveCategory(
-                            sortableCategories.find((category) => category.id === event.active.id) ?? null,
-                        )
-                    }
-                    onDragEnd={onDragEnd}
-                    onDragCancel={() => setDndActiveCategory(null)}
-                    onDragAbort={() => setDndActiveCategory(null)}
-                >
-                    <SortableContext items={sortableCategories} strategy={verticalListSortingStrategy}>
-                        {sortableCategories.map((category) => (
+            <DndContext
+                sensors={dndSensors}
+                collisionDetection={closestCenter}
+                onDragStart={(event) =>
+                    setDndActiveCategory(categories.find((category) => category.id === event.active.id) ?? null)
+                }
+                onDragEnd={onDragEnd}
+                onDragCancel={() => setDndActiveCategory(null)}
+                onDragAbort={() => setDndActiveCategory(null)}
+            >
+                <Box sx={{ paddingBottom: DEFAULT_FULL_FAB_HEIGHT }}>
+                    <SortableContext items={categories} strategy={verticalListSortingStrategy}>
+                        {categories.map((category, index) => (
                             <DndSortableItem
                                 key={category.id}
                                 id={category.id}
                                 isDragging={category.id === dndActiveCategory?.id}
                             >
-                                <CategorySettingsCard
-                                    category={category}
-                                    onEdit={() => handleDialogOpen(category.id)}
-                                />
+                                <CategorySettingsCard category={category} onEdit={() => handleDialogOpen(index)} />
                             </DndSortableItem>
                         ))}
                     </SortableContext>
                     <DndOverlayItem isActive={!!dndActiveCategory}>
                         <CategorySettingsCard category={dndActiveCategory!} onEdit={noOp} />
                     </DndOverlayItem>
-                </DndContext>
-            </Box>
+                </Box>
+            </DndContext>
             <Fab
                 color="primary"
                 aria-label="add"
@@ -157,10 +151,7 @@ export function CategorySettings() {
             </Fab>
 
             {dialogOpen && (
-                <CreateOrEditCategoryDialog
-                    category={allCategories.find((category) => category.id === categoryToEdit)}
-                    onClose={handleDialogCancel}
-                />
+                <CreateOrEditCategoryDialog category={categories[categoryToEdit]} onClose={handleDialogCancel} />
             )}
         </>
     );

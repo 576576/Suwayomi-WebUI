@@ -26,12 +26,9 @@ import { getErrorMessage } from '@/lib/HelperFunctions.ts';
 export const CategorySettingsCard = ({
     category,
     onEdit,
-    isDefault = false,
 }: {
     category: CategoryIdInfo & CategoryNameInfo;
     onEdit: () => void;
-    /** 默认分类：始终置顶，不可拖动、重命名或删除 */
-    isDefault?: boolean;
 }) => {
     const { t } = useLingui();
 
@@ -52,24 +49,22 @@ export const CategorySettingsCard = ({
         <Box sx={{ p: 1, pb: 0 }}>
             <Card>
                 <ListCardContent sx={{ gap: 2 }}>
-                    {!isDefault && <DragHandleIcon />}
+                    <DragHandleIcon />
                     <Typography sx={{ flexGrow: 1 }} variant="h6" component="h2">
                         {category.name}
                     </Typography>
-                    {!isDefault && (
-                        <Stack sx={{ flexDirection: 'row' }}>
-                            <CustomTooltip title={t`Edit`}>
-                                <IconButton component={Box} onClick={onEdit}>
-                                    <EditIcon />
-                                </IconButton>
-                            </CustomTooltip>
-                            <CustomTooltip title={t`Delete`}>
-                                <IconButton component={Box} onClick={deleteCategory}>
-                                    <DeleteIcon />
-                                </IconButton>
-                            </CustomTooltip>
-                        </Stack>
-                    )}
+                    <Stack sx={{ flexDirection: 'row' }}>
+                        <CustomTooltip title={t`Edit`}>
+                            <IconButton component={Box} onClick={onEdit}>
+                                <EditIcon />
+                            </IconButton>
+                        </CustomTooltip>
+                        <CustomTooltip title={t`Delete`}>
+                            <IconButton component={Box} onClick={deleteCategory}>
+                                <DeleteIcon />
+                            </IconButton>
+                        </CustomTooltip>
+                    </Stack>
                 </ListCardContent>
             </Card>
         </Box>
