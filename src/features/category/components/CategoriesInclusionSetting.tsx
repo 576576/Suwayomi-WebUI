@@ -29,6 +29,7 @@ import type {
     CategoryUpdateInclusionInfo,
 } from '@/features/category/Category.types.ts';
 import { getErrorMessage } from '@/lib/HelperFunctions.ts';
+import { Categories } from '@/features/category/services/Categories.ts';
 
 type CategoryType = CategoryIdInfo & CategoryNameInfo & CategoryUpdateInclusionInfo & CategoryDownloadInclusionInfo;
 
@@ -75,7 +76,7 @@ const getCategoryUpdateInfo = (
         return translate`None`;
     }
 
-    return categories.map((category) => category.name).join(', ');
+    return categories.map((category) => Categories.getName(category)).join(', ');
 };
 
 type CategoryIncludeField = keyof Pick<CategoryType, 'includeInUpdate' | 'includeInDownload'>;
@@ -175,7 +176,7 @@ export const CategoriesInclusionSetting = ({
                         {dialogCategories.map((category) => (
                             <ThreeStateCheckboxInput
                                 key={category.id}
-                                label={category.name}
+                                label={Categories.getName(category)}
                                 checked={includeInUpdateStatusToBoolean(category[includeField])}
                                 onChange={(checked) => {
                                     const newIncludeState = booleanToIncludeOrExcludeStatus(checked);

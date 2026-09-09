@@ -224,7 +224,7 @@ export function CategorySelect(props: CategorySelectProps) {
                                     handleSelection(category.id, true, { key: 'categoriesToRemove' });
                                 }
                             }}
-                            label={category.name}
+                            label={Categories.getName(category)}
                             key={category.id}
                         />
                     ))}

@@ -33,6 +33,7 @@ import { DndKitUtil } from '@/lib/dnd-kit/DndKitUtil.ts';
 import { DndOverlayItem } from '@/lib/dnd-kit/DndOverlayItem.tsx';
 import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
 import { CREATE_NEW_CATEGORY_ID } from '@/features/category/Category.constants.ts';
+import { DEFAULT_CATEGORY_ID } from '@/features/category/services/Categories.ts';
 import { CreateOrEditCategoryDialog } from '@/features/category/components/CreateOrEditCategoryDialog.tsx';
 
 export function CategorySettings() {
@@ -55,7 +56,9 @@ export function CategorySettings() {
 
     const categories = useMemo(() => {
         const res = [...(data?.categories.nodes ?? [])];
-        if (res.length > 0 && res[0].name === 'Default') {
+        // 隐藏默认分类（id 0）。用 id 判定而非名称字面量 'Default'——名称是
+        // 服务端的存储值，不该作为 UI 的判定依据。
+        if (res.length > 0 && res[0].id === DEFAULT_CATEGORY_ID) {
             res.shift();
         }
         return res;

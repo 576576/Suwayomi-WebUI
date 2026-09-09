@@ -1292,6 +1292,7 @@ msgstr "Decrease auto scroll speed"
 
 #: src/base/components/buttons/SelectButton.tsx
 #: src/base/components/buttons/ValueRotationButton.tsx
+#: src/features/category/services/Categories.ts
 #: src/features/device/screens/DeviceSetting.tsx
 #: src/features/reader/settings/ReaderSettings.constants.tsx
 #: src/features/theme/Themes.ts
@@ -3921,10 +3922,9 @@ msgstr "Yesterday at {timeString}"
 msgid "Ying & Yang"
 msgstr "Ying & Yang"
 
-#. placeholder {0}: category.name
 #: src/features/category/components/CategorySettingsCard.tsx
-msgid "You are about to delete category \"{0}\""
-msgstr "You are about to delete category \"{0}\""
+msgid "You are about to delete category \"{categoryName}\""
+msgstr "You are about to delete category \"{categoryName}\""
 
 #. placeholder {0}: manga.title
 #: src/features/manga/hooks/useManageMangaLibraryState.tsx

@@ -19,6 +19,7 @@ import { CustomTooltip } from '@/base/components/CustomTooltip.tsx';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
 import { ListCardContent } from '@/base/components/lists/cards/ListCardContent.tsx';
 import type { CategoryIdInfo, CategoryNameInfo } from '@/features/category/Category.types.ts';
+import { Categories } from '@/features/category/services/Categories.ts';
 import { Confirmation } from '@/base/AppAwaitableComponent.ts';
 import { makeToast } from '@/base/utils/Toast.ts';
 import { getErrorMessage } from '@/lib/HelperFunctions.ts';
@@ -32,10 +33,12 @@ export const CategorySettingsCard = ({
 }) => {
     const { t } = useLingui();
 
+    const categoryName = Categories.getName(category);
+
     const deleteCategory = async () => {
         await Confirmation.show({
             title: t`Are you sure?`,
-            message: t`You are about to delete category "${category.name}"`,
+            message: t`You are about to delete category "${categoryName}"`,
         });
 
         try {
@@ -51,7 +54,7 @@ export const CategorySettingsCard = ({
                 <ListCardContent sx={{ gap: 2 }}>
                     <DragHandleIcon />
                     <Typography sx={{ flexGrow: 1 }} variant="h6" component="h2">
-                        {category.name}
+                        {categoryName}
                     </Typography>
                     <Stack sx={{ flexDirection: 'row' }}>
                         <CustomTooltip title={t`Edit`}>

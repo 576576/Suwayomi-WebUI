@@ -1317,6 +1317,7 @@ msgstr "降低自动滚动速度"
 #: src/base/components/buttons/ValueRotationButton.tsx
 #: src/features/backup/screens/Backup.tsx
 #: src/features/browse/screens/BrowseSettings.tsx
+#: src/features/category/services/Categories.ts
 #: src/features/device/screens/DeviceSetting.tsx
 #: src/features/downloads/screens/DownloadSettings.tsx
 #: src/features/reader/settings/ReaderSettings.constants.tsx
@@ -3931,10 +3932,9 @@ msgstr "昨天{timeString}"
 msgid "Ying & Yang"
 msgstr "阴阳"
 
-#. placeholder {0}: category.name
 #: src/features/category/components/CategorySettingsCard.tsx
-msgid "You are about to delete category \"{0}\""
-msgstr "你即将删除分类“{0}”"
+msgid "You are about to delete category \"{categoryName}\""
+msgstr "你即将删除分类“{categoryName}”"
 
 #. placeholder {0}: manga.title
 #: src/features/manga/hooks/useManageMangaLibraryState.tsx

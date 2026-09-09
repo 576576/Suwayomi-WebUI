@@ -42,6 +42,7 @@ import type {
 } from '@/lib/graphql/generated/graphql.ts';
 import { GET_CATEGORIES_LIBRARY } from '@/lib/graphql/category/CategoryQuery.ts';
 import { Mangas } from '@/features/manga/services/Mangas.ts';
+import { Categories } from '@/features/category/services/Categories.ts';
 import { MANGA_CHAPTER_STAT_FIELDS } from '@/lib/graphql/manga/MangaFragments.ts';
 import { useMetadataServerSettings } from '@/features/settings/services/ServerSettingsMetadata.ts';
 import { GET_MANGAS_COUNT } from '@/lib/graphql/manga/MangaQuery.ts';
@@ -305,7 +306,7 @@ export function Library() {
                             key={tab.id}
                             label={
                                 <TitleWithSizeTag>
-                                    {tab.name}
+                                    {Categories.getName(tab)}
                                     {showTabSize ? <TitleSizeTag label={getTabCount(tab)} /> : null}
                                 </TitleWithSizeTag>
                             }
