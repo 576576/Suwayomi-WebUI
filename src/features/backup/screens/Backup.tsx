@@ -30,6 +30,7 @@ import { EmptyViewAbsoluteCentered } from '@/base/components/feedback/EmptyViewA
 import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts';
 import { copyToClipboard, getErrorMessage } from '@/lib/HelperFunctions.ts';
 import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
+import { epochToDate, getDateString } from '@/base/utils/DateHelper.ts';
 import { BackupFlagInclusionDialog } from '@/features/backup/component/BackupFlagInclusionDialog.tsx';
 import { BackupValidationDialog } from '@/features/backup/component/BackupValidationDialog.tsx';
 import type { BackupSettingsType } from '@/features/backup/Backup.types.ts';
@@ -57,8 +58,9 @@ const FREQ_MINUTES = [
 
 const AutoBackupFrequencySetting: React.FC<{
     value: number;
+    lastBackupAt: number;
     handleChange: (minutes: number) => void;
-}> = ({ value, handleChange }) => {
+}> = ({ value, lastBackupAt, handleChange }) => {
     const { t } = useLingui();
 
     // nearest step index for the stored minutes
@@ -108,6 +110,9 @@ const AutoBackupFrequencySetting: React.FC<{
         return t`Every week`;
     };
 
+    // 上次自动备份时间：0 表示调度任务还没跑过（或已禁用后从未执行）。
+    const lastBackupText = lastBackupAt > 0 ? getDateString(epochToDate(lastBackupAt), true) : t`Never`;
+
     return (
         <ListItemButton sx={{ display: 'block', alignItems: 'center', overflowX: 'hidden' }}>
             <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
@@ -116,6 +121,9 @@ const AutoBackupFrequencySetting: React.FC<{
                     {display(shownStep)}
                 </Typography>
             </Stack>
+            <Typography color="text.secondary" variant="body2">
+                {t`Last automatic backup: ${lastBackupText}`}
+            </Typography>
             <Slider
                 value={shownStep}
                 min={0}
@@ -378,6 +386,7 @@ export function Backup() {
                     </ListItemButton>
                     <AutoBackupFrequencySetting
                         value={backupSettings.autoBackupFrequency ?? 43200}
+                        lastBackupAt={Number(aboutData?.aboutServer.lastAutoBackupAt ?? 0)}
                         handleChange={(minutes) => updateSetting('autoBackupFrequency', minutes)}
                     />
                 </List>

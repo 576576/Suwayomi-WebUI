@@ -2057,6 +2057,10 @@ msgstr "带有代码的语言:{code}"
 msgid "Large"
 msgstr "大"
 
+#: src/features/backup/screens/Backup.tsx
+msgid "Last automatic backup: {lastBackupText}"
+msgstr "上次自动备份：{lastBackupText}"
+
 #: src/features/downloads/components/DeleteChaptersWhileReadingSetting.tsx
 msgid "Last read chapter"
 msgstr "上次阅读章节"
@@ -2430,6 +2434,7 @@ msgid "Name"
 msgstr "名称"
 
 #: src/features/backup/Backup.utils.ts
+#: src/features/backup/screens/Backup.tsx
 msgid "Never"
 msgstr "从未"
 

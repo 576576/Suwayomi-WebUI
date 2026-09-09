@@ -2034,6 +2034,10 @@ msgstr "Language with code: {code}"
 msgid "Large"
 msgstr "Large"
 
+#: src/features/backup/screens/Backup.tsx
+msgid "Last automatic backup: {lastBackupText}"
+msgstr "Last automatic backup: {lastBackupText}"
+
 #: src/features/downloads/components/DeleteChaptersWhileReadingSetting.tsx
 msgid "Last read chapter"
 msgstr "Last read chapter"
@@ -2407,6 +2411,7 @@ msgid "Name"
 msgstr "Name"
 
 #: src/features/backup/Backup.utils.ts
+#: src/features/backup/screens/Backup.tsx
 msgid "Never"
 msgstr "Never"
 

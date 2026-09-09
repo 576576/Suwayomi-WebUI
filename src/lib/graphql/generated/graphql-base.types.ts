@@ -25,6 +25,8 @@ export type AboutServerPayload = {
     revision: Scalars['String']['output'];
     version: Scalars['String']['output'];
     dataDir: Scalars['String']['output'];
+    /** Epoch seconds of the last automatic backup (0 = never ran yet). Suwayomi-next 扩展字段：WebUI「数据与存储」页在自动备份频率下显示为副标题。 */
+    lastAutoBackupAt: Scalars['LongString']['output'];
 };
 
 export type AboutWebUi = {

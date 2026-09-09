@@ -8,6 +8,8 @@ export type AboutServerPayloadKeySpecifier = (
     | 'platformInfo'
     | 'revision'
     | 'version'
+    | 'dataDir'
+    | 'lastAutoBackupAt'
     | AboutServerPayloadKeySpecifier
 )[];
 export type AboutServerPayloadFieldPolicy = {
@@ -19,6 +21,8 @@ export type AboutServerPayloadFieldPolicy = {
     platformInfo?: FieldPolicy<any> | FieldReadFunction<any>;
     revision?: FieldPolicy<any> | FieldReadFunction<any>;
     version?: FieldPolicy<any> | FieldReadFunction<any>;
+    dataDir?: FieldPolicy<any> | FieldReadFunction<any>;
+    lastAutoBackupAt?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type AboutWebUIKeySpecifier = ('channel' | 'tag' | 'updateTimestamp' | AboutWebUIKeySpecifier)[];
 export type AboutWebUIFieldPolicy = {
