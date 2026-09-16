@@ -1513,6 +1513,7 @@ export type Mutation = {
     logoutTracker: LogoutTrackerPayload;
     pullKoSyncProgress?: Maybe<PullKoSyncProgressPayload>;
     pushKoSyncProgress?: Maybe<PushKoSyncProgressPayload>;
+    rebuildDownloadIndex: RebuildDownloadIndexPayload;
     refreshToken: RefreshTokenPayload;
     removeExtensionStore?: Maybe<RemoveExtensionStorePayload>;
     reorderChapterDownload?: Maybe<ReorderChapterDownloadPayload>;
@@ -1718,6 +1719,10 @@ export type MutationPullKoSyncProgressArgs = {
 
 export type MutationPushKoSyncProgressArgs = {
     input: PushKoSyncProgressInput;
+};
+
+export type MutationRebuildDownloadIndexArgs = {
+    input: RebuildDownloadIndexInput;
 };
 
 export type MutationRefreshTokenArgs = {
@@ -1970,6 +1975,7 @@ export type PartialSettingsType = Settings & {
     databaseType?: Maybe<DatabaseType>;
     databaseUrl?: Maybe<Scalars['String']['output']>;
     databaseUsername?: Maybe<Scalars['String']['output']>;
+    dataDir?: Maybe<Scalars['String']['output']>;
     debugLogsEnabled?: Maybe<Scalars['Boolean']['output']>;
     downloadAsCbz?: Maybe<Scalars['Boolean']['output']>;
     downloadConversions?: Maybe<Array<SettingsDownloadConversionType>>;
@@ -2068,6 +2074,7 @@ export type PartialSettingsTypeInput = {
     backupPath?: InputMaybe<Scalars['String']['input']>;
     backupTTL?: InputMaybe<Scalars['Int']['input']>;
     backupTime?: InputMaybe<Scalars['String']['input']>;
+    dataDir?: InputMaybe<Scalars['String']['input']>;
     databasePassword?: InputMaybe<Scalars['String']['input']>;
     databaseType?: InputMaybe<DatabaseType>;
     databaseUrl?: InputMaybe<Scalars['String']['input']>;
@@ -2361,6 +2368,17 @@ export type QueryValidateBackupArgs = {
     input: ValidateBackupInput;
 };
 
+export type RebuildDownloadIndexInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type RebuildDownloadIndexPayload = {
+    __typename?: 'RebuildDownloadIndexPayload';
+    /** 本次扫描到的章节归档数（含此前已经索引过的）。 */
+    chapters: Scalars['Int']['output'];
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+};
+
 export type RefreshTokenInput = {
     clientMutationId?: InputMaybe<Scalars['String']['input']>;
     refreshToken: Scalars['String']['input'];
@@ -2620,6 +2638,7 @@ export type Settings = {
     databaseType?: Maybe<DatabaseType>;
     databaseUrl?: Maybe<Scalars['String']['output']>;
     databaseUsername?: Maybe<Scalars['String']['output']>;
+    dataDir?: Maybe<Scalars['String']['output']>;
     debugLogsEnabled?: Maybe<Scalars['Boolean']['output']>;
     downloadAsCbz?: Maybe<Scalars['Boolean']['output']>;
     downloadConversions?: Maybe<Array<SettingsDownloadConversion>>;
@@ -2775,6 +2794,7 @@ export type SettingsType = Settings & {
     databaseType: DatabaseType;
     databaseUrl: Scalars['String']['output'];
     databaseUsername: Scalars['String']['output'];
+    dataDir: Scalars['String']['output'];
     debugLogsEnabled: Scalars['Boolean']['output'];
     downloadAsCbz: Scalars['Boolean']['output'];
     downloadConversions: Array<SettingsDownloadConversionType>;

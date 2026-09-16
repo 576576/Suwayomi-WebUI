@@ -134,6 +134,10 @@ msgstr "{availableUpdates, plural, one {# update available} other {# updates ava
 msgid "{categoryCount, plural, one {# category} other {# categories}}"
 msgstr "{categoryCount, plural, one {# category} other {# categories}}"
 
+#: src/features/backup/screens/Backup.tsx
+msgid "{chapters, plural, one {# chapter} other {# chapters}}"
+msgstr "{chapters, plural, one {# chapter} other {# chapters}}"
+
 #: src/features/manga/Manga.constants.ts
 msgid "{count, plural, one {Changed categories of manga} other {Changed categories of # manga}}"
 msgstr "{count, plural, one {Changed categories of manga} other {Changed categories of # manga}}"
@@ -891,7 +895,7 @@ msgstr "Cleanup database"
 msgid "Clear"
 msgstr "Clear"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/backup/screens/Backup.tsx
 msgid "Clear cache"
 msgstr "Clear cache"
 
@@ -899,7 +903,7 @@ msgstr "Clear cache"
 msgid "Clear notes"
 msgstr "Clear notes"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/backup/screens/Backup.tsx
 msgid "Cleared the cache"
 msgstr "Cleared the cache"
 
@@ -1046,7 +1050,7 @@ msgstr "Could not check for update"
 msgid "Could not check for updates"
 msgstr "Could not check for updates"
 
-#: src/features/settings/screens/ServerSettings.tsx
+#: src/features/backup/screens/Backup.tsx
 msgid "Could not clear the cache"
 msgstr "Could not clear the cache"
 
@@ -1142,6 +1146,10 @@ msgstr "Could not migrate manga"
 #: src/features/library/components/LibraryToolbarMenu.tsx
 msgid "Could not open random entry"
 msgstr "Could not open random entry"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Could not rebuild the download index"
+msgstr "Could not rebuild the download index"
 
 #: src/features/downloads/screens/DownloadQueue.tsx
 msgid "Could not remove all downloads from the queue"
@@ -1425,6 +1433,10 @@ msgstr "Destination — {0}"
 msgid "Devices"
 msgstr "Devices"
 
+#: src/features/backup/screens/Backup.tsx
+msgid "Directory the server keeps its data in (downloads, local sources, automated backups). The database file is kept separately, so changing this will not lose any settings. Takes effect after a restart."
+msgstr "Directory the server keeps its data in (downloads, local sources, automated backups). The database file is kept separately, so changing this will not lose any settings. Takes effect after a restart."
+
 #: src/features/settings/Settings.constants.ts
 msgid "Disable authentication"
 msgstr "Disable authentication"
@@ -1502,6 +1514,10 @@ msgid "Download badges"
 msgstr "Download badges"
 
 #: src/features/backup/screens/Backup.tsx
+msgid "Download index rebuilt: {chaptersText}"
+msgstr "Download index rebuilt: {chaptersText}"
+
+#: src/features/backup/screens/Backup.tsx
 msgid "Download location"
 msgstr "Download location"
 
@@ -1560,6 +1576,7 @@ msgstr "Dynamic theme colors on manga page"
 msgid "Edge"
 msgstr "Edge"
 
+#: src/base/components/settings/text/PathSetting.tsx
 #: src/features/category/components/CategorySelect.tsx
 #: src/features/category/components/CategorySettingsCard.tsx
 #: src/features/manga/components/details/MangaNotes.tsx
@@ -1811,6 +1828,10 @@ msgstr "Fit screen"
 #: src/features/reader/settings/ReaderSettings.constants.tsx
 msgid "Fit width"
 msgstr "Fit width"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Force a rescan of already downloaded chapters"
+msgstr "Force a rescan of already downloaded chapters"
 
 #: src/features/theme/Themes.ts
 msgid "Forest Dew"
@@ -2918,6 +2939,10 @@ msgstr "Reading direction"
 msgid "Reading mode"
 msgstr "Reading mode"
 
+#: src/features/backup/screens/Backup.tsx
+msgid "Rebuild download index"
+msgstr "Rebuild download index"
+
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Recently added"
 msgstr "Recently added"
@@ -3501,6 +3526,10 @@ msgstr "Stop global update"
 #: src/features/backup/screens/Backup.tsx
 msgid "Storage location"
 msgstr "Storage location"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Storage management"
+msgstr "Storage management"
 
 #: src/features/reader/overlay/navigation/desktop/quick-settings/components/ReaderNavBarDesktopPageScale.tsx
 #: src/features/reader/settings/layout/components/ReaderSettingStretchPage.tsx

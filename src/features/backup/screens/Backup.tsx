@@ -7,6 +7,7 @@
  */
 
 import { useEffect, useRef, useState } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -24,17 +25,18 @@ import { requestManager } from '@/lib/requests/RequestManager.ts';
 import { makeToast } from '@/base/utils/Toast.ts';
 import { BackupRestoreState } from '@/lib/graphql/generated/graphql-base.types.ts';
 import { CircularProgressWithText } from '@/base/components/feedback/CircularProgressWithText.tsx';
-import { TextSetting } from '@/base/components/settings/text/TextSetting.tsx';
+import { PathSetting } from '@/base/components/settings/text/PathSetting.tsx';
 import { LoadingPlaceholder } from '@/base/components/feedback/LoadingPlaceholder.tsx';
 import { EmptyViewAbsoluteCentered } from '@/base/components/feedback/EmptyViewAbsoluteCentered.tsx';
 import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts';
-import { copyToClipboard, getErrorMessage } from '@/lib/HelperFunctions.ts';
+import { getErrorMessage } from '@/lib/HelperFunctions.ts';
 import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
 import { epochToDate, getDateString } from '@/base/utils/DateHelper.ts';
 import { BackupFlagInclusionDialog } from '@/features/backup/component/BackupFlagInclusionDialog.tsx';
 import { BackupValidationDialog } from '@/features/backup/component/BackupValidationDialog.tsx';
 import type { BackupSettingsType } from '@/features/backup/Backup.types.ts';
 import type { ServerSettings } from '@/features/settings/Settings.types.ts';
+import { ImageCache } from '@/lib/service-worker/ImageCache.ts';
 
 let backupRestoreId: string | undefined;
 
@@ -144,8 +146,10 @@ export function Backup() {
 
     const { data: settingsData, loading, error, refetch } = requestManager.useGetServerSettings();
     const { data: aboutData } = requestManager.useGetAbout();
-    const dataDir = aboutData?.aboutServer.dataDir;
     const [mutateSettings] = requestManager.useUpdateServerSettings();
+    const [triggerRebuildDownloadIndex, { loading: isRebuildingDownloadIndex }] =
+        requestManager.useRebuildDownloadIndex();
+    const [triggerClearServerCache, { loading: isClearingServerCache }] = requestManager.useClearServerCache();
 
     const { data } = requestManager.useGetBackupRestoreStatus(backupRestoreId ?? '', {
         skip: !backupRestoreId,
@@ -172,6 +176,32 @@ export function Backup() {
         mutateSettings({ variables: { input: { settings: { [setting]: value } } } }).catch((e) =>
             makeToast(t`Failed to save changes`, 'error', getErrorMessage(e)),
         );
+    };
+
+    // 存储管理 —— 重建下载索引：让服务端重新扫 <存储位置>/downloads 对账数据库
+    const rebuildDownloadIndex = async () => {
+        try {
+            const response = await triggerRebuildDownloadIndex({ variables: { input: {} } });
+            const chapters = response.data?.rebuildDownloadIndex.chapters ?? 0;
+            const chaptersText = plural(chapters, { one: '# chapter', other: '# chapters' });
+            makeToast(t`Download index rebuilt: ${chaptersText}`, 'success');
+        } catch (e) {
+            makeToast(t`Could not rebuild the download index`, 'error', getErrorMessage(e));
+        }
+    };
+
+    // 存储管理 —— 清除缓存（原先在「服务端设置」子页）：服务端图片缓存 + 浏览器
+    // Service Worker 里的图片缓存，两边都要清，只清一边等于没清
+    const clearCache = async () => {
+        try {
+            await Promise.all([
+                triggerClearServerCache({ variables: { input: { cachedPages: true, cachedThumbnails: true } } }),
+                ImageCache.clearAll(),
+            ]);
+            makeToast(t`Cleared the cache`, 'success');
+        } catch (e) {
+            makeToast(t`Could not clear the cache`, 'error', getErrorMessage(e));
+        }
     };
 
     useEffect(() => {
@@ -327,39 +357,70 @@ export function Backup() {
 
     const backupSettings = settingsData!.settings as ServerSettings;
 
-    // 占位符用本地化的「存储位置」文案 + 中括号，如 [存储位置]/autobackup
-    const dirPlaceholder = (folder: string) => `[${t`Storage location`}]/${folder}`;
+    // 存储位置：设置里显式填了就用它，否则用服务端解析出来的默认目录
+    const storageLocation = backupSettings.dataDir?.length
+        ? backupSettings.dataDir
+        : (aboutData?.aboutServer.dataDir ?? '');
+
+    // 分隔符跟**服务端**走（从实际目录就能看出来），不要猜客户端系统：WebUI 可能
+    // 开在手机上而服务端在 Windows 上。原来这里写死 `/`，windows 上就成了
+    // `...\data/downloads` 这种正反斜杠混用。
+    const storageSeparator = storageLocation.includes('\\') && !storageLocation.includes('/') ? '\\' : '/';
+
+    // 下面三个位置没设置过时，行上只给「这个目录是从哪来的」提示：
+    // [存储位置]/downloads；真实的完整路径留给整行单击复制（见 PathSetting 的
+    // copyValue）—— 展示短、复制可用。
+    const storagePlaceholder = (folder: string) => `[${t`Storage location`}]${storageSeparator}${folder}`;
+    const storageSubPath = (folder: string) =>
+        storageLocation ? `${storageLocation.replace(/[\\/]+$/, '')}${storageSeparator}${folder}` : '';
 
     return (
         <>
             <List sx={{ padding: 0 }}>
-                <ListItemButton onClick={() => dataDir && void copyToClipboard(dataDir)}>
-                    <ListItemText primary={t`Storage location`} secondary={dataDir ?? t`Unable to load data`} />
-                </ListItemButton>
-                <TextSetting
+                <PathSetting
+                    settingName={t`Storage location`}
+                    dialogDescription={t`Directory the server keeps its data in (downloads, local sources, automated backups). The database file is kept separately, so changing this will not lose any settings. Takes effect after a restart.`}
+                    value={backupSettings.dataDir ?? ''}
+                    displayedPath={storageLocation}
+                    handleChange={(path) => updateSetting('dataDir', path)}
+                />
+                <PathSetting
                     settingName={t`Download location`}
                     dialogDescription={t`The path to the directory on the server where downloads should get saved in`}
                     value={backupSettings.downloadsPath}
-                    settingDescription={
-                        backupSettings.downloadsPath.length ? backupSettings.downloadsPath : dirPlaceholder('downloads')
+                    displayedPath={
+                        backupSettings.downloadsPath.length
+                            ? backupSettings.downloadsPath
+                            : storagePlaceholder('downloads')
+                    }
+                    copyValue={
+                        backupSettings.downloadsPath.length ? backupSettings.downloadsPath : storageSubPath('downloads')
                     }
                     handleChange={(path) => updateSetting('downloadsPath', path)}
                 />
-                <TextSetting
+                <PathSetting
                     settingName={t`Local source location`}
                     dialogDescription={t`The path to the directory on the server where local source files are saved in`}
                     value={backupSettings.localSourcePath}
-                    settingDescription={
-                        backupSettings.localSourcePath.length ? backupSettings.localSourcePath : dirPlaceholder('local')
+                    displayedPath={
+                        backupSettings.localSourcePath.length
+                            ? backupSettings.localSourcePath
+                            : storagePlaceholder('local')
+                    }
+                    copyValue={
+                        backupSettings.localSourcePath.length ? backupSettings.localSourcePath : storageSubPath('local')
                     }
                     handleChange={(path) => updateSetting('localSourcePath', path)}
                 />
-                <TextSetting
+                <PathSetting
                     settingName={t`Backup location`}
                     dialogDescription={t`The path to the directory on the server where automated backups should get saved in`}
                     value={backupSettings.backupPath}
-                    settingDescription={
-                        backupSettings.backupPath.length ? backupSettings.backupPath : dirPlaceholder('autobackup')
+                    displayedPath={
+                        backupSettings.backupPath.length ? backupSettings.backupPath : storagePlaceholder('autobackup')
+                    }
+                    copyValue={
+                        backupSettings.backupPath.length ? backupSettings.backupPath : storageSubPath('autobackup')
                     }
                     handleChange={(path) => updateSetting('backupPath', path)}
                 />
@@ -389,6 +450,28 @@ export function Backup() {
                         lastBackupAt={Number(aboutData?.aboutServer.lastAutoBackupAt ?? 0)}
                         handleChange={(minutes) => updateSetting('autoBackupFrequency', minutes)}
                     />
+                </List>
+                <List
+                    subheader={
+                        <ListSubheader component="div" id="storage-management">
+                            {t`Storage management`}
+                        </ListSubheader>
+                    }
+                >
+                    <ListItemButton disabled={isRebuildingDownloadIndex} onClick={() => void rebuildDownloadIndex()}>
+                        <ListItemText
+                            primary={t`Rebuild download index`}
+                            secondary={t`Force a rescan of already downloaded chapters`}
+                        />
+                        {isRebuildingDownloadIndex ? (
+                            <ListItemIcon>
+                                <CircularProgress size={24} />
+                            </ListItemIcon>
+                        ) : null}
+                    </ListItemButton>
+                    <ListItemButton disabled={isClearingServerCache} onClick={() => void clearCache()}>
+                        <ListItemText primary={t`Clear cache`} />
+                    </ListItemButton>
                 </List>
             </List>
             <input ref={mergedInputRef} type="file" style={{ display: 'none' }} />

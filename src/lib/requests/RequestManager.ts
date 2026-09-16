@@ -112,6 +112,8 @@ import type {
     KoSyncLoginMutationVariables,
     KoSyncLogoutMutation,
     KoSyncLogoutMutationVariables,
+    RebuildDownloadIndexMutation,
+    RebuildDownloadIndexMutationVariables,
     RefreshMangaMutation,
     RefreshMangaMutationVariables,
     RemoveExtensionStoreMutation,
@@ -297,7 +299,7 @@ import {
 import { STOP_UPDATER, UPDATE_LIBRARY } from '@/lib/graphql/updater/UpdaterMutation.ts';
 import { GET_LAST_UPDATE_TIMESTAMP, GET_UPDATE_STATUS } from '@/lib/graphql/updater/UpdaterQuery.ts';
 import { CustomCache } from '@/lib/storage/CustomCache.ts';
-import { CREATE_BACKUP, RESTORE_BACKUP } from '@/lib/graphql/backup/BackupMutation.ts';
+import { CREATE_BACKUP, REBUILD_DOWNLOAD_INDEX, RESTORE_BACKUP } from '@/lib/graphql/backup/BackupMutation.ts';
 import { GET_RESTORE_STATUS, VALIDATE_BACKUP } from '@/lib/graphql/backup/BackupQuery.ts';
 import { DOWNLOAD_STATUS_SUBSCRIPTION } from '@/lib/graphql/download/DownloaderSubscription.ts';
 import { UPDATER_SUBSCRIPTION } from '@/lib/graphql/updater/UpdaterSubscription.ts';
@@ -3828,6 +3830,27 @@ export class RequestManager {
         options?: MutationHookOptions<ClearServerCacheMutation, ClearServerCacheMutationVariables>,
     ): AbortableApolloUseMutationResponse<ClearServerCacheMutation, ClearServerCacheMutationVariables> {
         return this.doRequest(GQLMethod.USE_MUTATION, CLEAR_SERVER_CACHE, { input: {} }, options);
+    }
+
+    public useRebuildDownloadIndex(
+        options?: MutationHookOptions<RebuildDownloadIndexMutation, RebuildDownloadIndexMutationVariables>,
+    ): AbortableApolloUseMutationResponse<RebuildDownloadIndexMutation, RebuildDownloadIndexMutationVariables> {
+        return this.doRequest(
+            GQLMethod.USE_MUTATION,
+            REBUILD_DOWNLOAD_INDEX,
+            { input: {} },
+            {
+                // 重建改的是 chapter.is_downloaded / real_url，还可能凭空多出几行章节，
+                // 缓存里的章节与漫画列表必须作废 —— 否则用户从设置页回到下载页，看到的
+                // 还是重建前的状态，会以为按钮没生效
+                update: (cache) => {
+                    cache.evict({ fieldName: 'chapters' });
+                    cache.evict({ fieldName: 'mangas' });
+                    cache.gc();
+                },
+                ...options,
+            },
+        );
     }
 
     public useGetMigratableSources(

@@ -32,6 +32,15 @@ export type RestoreBackupMutation = {
     };
 };
 
+export type RebuildDownloadIndexMutationVariables = Exact<{
+    input: Types.RebuildDownloadIndexInput;
+}>;
+
+export type RebuildDownloadIndexMutation = {
+    __typename: 'Mutation';
+    rebuildDownloadIndex: { __typename: 'RebuildDownloadIndexPayload'; chapters: number };
+};
+
 export type ValidateBackupQueryVariables = Exact<{
     backup: unknown;
 }>;
@@ -3495,6 +3504,7 @@ export type GetServerSettingsQuery = {
         autoBackupIncludeManga: boolean;
         autoBackupIncludeServerSettings: boolean;
         autoBackupIncludeTracking: boolean;
+        dataDir: string;
         localSourcePath: string;
         flareSolverrEnabled: boolean;
         flareSolverrUrl: string;

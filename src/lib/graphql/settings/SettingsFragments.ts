@@ -100,6 +100,9 @@ export const SERVER_SETTINGS = gql`
         autoBackupIncludeServerSettings
         autoBackupIncludeTracking
 
+        # storage location（留空 = 用默认目录；数据库文件不在这个目录下）
+        dataDir
+
         # local source
         localSourcePath
 

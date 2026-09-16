@@ -50,7 +50,6 @@ import { BackupFlagInclusionDialog } from '@/features/backup/component/BackupFla
 import { convertToAutoBackupFlags, getAutoBackupFlagsInfo } from '@/features/backup/Backup.utils.ts';
 import type { BackupFlagInclusionState } from '@/features/backup/Backup.types.ts';
 import { getDateString } from '@/base/utils/DateHelper.ts';
-import { ImageCache } from '@/lib/service-worker/ImageCache.ts';
 
 const convertSyncDataToBackupFlags = (settings: ServerSettingsType): BackupFlagInclusionState => ({
     includeManga: settings.syncDataManga,
@@ -96,20 +95,6 @@ export const ServerSettings = () => {
     const [mutateSettings] = requestManager.useUpdateServerSettings();
 
     const koSyncStatus = requestManager.useKoSyncStatus();
-
-    const [triggerClearServerCache, { loading: isClearingServerCache }] = requestManager.useClearServerCache();
-
-    const clearCache = async () => {
-        try {
-            await Promise.all([
-                triggerClearServerCache({ variables: { input: { cachedPages: true, cachedThumbnails: true } } }),
-                ImageCache.clearAll(),
-            ]);
-            makeToast(t`Cleared the cache`, 'success');
-        } catch (e) {
-            makeToast(t`Could not clear the cache`, 'error', getErrorMessage(e));
-        }
-    };
 
     const updateSetting = async <Setting extends keyof ServerSettingsType>(
         setting: Setting,
@@ -184,10 +169,6 @@ export const ServerSettings = () => {
 
     return (
         <List sx={{ pt: 0 }}>
-            {/* 原先在「高级」页最顶上，改为一并放进服务端设置（不再带副标题）。 */}
-            <ListItemButton disabled={isClearingServerCache} onClick={clearCache}>
-                <ListItemText primary={t`Clear cache`} />
-            </ListItemButton>
             <List
                 subheader={
                     <ListSubheader component="div" id="server-settings-server-address">

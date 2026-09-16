@@ -34,11 +34,6 @@ msgstr "{0, plural, one {# 章} other {# 章}}"
 msgid "{0, plural, one {# Chapter} other {# Chapters}}"
 msgstr "{0, plural, one {# 章} other {# 章}}"
 
-#. placeholder {0}: backupSettings.backupInterval
-#: src/features/backup/screens/Backup.tsx
-msgid "{0, plural, one {# day} other {# days}}"
-msgstr "{0, plural, one {# 天} other {# 天}}"
-
 #. placeholder {0}: selectedItemIds.length
 #: src/features/library/screens/Library.tsx
 msgid "{0, plural, one {# manga} other {# manga}}"
@@ -48,11 +43,6 @@ msgstr "{0, plural, one {# 部漫画} other {# 部漫画}}"
 #: src/features/reader/auto-scroll/settings/ReaderSettingAutoScroll.tsx
 msgid "{0, plural, one {# second} other {# seconds}}"
 msgstr "{0, plural, one {# 秒} other {# 秒}}"
-
-#. placeholder {0}: serverSettings.maxSourcesInParallel
-#: src/features/browse/screens/BrowseSettings.tsx
-msgid "{0, plural, one {# Source} other {# Sources}}"
-msgstr "{0, plural, one {# 个图源} other {# 个图源}}"
 
 #. placeholder {0}: trackersInUse.length
 #: src/features/manga/components/TrackMangaButton.tsx
@@ -136,11 +126,6 @@ msgstr "{0} / {1}"
 msgid "{0} / {1}{2}"
 msgstr "{0} / {1}{2}"
 
-#. placeholder {0}: updateStatus.progress
-#: src/features/app-updates/components/WebUIUpdateChecker.tsx
-msgid "{0}% | Updating…"
-msgstr "{0}% | 更新中……"
-
 #: src/features/navigation-bar/NavigationBar.constants.ts
 msgid "{availableUpdates, plural, one {# update available} other {# updates available}}"
 msgstr "{availableUpdates, plural, one {# 个可用的更新} other {# 个可用的更新}}"
@@ -148,6 +133,10 @@ msgstr "{availableUpdates, plural, one {# 个可用的更新} other {# 个可用
 #: src/features/library/screens/LibrarySettings.tsx
 msgid "{categoryCount, plural, one {# category} other {# categories}}"
 msgstr "{categoryCount, plural, one {# 个分类} other {# 个分类}}"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "{chapters, plural, one {# chapter} other {# chapters}}"
+msgstr "{chapters, plural, one {# 章} other {# 章}}"
 
 #: src/features/manga/Manga.constants.ts
 msgid "{count, plural, one {Changed categories of manga} other {Changed categories of # manga}}"
@@ -307,6 +296,10 @@ msgstr "{currentAutoUpdateIntervalHours}小时"
 msgid "{currentDownloadAheadLimit, plural, one {# Chapter} other {# Chapters}}"
 msgstr "{currentDownloadAheadLimit, plural, one {# 章} other {# 章}}"
 
+#: src/features/backup/screens/Backup.tsx
+msgid "{dayCount, plural, one {Every day} other {Every # days}}"
+msgstr "{dayCount, plural, one {每天} other {每 # 天}}"
+
 #: src/features/extension/store/screens/ExtensionStores.tsx
 msgid "{extensionCount, plural, one {# extension} other {# extensions}}"
 msgstr "{extensionCount, plural, one {# 个扩展} other {# 个扩展}}"
@@ -314,6 +307,14 @@ msgstr "{extensionCount, plural, one {# 个扩展} other {# 个扩展}}"
 #: src/features/browse/screens/BrowseSettings.tsx
 msgid "{extensionStoreCount, plural, one {# extension store} other {# extension stores}}"
 msgstr "{extensionStoreCount, plural, one {# 个扩展商店} other {# 个扩展商店}}"
+
+#: src/features/browse/screens/BrowseSettings.tsx
+msgid "{idx, plural, one {# Source} other {# Sources}}"
+msgstr "{idx, plural, one {# 个源} other {# 个源}}"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "{idx, plural, one {Every hour} other {Every # hours}}"
+msgstr "{idx, plural, one {每小时} other {每 # 小时}}"
 
 #: src/features/extension/store/screens/ExtensionStores.tsx
 msgid "{installedExtensionCount, plural, one {# installed} other {# installed}}"
@@ -474,10 +475,6 @@ msgstr "透明通道"
 msgid "Also remove from {0}"
 msgstr "同时从{0}中移除"
 
-#: src/features/manga/components/details/MangaDetails.tsx
-msgid "Alternative title: {altTitle}"
-msgstr ""
-
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/Settings.tsx
 msgid "Appearance"
@@ -505,8 +502,17 @@ msgid "Artist"
 msgstr "画师"
 
 #: src/features/migration/Migration.constants.ts
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Ascending"
 msgstr "升序"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Authentication"
+msgstr "认证"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Authentication Mode"
+msgstr "验证模式"
 
 #: src/features/manga/components/details/MangaDetails.tsx
 msgid "Author"
@@ -517,6 +523,10 @@ msgstr "作者"
 #: src/features/reader/settings/general/components/ReaderSettingBackgroundColor.tsx
 msgid "Auto"
 msgstr "自动"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Auto backup frequency"
+msgstr "自动备份频率"
 
 #: src/features/downloads/components/DownloadAheadSetting.tsx
 msgid "Auto download while reading"
@@ -539,10 +549,6 @@ msgstr "自动条漫模式"
 msgid "Auto-download"
 msgstr "自动下载"
 
-#: src/features/backup/screens/Backup.tsx
-msgid "Automated backup"
-msgstr "自动备份"
-
 #: src/features/reader/overlay/progress-bar/settings/components/ReaderSettingProgressBarPosition.tsx
 msgid "Automatic progress bar vertical position"
 msgstr "自动垂直进度条"
@@ -558,6 +564,10 @@ msgstr "自动更新"
 #: src/features/settings/components/webUI/WebUIUpdateIntervalSetting.tsx
 msgid "Automatically download the latest version"
 msgstr "自动下载最新版本"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Automatically mark chapters as read when you download them."
+msgstr "下载后自动标记章节为已读。"
 
 #: src/features/settings/components/globalUpdate/GlobalUpdateSettings.tsx
 msgid "Automatically refresh metadata"
@@ -592,16 +602,8 @@ msgid "Background color"
 msgstr "背景色"
 
 #: src/features/backup/screens/Backup.tsx
-msgid "Backup cleanup"
-msgstr "清理备份"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "Backup data"
-msgstr "数据备份"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "Backup interval"
-msgstr "备份间隔"
+msgid "Backup & Restore"
+msgstr "备份与还原"
 
 #: src/features/backup/screens/Backup.tsx
 msgid "Backup location"
@@ -610,10 +612,6 @@ msgstr "备份位置"
 #: src/features/backup/screens/Backup.tsx
 msgid "Backup restored."
 msgstr "备份已恢复。"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "Backup time"
-msgstr "备份时间"
 
 #: src/features/backup/component/BackupValidationDialog.tsx
 msgid "Backup validation"
@@ -634,6 +632,10 @@ msgstr "行为"
 #: src/features/settings/Settings.constants.ts
 msgid "Binary"
 msgstr "二进制"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Binary file size"
+msgstr "二进制文件体积"
 
 #: src/features/reader/settings/general/components/ReaderSettingBackgroundColor.tsx
 msgid "Black"
@@ -801,6 +803,10 @@ msgstr "分类名称"
 msgid "Category selection dialog"
 msgstr "类别选择对话框"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "CBZ MIME-Type"
+msgstr "CBZ MIME 类型"
+
 #: src/features/manga/Manga.constants.ts
 msgid "Change categories"
 msgstr "更改分类名"
@@ -845,6 +851,10 @@ msgstr "章节列表"
 msgid "Chapter number"
 msgstr "章节数"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Chapter sort order"
+msgstr "章节排序"
+
 #: src/features/reader/services/ReaderControls.ts
 msgid "Chapter transition warning"
 msgstr "章节切换警告"
@@ -861,6 +871,10 @@ msgstr "检查描述"
 msgid "Check for new cover and details when updating library"
 msgstr "更新书架时检查新的封面和简介"
 
+#: src/features/settings/screens/About.tsx
+msgid "Check for updates on startup"
+msgstr "启动时检查更新"
+
 #: src/features/source/browse/screens/SourceMangas.tsx
 msgid "Check out"
 msgstr "查看"
@@ -868,6 +882,10 @@ msgstr "查看"
 #: src/features/app-updates/components/VersionInfo.tsx
 msgid "Checking for update"
 msgstr "正在检查更新"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Choose the order in which chapters are displayed."
+msgstr "选择章节展示顺序。"
 
 #: src/features/library/screens/LibrarySettings.tsx
 msgid "Cleanup database"
@@ -877,7 +895,7 @@ msgstr "清理数据库"
 msgid "Clear"
 msgstr "清除"
 
-#: src/features/settings/screens/AdvancedSettings.tsx
+#: src/features/backup/screens/Backup.tsx
 msgid "Clear cache"
 msgstr "清除缓存"
 
@@ -885,7 +903,7 @@ msgstr "清除缓存"
 msgid "Clear notes"
 msgstr ""
 
-#: src/features/settings/screens/AdvancedSettings.tsx
+#: src/features/backup/screens/Backup.tsx
 msgid "Cleared the cache"
 msgstr "已清除缓存"
 
@@ -923,6 +941,10 @@ msgstr "美漫"
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Compact grid"
 msgstr "紧凑网格"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Compatible"
+msgstr "兼容"
 
 #: src/features/manga/Manga.constants.ts
 msgid "Completed"
@@ -980,6 +1002,12 @@ msgstr "连续水平滚动"
 msgid "Continuous vertical"
 msgstr "连续竖直滚动"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Controls the MimeType that Suwayomi sends in OPDS entries for CBZ archives. Also affects global CBZ download.\n"
+"Modern follows recent IANA standard (2017), while LEGACY (deprecated mimetype for .cbz) and COMPATIBLE (deprecated mimetype for all comic archives) might be more compatible with older clients."
+msgstr "控制 Suwayomi 在 OPDS 条目中为 CBZ 压缩包发送的 MIME 类型，同时也会影响全局 CBZ 下载。\n"
+"Modern 遵循最新的 IANA 标准（2017），而 LEGACY（已弃用的 .cbz MIME 类型）和 COMPATIBLE（已弃用的所有漫画压缩包 MIME 类型）可能对旧版客户端更兼容。"
+
 #: src/features/settings/Settings.constants.ts
 msgid "Convert images to different formats"
 msgstr "将图片转换为其他格式"
@@ -1022,7 +1050,7 @@ msgstr "无法检查更新"
 msgid "Could not check for updates"
 msgstr "无法检查更新"
 
-#: src/features/settings/screens/AdvancedSettings.tsx
+#: src/features/backup/screens/Backup.tsx
 msgid "Could not clear the cache"
 msgstr "无法清除缓存"
 
@@ -1119,6 +1147,10 @@ msgstr "无法迁移漫画"
 msgid "Could not open random entry"
 msgstr "无法打开随机条目"
 
+#: src/features/backup/screens/Backup.tsx
+msgid "Could not rebuild the download index"
+msgstr "无法重建下载索引"
+
 #: src/features/downloads/screens/DownloadQueue.tsx
 msgid "Could not remove all downloads from the queue"
 msgstr "无法从队列中删除所有下载"
@@ -1177,6 +1209,10 @@ msgstr "无法保存主题修改的内容"
 msgid "Could not search source"
 msgstr "无法搜索图源"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Could not start sync"
+msgstr "无法开始同步"
+
 #: src/features/updates/components/UpdateChecker.tsx
 msgid "Could not stop global update"
 msgstr "无法停止全局更新"
@@ -1189,10 +1225,6 @@ msgstr "无法追踪漫画"
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "Could not untrack manga"
 msgstr "无法取消此漫画的追踪"
-
-#: src/features/app-updates/components/WebUIUpdateChecker.tsx
-msgid "Could not update WebUI"
-msgstr "无法更新 Web面板"
 
 #: src/features/backup/screens/Backup.tsx
 msgid "Could not validate backup"
@@ -1306,10 +1338,6 @@ msgstr "变暗"
 msgid "Data & Storage"
 msgstr "数据与存储"
 
-#: src/features/backup/screens/Backup.tsx
-msgid "Day"
-msgstr "日"
-
 #: src/features/settings/components/DebugInformation.tsx
 msgid "Debug information"
 msgstr "调试信息"
@@ -1320,11 +1348,8 @@ msgstr "降低自动滚动速度"
 
 #: src/base/components/buttons/SelectButton.tsx
 #: src/base/components/buttons/ValueRotationButton.tsx
-#: src/features/backup/screens/Backup.tsx
-#: src/features/browse/screens/BrowseSettings.tsx
 #: src/features/category/services/Categories.ts
 #: src/features/device/screens/DeviceSetting.tsx
-#: src/features/downloads/screens/DownloadSettings.tsx
 #: src/features/reader/settings/ReaderSettings.constants.tsx
 #: src/features/theme/Themes.ts
 msgid "Default"
@@ -1386,12 +1411,9 @@ msgid "Deleting theme \"{0}\"…"
 msgstr "正在删除主题“{0}”……"
 
 #: src/features/migration/Migration.constants.ts
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Descending"
 msgstr "降序"
-
-#: src/features/manga/components/details/MangaDetails.tsx
-msgid "Description"
-msgstr ""
 
 #: src/features/chapter/components/cards/ChapterCard.tsx
 #: src/features/manga/components/MangaOptionButton.tsx
@@ -1410,6 +1432,10 @@ msgstr "目标位置 — {0}"
 #: src/features/device/screens/DeviceSetting.tsx
 msgid "Devices"
 msgstr "设备"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Directory the server keeps its data in (downloads, local sources, automated backups). The database file is kept separately, so changing this will not lose any settings. Takes effect after a restart."
+msgstr "服务器存放数据的目录（下载、本地图源、自动备份）。数据库文件单独存放，因此修改此目录不会丢失任何设置。重启后生效。"
 
 #: src/features/settings/Settings.constants.ts
 msgid "Disable authentication"
@@ -1435,6 +1461,10 @@ msgstr "已断开"
 #: src/features/settings/screens/Appearance.tsx
 msgid "Display"
 msgstr "显示"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Display file sizes in binary (KiB, MiB, GiB) instead of decimal (KB, MB, GB)"
+msgstr "以二进制单位（KiB、MiB、GiB）显示文件大小，而非十进制单位（KB、MB、GB）"
 
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Display mode"
@@ -1483,7 +1513,11 @@ msgstr "提前下载 ({count})"
 msgid "Download badges"
 msgstr "已下载数量"
 
-#: src/features/downloads/screens/DownloadSettings.tsx
+#: src/features/backup/screens/Backup.tsx
+msgid "Download index rebuilt: {chaptersText}"
+msgstr "下载索引已重建：{chaptersText}"
+
+#: src/features/backup/screens/Backup.tsx
 msgid "Download location"
 msgstr "下载位置"
 
@@ -1542,6 +1576,7 @@ msgstr "动态调整漫画页面的主题颜色"
 msgid "Edge"
 msgstr "边缘"
 
+#: src/base/components/settings/text/PathSetting.tsx
 #: src/features/category/components/CategorySelect.tsx
 #: src/features/category/components/CategorySettingsCard.tsx
 #: src/features/manga/components/details/MangaNotes.tsx
@@ -1577,6 +1612,10 @@ msgstr "Electron"
 #: src/features/reader/settings/general/components/ReaderSettingBackgroundColor.tsx
 msgid "Enable auto background color in continuous reading mode"
 msgstr "连续阅读模式下自动调整背景颜色"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Enable page read progress"
+msgstr "启用页面阅读进度"
 
 #: src/features/downloads/screens/DownloadSettings.tsx
 msgid "Entries in excluded categories will not be downloaded even if they are also in included categories"
@@ -1621,9 +1660,18 @@ msgstr "每30分钟"
 msgid "Every 6 hours"
 msgstr "每6小时"
 
+#: src/features/backup/screens/Backup.tsx
+msgid "Every day"
+msgstr "每天"
+
+#: src/features/backup/screens/Backup.tsx
 #: src/features/settings/Settings.constants.ts
 msgid "Every hour"
 msgstr "每小时"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Every week"
+msgstr "每周"
 
 #: src/features/migration/components/migration-entry/MigrationEntrySearchExcludeActions.tsx
 msgid "Exclude"
@@ -1633,10 +1681,13 @@ msgstr "排除"
 msgid "Exclude scanlators"
 msgstr "排除搬运组"
 
-#: src/features/backup/screens/Backup.tsx
 #: src/features/category/components/CategoriesInclusionSetting.tsx
 msgid "Exclude: {excludedCategoriesText}"
 msgstr "排除: {excludedCategoriesText}"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Exclude: {excludedSyncDataText}"
+msgstr "排除：{excludedSyncDataText}"
 
 #: src/features/migration/Migration.constants.ts
 msgid "Excluded"
@@ -1701,6 +1752,7 @@ msgstr "断开KOReader同步服务器失败。"
 #: src/features/settings/screens/About.tsx
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/ImageProcessingSetting.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 #: src/features/source/browse/screens/SourceMangas.tsx
 #: src/features/source/components/SourceLanguageSelect.tsx
 #: src/features/source/configuration/screens/SourceConfigure.tsx
@@ -1744,6 +1796,14 @@ msgstr "筛选"
 msgid "Filter and sort"
 msgstr "筛选与排序"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Filter manga feed to display only chapters you have downloaded."
+msgstr "筛选漫画列表，仅显示已下载的章节。"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Filter manga feed to display only chapters you haven’t read yet."
+msgstr "筛选漫画列表，仅显示未阅读的章节。"
+
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "Finish date"
 msgstr "完成日期"
@@ -1769,6 +1829,10 @@ msgstr "适配屏幕"
 msgid "Fit width"
 msgstr "适配宽度"
 
+#: src/features/backup/screens/Backup.tsx
+msgid "Force a rescan of already downloaded chapters"
+msgstr "强制重新扫描已下载的章节"
+
 #: src/features/theme/Themes.ts
 msgid "Forest Dew"
 msgstr "谧林涓露"
@@ -1789,10 +1853,6 @@ msgstr "全屏"
 #: src/features/reader/settings/ReaderSettings.constants.tsx
 msgid "General"
 msgstr "全体"
-
-#: src/features/settings/screens/About.tsx
-msgid "Suwayomi Project"
-msgstr "Suwayomi 项目"
 
 #: src/features/settings/screens/About.tsx
 msgid "GitHub Repo"
@@ -1949,10 +2009,13 @@ msgstr "在书架中"
 msgid "Include"
 msgstr "包含"
 
-#: src/features/backup/screens/Backup.tsx
 #: src/features/category/components/CategoriesInclusionSetting.tsx
 msgid "Include: {includedCategoriesText}"
 msgstr "包含: {includedCategoriesText}"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Include: {includedSyncDataText}"
+msgstr "包含：{excludedSyncDataText}"
 
 #: src/features/reader/hotkeys/settings/components/ReaderSettingHotkey.tsx
 msgid "Increase auto scroll speed"
@@ -1965,6 +2028,10 @@ msgstr "在章节切换时提示扫描组变更信息"
 #: src/features/reader/settings/behaviour/ReaderBehaviourSettings.tsx
 msgid "Inform about missing chapters on chapter transition"
 msgstr "在章节切换时提示缺失章节信息"
+
+#: src/features/settings/screens/About.tsx
+msgid "Inform about updates"
+msgstr "更新提示"
 
 #: src/base/components/feedback/SnackbarWithDescription.tsx
 msgid "Information"
@@ -2017,6 +2084,18 @@ msgstr "反转"
 #: src/features/reader/settings/layout/components/ReaderSettingTapZoneInvertMode.tsx
 msgid "Invert tap zones"
 msgstr "反转触控区域"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "IP"
+msgstr "IP"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "item"
+msgstr "条目"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Items per page"
+msgstr "每页显示数量"
 
 #: src/features/settings/Settings.constants.ts
 msgid "Keep local"
@@ -2071,6 +2150,10 @@ msgstr "上次自动备份：{lastBackupText}"
 msgid "Last read chapter"
 msgstr "上次阅读章节"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Last sync: {syncDate}"
+msgstr "上一次同步：{syncDate}"
+
 #: src/features/updates/screens/Updates.tsx
 msgid "Last update: {date}"
 msgstr "最近更新： {date}"
@@ -2114,6 +2197,10 @@ msgstr "左"
 #: src/features/reader/settings/ReaderSettings.constants.tsx
 msgid "Left to right"
 msgstr "从左到右"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Legacy"
+msgstr "旧版"
 
 #: src/features/backup/screens/Backup.tsx
 msgid "legacy backups are not supported!"
@@ -2183,9 +2270,9 @@ msgstr "本地图源"
 msgid "Local source guide"
 msgstr "本地图源指南"
 
-#: src/features/browse/screens/BrowseSettings.tsx
+#: src/features/backup/screens/Backup.tsx
 msgid "Local source location"
-msgstr "本地图源位置"
+msgstr "本地源位置"
 
 #: src/base/components/modals/LoginDialog.tsx
 #: src/features/authentication/screens/LoginPage.tsx
@@ -2290,6 +2377,10 @@ msgstr "标记为已读"
 #: src/features/chapter/Chapter.constants.ts
 msgid "Mark as unread"
 msgstr "标记为未读"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Mark chapters as read on download"
+msgstr "下载章节时标记已读"
 
 #: src/features/chapter/components/actions/ChapterActionMenuItems.tsx
 msgid "Mark previous as read"
@@ -2400,6 +2491,10 @@ msgstr "缺失： {0}"
 msgid "Mobile"
 msgstr "移动端"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Modern"
+msgstr "新版"
+
 #: src/features/navigation-bar/NavigationBar.constants.ts
 #: src/features/settings/screens/More.tsx
 msgid "More"
@@ -2474,13 +2569,13 @@ msgstr "没有找到章节"
 msgid "No chapters matching filter"
 msgstr "没有章节匹配筛选"
 
-#: src/features/manga/components/details/MangaDetails.tsx
-msgid "No description"
-msgstr ""
-
 #: src/features/downloads/screens/DownloadQueue.tsx
 msgid "No downloads"
 msgstr "没有下载"
+
+#: src/features/extension/store/screens/ExtensionStores.tsx
+msgid "No extension sources"
+msgstr "没有扩展源"
 
 #: src/features/global-search/screens/SearchAll.tsx
 #: src/features/manga/components/MangaGrid.tsx
@@ -2547,6 +2642,12 @@ msgstr "小说"
 msgid "NSFW (18+) sources"
 msgstr "NSFW（18+）图源"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Number of items per page in OPDS feeds (e.g., Library History, Manga Chapters).\n"
+"Higher values may affect client performance."
+msgstr "OPDS 信息流中每页显示的条目数量（例如：资料库历史、漫画章节）。\n"
+"较大的数值可能会影响客户端性能。"
+
 #: src/features/downloads/components/DownloadAheadSetting.tsx
 msgid "Number of unread chapters to download"
 msgstr "要下载的未读章节数"
@@ -2559,6 +2660,10 @@ msgstr "过时"
 #: src/features/tracker/Tracker.constants.ts
 msgid "OEL"
 msgstr "英创漫画"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Off"
+msgstr "关闭"
 
 #: src/features/reader/overlay/navigation/desktop/quick-settings/components/ReaderNavBarDesktopOffsetDoubleSpread.tsx
 #: src/features/reader/settings/behaviour/ReaderBehaviourSettings.tsx
@@ -2607,6 +2712,10 @@ msgstr "仅找到过期的匹配项"
 #: src/features/downloads/components/DownloadAheadSetting.tsx
 msgid "Only works if the current chapter plus the next chapter are already downloaded."
 msgstr "仅在此章节及下一章节已下载时生效。"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "OPDS"
+msgstr "OPDS（开放出版物分发系统）"
 
 #: src/features/reader/services/ReaderControls.ts
 msgid "Open"
@@ -2693,6 +2802,7 @@ msgid "Parallel source requests"
 msgstr "并行请求图源数"
 
 #: src/base/components/inputs/PasswordTextField.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Password"
 msgstr "密码"
 
@@ -2721,6 +2831,10 @@ msgstr "已置顶"
 #: src/features/source/browse/screens/SourceMangas.tsx
 msgid "Popular"
 msgstr "受欢迎的"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Port"
+msgstr "端口"
 
 #: src/features/reader/settings/behaviour/ReaderBehaviourSettings.tsx
 msgid "Preload images"
@@ -2824,6 +2938,10 @@ msgstr "阅读顺序"
 #: src/features/reader/settings/layout/components/ReaderSettingReadingMode.tsx
 msgid "Reading mode"
 msgstr "阅读模式"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Rebuild download index"
+msgstr "重建下载索引"
 
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Recently added"
@@ -3033,6 +3151,7 @@ msgstr "向前翻转"
 
 #: src/base/components/AppbarSearch.tsx
 #: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
+#: src/features/settings/screens/AboutLicenses.tsx
 msgid "Search"
 msgstr "搜索"
 
@@ -3144,11 +3263,17 @@ msgstr "服务器"
 msgid "Server address"
 msgstr "服务器地址"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Server bindings"
+msgstr "服务器绑定"
+
 #: src/features/settings/screens/About.tsx
 msgid "Server channel"
 msgstr "服务器通道"
 
 #: src/features/backup/Backup.constants.ts
+#: src/features/settings/screens/AdvancedSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Server settings"
 msgstr "服务端设置"
 
@@ -3238,6 +3363,14 @@ msgstr "显示更多项目"
 msgid "Show number of items"
 msgstr "显示项目的数量"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Show only downloaded chapters"
+msgstr "仅显示下载的章节"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Show only unread chapters"
+msgstr "仅显示未阅读的章节"
+
 #: src/features/reader/settings/general/ReaderGeneralSettings.tsx
 msgid "Show page number"
 msgstr "显示页数"
@@ -3265,6 +3398,10 @@ msgstr "简单登录"
 #: src/features/reader/settings/ReaderSettings.constants.tsx
 msgid "Single page"
 msgstr "单页"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Skip chapter metadata feed"
+msgstr "跳过章节元数据更新流"
 
 #: src/features/reader/settings/behaviour/ReaderBehaviourSettings.tsx
 msgid "Skip duplicate chapters"
@@ -3302,7 +3439,6 @@ msgid "Sort"
 msgstr "排序"
 
 #: src/features/browse/screens/Browse.tsx
-#: src/features/browse/screens/BrowseSettings.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 #: src/features/manga/components/details/MangaDetails.tsx
 #: src/features/source/browse/screens/SourceMangas.tsx
@@ -3358,6 +3494,10 @@ msgstr "开始阅读\n"
 msgid "Start Search"
 msgstr "开始搜索"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Start sync"
+msgstr "开始同步"
+
 #: src/features/library/components/LibraryOptionsPanel.tsx
 #: src/features/settings/Settings.constants.ts
 #: src/features/tracker/components/cards/TrackerMangaCard.tsx
@@ -3387,6 +3527,10 @@ msgstr "停止全局更新"
 msgid "Storage location"
 msgstr "存储位置"
 
+#: src/features/backup/screens/Backup.tsx
+msgid "Storage management"
+msgstr "存储管理"
+
 #: src/features/reader/overlay/navigation/desktop/quick-settings/components/ReaderNavBarDesktopPageScale.tsx
 #: src/features/reader/settings/layout/components/ReaderSettingStretchPage.tsx
 msgid "Stretch small pages"
@@ -3410,6 +3554,18 @@ msgstr "已成功迁移"
 msgid "Successfully migrated manga"
 msgstr "成功迁移漫画"
 
+#: src/features/settings/screens/About.tsx
+msgid "Suwayomi Project"
+msgstr "Suwayomi 项目"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Sync"
+msgstr "同步"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Sync data"
+msgstr "同步数据"
+
 #: src/features/settings/Settings.constants.ts
 msgid "Sync disabled"
 msgstr "已禁止同步"
@@ -3418,11 +3574,16 @@ msgstr "已禁止同步"
 msgid "Sync in progress"
 msgstr "同步进行中"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Sync interval"
+msgstr "同步间隔"
+
 #: src/features/settings/Settings.constants.ts
 msgid "Sync started"
 msgstr "已开始同步"
 
 #: src/features/settings/components/koreaderSync/KoreaderSyncSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Sync status"
 msgstr "同步状态"
 
@@ -3437,6 +3598,22 @@ msgstr "同步到一个较旧的状态"
 #: src/features/settings/components/koreaderSync/KoreaderSyncSettings.tsx
 msgid "Sync will not be triggered if the progress difference is within this tolerance."
 msgstr "如果进度差异在此容忍范围内则不会触发同步。"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "SyncYomi"
+msgstr "SyncYomi"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "SyncYomi API key"
+msgstr "SyncYomi API密钥"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "SyncYomi enabled"
+msgstr "已启用SyncYomi"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "SyncYomi host"
+msgstr "SyncYomi 主机地址"
 
 #: src/features/settings/screens/Appearance.tsx
 msgid "System"
@@ -3457,10 +3634,6 @@ msgstr "目标模式"
 #: src/features/settings/Settings.constants.ts
 msgid "That haven't been started"
 msgstr "未开始阅读的作品"
-
-#: src/features/settings/screens/AdvancedSettings.tsx
-msgid "The cache of the client (browser, electron) should get cleared alongside it, otherwise, the client cache will keep getting used"
-msgstr "客户端的缓存（浏览器、electron）应该与之一起清除，否则，客户端缓存将继续被使用"
 
 #: src/features/library/screens/Library.tsx
 msgid "The category is empty"
@@ -3500,15 +3673,15 @@ msgstr "下一章节的扫描组与当前章节的不同。\n"
 
 #: src/features/backup/screens/Backup.tsx
 msgid "The path to the directory on the server where automated backups should get saved in"
-msgstr "服务器上保存自动备份的目录路径"
+msgstr "服务器上自动备份保存的目录路径"
 
-#: src/features/downloads/screens/DownloadSettings.tsx
-msgid "The path to the directory on the server where downloaded files should get saved in"
-msgstr "服务器上存放下载文件的目录的路径"
+#: src/features/backup/screens/Backup.tsx
+msgid "The path to the directory on the server where downloads should get saved in"
+msgstr "服务器上保存下载文件的目录路径"
 
-#: src/features/browse/screens/BrowseSettings.tsx
+#: src/features/backup/screens/Backup.tsx
 msgid "The path to the directory on the server where local source files are saved in"
-msgstr "服务器上保存本地图源文件的目录路径"
+msgstr "服务器上本地源文件保存的目录路径"
 
 #: src/features/reader/services/ReaderControls.ts
 msgid "The previous chapter has a different scanlator then the current one.\n"
@@ -3609,6 +3782,10 @@ msgstr "总章节数"
 msgid "Track"
 msgstr "追踪"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Track and update your reading progress by page for each chapter during page streaming"
+msgstr "在页面流式加载时，按页跟踪并更新每一章节的阅读进度"
+
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 #: src/features/tracker/components/TrackerSearch.tsx
 msgid "Track privately"
@@ -3672,9 +3849,11 @@ msgstr "UI登录"
 #: src/features/reader/settings/screens/GlobalReaderSettings.tsx
 #: src/features/reader/viewer/ReaderChapterViewer.tsx
 #: src/features/settings/screens/About.tsx
+#: src/features/settings/screens/AboutLicenses.tsx
 #: src/features/settings/screens/AdvancedSettings.tsx
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/ImageProcessingSetting.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 #: src/features/source/browse/screens/SourceMangas.tsx
 #: src/features/source/configuration/screens/SourceConfigure.tsx
 #: src/features/theme/components/CreateThemeDialog.tsx
@@ -3721,6 +3900,10 @@ msgstr "未知"
 #: src/features/migration/MigrationManager.ts
 msgid "Unknown source"
 msgstr "未知源"
+
+#: src/features/browse/screens/BrowseSettings.tsx
+msgid "Unlimited"
+msgstr "无限制"
 
 #: src/features/browse/sources/components/SourceCard.tsx
 msgid "Unpin source"
@@ -3832,6 +4015,7 @@ msgstr "使用随服务器一起提供的版本"
 
 #: src/base/components/modals/LoginDialog.tsx
 #: src/features/authentication/screens/LoginPage.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Username"
 msgstr "用户名"
 
@@ -3904,6 +4088,10 @@ msgstr "WebUI已升级至版本 {newVersion} ({0})"
 #: src/features/settings/Settings.constants.ts
 msgid "Weekly"
 msgstr "每星期"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "When enabled, download and streaming links are provided directly in the chapter list. KoSync strategies are applied, but PROMPT conflicts are ignored (treating local progress as priority)"
+msgstr "启用后，下载和流式链接将直接显示在章节列表中。将应用 KoSync 策略，但会忽略 PROMPT 冲突（以本地进度为优先）"
 
 #: src/features/settings/Settings.constants.ts
 msgid "When you enable this, you may need to refresh this tab for the login page to appear."
@@ -3985,249 +4173,3 @@ msgstr "你的书架是空的"
 #: src/features/settings/Settings.constants.ts
 msgid "Your library will be accessible. Use this only on private networks or when otherwise securing access."
 msgstr "你的书架将对外可访问。仅在私有网络中或确保已采取其他安全措施的情况下使用此功能。"
-
-#: src/features/settings/screens/About.tsx
-msgid "Check for updates on startup"
-msgstr "启动时检查更新"
-
-#: src/features/settings/screens/About.tsx
-msgid "Inform about updates"
-msgstr "更新提示"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "Backup & Restore"
-msgstr "备份与还原"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "Auto backup frequency"
-msgstr "自动备份频率"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "{idx, plural, one {Every hour} other {Every # hours}}"
-msgstr "{idx, plural, one {每小时} other {每 # 小时}}"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "{idx, plural, one {Every day} other {Every # days}}"
-msgstr "{idx, plural, one {每天} other {每 # 天}}"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "Every week"
-msgstr "每周"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "Download location"
-msgstr "下载位置"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "Local source location"
-msgstr "本地源位置"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "The path to the directory on the server where downloads should get saved in"
-msgstr "服务器上保存下载文件的目录路径"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "The path to the directory on the server where local source files are saved in"
-msgstr "服务器上本地源文件保存的目录路径"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "The path to the directory on the server where automated backups should get saved in"
-msgstr "服务器上自动备份保存的目录路径"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "Off"
-msgstr "关闭"
-
-#: src/features/browse/screens/BrowseSettings.tsx
-msgid "{storeExtensionCount, plural, one {# extension} other {# extensions}}"
-msgstr "{storeExtensionCount, plural, one {# 个扩展} other {# 个扩展}}"
-
-#: src/features/browse/screens/BrowseSettings.tsx
-msgid "Unlimited"
-msgstr "无限制"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "Every day"
-msgstr "每天"
-
-#: src/features/browse/screens/BrowseSettings.tsx
-msgid "{idx, plural, one {# Source} other {# Sources}}"
-msgstr "{idx, plural, one {# 个源} other {# 个源}}"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "{dayCount, plural, one {Every day} other {Every # days}}"
-msgstr "{dayCount, plural, one {每天} other {每 # 天}}"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Authentication"
-msgstr "认证"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Authentication Mode"
-msgstr "验证模式"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Automatically mark chapters as read when you download them."
-msgstr "下载后自动标记章节为已读。"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Binary file size"
-msgstr "二进制文件体积"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "CBZ MIME-Type"
-msgstr "CBZ MIME 类型"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Chapter sort order"
-msgstr "章节排序"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Choose the order in which chapters are displayed."
-msgstr "选择章节展示顺序。"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Compatible"
-msgstr "兼容"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Controls the MimeType that Suwayomi sends in OPDS entries for CBZ archives. Also affects global CBZ download.\n"
-"Modern follows recent IANA standard (2017), while LEGACY (deprecated mimetype for .cbz) and COMPATIBLE (deprecated mimetype for all comic archives) might be more compatible with older clients."
-msgstr ""
-"控制 Suwayomi 在 OPDS 条目中为 CBZ 压缩包发送的 MIME 类型，同时也会影响全局 "
-"CBZ 下载。\n"
-"Modern 遵循最新的 IANA 标准（2017），而 LEGACY（已弃用的 .cbz MIME 类型）和 "
-"COMPATIBLE（已弃用的所有漫画压缩包 MIME 类型）可能对旧版客户端更兼容。"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Could not start sync"
-msgstr "无法开始同步"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Display file sizes in binary (KiB, MiB, GiB) instead of decimal (KB, MB, GB)"
-msgstr "以二进制单位（KiB、MiB、GiB）显示文件大小，而非十进制单位（KB、MB、GB）"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Enable page read progress"
-msgstr "启用页面阅读进度"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Exclude: {excludedSyncDataText}"
-msgstr "排除：{excludedSyncDataText}"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Filter manga feed to display only chapters you have downloaded."
-msgstr "筛选漫画列表，仅显示已下载的章节。"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Filter manga feed to display only chapters you haven’t read yet."
-msgstr "筛选漫画列表，仅显示未阅读的章节。"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Include: {includedSyncDataText}"
-msgstr "包含：{excludedSyncDataText}"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "IP"
-msgstr "IP"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "item"
-msgstr "条目"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Items per page"
-msgstr "每页显示数量"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Last sync: {syncDate}"
-msgstr "上一次同步：{syncDate}"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Legacy"
-msgstr "旧版"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Mark chapters as read on download"
-msgstr "下载章节时标记已读"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Modern"
-msgstr "新版"
-
-#: src/features/extension/store/screens/ExtensionStores.tsx
-msgid "No extension sources"
-msgstr "没有扩展源"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Number of items per page in OPDS feeds (e.g., Library History, Manga Chapters).\n"
-"Higher values may affect client performance."
-msgstr ""
-"OPDS 信息流中每页显示的条目数量（例如：资料库历史、漫画章节）。\n"
-"较大的数值可能会影响客户端性能。"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "OPDS"
-msgstr "OPDS（开放出版物分发系统）"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Port"
-msgstr "端口"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Server bindings"
-msgstr "服务器绑定"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Show only downloaded chapters"
-msgstr "仅显示下载的章节"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Show only unread chapters"
-msgstr "仅显示未阅读的章节"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Skip chapter metadata feed"
-msgstr "跳过章节元数据更新流"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Start sync"
-msgstr "开始同步"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Sync"
-msgstr "同步"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Sync data"
-msgstr "同步数据"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Sync interval"
-msgstr "同步间隔"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "SyncYomi"
-msgstr "SyncYomi"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "SyncYomi API key"
-msgstr "SyncYomi API密钥"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "SyncYomi enabled"
-msgstr "已启用SyncYomi"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "SyncYomi host"
-msgstr "SyncYomi 主机地址"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "Track and update your reading progress by page for each chapter during page streaming"
-msgstr "在页面流式加载时，按页跟踪并更新每一章节的阅读进度"
-
-#: src/features/settings/screens/ServerSettings.tsx
-msgid "When enabled, download and streaming links are provided directly in the chapter list. KoSync strategies are applied, but PROMPT conflicts are ignored (treating local progress as priority)"
-msgstr ""
-"启用后，下载和流式链接将直接显示在章节列表中。将应用 KoSync 策略，但会忽略 "
-"PROMPT 冲突（以本地进度为优先）"

@@ -28,3 +28,12 @@ export const RESTORE_BACKUP = gql`
         }
     }
 `;
+
+/** 「存储管理 → 重建下载索引」：让服务端重新扫 <数据目录>/downloads 对账数据库。 */
+export const REBUILD_DOWNLOAD_INDEX = gql`
+    mutation REBUILD_DOWNLOAD_INDEX($input: RebuildDownloadIndexInput!) {
+        rebuildDownloadIndex(input: $input) {
+            chapters
+        }
+    }
+`;
