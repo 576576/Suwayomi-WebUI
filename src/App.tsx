@@ -85,6 +85,7 @@ const { AdvancedSettings } = loadable(
     () => import('@/features/settings/screens/AdvancedSettings.tsx'),
     lazyLoadFallback,
 );
+const { ServerSettings } = loadable(() => import('@/features/settings/screens/ServerSettings.tsx'), lazyLoadFallback);
 const { Migration } = loadable(() => import('@/features/migration/screens/Migration.tsx'), lazyLoadFallback);
 const { TrackingSettings } = loadable(
     () => import('@/features/tracker/screens/TrackingSettings.tsx'),
@@ -377,10 +378,13 @@ const MainApp = () => {
                                         path={AppRoutes.settings.children.appearance.match}
                                         element={<Appearance />}
                                     />
-                                    <Route
-                                        path={AppRoutes.settings.children.advanced.match}
-                                        element={<AdvancedSettings />}
-                                    />
+                                    <Route path={AppRoutes.settings.children.advanced.match}>
+                                        <Route index element={<AdvancedSettings />} />
+                                        <Route
+                                            path={AppRoutes.settings.children.advanced.children.server.match}
+                                            element={<ServerSettings />}
+                                        />
+                                    </Route>
                                 </Route>
 
                                 {/* Manga Routes */}

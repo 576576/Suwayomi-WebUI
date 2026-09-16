@@ -14,6 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 "X-Message-Format: ICU\n"
 
+#. placeholder {0}: t(SYNC_STATE_TRANSLATION[syncState])
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "— State: {0}"
+msgstr "— State: {0}"
+
 #: src/features/browse/extensions/components/ExtensionCard.tsx
 msgid "\"{name}\" and its sources will be removed from Suwayomi."
 msgstr "\"{name}\" and its sources will be removed from Suwayomi."
@@ -493,8 +498,17 @@ msgid "Artist"
 msgstr "Artist"
 
 #: src/features/migration/Migration.constants.ts
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Ascending"
 msgstr "Ascending"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Authentication"
+msgstr "Authentication"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Authentication Mode"
+msgstr "Authentication Mode"
 
 #: src/features/manga/components/details/MangaDetails.tsx
 msgid "Author"
@@ -546,6 +560,10 @@ msgstr "Automatic updates"
 #: src/features/settings/components/webUI/WebUIUpdateIntervalSetting.tsx
 msgid "Automatically download the latest version"
 msgstr "Automatically download the latest version"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Automatically mark chapters as read when you download them."
+msgstr "Automatically mark chapters as read when you download them."
 
 #: src/features/settings/components/globalUpdate/GlobalUpdateSettings.tsx
 msgid "Automatically refresh metadata"
@@ -610,6 +628,10 @@ msgstr "Behaviour"
 #: src/features/settings/Settings.constants.ts
 msgid "Binary"
 msgstr "Binary"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Binary file size"
+msgstr "Binary file size"
 
 #: src/features/reader/settings/general/components/ReaderSettingBackgroundColor.tsx
 msgid "Black"
@@ -777,6 +799,10 @@ msgstr "Category Name"
 msgid "Category selection dialog"
 msgstr "Category selection dialog"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "CBZ MIME-Type"
+msgstr "CBZ MIME-Type"
+
 #: src/features/manga/Manga.constants.ts
 msgid "Change categories"
 msgstr "Change categories"
@@ -821,6 +847,10 @@ msgstr "Chapter list"
 msgid "Chapter number"
 msgstr "Chapter number"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Chapter sort order"
+msgstr "Chapter sort order"
+
 #: src/features/reader/services/ReaderControls.ts
 msgid "Chapter transition warning"
 msgstr "Chapter transition warning"
@@ -849,6 +879,10 @@ msgstr "Check out"
 msgid "Checking for update"
 msgstr "Checking for update"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Choose the order in which chapters are displayed."
+msgstr "Choose the order in which chapters are displayed."
+
 #: src/features/library/screens/LibrarySettings.tsx
 msgid "Cleanup database"
 msgstr "Cleanup database"
@@ -857,7 +891,7 @@ msgstr "Cleanup database"
 msgid "Clear"
 msgstr "Clear"
 
-#: src/features/settings/screens/AdvancedSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Clear cache"
 msgstr "Clear cache"
 
@@ -865,7 +899,7 @@ msgstr "Clear cache"
 msgid "Clear notes"
 msgstr "Clear notes"
 
-#: src/features/settings/screens/AdvancedSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Cleared the cache"
 msgstr "Cleared the cache"
 
@@ -903,6 +937,10 @@ msgstr "Comic"
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Compact grid"
 msgstr "Compact grid"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Compatible"
+msgstr "Compatible"
 
 #: src/features/manga/Manga.constants.ts
 msgid "Completed"
@@ -960,6 +998,12 @@ msgstr "Continuous horizontal"
 msgid "Continuous vertical"
 msgstr "Continuous vertical"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Controls the MimeType that Suwayomi sends in OPDS entries for CBZ archives. Also affects global CBZ download.\n"
+"Modern follows recent IANA standard (2017), while LEGACY (deprecated mimetype for .cbz) and COMPATIBLE (deprecated mimetype for all comic archives) might be more compatible with older clients."
+msgstr "Controls the MimeType that Suwayomi sends in OPDS entries for CBZ archives. Also affects global CBZ download.\n"
+"Modern follows recent IANA standard (2017), while LEGACY (deprecated mimetype for .cbz) and COMPATIBLE (deprecated mimetype for all comic archives) might be more compatible with older clients."
+
 #: src/features/settings/Settings.constants.ts
 msgid "Convert images to different formats"
 msgstr "Convert images to different formats"
@@ -1002,7 +1046,7 @@ msgstr "Could not check for update"
 msgid "Could not check for updates"
 msgstr "Could not check for updates"
 
-#: src/features/settings/screens/AdvancedSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Could not clear the cache"
 msgstr "Could not clear the cache"
 
@@ -1156,6 +1200,10 @@ msgstr "Could not save theme changes"
 #: src/features/global-search/screens/SearchAll.tsx
 msgid "Could not search source"
 msgstr "Could not search source"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Could not start sync"
+msgstr "Could not start sync"
 
 #: src/features/updates/components/UpdateChecker.tsx
 msgid "Could not stop global update"
@@ -1355,6 +1403,7 @@ msgid "Deleting theme \"{0}\"…"
 msgstr "Deleting theme \"{0}\"…"
 
 #: src/features/migration/Migration.constants.ts
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Descending"
 msgstr "Descending"
 
@@ -1400,6 +1449,10 @@ msgstr "Disconnected"
 #: src/features/settings/screens/Appearance.tsx
 msgid "Display"
 msgstr "Display"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Display file sizes in binary (KiB, MiB, GiB) instead of decimal (KB, MB, GB)"
+msgstr "Display file sizes in binary (KiB, MiB, GiB) instead of decimal (KB, MB, GB)"
 
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Display mode"
@@ -1543,6 +1596,10 @@ msgstr "Electron"
 msgid "Enable auto background color in continuous reading mode"
 msgstr "Enable auto background color in continuous reading mode"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Enable page read progress"
+msgstr "Enable page read progress"
+
 #: src/features/downloads/screens/DownloadSettings.tsx
 msgid "Entries in excluded categories will not be downloaded even if they are also in included categories"
 msgstr "Entries in excluded categories will not be downloaded even if they are also in included categories"
@@ -1611,6 +1668,10 @@ msgstr "Exclude scanlators"
 msgid "Exclude: {excludedCategoriesText}"
 msgstr "Exclude: {excludedCategoriesText}"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Exclude: {excludedSyncDataText}"
+msgstr "Exclude: {excludedSyncDataText}"
+
 #: src/features/migration/Migration.constants.ts
 msgid "Excluded"
 msgstr "Excluded"
@@ -1674,6 +1735,7 @@ msgstr "Failed to disconnect from KOReader Sync server."
 #: src/features/settings/screens/About.tsx
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/ImageProcessingSetting.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 #: src/features/source/browse/screens/SourceMangas.tsx
 #: src/features/source/components/SourceLanguageSelect.tsx
 #: src/features/source/configuration/screens/SourceConfigure.tsx
@@ -1716,6 +1778,14 @@ msgstr "Filter"
 #: src/features/chapter/components/ChaptersToolbarMenu.tsx
 msgid "Filter and sort"
 msgstr "Filter and sort"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Filter manga feed to display only chapters you have downloaded."
+msgstr "Filter manga feed to display only chapters you have downloaded."
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Filter manga feed to display only chapters you haven’t read yet."
+msgstr "Filter manga feed to display only chapters you haven’t read yet."
 
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "Finish date"
@@ -1922,6 +1992,10 @@ msgstr "Include"
 msgid "Include: {includedCategoriesText}"
 msgstr "Include: {includedCategoriesText}"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Include: {includedSyncDataText}"
+msgstr "Include: {includedSyncDataText}"
+
 #: src/features/reader/hotkeys/settings/components/ReaderSettingHotkey.tsx
 msgid "Increase auto scroll speed"
 msgstr "Increase auto scroll speed"
@@ -1990,6 +2064,18 @@ msgstr "Invert"
 msgid "Invert tap zones"
 msgstr "Invert tap zones"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "IP"
+msgstr "IP"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "item"
+msgstr "item"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Items per page"
+msgstr "Items per page"
+
 #: src/features/settings/Settings.constants.ts
 msgid "Keep local"
 msgstr "Keep local"
@@ -2043,6 +2129,10 @@ msgstr "Last automatic backup: {lastBackupText}"
 msgid "Last read chapter"
 msgstr "Last read chapter"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Last sync: {syncDate}"
+msgstr "Last sync: {syncDate}"
+
 #: src/features/updates/screens/Updates.tsx
 msgid "Last update: {date}"
 msgstr "Last update: {date}"
@@ -2086,6 +2176,10 @@ msgstr "Left"
 #: src/features/reader/settings/ReaderSettings.constants.tsx
 msgid "Left to right"
 msgstr "Left to right"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Legacy"
+msgstr "Legacy"
 
 #: src/features/backup/screens/Backup.tsx
 msgid "legacy backups are not supported!"
@@ -2263,6 +2357,10 @@ msgstr "Mark as read"
 msgid "Mark as unread"
 msgstr "Mark as unread"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Mark chapters as read on download"
+msgstr "Mark chapters as read on download"
+
 #: src/features/chapter/components/actions/ChapterActionMenuItems.tsx
 msgid "Mark previous as read"
 msgstr "Mark previous as read"
@@ -2371,6 +2469,10 @@ msgstr "Missing: {0}"
 #: src/features/reader/overlay/settings/ReaderSettingOverlayMode.tsx
 msgid "Mobile"
 msgstr "Mobile"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Modern"
+msgstr "Modern"
 
 #: src/features/navigation-bar/NavigationBar.constants.ts
 #: src/features/settings/screens/More.tsx
@@ -2519,6 +2621,12 @@ msgstr "Novel"
 msgid "NSFW (18+) sources"
 msgstr "NSFW (18+) sources"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Number of items per page in OPDS feeds (e.g., Library History, Manga Chapters).\n"
+"Higher values may affect client performance."
+msgstr "Number of items per page in OPDS feeds (e.g., Library History, Manga Chapters).\n"
+"Higher values may affect client performance."
+
 #: src/features/downloads/components/DownloadAheadSetting.tsx
 msgid "Number of unread chapters to download"
 msgstr "Number of unread chapters to download"
@@ -2583,6 +2691,10 @@ msgstr "Only outdated matches found"
 #: src/features/downloads/components/DownloadAheadSetting.tsx
 msgid "Only works if the current chapter plus the next chapter are already downloaded."
 msgstr "Only works if the current chapter plus the next chapter are already downloaded."
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "OPDS"
+msgstr "OPDS"
 
 #: src/features/reader/services/ReaderControls.ts
 msgid "Open"
@@ -2669,6 +2781,7 @@ msgid "Parallel source requests"
 msgstr "Parallel source requests"
 
 #: src/base/components/inputs/PasswordTextField.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Password"
 msgstr "Password"
 
@@ -2697,6 +2810,10 @@ msgstr "Pinned"
 #: src/features/source/browse/screens/SourceMangas.tsx
 msgid "Popular"
 msgstr "Popular"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Port"
+msgstr "Port"
 
 #: src/features/reader/settings/behaviour/ReaderBehaviourSettings.tsx
 msgid "Preload images"
@@ -3121,11 +3238,17 @@ msgstr "Server"
 msgid "Server address"
 msgstr "Server address"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Server bindings"
+msgstr "Server bindings"
+
 #: src/features/settings/screens/About.tsx
 msgid "Server channel"
 msgstr "Server channel"
 
 #: src/features/backup/Backup.constants.ts
+#: src/features/settings/screens/AdvancedSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Server settings"
 msgstr "Server settings"
 
@@ -3215,6 +3338,14 @@ msgstr "Show more"
 msgid "Show number of items"
 msgstr "Show number of items"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Show only downloaded chapters"
+msgstr "Show only downloaded chapters"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Show only unread chapters"
+msgstr "Show only unread chapters"
+
 #: src/features/reader/settings/general/ReaderGeneralSettings.tsx
 msgid "Show page number"
 msgstr "Show page number"
@@ -3242,6 +3373,10 @@ msgstr "Simple Login"
 #: src/features/reader/settings/ReaderSettings.constants.tsx
 msgid "Single page"
 msgstr "Single page"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Skip chapter metadata feed"
+msgstr "Skip chapter metadata feed"
 
 #: src/features/reader/settings/behaviour/ReaderBehaviourSettings.tsx
 msgid "Skip duplicate chapters"
@@ -3334,6 +3469,10 @@ msgstr "Start reading\n"
 msgid "Start Search"
 msgstr "Start Search"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Start sync"
+msgstr "Start sync"
+
 #: src/features/library/components/LibraryOptionsPanel.tsx
 #: src/features/settings/Settings.constants.ts
 #: src/features/tracker/components/cards/TrackerMangaCard.tsx
@@ -3390,6 +3529,14 @@ msgstr "Successfully migrated manga"
 msgid "Suwayomi Project"
 msgstr "Suwayomi Project"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Sync"
+msgstr "Sync"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Sync data"
+msgstr "Sync data"
+
 #: src/features/settings/Settings.constants.ts
 msgid "Sync disabled"
 msgstr "Sync disabled"
@@ -3398,11 +3545,16 @@ msgstr "Sync disabled"
 msgid "Sync in progress"
 msgstr "Sync in progress"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Sync interval"
+msgstr "Sync interval"
+
 #: src/features/settings/Settings.constants.ts
 msgid "Sync started"
 msgstr "Sync started"
 
 #: src/features/settings/components/koreaderSync/KoreaderSyncSettings.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Sync status"
 msgstr "Sync status"
 
@@ -3417,6 +3569,22 @@ msgstr "Sync to an older state"
 #: src/features/settings/components/koreaderSync/KoreaderSyncSettings.tsx
 msgid "Sync will not be triggered if the progress difference is within this tolerance."
 msgstr "Sync will not be triggered if the progress difference is within this tolerance."
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "SyncYomi"
+msgstr "SyncYomi"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "SyncYomi API key"
+msgstr "SyncYomi API key"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "SyncYomi enabled"
+msgstr "SyncYomi enabled"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "SyncYomi host"
+msgstr "SyncYomi host"
 
 #: src/features/settings/screens/Appearance.tsx
 msgid "System"
@@ -3437,10 +3605,6 @@ msgstr "Target mode"
 #: src/features/settings/Settings.constants.ts
 msgid "That haven't been started"
 msgstr "That haven't been started"
-
-#: src/features/settings/screens/AdvancedSettings.tsx
-msgid "The cache of the client (browser, electron) should get cleared alongside it, otherwise, the client cache will keep getting used"
-msgstr "The cache of the client (browser, electron) should get cleared alongside it, otherwise, the client cache will keep getting used"
 
 #: src/features/library/screens/Library.tsx
 msgid "The category is empty"
@@ -3589,6 +3753,10 @@ msgstr "Total chapters"
 msgid "Track"
 msgstr "Track"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Track and update your reading progress by page for each chapter during page streaming"
+msgstr "Track and update your reading progress by page for each chapter during page streaming"
+
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 #: src/features/tracker/components/TrackerSearch.tsx
 msgid "Track privately"
@@ -3656,6 +3824,7 @@ msgstr "UI Login"
 #: src/features/settings/screens/AdvancedSettings.tsx
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/ImageProcessingSetting.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 #: src/features/source/browse/screens/SourceMangas.tsx
 #: src/features/source/configuration/screens/SourceConfigure.tsx
 #: src/features/theme/components/CreateThemeDialog.tsx
@@ -3817,6 +3986,7 @@ msgstr "Use the version that was delivered with the server release"
 
 #: src/base/components/modals/LoginDialog.tsx
 #: src/features/authentication/screens/LoginPage.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Username"
 msgstr "Username"
 
@@ -3889,6 +4059,10 @@ msgstr "WebUI was updated to version {newVersion} ({0})"
 #: src/features/settings/Settings.constants.ts
 msgid "Weekly"
 msgstr "Weekly"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "When enabled, download and streaming links are provided directly in the chapter list. KoSync strategies are applied, but PROMPT conflicts are ignored (treating local progress as priority)"
+msgstr "When enabled, download and streaming links are provided directly in the chapter list. KoSync strategies are applied, but PROMPT conflicts are ignored (treating local progress as priority)"
 
 #: src/features/settings/Settings.constants.ts
 msgid "When you enable this, you may need to refresh this tab for the login page to appear."

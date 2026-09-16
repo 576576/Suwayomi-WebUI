@@ -14,6 +14,11 @@ msgstr ""
 "X-Generator: Weblate 2026.9.dev0\n"
 "X-Message-Format: ICU\n"
 
+#. placeholder {0}: t(SYNC_STATE_TRANSLATION[syncState])
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "— State: {0}"
+msgstr "— 状态：{0}"
+
 #: src/features/browse/extensions/components/ExtensionCard.tsx
 msgid "\"{name}\" and its sources will be removed from Suwayomi."
 msgstr ""
@@ -4029,7 +4034,6 @@ msgstr "服务器上本地源文件保存的目录路径"
 msgid "The path to the directory on the server where automated backups should get saved in"
 msgstr "服务器上自动备份保存的目录路径"
 
-
 #: src/features/backup/screens/Backup.tsx
 msgid "Off"
 msgstr "关闭"
@@ -4050,12 +4054,180 @@ msgstr "每天"
 msgid "{idx, plural, one {# Source} other {# Sources}}"
 msgstr "{idx, plural, one {# 个源} other {# 个源}}"
 
-
 #: src/features/backup/screens/Backup.tsx
 msgid "{dayCount, plural, one {Every day} other {Every # days}}"
 msgstr "{dayCount, plural, one {每天} other {每 # 天}}"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Authentication"
+msgstr "认证"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Authentication Mode"
+msgstr "验证模式"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Automatically mark chapters as read when you download them."
+msgstr "下载后自动标记章节为已读。"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Binary file size"
+msgstr "二进制文件体积"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "CBZ MIME-Type"
+msgstr "CBZ MIME 类型"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Chapter sort order"
+msgstr "章节排序"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Choose the order in which chapters are displayed."
+msgstr "选择章节展示顺序。"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Compatible"
+msgstr "兼容"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Controls the MimeType that Suwayomi sends in OPDS entries for CBZ archives. Also affects global CBZ download.\n"
+"Modern follows recent IANA standard (2017), while LEGACY (deprecated mimetype for .cbz) and COMPATIBLE (deprecated mimetype for all comic archives) might be more compatible with older clients."
+msgstr ""
+"控制 Suwayomi 在 OPDS 条目中为 CBZ 压缩包发送的 MIME 类型，同时也会影响全局 "
+"CBZ 下载。\n"
+"Modern 遵循最新的 IANA 标准（2017），而 LEGACY（已弃用的 .cbz MIME 类型）和 "
+"COMPATIBLE（已弃用的所有漫画压缩包 MIME 类型）可能对旧版客户端更兼容。"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Could not start sync"
+msgstr "无法开始同步"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Display file sizes in binary (KiB, MiB, GiB) instead of decimal (KB, MB, GB)"
+msgstr "以二进制单位（KiB、MiB、GiB）显示文件大小，而非十进制单位（KB、MB、GB）"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Enable page read progress"
+msgstr "启用页面阅读进度"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Exclude: {excludedSyncDataText}"
+msgstr "排除：{excludedSyncDataText}"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Filter manga feed to display only chapters you have downloaded."
+msgstr "筛选漫画列表，仅显示已下载的章节。"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Filter manga feed to display only chapters you haven’t read yet."
+msgstr "筛选漫画列表，仅显示未阅读的章节。"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Include: {includedSyncDataText}"
+msgstr "包含：{excludedSyncDataText}"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "IP"
+msgstr "IP"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "item"
+msgstr "条目"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Items per page"
+msgstr "每页显示数量"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Last sync: {syncDate}"
+msgstr "上一次同步：{syncDate}"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Legacy"
+msgstr "旧版"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Mark chapters as read on download"
+msgstr "下载章节时标记已读"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Modern"
+msgstr "新版"
 
 #: src/features/extension/store/screens/ExtensionStores.tsx
 msgid "No extension sources"
 msgstr "没有扩展源"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Number of items per page in OPDS feeds (e.g., Library History, Manga Chapters).\n"
+"Higher values may affect client performance."
+msgstr ""
+"OPDS 信息流中每页显示的条目数量（例如：资料库历史、漫画章节）。\n"
+"较大的数值可能会影响客户端性能。"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "OPDS"
+msgstr "OPDS（开放出版物分发系统）"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Port"
+msgstr "端口"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Server bindings"
+msgstr "服务器绑定"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Show only downloaded chapters"
+msgstr "仅显示下载的章节"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Show only unread chapters"
+msgstr "仅显示未阅读的章节"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Skip chapter metadata feed"
+msgstr "跳过章节元数据更新流"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Start sync"
+msgstr "开始同步"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Sync"
+msgstr "同步"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Sync data"
+msgstr "同步数据"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Sync interval"
+msgstr "同步间隔"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "SyncYomi"
+msgstr "SyncYomi"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "SyncYomi API key"
+msgstr "SyncYomi API密钥"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "SyncYomi enabled"
+msgstr "已启用SyncYomi"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "SyncYomi host"
+msgstr "SyncYomi 主机地址"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Track and update your reading progress by page for each chapter during page streaming"
+msgstr "在页面流式加载时，按页跟踪并更新每一章节的阅读进度"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "When enabled, download and streaming links are provided directly in the chapter list. KoSync strategies are applied, but PROMPT conflicts are ignored (treating local progress as priority)"
+msgstr ""
+"启用后，下载和流式链接将直接显示在章节列表中。将应用 KoSync 策略，但会忽略 "
+"PROMPT 冲突（以本地进度为优先）"

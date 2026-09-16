@@ -125,6 +125,12 @@ export const AppRoutes = {
             advanced: {
                 match: 'advanced',
                 path: '/settings/advanced',
+                children: {
+                    server: {
+                        match: 'server',
+                        path: '/settings/advanced/server',
+                    },
+                },
             },
         },
     },
