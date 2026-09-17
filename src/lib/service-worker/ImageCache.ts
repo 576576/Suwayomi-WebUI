@@ -23,6 +23,14 @@ if (window.caches) {
 }
 
 export class ImageCache {
+    /**
+     * `caches` 不一定存在（非安全上下文里就没有），直接引用会抛 `ReferenceError`。
+     * 没有就当"没有缓存可清/可读"，而不是把「清除缓存」变成一条报错。
+     */
+    private static cacheApi(): CacheStorage | undefined {
+        return typeof caches === 'undefined' ? undefined : caches;
+    }
+
     // !!! IMPORTANT !!! - Update along with vite.config.ts workbox config
     static getKeyFor(url: string): ImageCacheKey {
         if (url.match(/\/chapter\/[0-9]+\/page\/[0-9]+/g)) {
@@ -41,8 +49,13 @@ export class ImageCache {
     }
 
     static async has(url: string, key: ImageCacheKey = this.getKeyFor(url)): Promise<boolean> {
+        const api = this.cacheApi();
+        if (!api) {
+            return false;
+        }
+
         try {
-            const cache = await caches.open(key);
+            const cache = await api.open(key);
             const response = await cache.match(url, { ignoreVary: true });
 
             return response !== undefined;
@@ -52,8 +65,13 @@ export class ImageCache {
     }
 
     static async get(url: string, key: ImageCacheKey = this.getKeyFor(url)): Promise<Response | null> {
+        const api = this.cacheApi();
+        if (!api) {
+            return null;
+        }
+
         try {
-            const cache = await caches.open(key);
+            const cache = await api.open(key);
             const response = await cache.match(url);
 
             return response || null;
@@ -63,13 +81,20 @@ export class ImageCache {
     }
 
     static async clear(key: ImageCacheKey): Promise<void> {
-        const cache = await caches.open(key);
+        const api = this.cacheApi();
+        if (!api) {
+            return;
+        }
+
+        const cache = await api.open(key);
         const imageKeys = await cache.keys();
 
         await Promise.all(imageKeys.map((imageKey) => cache.delete(imageKey)));
     }
 
     static async clearAll(): Promise<void> {
-        IMAGE_CACHE_KEYS.forEach(ImageCache.clear);
+        // 用箭头函数包一层，别写 `map(ImageCache.clear)`：那样会把方法从类上摘下来
+        // 调用，`this` 丢了。顺带等所有 key 清完 —— 调用方拿它的完成当「清完了」用。
+        await Promise.all(IMAGE_CACHE_KEYS.map((key) => ImageCache.clear(key)));
     }
 }
