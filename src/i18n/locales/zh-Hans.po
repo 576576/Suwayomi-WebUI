@@ -475,10 +475,18 @@ msgstr "透明通道"
 msgid "Also remove from {0}"
 msgstr "同时从{0}中移除"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Any mode other than disabled needs both, otherwise the server refuses to start."
+msgstr "除「无」以外的模式都需要同时填写用户名和密码，否则服务端拒绝启动。"
+
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/Settings.tsx
 msgid "Appearance"
 msgstr "外观"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Applied on restart"
+msgstr "重启后生效"
 
 #: src/features/reader/settings/general/components/ReaderSettingSafeAreaInset.tsx
 msgid "Apply safe area padding"
@@ -509,6 +517,10 @@ msgstr "升序"
 #: src/features/settings/screens/ServerSettings.tsx
 msgid "Authentication"
 msgstr "认证"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Authentication is read when the server starts. Environment variables (SUWAYOMI_AUTH_*) take precedence over the values saved here."
+msgstr "认证在服务端启动时读取。环境变量（SUWAYOMI_AUTH_*）优先于这里保存的值。"
 
 #: src/features/settings/screens/ServerSettings.tsx
 msgid "Authentication Mode"
@@ -820,6 +832,10 @@ msgstr "更改所选分类名"
 #: src/features/app-updates/components/WebUIUpdateChecker.tsx
 msgid "Changelog"
 msgstr "更新记录"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Changes saved"
+msgstr "更改已保存"
 
 #: src/features/settings/screens/Appearance.tsx
 msgid "Changes the theme colors on the manga page based on the thumbnail"
@@ -1451,6 +1467,10 @@ msgstr "禁用验证"
 msgid "Disabled"
 msgstr "禁用"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Discard"
+msgstr "放弃"
+
 #: src/features/settings/components/koreaderSync/KoreaderSyncSettings.tsx
 msgid "Disconnect from KOReader Sync server"
 msgstr "断开KOReader同步服务器"
@@ -1844,6 +1864,10 @@ msgstr "谧林涓露"
 #: src/features/library/screens/LibrarySettings.tsx
 msgid "Forget manga categories"
 msgstr "忘记漫画分类偏好"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Forget the tokens stored in this browser and end the session"
+msgstr "清除浏览器中保存的令牌并结束会话"
 
 #: src/features/downloads/components/DeleteChaptersWhileReadingSetting.tsx
 msgid "Fourth to last read chapter"
@@ -3119,6 +3143,10 @@ msgstr "保存搜索"
 msgid "Saved theme changes"
 msgstr "已保存主题修改的内容"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Saved. Restart the server to apply the authentication changes."
+msgstr "已保存。重启服务端以应用认证更改。"
+
 #: src/features/theme/components/CreateThemeDialog.tsx
 msgid "Saving theme changes…"
 msgstr "正在保存主题……"
@@ -4026,6 +4054,10 @@ msgstr "使用随服务器一起提供的版本"
 #: src/features/settings/screens/ServerSettings.tsx
 msgid "Username"
 msgstr "用户名"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Username and password are required"
+msgstr "需要填写用户名和密码"
 
 #: src/features/settings/components/images/KeyValueItem.tsx
 msgid "Value"

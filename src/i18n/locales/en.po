@@ -475,10 +475,18 @@ msgstr "Alpha"
 msgid "Also remove from {0}"
 msgstr "Also remove from {0}"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Any mode other than disabled needs both, otherwise the server refuses to start."
+msgstr "Any mode other than disabled needs both, otherwise the server refuses to start."
+
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/Settings.tsx
 msgid "Appearance"
 msgstr "Appearance"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Applied on restart"
+msgstr "Applied on restart"
 
 #: src/features/reader/settings/general/components/ReaderSettingSafeAreaInset.tsx
 msgid "Apply safe area padding"
@@ -509,6 +517,10 @@ msgstr "Ascending"
 #: src/features/settings/screens/ServerSettings.tsx
 msgid "Authentication"
 msgstr "Authentication"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Authentication is read when the server starts. Environment variables (SUWAYOMI_AUTH_*) take precedence over the values saved here."
+msgstr "Authentication is read when the server starts. Environment variables (SUWAYOMI_AUTH_*) take precedence over the values saved here."
 
 #: src/features/settings/screens/ServerSettings.tsx
 msgid "Authentication Mode"
@@ -820,6 +832,10 @@ msgstr "Change categories of selected"
 #: src/features/app-updates/components/WebUIUpdateChecker.tsx
 msgid "Changelog"
 msgstr "Changelog"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Changes saved"
+msgstr "Changes saved"
 
 #: src/features/settings/screens/Appearance.tsx
 msgid "Changes the theme colors on the manga page based on the thumbnail"
@@ -1451,6 +1467,10 @@ msgstr "Disable authentication"
 msgid "Disabled"
 msgstr "Disabled"
 
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Discard"
+msgstr "Discard"
+
 #: src/features/settings/components/koreaderSync/KoreaderSyncSettings.tsx
 msgid "Disconnect from KOReader Sync server"
 msgstr "Disconnect from KOReader Sync server"
@@ -1844,6 +1864,10 @@ msgstr "Forest Dew"
 #: src/features/library/screens/LibrarySettings.tsx
 msgid "Forget manga categories"
 msgstr "Forget manga categories"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Forget the tokens stored in this browser and end the session"
+msgstr "Forget the tokens stored in this browser and end the session"
 
 #: src/features/downloads/components/DeleteChaptersWhileReadingSetting.tsx
 msgid "Fourth to last read chapter"
@@ -2290,6 +2314,7 @@ msgid "Log in to {0}"
 msgstr "Log in to {0}"
 
 #: src/base/components/modals/LoginDialog.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 msgid "Log out"
 msgstr "Log out"
 
@@ -3094,6 +3119,7 @@ msgstr "Rosegold"
 
 #: src/features/manga/components/details/MangaNotes.tsx
 #: src/features/settings/screens/ImageProcessingSetting.tsx
+#: src/features/settings/screens/ServerSettings.tsx
 #: src/features/theme/components/CreateThemeDialog.tsx
 msgid "Save"
 msgstr "Save"
@@ -3118,6 +3144,10 @@ msgstr "Save search"
 #: src/features/theme/components/CreateThemeDialog.tsx
 msgid "Saved theme changes"
 msgstr "Saved theme changes"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Saved. Restart the server to apply the authentication changes."
+msgstr "Saved. Restart the server to apply the authentication changes."
 
 #: src/features/theme/components/CreateThemeDialog.tsx
 msgid "Saving theme changes…"
@@ -4026,6 +4056,10 @@ msgstr "Use the version that was delivered with the server release"
 #: src/features/settings/screens/ServerSettings.tsx
 msgid "Username"
 msgstr "Username"
+
+#: src/features/settings/screens/ServerSettings.tsx
+msgid "Username and password are required"
+msgstr "Username and password are required"
 
 #: src/features/settings/components/images/KeyValueItem.tsx
 msgid "Value"

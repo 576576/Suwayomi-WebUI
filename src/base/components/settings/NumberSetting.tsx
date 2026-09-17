@@ -16,7 +16,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import * as React from 'react';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -75,6 +75,13 @@ export const NumberSetting = ({
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [dialogValue, setDialogValue] = useState(value);
     const [originalValue, setOriginalValue] = useState(value);
+
+    // 设置是草稿式的：父组件的值可能在对话框关着的时候被改回去（放弃修改、重新载入）。
+    // 不同步的话再次打开会显示上一次的值，且 submit 的 `didValueChange` 拿旧值比较 → 点了 Ok 也没反应。
+    useEffect(() => {
+        setDialogValue(value);
+        setOriginalValue(value);
+    }, [value]);
 
     const isInvalid =
         (minValue !== undefined && minValue > dialogValue) || (maxValue !== undefined && maxValue < dialogValue);

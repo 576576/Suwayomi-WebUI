@@ -28,6 +28,14 @@ import type { UserRefreshMutation } from '@/lib/graphql/generated/graphql.ts';
 import type { AbortableApolloMutationResponse } from '@/lib/requests/RequestManager.ts';
 import type { ChapterNodeList } from '@/lib/graphql/generated/graphql-base.types.ts';
 
+/**
+ * 服务端未认证时，错误文案里带的异常类名。
+ *
+ * 服务端在 401 与 WS 的 `connection_init` 失败里都用它标识"未认证"，WebUI 靠这个
+ * 字符串区分"该弹登录页"和"其它错误"。改服务端文案时必须同步改这里。
+ */
+export const AUTH_ERROR_MARKER = 'suwayomi.tachidesk.server.user.UnauthorizedException';
+
 const typePolicies: TypedTypePolicies = {
     MangaType: {
         fields: {
@@ -304,8 +312,15 @@ export class GraphQLClient extends BaseClient<ApolloClient, ApolloClient.Options
     }
 
     private isAuthError(errors: readonly GraphQLFormattedError[]): boolean {
-        return errors.some((graphQLError) =>
-            graphQLError.message.includes('suwayomi.tachidesk.server.user.UnauthorizedException'),
+        return errors.some((graphQLError) => graphQLError.message.includes(AUTH_ERROR_MARKER));
+    }
+
+    private isUnauthorizedError(error: unknown): boolean {
+        // 未认证时服务端回 HTTP 401；Apollo 可能把它包成 ServerError，也可能保留
+        // 成 GraphQL errors。两条都认——漏掉任何一条，登录页都不会弹出来。
+        return (
+            (ServerError.is(error) && error.statusCode === 401) ||
+            (CombinedGraphQLErrors.is(error) && this.isAuthError(error.errors))
         );
     }
 
@@ -322,11 +337,7 @@ export class GraphQLClient extends BaseClient<ApolloClient, ApolloClient.Options
                 );
             }
 
-            if (!CombinedGraphQLErrors.is(error)) {
-                return undefined;
-            }
-
-            if (!this.isAuthError(error.errors)) {
+            if (!this.isUnauthorizedError(error)) {
                 return undefined;
             }
 
