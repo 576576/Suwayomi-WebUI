@@ -37,8 +37,12 @@ import { BackupValidationDialog } from '@/features/backup/component/BackupValida
 import type { BackupSettingsType } from '@/features/backup/Backup.types.ts';
 import type { ServerSettings } from '@/features/settings/Settings.types.ts';
 import { ImageCache } from '@/lib/service-worker/ImageCache.ts';
+import { isAndroidApp, pickDirectory } from '@/lib/platform/AndroidBridge.ts';
 
 let backupRestoreId: string | undefined;
+
+/** 四行路径项对应的设置键（Android 的目录选择器只会写这几个）。 */
+type PathSettingKey = 'dataDir' | 'downloadsPath' | 'localSourcePath' | 'backupPath';
 
 const resetBackupState = () => {
     const input = document.getElementById('backup-file') as HTMLInputElement;
@@ -202,6 +206,25 @@ export function Backup() {
         } catch (e) {
             makeToast(t`Could not clear the cache`, 'error', getErrorMessage(e));
         }
+    };
+
+    // Android 宿主里路径项不能手填：写盘的是同进程的 Rust server，能写哪个目录由
+    // 系统的「所有文件访问」+ SAF 授权决定（见 lib/platform/AndroidBridge.ts）。
+    // 桌面端起服务再打开网页时没有这个桥，照旧用文本对话框。
+    const isAndroid = isAndroidApp();
+
+    const chooseDirectory = async (setting: PathSettingKey, current: string) => {
+        const picked = await pickDirectory(current);
+        if (picked.error) {
+            makeToast(t`Could not choose the directory`, 'error', picked.error);
+            return;
+        }
+        if (!picked.path) {
+            return; // 用户取消
+        }
+
+        updateSetting(setting, picked.path);
+        makeToast(t`Storage location updated. It takes effect after a restart.`, 'success');
     };
 
     useEffect(() => {
@@ -382,6 +405,7 @@ export function Backup() {
                     dialogDescription={t`Directory the server keeps its data in (downloads, local sources, automated backups). The database file is kept separately, so changing this will not lose any settings. Takes effect after a restart.`}
                     value={backupSettings.dataDir ?? ''}
                     displayedPath={storageLocation}
+                    onEdit={isAndroid ? () => void chooseDirectory('dataDir', backupSettings.dataDir ?? '') : undefined}
                     handleChange={(path) => updateSetting('dataDir', path)}
                 />
                 <PathSetting
@@ -395,6 +419,11 @@ export function Backup() {
                     }
                     copyValue={
                         backupSettings.downloadsPath.length ? backupSettings.downloadsPath : storageSubPath('downloads')
+                    }
+                    onEdit={
+                        isAndroid
+                            ? () => void chooseDirectory('downloadsPath', backupSettings.downloadsPath)
+                            : undefined
                     }
                     handleChange={(path) => updateSetting('downloadsPath', path)}
                 />
@@ -410,6 +439,11 @@ export function Backup() {
                     copyValue={
                         backupSettings.localSourcePath.length ? backupSettings.localSourcePath : storageSubPath('local')
                     }
+                    onEdit={
+                        isAndroid
+                            ? () => void chooseDirectory('localSourcePath', backupSettings.localSourcePath)
+                            : undefined
+                    }
                     handleChange={(path) => updateSetting('localSourcePath', path)}
                 />
                 <PathSetting
@@ -422,6 +456,7 @@ export function Backup() {
                     copyValue={
                         backupSettings.backupPath.length ? backupSettings.backupPath : storageSubPath('autobackup')
                     }
+                    onEdit={isAndroid ? () => void chooseDirectory('backupPath', backupSettings.backupPath) : undefined}
                     handleChange={(path) => updateSetting('backupPath', path)}
                 />
                 <List

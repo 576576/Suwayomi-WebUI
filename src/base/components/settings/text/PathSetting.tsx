@@ -33,6 +33,12 @@ export type PathSettingProps = TextSettingProps & {
      * 用的完整路径得由调用方按解析规则拼出来。
      */
     copyValue?: string;
+    /**
+     * 覆盖「点铅笔」的默认行为（默认打开文本编辑对话框）。
+     *
+     * Android 上用系统目录授权对话框替掉它（见 `lib/platform/AndroidBridge.ts`）。
+     */
+    onEdit?: () => void;
 };
 
 /**
@@ -47,6 +53,7 @@ export const PathSetting = ({
     displayedPath,
     copyValue = displayedPath,
     disabled = false,
+    onEdit,
     ...props
 }: PathSettingProps) => {
     const { t } = useLingui();
@@ -72,6 +79,10 @@ export const PathSetting = ({
                         onClick={(event) => {
                             // 别让行上的「复制」也跟着触发
                             event.stopPropagation();
+                            if (onEdit) {
+                                onEdit();
+                                return;
+                            }
                             setIsDialogOpen(true);
                         }}
                     >
@@ -79,13 +90,15 @@ export const PathSetting = ({
                     </IconButton>
                 </Tooltip>
             </ListItemButton>
-            <TextSettingDialog
-                {...props}
-                disabled={disabled}
-                placeholder={props.placeholder ?? displayedPath}
-                isDialogOpen={isDialogOpen}
-                setIsDialogOpen={setIsDialogOpen}
-            />
+            {onEdit ? null : (
+                <TextSettingDialog
+                    {...props}
+                    disabled={disabled}
+                    placeholder={props.placeholder ?? displayedPath}
+                    isDialogOpen={isDialogOpen}
+                    setIsDialogOpen={setIsDialogOpen}
+                />
+            )}
         </>
     );
 };

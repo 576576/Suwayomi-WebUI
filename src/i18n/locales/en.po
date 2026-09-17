@@ -1051,6 +1051,10 @@ msgid "Could not check for updates"
 msgstr "Could not check for updates"
 
 #: src/features/backup/screens/Backup.tsx
+msgid "Could not choose the directory"
+msgstr "Could not choose the directory"
+
+#: src/features/backup/screens/Backup.tsx
 msgid "Could not clear the cache"
 msgstr "Could not clear the cache"
 
@@ -3526,6 +3530,10 @@ msgstr "Stop global update"
 #: src/features/backup/screens/Backup.tsx
 msgid "Storage location"
 msgstr "Storage location"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Storage location updated. It takes effect after a restart."
+msgstr "Storage location updated. It takes effect after a restart."
 
 #: src/features/backup/screens/Backup.tsx
 msgid "Storage management"

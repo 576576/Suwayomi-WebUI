@@ -1051,6 +1051,10 @@ msgid "Could not check for updates"
 msgstr "无法检查更新"
 
 #: src/features/backup/screens/Backup.tsx
+msgid "Could not choose the directory"
+msgstr "无法选择目录"
+
+#: src/features/backup/screens/Backup.tsx
 msgid "Could not clear the cache"
 msgstr "无法清除缓存"
 
@@ -3526,6 +3530,10 @@ msgstr "停止全局更新"
 #: src/features/backup/screens/Backup.tsx
 msgid "Storage location"
 msgstr "存储位置"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Storage location updated. It takes effect after a restart."
+msgstr "存储位置已更新，重启后生效。"
 
 #: src/features/backup/screens/Backup.tsx
 msgid "Storage management"
