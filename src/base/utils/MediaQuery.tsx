@@ -45,7 +45,7 @@ export class MediaQuery {
      * 覆盖式滚动条（overlay scrollbars，macOS / 多数移动端默认）不占布局空间，
      * 返回 0。
      */
-    static getScrollbarSize(type: 'height' | 'width' = 'width'): number {
+    static getScrollbarSize(type: 'X' | 'Y' = 'Y'): number {
         const outer = document.createElement('div');
         outer.style.position = 'absolute';
         outer.style.top = '-9999px';
@@ -58,12 +58,12 @@ export class MediaQuery {
         inner.style.height = '100%';
         outer.appendChild(inner);
 
-        const width = outer.offsetWidth - inner.offsetWidth;
-        const height = outer.offsetHeight - inner.offsetHeight;
+        const y = outer.offsetWidth - inner.offsetWidth;
+        const x = outer.offsetHeight - inner.offsetHeight;
 
         document.body.removeChild(outer);
 
-        return type === 'height' ? height : width;
+        return type === 'X' ? x : y;
     }
 
     /**
@@ -73,7 +73,7 @@ export class MediaQuery {
      * 非零值；而 `scrollbar-gutter: stable` 是**恒定**预留槽位（滚不滚都占着），
      * 要抵消它就必须无条件测量 —— 元素当前没滚动时 useGetScrollbarSize 只会给 0。
      */
-    static useGetClassicScrollbarSize(type: 'height' | 'width' = 'width'): number {
+    static useGetClassicScrollbarSize(type: 'X' | 'Y' = 'Y'): number {
         const [scrollbarSize, setScrollbarSize] = useState(() => MediaQuery.getScrollbarSize(type));
 
         useEffect(() => {
@@ -86,10 +86,7 @@ export class MediaQuery {
         return scrollbarSize;
     }
 
-    static useGetScrollbarSize(
-        type: 'height' | 'width',
-        element: HTMLElement | null = document.documentElement,
-    ): number {
+    static useGetScrollbarSize(type: 'X' | 'Y', element: HTMLElement | null = document.documentElement): number {
         const [scrollbarSize, setScrollbarSize] = useState(0);
 
         useResizeObserver(
@@ -98,7 +95,7 @@ export class MediaQuery {
                 const hasYScrollbar = !!(element!.scrollHeight - element!.clientHeight);
                 const hasXScrollbar = !!(element!.scrollWidth - element!.clientWidth);
 
-                const hasScrollbar = (type === 'height' && hasYScrollbar) || (type === 'width' && hasXScrollbar);
+                const hasScrollbar = (type === 'X' && hasXScrollbar) || (type === 'Y' && hasYScrollbar);
                 if (hasScrollbar) {
                     setScrollbarSize(this.getScrollbarSize(type));
                     return;

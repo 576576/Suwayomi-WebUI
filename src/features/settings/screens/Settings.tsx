@@ -96,7 +96,7 @@ export function Settings() {
     //
     // 注意不能直接用 useGetScrollbarSize：它只在元素**当前**出现滚动条时才返回非零值，
     // 而槽位是无条件预留的，元素没滚动时那个 hook 会给 0。
-    const scrollbarWidth = MediaQuery.useGetClassicScrollbarSize('width');
+    const scrollbarWidth = MediaQuery.useGetClassicScrollbarSize('Y');
 
     useAppTitle(t`Settings`);
 
