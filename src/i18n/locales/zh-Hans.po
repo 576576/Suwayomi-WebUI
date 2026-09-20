@@ -2194,7 +2194,7 @@ msgstr "上次使用"
 #: src/features/browse/sources/components/SourceCard.tsx
 #: src/features/source/browse/screens/SourceMangas.tsx
 msgid "Latest"
-msgstr "最新"
+msgstr "最近更新"
 
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Latest fetched chapter"
@@ -2723,7 +2723,7 @@ msgstr "调整双页错位"
 #: src/features/theme/components/CreateThemeDialog.tsx
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "Ok"
-msgstr "Ok"
+msgstr "确定"
 
 #: src/features/tracker/Tracker.constants.ts
 msgid "Oneshot"
