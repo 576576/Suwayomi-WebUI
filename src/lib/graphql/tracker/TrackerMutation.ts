@@ -47,6 +47,20 @@ export const TRACKER_LOGOUT = gql`
     }
 `;
 
+export const TRACKER_REFRESH_USER = gql`
+    ${TRACKER_SETTING_FIELDS}
+
+    mutation TRACKER_REFRESH_USER($input: RefreshTrackerUserInput!) {
+        refreshTrackerUser(input: $input) {
+            tracker {
+                ...TRACKER_SETTING_FIELDS
+
+                scores
+            }
+        }
+    }
+`;
+
 export const TRACKER_BIND = gql`
     ${TRACK_RECORD_BIND_FIELDS}
 

@@ -311,6 +311,10 @@ import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts'
 import type { QueuePriority } from '@/lib/Queue.ts';
 import { SourceAwareQueue } from '@/lib/SourceAwareQueue.ts';
 import { TRACKER_SEARCH } from '@/lib/graphql/tracker/TrackerQuery.ts';
+import type {
+    TrackerRefreshUserMutation,
+    TrackerRefreshUserMutationVariables,
+} from '@/lib/graphql/tracker/TrackerExtensions.ts';
 import {
     TRACK_BIND_TRACK_RECORD,
     TRACKER_BIND,
@@ -318,6 +322,7 @@ import {
     TRACKER_LOGIN_CREDENTIALS,
     TRACKER_LOGIN_OAUTH,
     TRACKER_LOGOUT,
+    TRACKER_REFRESH_USER,
     TRACKER_UNBIND,
     TRACKER_UPDATE_BIND,
 } from '@/lib/graphql/tracker/TrackerMutation.ts';
@@ -3871,6 +3876,16 @@ export class RequestManager {
         options?: MutationOptions<TrackerLogoutMutation, TrackerLogoutMutationVariables>,
     ): AbortableApolloMutationResponse<TrackerLogoutMutation> {
         return this.doRequest(GQLMethod.MUTATION, TRACKER_LOGOUT, { trackerId }, options);
+    }
+
+    /**
+     * 重新同步追踪器上站点侧的设置（评分制），对齐 Mihon 追踪卡上的「刷新」。
+     */
+    public refreshTrackerUser(
+        trackerId: TrackerRefreshUserMutationVariables['input']['trackerId'],
+        options?: MutationOptions<TrackerRefreshUserMutation, TrackerRefreshUserMutationVariables>,
+    ): AbortableApolloMutationResponse<TrackerRefreshUserMutation> {
+        return this.doRequest(GQLMethod.MUTATION, TRACKER_REFRESH_USER, { input: { trackerId } }, options);
     }
 
     public loginToTrackerOauth(

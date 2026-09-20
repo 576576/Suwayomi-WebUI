@@ -6,11 +6,17 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+import { useState } from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
+import CircularProgress from '@mui/material/CircularProgress';
 import Chip from '@mui/material/Chip';
+import IconButton from '@mui/material/IconButton';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import ListItemText from '@mui/material/ListItemText';
+import Stack from '@mui/material/Stack';
+import Tooltip from '@mui/material/Tooltip';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import { useLingui } from '@lingui/react/macro';
 import { makeToast } from '@/base/utils/Toast.ts';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
@@ -22,8 +28,23 @@ import { CredentialsLogin } from '@/base/components/modals/LoginDialog.tsx';
 
 export const SettingsTrackerCard = ({ tracker }: { tracker: TTrackerSearch }) => {
     const { t } = useLingui();
+    const [isRefreshing, setIsRefreshing] = useState(false);
 
     const isOAuthLogin = !tracker.isLoggedIn && !!tracker.authUrl;
+
+    const handleRefreshUser = async (event: React.MouseEvent) => {
+        // 卡片本身点击是登录/登出，刷新按钮不能顺带触发它。
+        event.stopPropagation();
+
+        setIsRefreshing(true);
+        try {
+            await requestManager.refreshTrackerUser(tracker.id).response;
+        } catch (e) {
+            makeToast(t`Could not refresh ${tracker.name}`, 'error', getErrorMessage(e));
+        } finally {
+            setIsRefreshing(false);
+        }
+    };
 
     const handleLogout = async () => {
         try {
@@ -132,7 +153,14 @@ export const SettingsTrackerCard = ({ tracker }: { tracker: TTrackerSearch }) =>
             <ListItemText primary={tracker.name} />
             {Trackers.isLoggedIn(tracker) && (
                 <ListItemSecondaryAction>
-                    <Chip label={t`Logged in`} color="success" />
+                    <Stack sx={{ flexDirection: 'row', gap: 1, alignItems: 'center' }}>
+                        <Tooltip title={t`Refresh user settings`}>
+                            <IconButton onClick={handleRefreshUser} disabled={isRefreshing} size="small">
+                                {isRefreshing ? <CircularProgress size={18} /> : <RefreshIcon />}
+                            </IconButton>
+                        </Tooltip>
+                        <Chip label={t`Logged in`} color="success" />
+                    </Stack>
                 </ListItemSecondaryAction>
             )}
         </ListItemButton>
