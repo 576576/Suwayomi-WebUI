@@ -21,7 +21,7 @@ msgstr "— 状态：{0}"
 
 #: src/features/browse/extensions/components/ExtensionCard.tsx
 msgid "\"{name}\" and its sources will be removed from Suwayomi."
-msgstr ""
+msgstr "“{name}”及其图源将从 Suwayomi 中移除。"
 
 #. placeholder {0}: selectedChapters.length
 #. placeholder {0}: visibleChapters.length
@@ -917,7 +917,7 @@ msgstr "清除缓存"
 
 #: src/features/manga/components/details/MangaNotes.tsx
 msgid "Clear notes"
-msgstr ""
+msgstr "清除笔记"
 
 #: src/features/backup/screens/Backup.tsx
 msgid "Cleared the cache"
@@ -1190,7 +1190,7 @@ msgstr "无法从类别中删除非库漫画"
 
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Could not reset filters"
-msgstr ""
+msgstr "无法重置筛选"
 
 #: src/features/backup/screens/Backup.tsx
 msgid "Could not restore backup"
@@ -3928,7 +3928,7 @@ msgstr "卸载"
 
 #: src/features/browse/extensions/components/ExtensionCard.tsx
 msgid "Uninstall extension?"
-msgstr ""
+msgstr "卸载扩展？"
 
 #: src/features/extension/Extensions.constants.ts
 msgid "Uninstalling"
