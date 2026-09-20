@@ -12,3 +12,4 @@ src/lib/graphql/schema.json
 
 # 编译产物（lingui compile 生成），不入库
 src/i18n/locales/*.js
+/.workbuddy
