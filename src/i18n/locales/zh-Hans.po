@@ -1171,6 +1171,11 @@ msgstr "无法打开随机条目"
 msgid "Could not rebuild the download index"
 msgstr "无法重建下载索引"
 
+#. placeholder {0}: tracker.name
+#: src/features/tracker/components/cards/SettingsTrackerCard.tsx
+msgid "Could not refresh {0}"
+msgstr "无法刷新{0}"
+
 #: src/features/downloads/screens/DownloadQueue.tsx
 msgid "Could not remove all downloads from the queue"
 msgstr "无法从队列中删除所有下载"
@@ -2995,6 +3000,10 @@ msgstr "红"
 #: src/features/app-updates/components/WebUIUpdateChecker.tsx
 msgid "Refresh"
 msgstr "刷新"
+
+#: src/features/tracker/components/cards/SettingsTrackerCard.tsx
+msgid "Refresh user settings"
+msgstr "刷新用户设置"
 
 #: src/features/tracker/Tracker.constants.ts
 msgid "Releasing"

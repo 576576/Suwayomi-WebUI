@@ -1171,6 +1171,11 @@ msgstr "Could not open random entry"
 msgid "Could not rebuild the download index"
 msgstr "Could not rebuild the download index"
 
+#. placeholder {0}: tracker.name
+#: src/features/tracker/components/cards/SettingsTrackerCard.tsx
+msgid "Could not refresh {0}"
+msgstr "Could not refresh {0}"
+
 #: src/features/downloads/screens/DownloadQueue.tsx
 msgid "Could not remove all downloads from the queue"
 msgstr "Could not remove all downloads from the queue"
@@ -2996,6 +3001,10 @@ msgstr "Red"
 #: src/features/app-updates/components/WebUIUpdateChecker.tsx
 msgid "Refresh"
 msgstr "Refresh"
+
+#: src/features/tracker/components/cards/SettingsTrackerCard.tsx
+msgid "Refresh user settings"
+msgstr "Refresh user settings"
 
 #: src/features/tracker/Tracker.constants.ts
 msgid "Releasing"

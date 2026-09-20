@@ -269,7 +269,14 @@ const TrackerActiveCardInfoRow = ({ children }: { children: React.ReactNode }) =
     </Stack>
 );
 
-const isUnsetScore = (score: string | number): boolean => !Math.trunc(Number(score));
+/**
+ * 未评分档固定是 `scores[0]`，只能按下标判断。
+ *
+ * 不能解析成数值来判——emoji 与带 `★` 的档位（Kitsu 的 simple / regular）
+ * `Number()` 得到 NaN，会被当成「未评分」，整列下拉都显示 `-`。
+ * 不在量表里的档位（服务端换过评分制）也按未评分处理。
+ */
+const isUnsetScore = (scores: readonly string[], score: string | number): boolean => scores.indexOf(String(score)) <= 0;
 
 export const TrackerActiveCard = ({
     trackRecord,
@@ -282,14 +289,14 @@ export const TrackerActiveCard = ({
 }) => {
     const { t } = useLingui();
 
-    const isScoreUnset = isUnsetScore(trackRecord.displayScore);
+    const isScoreUnset = isUnsetScore(tracker.scores, trackRecord.displayScore);
     const currentScore = isScoreUnset ? tracker.scores[0] : trackRecord.displayScore;
 
     const selectSettingValues = useMemo(
         () =>
             tracker.scores.map(
                 (score) =>
-                    [score, { text: isUnsetScore(score) ? '-' : score }] satisfies SelectSettingValue<
+                    [score, { text: isUnsetScore(tracker.scores, score) ? '-' : score }] satisfies SelectSettingValue<
                         TTrackerBind['scores'][number]
                     >,
             ),
