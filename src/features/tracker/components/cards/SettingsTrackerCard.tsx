@@ -32,6 +32,29 @@ export const SettingsTrackerCard = ({ tracker }: { tracker: TTrackerSearch }) =>
 
     const isOAuthLogin = !tracker.isLoggedIn && !!tracker.authUrl;
 
+    /**
+     * 打开站点授权页 —— 一律走新窗口：宿主（桌面托盘、Android 应用）把它开成应用内的窗口，
+     * 浏览器里是新标签页。回调页登完后会通知本窗口刷新并自关（靠 `state.popup` 认路）。
+     *
+     * 新窗口被拦下来（弹窗拦截、宿主不支持）才退回同窗口跳转 —— 那条路上回调页没有 opener，
+     * 自己跳回追踪设置页。
+     */
+    const openTrackerOAuth = () => {
+        const state = {
+            redirectUrl: `${window.location.origin}/tracker/login/oauth`,
+            clientName: 'Suwayomi-WebUI',
+            trackerId: tracker.id,
+            trackerName: tracker.name,
+        };
+        const url = (popup: boolean) => `${tracker.authUrl}&state=${JSON.stringify({ ...state, popup })}`;
+
+        if (window.open(url(true), '_blank')) {
+            return;
+        }
+
+        window.location.href = url(false);
+    };
+
     const handleRefreshUser = async (event: React.MouseEvent) => {
         // 卡片本身点击是登录/登出，刷新按钮不能顺带触发它。
         event.stopPropagation();
@@ -56,14 +79,7 @@ export const SettingsTrackerCard = ({ tracker }: { tracker: TTrackerSearch }) =>
 
     const handleLogin = async (username: string, password: string) => {
         if (isOAuthLogin) {
-            const state = {
-                redirectUrl: `${window.location.origin}/tracker/login/oauth`,
-                clientName: 'Suwayomi-WebUI',
-                trackerId: tracker.id,
-                trackerName: tracker.name,
-            };
-
-            window.open(`${tracker.authUrl}&state=${JSON.stringify(state)}`, '_self');
+            openTrackerOAuth();
             return;
         }
 
@@ -76,14 +92,7 @@ export const SettingsTrackerCard = ({ tracker }: { tracker: TTrackerSearch }) =>
 
     const login = async (initialUsername?: string, initialPassword?: string) => {
         if (isOAuthLogin) {
-            const state = {
-                redirectUrl: `${window.location.origin}/tracker/login/oauth`,
-                clientName: 'Suwayomi-WebUI',
-                trackerId: tracker.id,
-                trackerName: tracker.name,
-            };
-
-            window.open(`${tracker.authUrl}&state=${JSON.stringify(state)}`, '_self');
+            openTrackerOAuth();
             return;
         }
 

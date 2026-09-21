@@ -6,6 +6,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+import { useCallback, useEffect } from 'react';
 import List from '@mui/material/List';
 import ListSubheader from '@mui/material/ListSubheader';
 import ListItem from '@mui/material/ListItem';
@@ -23,6 +24,7 @@ import {
 import { makeToast } from '@/base/utils/Toast.ts';
 import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts';
 import { GET_TRACKERS_SETTINGS } from '@/lib/graphql/tracker/TrackerQuery.ts';
+import { TRACKER_OAUTH_CHANNEL, CAN_BROADCAST_CHANNEL } from '@/features/tracker/Tracker.constants.ts';
 import type { GetTrackersSettingsQuery } from '@/lib/graphql/generated/graphql.ts';
 import type { MetadataTrackingSettings } from '@/features/tracker/Tracker.types.ts';
 import { getErrorMessage } from '@/lib/HelperFunctions.ts';
@@ -50,6 +52,24 @@ export const TrackingSettings = () => {
         refetch: refetchTrackersList,
     } = requestManager.useGetTrackerList<GetTrackersSettingsQuery>(GET_TRACKERS_SETTINGS);
     const trackers = data?.trackers.nodes ?? STABLE_EMPTY_ARRAY;
+
+    const refreshTrackers = useCallback(
+        () => void refetchTrackersList().catch(defaultPromiseErrorHandler('TrackingSettings::refetchTrackersList')),
+        [refetchTrackersList],
+    );
+
+    // 弹窗认证（宿主的新窗口）在主窗口之外完成登录，登录态是从服务端读的 ——
+    // 不重新拉一次，卡片会一直显示成未登录。
+    useEffect(() => {
+        if (CAN_BROADCAST_CHANNEL) {
+            const channel = new BroadcastChannel(TRACKER_OAUTH_CHANNEL);
+            channel.onmessage = refreshTrackers;
+            return () => channel.close();
+        }
+
+        window.addEventListener('message', refreshTrackers);
+        return () => window.removeEventListener('message', refreshTrackers);
+    }, [refreshTrackers]);
 
     const loading = areMetadataServerSettingsLoading || areTrackersLoading;
     const error = metadataServerSettingsError ?? trackersError;
