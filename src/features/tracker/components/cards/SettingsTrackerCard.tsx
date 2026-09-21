@@ -157,6 +157,17 @@ export const SettingsTrackerCard = ({
             // 塞进 ListItemButton 里的话外层按钮会把点击接管掉，齿轮点了等于点了整行。
             secondaryAction={
                 <Stack sx={{ flexDirection: 'row', gap: 1, alignItems: 'center' }}>
+                    {Trackers.isLoggedIn(tracker) && (
+                        <>
+                            <Chip label={t`Logged in`} color="success" />
+                            <Tooltip title={t`Refresh user settings`}>
+                                <IconButton onClick={handleRefreshUser} disabled={isRefreshing} size="small">
+                                    {isRefreshing ? <CircularProgress size={18} /> : <RefreshIcon />}
+                                </IconButton>
+                            </Tooltip>
+                        </>
+                    )}
+                    {/* 齿轮固定在最右：登录态多出来的刷新按钮与「已登录」标签不能把它挤到左边。 */}
                     <Tooltip title={t`App credentials`}>
                         <IconButton
                             aria-label={t`App credentials`}
@@ -168,16 +179,6 @@ export const SettingsTrackerCard = ({
                             <SettingsIcon />
                         </IconButton>
                     </Tooltip>
-                    {Trackers.isLoggedIn(tracker) && (
-                        <>
-                            <Tooltip title={t`Refresh user settings`}>
-                                <IconButton onClick={handleRefreshUser} disabled={isRefreshing} size="small">
-                                    {isRefreshing ? <CircularProgress size={18} /> : <RefreshIcon />}
-                                </IconButton>
-                            </Tooltip>
-                            <Chip label={t`Logged in`} color="success" />
-                        </>
-                    )}
                 </Stack>
             }
         >
