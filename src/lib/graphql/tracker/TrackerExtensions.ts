@@ -26,3 +26,42 @@ export type TrackerRefreshUserMutation = {
         tracker: TrackerType;
     };
 };
+
+/** 站点应用凭据（`trackers.json`）。这两个字段/入口都是 Suwayomi-next 自己加的。 */
+export type TrackerOAuthApp = {
+    __typename?: 'TrackerOAuthAppType';
+    clientId: string;
+    clientSecret: string;
+    redirectUri: string;
+};
+
+/** `oauthApp` 不在上游 schema 里，单独一个 query 取，别动 `generated/` 用的那些片段。 */
+export type TrackerOAuthAppsQuery = {
+    __typename?: 'Query';
+    trackers: {
+        __typename?: 'TrackerNodeList';
+        nodes: {
+            __typename?: 'TrackerType';
+            id: number;
+            oauthApp: TrackerOAuthApp | null;
+        }[];
+    };
+};
+
+export type TrackerUpdateOAuthAppMutationVariables = {
+    input: {
+        trackerId: number;
+        clientId?: string | null;
+        clientSecret?: string | null;
+        redirectUri?: string | null;
+        clientMutationId?: string | null;
+    };
+};
+
+export type TrackerUpdateOAuthAppMutation = {
+    __typename?: 'Mutation';
+    updateTrackerOAuthApp: {
+        __typename?: 'UpdateTrackerOAuthAppPayload';
+        tracker: TrackerType;
+    };
+};

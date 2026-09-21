@@ -7,16 +7,17 @@
  */
 
 import { useState } from 'react';
+import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import CircularProgress from '@mui/material/CircularProgress';
 import Chip from '@mui/material/Chip';
 import IconButton from '@mui/material/IconButton';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import ListItemText from '@mui/material/ListItemText';
 import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { useLingui } from '@lingui/react/macro';
 import { makeToast } from '@/base/utils/Toast.ts';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
@@ -25,8 +26,15 @@ import { getErrorMessage, noOp } from '@/lib/HelperFunctions.ts';
 import type { TTrackerSearch } from '@/features/tracker/Tracker.types.ts';
 import { AvatarSpinner } from '@/base/components/AvatarSpinner.tsx';
 import { CredentialsLogin } from '@/base/components/modals/LoginDialog.tsx';
+import { TrackerOAuthAppDialog } from '@/features/tracker/components/TrackerOAuthAppDialog.tsx';
 
-export const SettingsTrackerCard = ({ tracker }: { tracker: TTrackerSearch }) => {
+export const SettingsTrackerCard = ({
+    tracker,
+    onTrackerUpdated,
+}: {
+    tracker: TTrackerSearch;
+    onTrackerUpdated: () => void;
+}) => {
     const { t } = useLingui();
     const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -143,35 +151,54 @@ export const SettingsTrackerCard = ({ tracker }: { tracker: TTrackerSearch }) =>
     };
 
     return (
-        <ListItemButton onClick={() => login()}>
-            <ListItemAvatar sx={{ paddingRight: '20px' }}>
-                <AvatarSpinner
-                    alt={`${tracker.name}`}
-                    iconUrl={requestManager.getValidImgUrlFor(tracker.icon)}
-                    slots={{
-                        avatarProps: {
-                            variant: 'rounded',
-                            sx: { width: 64, height: 64 },
-                        },
-                        spinnerImageProps: {
-                            ignoreQueue: true,
-                        },
-                    }}
-                />
-            </ListItemAvatar>
-            <ListItemText primary={tracker.name} />
-            {Trackers.isLoggedIn(tracker) && (
-                <ListItemSecondaryAction>
-                    <Stack sx={{ flexDirection: 'row', gap: 1, alignItems: 'center' }}>
-                        <Tooltip title={t`Refresh user settings`}>
-                            <IconButton onClick={handleRefreshUser} disabled={isRefreshing} size="small">
-                                {isRefreshing ? <CircularProgress size={18} /> : <RefreshIcon />}
-                            </IconButton>
-                        </Tooltip>
-                        <Chip label={t`Logged in`} color="success" />
-                    </Stack>
-                </ListItemSecondaryAction>
-            )}
-        </ListItemButton>
+        <ListItem
+            disablePadding
+            // 齿轮/刷新这些按钮必须与整行按钮**并列**（挂在 ListItem 的 secondaryAction 上）：
+            // 塞进 ListItemButton 里的话外层按钮会把点击接管掉，齿轮点了等于点了整行。
+            secondaryAction={
+                <Stack sx={{ flexDirection: 'row', gap: 1, alignItems: 'center' }}>
+                    <Tooltip title={t`App credentials`}>
+                        <IconButton
+                            aria-label={t`App credentials`}
+                            onClick={() => {
+                                TrackerOAuthAppDialog.show({ tracker, onSaved: onTrackerUpdated }).catch(noOp);
+                            }}
+                            size="small"
+                        >
+                            <SettingsIcon />
+                        </IconButton>
+                    </Tooltip>
+                    {Trackers.isLoggedIn(tracker) && (
+                        <>
+                            <Tooltip title={t`Refresh user settings`}>
+                                <IconButton onClick={handleRefreshUser} disabled={isRefreshing} size="small">
+                                    {isRefreshing ? <CircularProgress size={18} /> : <RefreshIcon />}
+                                </IconButton>
+                            </Tooltip>
+                            <Chip label={t`Logged in`} color="success" />
+                        </>
+                    )}
+                </Stack>
+            }
+        >
+            <ListItemButton onClick={() => login()}>
+                <ListItemAvatar sx={{ paddingRight: '20px' }}>
+                    <AvatarSpinner
+                        alt={`${tracker.name}`}
+                        iconUrl={requestManager.getValidImgUrlFor(tracker.icon)}
+                        slots={{
+                            avatarProps: {
+                                variant: 'rounded',
+                                sx: { width: 64, height: 64 },
+                            },
+                            spinnerImageProps: {
+                                ignoreQueue: true,
+                            },
+                        }}
+                    />
+                </ListItemAvatar>
+                <ListItemText primary={tracker.name} />
+            </ListItemButton>
+        </ListItem>
     );
 };

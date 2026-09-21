@@ -314,6 +314,8 @@ import { TRACKER_SEARCH } from '@/lib/graphql/tracker/TrackerQuery.ts';
 import type {
     TrackerRefreshUserMutation,
     TrackerRefreshUserMutationVariables,
+    TrackerUpdateOAuthAppMutation,
+    TrackerUpdateOAuthAppMutationVariables,
 } from '@/lib/graphql/tracker/TrackerExtensions.ts';
 import {
     TRACK_BIND_TRACK_RECORD,
@@ -325,6 +327,7 @@ import {
     TRACKER_REFRESH_USER,
     TRACKER_UNBIND,
     TRACKER_UPDATE_BIND,
+    TRACKER_UPDATE_OAUTH_APP,
 } from '@/lib/graphql/tracker/TrackerMutation.ts';
 import { ControlledPromise } from '@/lib/ControlledPromise.ts';
 import { DOWNLOAD_STATUS_FIELDS } from '@/lib/graphql/download/DownloadFragments.ts';
@@ -3886,6 +3889,17 @@ export class RequestManager {
         options?: MutationOptions<TrackerRefreshUserMutation, TrackerRefreshUserMutationVariables>,
     ): AbortableApolloMutationResponse<TrackerRefreshUserMutation> {
         return this.doRequest(GQLMethod.MUTATION, TRACKER_REFRESH_USER, { input: { trackerId } }, options);
+    }
+
+    /**
+     * 改站点的 OAuth 应用凭据（客户端 id / 密钥 / 回调地址）。
+     * 保存后立刻生效；输入留空表示回到内置默认值。
+     */
+    public updateTrackerOAuthApp(
+        input: TrackerUpdateOAuthAppMutationVariables['input'],
+        options?: MutationOptions<TrackerUpdateOAuthAppMutation, TrackerUpdateOAuthAppMutationVariables>,
+    ): AbortableApolloMutationResponse<TrackerUpdateOAuthAppMutation> {
+        return this.doRequest(GQLMethod.MUTATION, TRACKER_UPDATE_OAUTH_APP, { input }, options);
     }
 
     public loginToTrackerOauth(

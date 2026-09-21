@@ -479,6 +479,11 @@ msgstr "Also remove from {0}"
 msgid "Any mode other than disabled needs both, otherwise the server refuses to start."
 msgstr "Any mode other than disabled needs both, otherwise the server refuses to start."
 
+#: src/features/tracker/components/cards/SettingsTrackerCard.tsx
+#: src/features/tracker/components/TrackerOAuthAppDialog.tsx
+msgid "App credentials"
+msgstr "App credentials"
+
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/Settings.tsx
 msgid "Appearance"
@@ -776,6 +781,7 @@ msgstr "Can't migrate an entry to itself"
 #: src/features/source/configuration/components/MultiSelectListPreference.tsx
 #: src/features/theme/components/CreateThemeDialog.tsx
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
+#: src/features/tracker/components/TrackerOAuthAppDialog.tsx
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -931,6 +937,14 @@ msgstr "Click key to remove binding"
 #: src/features/migration/components/MigrationOptionsDialog.tsx
 msgid "Client data"
 msgstr "Client data"
+
+#: src/features/tracker/components/TrackerOAuthAppDialog.tsx
+msgid "Client ID"
+msgstr "Client ID"
+
+#: src/features/tracker/components/TrackerOAuthAppDialog.tsx
+msgid "Client secret"
+msgstr "Client secret"
 
 #: src/base/components/feedback/SnackbarWithDescription.tsx
 #: src/features/app-updates/components/VersionUpdateInfoDialog.tsx
@@ -1215,6 +1229,10 @@ msgstr "Could not save changes"
 #: src/features/manga/components/details/MangaNotes.tsx
 msgid "Could not save notes"
 msgstr "Could not save notes"
+
+#: src/features/tracker/components/TrackerOAuthAppDialog.tsx
+msgid "Could not save the app credentials"
+msgstr "Could not save the app credentials"
 
 #: src/features/category/components/CategorySelect.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
@@ -2221,6 +2239,10 @@ msgstr "Lavender"
 msgid "Layout"
 msgstr "Layout"
 
+#: src/features/tracker/components/TrackerOAuthAppDialog.tsx
+msgid "Leave empty to use the built-in app"
+msgstr "Leave empty to use the built-in app"
+
 #: src/features/reader/overlay/progress-bar/settings/components/ReaderSettingProgressBarPosition.tsx
 #: src/features/reader/settings/general/components/ReaderSettingSafeAreaInset.tsx
 msgid "Left"
@@ -2998,6 +3020,10 @@ msgstr "Recorded hotkeys: {0}"
 msgid "Red"
 msgstr "Red"
 
+#: src/features/tracker/components/TrackerOAuthAppDialog.tsx
+msgid "Redirect URI"
+msgstr "Redirect URI"
+
 #: src/features/app-updates/components/WebUIUpdateChecker.tsx
 msgid "Refresh"
 msgstr "Refresh"
@@ -3130,6 +3156,7 @@ msgstr "Rosegold"
 #: src/features/settings/screens/ImageProcessingSetting.tsx
 #: src/features/settings/screens/ServerSettings.tsx
 #: src/features/theme/components/CreateThemeDialog.tsx
+#: src/features/tracker/components/TrackerOAuthAppDialog.tsx
 msgid "Save"
 msgstr "Save"
 

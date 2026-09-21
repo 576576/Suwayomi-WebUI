@@ -131,7 +131,7 @@ export const TrackingSettings = () => {
                 }
             >
                 {trackers.map((tracker) => (
-                    <SettingsTrackerCard key={tracker.id} tracker={tracker} />
+                    <SettingsTrackerCard key={tracker.id} tracker={tracker} onTrackerUpdated={refreshTrackers} />
                 ))}
             </List>
         </>

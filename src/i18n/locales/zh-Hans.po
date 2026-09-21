@@ -479,6 +479,11 @@ msgstr "同时从{0}中移除"
 msgid "Any mode other than disabled needs both, otherwise the server refuses to start."
 msgstr "除「无」以外的模式都需要同时填写用户名和密码，否则服务端拒绝启动。"
 
+#: src/features/tracker/components/TrackerOAuthAppDialog.tsx
+#: src/features/tracker/components/cards/SettingsTrackerCard.tsx
+msgid "App credentials"
+msgstr "应用凭据"
+
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/Settings.tsx
 msgid "Appearance"
@@ -932,6 +937,14 @@ msgstr "单击按键以解除绑定"
 msgid "Client data"
 msgstr "客户端数据"
 
+#: src/features/tracker/components/TrackerOAuthAppDialog.tsx
+msgid "Client ID"
+msgstr "客户端 ID"
+
+#: src/features/tracker/components/TrackerOAuthAppDialog.tsx
+msgid "Client secret"
+msgstr "客户端密钥"
+
 #: src/base/components/feedback/SnackbarWithDescription.tsx
 #: src/features/app-updates/components/VersionUpdateInfoDialog.tsx
 #: src/features/migration/components/migration-entry/MigrationDestinationEntry.tsx
@@ -1207,6 +1220,10 @@ msgstr "无法重试已失败的下载。"
 #: src/features/downloads/screens/DownloadQueue.tsx
 msgid "Could not retry failed downloads"
 msgstr "无法重试失败的下载"
+
+#: src/features/tracker/components/TrackerOAuthAppDialog.tsx
+msgid "Could not save the app credentials"
+msgstr "无法保存应用凭据"
 
 #: src/features/settings/screens/Appearance.tsx
 msgid "Could not save changes"
@@ -2221,6 +2238,10 @@ msgstr "紫气薰衣"
 msgid "Layout"
 msgstr "布局"
 
+#: src/features/tracker/components/TrackerOAuthAppDialog.tsx
+msgid "Leave empty to use the built-in app"
+msgstr "留空即用内置应用"
+
 #: src/features/reader/overlay/progress-bar/settings/components/ReaderSettingProgressBarPosition.tsx
 #: src/features/reader/settings/general/components/ReaderSettingSafeAreaInset.tsx
 msgid "Left"
@@ -2992,6 +3013,10 @@ msgstr "记录按键绑定"
 #: src/features/reader/hotkeys/settings/components/RecordHotkey.tsx
 msgid "Recorded hotkeys: {0}"
 msgstr "已记录的按键：{0}"
+
+#: src/features/tracker/components/TrackerOAuthAppDialog.tsx
+msgid "Redirect URI"
+msgstr "回调地址"
 
 #: src/features/reader/filters/settings/components/ReaderSettingRGBA.tsx
 msgid "Red"
