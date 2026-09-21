@@ -41,11 +41,8 @@ export const SettingsTrackerCard = ({
     const isOAuthLogin = !tracker.isLoggedIn && !!tracker.authUrl;
 
     /**
-     * 打开站点授权页 —— 一律走新窗口：宿主（桌面托盘、Android 应用）把它开成应用内的窗口，
-     * 浏览器里是新标签页。回调页登完后会通知本窗口刷新并自关（靠 `state.popup` 认路）。
-     *
-     * 新窗口被拦下来（弹窗拦截、宿主不支持）才退回同窗口跳转 —— 那条路上回调页没有 opener，
-     * 自己跳回追踪设置页。
+     * 打开站点授权页：同窗口跳转 —— 宿主（桌面托盘、Android 应用）会把非 WebUI 源的导航
+     * 交给系统浏览器，浏览器里完成认证后回调页再跳回追踪设置页。
      */
     const openTrackerOAuth = () => {
         const state = {
@@ -54,13 +51,8 @@ export const SettingsTrackerCard = ({
             trackerId: tracker.id,
             trackerName: tracker.name,
         };
-        const url = (popup: boolean) => `${tracker.authUrl}&state=${JSON.stringify({ ...state, popup })}`;
 
-        if (window.open(url(true), '_blank')) {
-            return;
-        }
-
-        window.location.href = url(false);
+        window.open(`${tracker.authUrl}&state=${JSON.stringify(state)}`, '_self');
     };
 
     const handleRefreshUser = async (event: React.MouseEvent) => {

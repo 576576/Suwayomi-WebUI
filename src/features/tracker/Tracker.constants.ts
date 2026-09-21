@@ -46,12 +46,3 @@ export const PUBLISHING_STATUS_TO_TRANSLATION: Record<PublishingStatus, MessageD
 };
 
 export const UNSET_DATE = '0';
-
-/**
- * 弹窗认证完成后的通知通道名：回调页在弹窗里发，追踪设置页在主窗口收。
- * 支持 BroadcastChannel 就用它，否则退回同源 `postMessage`。
- */
-export const TRACKER_OAUTH_CHANNEL = 'suwayomi-tracker-oauth';
-
-/** 该用 BroadcastChannel 还是退回 `postMessage`（收发两端必须用同一个判断）。 */
-export const CAN_BROADCAST_CHANNEL = typeof BroadcastChannel !== 'undefined';
