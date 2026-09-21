@@ -137,7 +137,7 @@ export const ChapterCard = memo((props: IProps) => {
                         <CardActionArea
                             component={Link}
                             to={AppRoutes.reader.path(chapter.mangaId, chapter.sourceOrder)}
-                            state={Chapters.getReaderOpenChapterLocationState(chapter, true)}
+                            state={Chapters.getReaderOpenChapterLocationState(true)}
                             onContextMenu={preventMobileContextMenu}
                             sx={MediaQuery.preventMobileContextMenuSx()}
                             style={{

@@ -50,7 +50,7 @@ export function ResumeFab({
                 variant="extended"
                 color="primary"
                 to={AppRoutes.reader.path(chapter.mangaId, chapter.sourceOrder)}
-                state={Chapters.getReaderOpenChapterLocationState(chapter)}
+                state={Chapters.getReaderOpenChapterLocationState()}
                 onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();

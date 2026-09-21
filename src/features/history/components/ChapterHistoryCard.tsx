@@ -31,7 +31,7 @@ export const ChapterHistoryCard = memo(({ chapter }: { chapter: ChapterHistoryLi
             <CardActionArea
                 component={Link}
                 to={AppRoutes.reader.path(chapter.manga.id, chapter.sourceOrder)}
-                state={Chapters.getReaderOpenChapterLocationState(chapter)}
+                state={Chapters.getReaderOpenChapterLocationState()}
                 onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();

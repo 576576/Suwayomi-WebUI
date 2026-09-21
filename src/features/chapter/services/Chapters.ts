@@ -18,7 +18,6 @@ import { CHAPTER_LIST_FIELDS } from '@/lib/graphql/chapter/ChapterFragments.ts';
 import type { MangaIdInfo } from '@/features/manga/Manga.types.ts';
 
 import type { RouteStateReader } from '@/features/reader/Reader.types.ts';
-import { ReaderResumeMode } from '@/features/reader/Reader.types.ts';
 import { AppRoutes } from '@/base/AppRoute.constants.ts';
 import { getErrorMessage } from '@/lib/HelperFunctions.ts';
 import { DOWNLOAD_TYPE_FIELDS } from '@/lib/graphql/download/DownloadFragments.ts';
@@ -420,22 +419,15 @@ export class Chapters {
         return onlyUnread ? Chapters.getNonRead(nextChapters) : nextChapters;
     }
 
-    static getReaderResumeMode(chapter: ChapterReadInfo): ReaderResumeMode {
-        if (chapter.isRead) {
-            return ReaderResumeMode.START;
-        }
-
-        return ReaderResumeMode.LAST_READ;
-    }
-
-    static getReaderOpenChapterLocationState(
-        chapter: ChapterReadInfo,
-        updateInitialChapter?: boolean,
-    ): RouteStateReader {
-        return AppRoutes.reader.state({
-            resumeMode: Chapters.getReaderResumeMode(chapter),
-            updateInitialChapter,
-        });
+    /**
+     * 打开阅读器的路由状态。
+     *
+     * 不带 `resumeMode` —— 由阅读器按章节自己存的位置决定从哪页开始
+     * （见 `getInitialReaderPageIndex`）。已读标记不代表用户没有中途停下
+     * （整章读完过、后来又重读一段的情况），所以这里不看 `isRead`。
+     */
+    static getReaderOpenChapterLocationState(updateInitialChapter?: boolean): RouteStateReader {
+        return AppRoutes.reader.state({ updateInitialChapter });
     }
 
     /**

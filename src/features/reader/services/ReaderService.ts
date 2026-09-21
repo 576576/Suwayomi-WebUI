@@ -122,7 +122,7 @@ export class ReaderService {
         updateInitialChapter?: boolean,
     ): Promise<void> {
         ReactRouter.navigate(AppRoutes.reader.path(chapter.mangaId, chapter.sourceOrder), {
-            state: Chapters.getReaderOpenChapterLocationState(chapter, updateInitialChapter),
+            state: Chapters.getReaderOpenChapterLocationState(updateInitialChapter),
         });
 
         const shouldEnterFullscreen = await (async () => {

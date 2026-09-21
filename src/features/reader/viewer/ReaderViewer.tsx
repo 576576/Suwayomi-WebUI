@@ -114,7 +114,8 @@ const BaseReaderViewer = ({
         shouldShowTransitionPage: state.shouldShowTransitionPage,
     }));
     const safeAreaInset = useReaderSettingsStore('safeAreaInset');
-    const { resumeMode = ReaderResumeMode.START } = useLocation<RouteStateReader>().state ?? STABLE_EMPTY_OBJECT;
+    // 没有路由状态时（手输 URL、书签）也接着上次的位置 —— 只有显式带了状态时才用它指定的模式
+    const { resumeMode = ReaderResumeMode.LAST_READ } = useLocation<RouteStateReader>().state ?? STABLE_EMPTY_OBJECT;
 
     const scrollElementRef = useRef<HTMLDivElement | null>(null);
     const mergedRef = useMergedRef(ref, scrollElementRef);

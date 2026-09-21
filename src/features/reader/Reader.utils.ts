@@ -40,6 +40,12 @@ export const getInitialReaderPageIndex = (
         return lastPageIndex;
     }
 
+    // LAST_READ：停在末页说明整章已经读完，再从第 1 页开始；否则接着上次的位置。
+    // 只看保存的位置、不看 isRead —— 读完过后来又重读一段的章节应当被记住。
+    if (lastReadPageIndex >= lastPageIndex) {
+        return 0;
+    }
+
     return coerceIn(lastReadPageIndex, 0, lastPageIndex);
 };
 

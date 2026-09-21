@@ -51,7 +51,7 @@ export const ContinueReadingButton = ({
                 sx={{ minWidth: 'unset', py: 0.5, px: 0.75 }}
                 component={Link}
                 to={`${mangaLinkTo}/chapter/${sourceOrder}`}
-                state={Chapters.getReaderOpenChapterLocationState(chapter)}
+                state={Chapters.getReaderOpenChapterLocationState()}
                 onClick={(e) => e.stopPropagation()}
             >
                 <PlayArrowIcon />
