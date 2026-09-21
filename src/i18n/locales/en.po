@@ -1406,6 +1406,7 @@ msgstr "Default"
 msgid "Default category when adding new manga to the library"
 msgstr "Default category when adding new manga to the library"
 
+#: src/base/components/AppbarSearch.tsx
 #: src/base/components/settings/MutableListSetting.tsx
 #: src/features/category/components/CategorySettingsCard.tsx
 #: src/features/chapter/Chapter.constants.ts
@@ -3010,6 +3011,10 @@ msgstr "Reading mode"
 #: src/features/backup/screens/Backup.tsx
 msgid "Rebuild download index"
 msgstr "Rebuild download index"
+
+#: src/base/components/AppbarSearch.tsx
+msgid "Recent searches"
+msgstr "Recent searches"
 
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Recently added"

@@ -220,7 +220,7 @@ export function Extensions({ tabsMenuHeight }: { tabsMenuHeight: number }) {
 
     useAppAction(
         <>
-            <AppbarSearch suggestions={visibleExtensionNames} />
+            <AppbarSearch searchHistoryKey="extensions" suggestions={visibleExtensionNames} />
             <CustomTooltip title={t`Add`}>
                 <IconButton onClick={(e) => setMenuAnchor(e.currentTarget)} color="inherit">
                     <AddIcon />
