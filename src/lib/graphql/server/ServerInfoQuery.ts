@@ -21,6 +21,7 @@ export const GET_ABOUT = gql`
             version
             dataDir
             lastAutoBackupAt
+            appDir
             platformInfo {
                 os {
                     name

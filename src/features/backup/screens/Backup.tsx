@@ -388,7 +388,33 @@ export function Backup() {
     // 分隔符跟**服务端**走（从实际目录就能看出来），不要猜客户端系统：WebUI 可能
     // 开在手机上而服务端在 Windows 上。原来这里写死 `/`，windows 上就成了
     // `...\data/downloads` 这种正反斜杠混用。
-    const storageSeparator = storageLocation.includes('\\') && !storageLocation.includes('/') ? '\\' : '/';
+    //
+    // 判据用服务端**解析后**的数据目录，不用 storageLocation：后者在设置里存着占位符
+    // 时是那串占位符本身，看不出服务端是哪个平台。
+    const resolvedDataDir = aboutData?.aboutServer.dataDir ?? '';
+    const storageSeparator = resolvedDataDir.includes('\\') && !resolvedDataDir.includes('/') ? '\\' : '/';
+
+    // 行上单击复制的是**能直接用的绝对路径**：设置里存的是占位符时按服务端的规则展开
+    // （%APPDIR% = 发布根、%DATADIR% = 数据目录），分隔符统一成服务端那套。
+    // 拿不到基准目录（老服务端没有 appDir 字段）时原样返回。
+    const resolveAbsolutePath = (path: string) => {
+        const match = /^%(APPDIR|DATADIR)%/i.exec(path);
+        if (!match) {
+            return path;
+        }
+        const base =
+            match[1].toUpperCase() === 'APPDIR'
+                ? (aboutData?.aboutServer.appDir ?? '')
+                : (aboutData?.aboutServer.dataDir ?? '');
+        if (!base) {
+            return path;
+        }
+        const rest = path.slice(match[0].length).replace(/^[\\/]+/, '');
+        if (!rest) {
+            return base;
+        }
+        return `${base.replace(/[\\/]+$/, '')}${storageSeparator}${rest.replaceAll(/[\\/]+/g, storageSeparator)}`;
+    };
 
     // 行上展示的是「这个目录是从哪来的」：占位符（服务端认的 %APPDIR% / %DATADIR%）
     // 在界面上要本地化成 <程序目录> / <存储位置>；没设置过时给 `<存储位置>/downloads`
@@ -415,9 +441,7 @@ export function Backup() {
                     dialogDescription={t`Directory the server keeps its data in (downloads, local sources, automated backups). The database file is kept separately, so changing this will not lose any settings. Takes effect after a restart.`}
                     value={backupSettings.dataDir ?? ''}
                     displayedPath={localizePathSource(storageLocation)}
-                    // 单击复制的是**原值**（写进设置里的那个串），所以存的是占位符时
-                    // 复制出来还是占位符——能直接粘回编辑框
-                    copyValue={storageLocation}
+                    copyValue={resolveAbsolutePath(storageLocation)}
                     placeholder={tokenPlaceholder('%APPDIR%', 'data')}
                     onEdit={isAndroid ? () => void chooseDirectory('dataDir', backupSettings.dataDir ?? '') : undefined}
                     handleChange={(path) => updateSetting('dataDir', path)}
@@ -432,7 +456,9 @@ export function Backup() {
                             : storagePlaceholder('downloads')
                     }
                     copyValue={
-                        backupSettings.downloadsPath.length ? backupSettings.downloadsPath : storageSubPath('downloads')
+                        backupSettings.downloadsPath.length
+                            ? resolveAbsolutePath(backupSettings.downloadsPath)
+                            : storageSubPath('downloads')
                     }
                     placeholder={tokenPlaceholder('%DATADIR%', 'downloads')}
                     onEdit={
@@ -452,7 +478,9 @@ export function Backup() {
                             : storagePlaceholder('local')
                     }
                     copyValue={
-                        backupSettings.localSourcePath.length ? backupSettings.localSourcePath : storageSubPath('local')
+                        backupSettings.localSourcePath.length
+                            ? resolveAbsolutePath(backupSettings.localSourcePath)
+                            : storageSubPath('local')
                     }
                     placeholder={tokenPlaceholder('%DATADIR%', 'local')}
                     onEdit={
@@ -472,7 +500,9 @@ export function Backup() {
                             : storagePlaceholder('autobackup')
                     }
                     copyValue={
-                        backupSettings.backupPath.length ? backupSettings.backupPath : storageSubPath('autobackup')
+                        backupSettings.backupPath.length
+                            ? resolveAbsolutePath(backupSettings.backupPath)
+                            : storageSubPath('autobackup')
                     }
                     placeholder={tokenPlaceholder('%DATADIR%', 'autobackup')}
                     onEdit={isAndroid ? () => void chooseDirectory('backupPath', backupSettings.backupPath) : undefined}

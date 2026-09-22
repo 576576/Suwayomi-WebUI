@@ -3034,6 +3034,7 @@ export type GetAboutQuery = {
         version: string;
         dataDir: string;
         lastAutoBackupAt: string;
+        appDir: string;
         platformInfo: {
             __typename: 'PlatformInfo';
             arch: string;
