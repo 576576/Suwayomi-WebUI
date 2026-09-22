@@ -397,6 +397,10 @@ export function Backup() {
     const storageSubPath = (folder: string) =>
         storageLocation ? `${storageLocation.replace(/[\\/]+$/, '')}${storageSeparator}${folder}` : '';
 
+    // 编辑对话框里的背景占位：想指到安装根/数据目录下的子目录时，用服务端认的占位符
+    // 写（%APPDIR% = 发布根，%DATADIR% = 数据目录），分隔符同样跟服务端的风格走。
+    const tokenPlaceholder = (token: string, folder: string) => `${token}${storageSeparator}${folder}`;
+
     return (
         <>
             <List sx={{ padding: 0 }}>
@@ -405,6 +409,7 @@ export function Backup() {
                     dialogDescription={t`Directory the server keeps its data in (downloads, local sources, automated backups). The database file is kept separately, so changing this will not lose any settings. Takes effect after a restart.`}
                     value={backupSettings.dataDir ?? ''}
                     displayedPath={storageLocation}
+                    placeholder={tokenPlaceholder('%APPDIR%', 'data')}
                     onEdit={isAndroid ? () => void chooseDirectory('dataDir', backupSettings.dataDir ?? '') : undefined}
                     handleChange={(path) => updateSetting('dataDir', path)}
                 />
@@ -420,6 +425,7 @@ export function Backup() {
                     copyValue={
                         backupSettings.downloadsPath.length ? backupSettings.downloadsPath : storageSubPath('downloads')
                     }
+                    placeholder={tokenPlaceholder('%DATADIR%', 'downloads')}
                     onEdit={
                         isAndroid
                             ? () => void chooseDirectory('downloadsPath', backupSettings.downloadsPath)
@@ -439,6 +445,7 @@ export function Backup() {
                     copyValue={
                         backupSettings.localSourcePath.length ? backupSettings.localSourcePath : storageSubPath('local')
                     }
+                    placeholder={tokenPlaceholder('%DATADIR%', 'local')}
                     onEdit={
                         isAndroid
                             ? () => void chooseDirectory('localSourcePath', backupSettings.localSourcePath)
@@ -456,6 +463,7 @@ export function Backup() {
                     copyValue={
                         backupSettings.backupPath.length ? backupSettings.backupPath : storageSubPath('autobackup')
                     }
+                    placeholder={tokenPlaceholder('%DATADIR%', 'autobackup')}
                     onEdit={isAndroid ? () => void chooseDirectory('backupPath', backupSettings.backupPath) : undefined}
                     handleChange={(path) => updateSetting('backupPath', path)}
                 />
