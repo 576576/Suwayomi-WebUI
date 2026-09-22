@@ -484,6 +484,10 @@ msgstr "除「无」以外的模式都需要同时填写用户名和密码，否
 msgid "App credentials"
 msgstr "应用凭据"
 
+#: src/features/backup/screens/Backup.tsx
+msgid "App directory"
+msgstr "程序目录"
+
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/Settings.tsx
 msgid "Appearance"

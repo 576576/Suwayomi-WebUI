@@ -390,15 +390,21 @@ export function Backup() {
     // `...\data/downloads` 这种正反斜杠混用。
     const storageSeparator = storageLocation.includes('\\') && !storageLocation.includes('/') ? '\\' : '/';
 
-    // 下面三个位置没设置过时，行上只给「这个目录是从哪来的」提示：
-    // [存储位置]/downloads；真实的完整路径留给整行单击复制（见 PathSetting 的
-    // copyValue）—— 展示短、复制可用。
-    const storagePlaceholder = (folder: string) => `[${t`Storage location`}]${storageSeparator}${folder}`;
+    // 行上展示的是「这个目录是从哪来的」：占位符（服务端认的 %APPDIR% / %DATADIR%）
+    // 在界面上要本地化成 <程序目录> / <存储位置>；没设置过时给 `<存储位置>/downloads`
+    // 这类提示；真实的完整路径留给整行单击复制（见 PathSetting 的 copyValue）。
+    const appDirLabel = `<${t`App directory`}>`;
+    const storageDirLabel = `<${t`Storage location`}>`;
+    const localizePathSource = (path: string) =>
+        path.replace(/^%(APPDIR|DATADIR)%/i, (_match, token: string) =>
+            token.toUpperCase() === 'APPDIR' ? appDirLabel : storageDirLabel,
+        );
+    const storagePlaceholder = (folder: string) => `${storageDirLabel}${storageSeparator}${folder}`;
     const storageSubPath = (folder: string) =>
         storageLocation ? `${storageLocation.replace(/[\\/]+$/, '')}${storageSeparator}${folder}` : '';
 
-    // 编辑对话框里的背景占位：想指到安装根/数据目录下的子目录时，用服务端认的占位符
-    // 写（%APPDIR% = 发布根，%DATADIR% = 数据目录），分隔符同样跟服务端的风格走。
+    // 编辑对话框里的背景占位反过来：那里正是要写值的地方，给服务端认的占位符写法
+    // （%APPDIR% = 程序目录，%DATADIR% = 存储位置），分隔符跟服务端风格走。
     const tokenPlaceholder = (token: string, folder: string) => `${token}${storageSeparator}${folder}`;
 
     return (
@@ -408,7 +414,10 @@ export function Backup() {
                     settingName={t`Storage location`}
                     dialogDescription={t`Directory the server keeps its data in (downloads, local sources, automated backups). The database file is kept separately, so changing this will not lose any settings. Takes effect after a restart.`}
                     value={backupSettings.dataDir ?? ''}
-                    displayedPath={storageLocation}
+                    displayedPath={localizePathSource(storageLocation)}
+                    // 单击复制的是**原值**（写进设置里的那个串），所以存的是占位符时
+                    // 复制出来还是占位符——能直接粘回编辑框
+                    copyValue={storageLocation}
                     placeholder={tokenPlaceholder('%APPDIR%', 'data')}
                     onEdit={isAndroid ? () => void chooseDirectory('dataDir', backupSettings.dataDir ?? '') : undefined}
                     handleChange={(path) => updateSetting('dataDir', path)}
@@ -419,7 +428,7 @@ export function Backup() {
                     value={backupSettings.downloadsPath}
                     displayedPath={
                         backupSettings.downloadsPath.length
-                            ? backupSettings.downloadsPath
+                            ? localizePathSource(backupSettings.downloadsPath)
                             : storagePlaceholder('downloads')
                     }
                     copyValue={
@@ -439,7 +448,7 @@ export function Backup() {
                     value={backupSettings.localSourcePath}
                     displayedPath={
                         backupSettings.localSourcePath.length
-                            ? backupSettings.localSourcePath
+                            ? localizePathSource(backupSettings.localSourcePath)
                             : storagePlaceholder('local')
                     }
                     copyValue={
@@ -458,7 +467,9 @@ export function Backup() {
                     dialogDescription={t`The path to the directory on the server where automated backups should get saved in`}
                     value={backupSettings.backupPath}
                     displayedPath={
-                        backupSettings.backupPath.length ? backupSettings.backupPath : storagePlaceholder('autobackup')
+                        backupSettings.backupPath.length
+                            ? localizePathSource(backupSettings.backupPath)
+                            : storagePlaceholder('autobackup')
                     }
                     copyValue={
                         backupSettings.backupPath.length ? backupSettings.backupPath : storageSubPath('autobackup')

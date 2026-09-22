@@ -484,6 +484,10 @@ msgstr "Any mode other than disabled needs both, otherwise the server refuses to
 msgid "App credentials"
 msgstr "App credentials"
 
+#: src/features/backup/screens/Backup.tsx
+msgid "App directory"
+msgstr "App directory"
+
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/Settings.tsx
 msgid "Appearance"

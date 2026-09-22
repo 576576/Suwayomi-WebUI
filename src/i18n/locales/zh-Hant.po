@@ -473,6 +473,10 @@ msgstr "同時從 {0} 中刪除"
 msgid "Alternative title: {altTitle}"
 msgstr ""
 
+#: src/features/backup/screens/Backup.tsx
+msgid "App directory"
+msgstr "程式目錄"
+
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/Settings.tsx
 msgid "Appearance"
