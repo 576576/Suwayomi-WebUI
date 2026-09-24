@@ -52,6 +52,7 @@ export const SERVER_SETTINGS_METADATA_DEFAULT: MetadataServerSettings = {
     // library
     showAddToLibraryCategorySelectDialog: true,
     ignoreFilters: false,
+    fuzzySearch: true,
     removeMangaFromCategories: false,
     showTabSize: false,
     showContinueReadingButton: false,

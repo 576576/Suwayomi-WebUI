@@ -105,6 +105,7 @@ export function Library() {
     const categoryMangas = categoryMangaResponse?.mangas.nodes ?? STABLE_EMPTY_ARRAY;
     const {
         visibleMangas: mangas,
+        searchSuggestions,
         showFilteredOutMessage,
         filterKey,
     } = useGetVisibleLibraryMangas(categoryMangas, activeTab);
@@ -123,6 +124,7 @@ export function Library() {
     );
 
     const mangaIds = useMemo(() => mangas.map((manga) => manga.id), [mangas]);
+    const mangaTitles = useMemo(() => searchSuggestions.map((manga) => manga.title), [searchSuggestions]);
 
     const [isSelectModeActive, setIsSelectModeActive] = useState(false);
     const {
@@ -216,7 +218,7 @@ export function Library() {
         <>
             {!isSelectModeActive && activeTab && (
                 <>
-                    <AppbarSearch />
+                    <AppbarSearch searchHistoryKey="library" suggestions={mangaTitles} />
                     <LibraryToolbarMenu category={activeTab} mangas={mangas} />
                     <UpdateChecker categoryId={activeTab?.id} />
                 </>
@@ -241,7 +243,7 @@ export function Library() {
                 />
             )}
         </>,
-        [isSelectModeActive, areNoItemsSelected, areAllItemsSelected, activeTab, mangas],
+        [isSelectModeActive, areNoItemsSelected, areAllItemsSelected, activeTab, mangas, mangaTitles],
     );
 
     const handleTabChange = (newTab: number) => {

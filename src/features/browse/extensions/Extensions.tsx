@@ -154,6 +154,11 @@ export function Extensions({ tabsMenuHeight }: { tabsMenuHeight: number }) {
         [groupedExtensions],
     );
 
+    const visibleExtensionNames = useMemo(
+        () => visibleExtensions.map((extension) => extension.name),
+        [visibleExtensions],
+    );
+
     const areReposDefined = !!extensionStoresRequest.data?.extensionStores.totalCount;
     const areMultipleReposInUse = useMemo(() => {
         if (!allExtensions.length) {
@@ -215,7 +220,7 @@ export function Extensions({ tabsMenuHeight }: { tabsMenuHeight: number }) {
 
     useAppAction(
         <>
-            <AppbarSearch />
+            <AppbarSearch searchHistoryKey="extensions" suggestions={visibleExtensionNames} />
             <CustomTooltip title={t`Add`}>
                 <IconButton onClick={(e) => setMenuAnchor(e.currentTarget)} color="inherit">
                     <AddIcon />

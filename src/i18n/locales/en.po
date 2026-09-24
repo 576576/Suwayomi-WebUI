@@ -1406,6 +1406,7 @@ msgstr "Default"
 msgid "Default category when adding new manga to the library"
 msgstr "Default category when adding new manga to the library"
 
+#: src/base/components/AppbarSearch.tsx
 #: src/base/components/settings/MutableListSetting.tsx
 #: src/features/category/components/CategorySettingsCard.tsx
 #: src/features/chapter/Chapter.constants.ts
@@ -1419,6 +1420,7 @@ msgstr "Default category when adding new manga to the library"
 msgid "Delete"
 msgstr "Delete"
 
+#: src/base/components/AppbarSearch.tsx
 #: src/features/downloads/screens/DownloadQueue.tsx
 msgid "Delete all"
 msgstr "Delete all"
@@ -1903,6 +1905,10 @@ msgstr "Fourth to last read chapter"
 #: src/features/reader/settings/general/ReaderGeneralSettings.tsx
 msgid "Fullscreen"
 msgstr "Fullscreen"
+
+#: src/features/library/screens/LibrarySettings.tsx
+msgid "Fuzzy search"
+msgstr "Fuzzy search"
 
 #: src/features/library/screens/LibrarySettings.tsx
 #: src/features/reader/settings/ReaderSettings.constants.tsx
@@ -2462,6 +2468,10 @@ msgstr "Match based on chapter number"
 msgid "Match found"
 msgstr "Match found"
 
+#: src/features/library/screens/LibrarySettings.tsx
+msgid "Match the library search even with typos or words in a different order, and show the closest matches first"
+msgstr "Match the library search even with typos or words in a different order, and show the closest matches first"
+
 #: src/features/migration/components/migration-entry/MigrationEntry.tsx
 #: src/features/settings/screens/AboutLicenses.tsx
 msgid "Matches"
@@ -3002,6 +3012,10 @@ msgstr "Reading mode"
 #: src/features/backup/screens/Backup.tsx
 msgid "Rebuild download index"
 msgstr "Rebuild download index"
+
+#: src/base/components/AppbarSearch.tsx
+msgid "Recent searches"
+msgstr "Recent searches"
 
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Recently added"
