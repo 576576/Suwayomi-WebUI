@@ -36,7 +36,8 @@ export function ResumeFab({
     const { t } = useLingui();
 
     const { sourceOrder, name, chapterNumber, scanlator } = chapter;
-    const isFirstChapter = sourceOrder === 1;
+    // server `sourceOrder` is 0-based (Mihon numbering)
+    const isFirstChapter = sourceOrder === 0;
 
     return (
         <ContinueReadingTooltip

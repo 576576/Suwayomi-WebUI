@@ -41,7 +41,9 @@ export const useReaderSetChaptersState = (
     useEffect(() => {
         const newMangaChapters = chaptersResponse.data?.chapters.nodes;
         const newCurrentChapter = newMangaChapters
-            ? (newMangaChapters[newMangaChapters.length - chapterSourceOrder] ?? null)
+            ? // server `sourceOrder` is 0-based (Mihon numbering), so the
+              // newest-first list maps it to `length - 1 - sourceOrder`
+              (newMangaChapters[newMangaChapters.length - 1 - chapterSourceOrder] ?? null)
             : undefined;
         const newInitialChapter = finalInitialChapter ?? newCurrentChapter;
         const newChapterForDuplicatesHandling = chapterForDuplicatesHandling ?? newCurrentChapter;
