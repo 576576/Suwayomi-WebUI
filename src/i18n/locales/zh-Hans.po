@@ -4218,7 +4218,7 @@ msgstr "你即将从扩展商店中移除“{name}”"
 
 #: src/features/backup/screens/Backup.tsx
 msgid "You can also drag and drop the backup file here to restore it"
-msgstr "你可以将备份文件拖放到此处进行还原"
+msgstr "你可以将备份文件在此处进行还原"
 
 #: src/features/category/components/CategorySelect.tsx
 msgid "You don't have any categories yet."
