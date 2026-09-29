@@ -631,6 +631,10 @@ msgid "Backup & Restore"
 msgstr "Backup & Restore"
 
 #: src/features/backup/screens/Backup.tsx
+msgid "Backup created"
+msgstr "Backup created"
+
+#: src/features/backup/screens/Backup.tsx
 msgid "Backup restored."
 msgstr "Backup restored."
 

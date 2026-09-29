@@ -631,6 +631,10 @@ msgid "Backup & Restore"
 msgstr "备份与还原"
 
 #: src/features/backup/screens/Backup.tsx
+msgid "Backup created"
+msgstr "备份已创建。"
+
+#: src/features/backup/screens/Backup.tsx
 msgid "Backup location"
 msgstr "备份位置"
 

@@ -19,6 +19,7 @@ import Typography from '@mui/material/Typography';
 import { fromEvent } from 'file-selector';
 import { useEventListener, useMergedRef, useWindowEvent } from '@mantine/hooks';
 import { AwaitableComponent } from 'awaitable-component';
+import dayjs from 'dayjs';
 import { useLingui } from '@lingui/react/macro';
 import { plural } from '@lingui/core/macro';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
@@ -34,10 +35,11 @@ import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
 import { epochToDate, getDateString } from '@/base/utils/DateHelper.ts';
 import { BackupFlagInclusionDialog } from '@/features/backup/component/BackupFlagInclusionDialog.tsx';
 import { BackupValidationDialog } from '@/features/backup/component/BackupValidationDialog.tsx';
-import type { BackupSettingsType } from '@/features/backup/Backup.types.ts';
+import type { BackupFlagInclusionState, BackupSettingsType } from '@/features/backup/Backup.types.ts';
 import type { ServerSettings } from '@/features/settings/Settings.types.ts';
 import { ImageCache } from '@/lib/service-worker/ImageCache.ts';
 import { isAndroidApp, pickDirectory } from '@/lib/platform/AndroidBridge.ts';
+import { saveFileAs } from '@/lib/platform/SaveFile.ts';
 
 let backupRestoreId: string | undefined;
 
@@ -249,27 +251,52 @@ export function Backup() {
     }, [data?.restoreStatus?.state]);
 
     const createBackup = async () => {
-        const flags = await AwaitableComponent.show(BackupFlagInclusionDialog, {
-            title: t`Create backup`,
-        });
-
-        makeToast(t`Creating backup…`, 'info');
-
+        let flags: BackupFlagInclusionState;
         try {
-            const backupFileResponse = await requestManager.createBackupFile({ flags }).response;
+            flags = await AwaitableComponent.show(BackupFlagInclusionDialog, {
+                title: t`Create backup`,
+            });
+        } catch (_) {
+            return; // 用户关掉了对话框
+        }
 
+        // 与 `/api/v1/backup/export/file` 的 Content-Disposition 同名，用户另存到
+        // data/autobackup 时能和自动备份排在一起。
+        const fileName = `org.suwayomi.next_${dayjs().format('YYYY-MM-DD_HH-mm')}.tachibk`;
+
+        const loadBackup = async () => {
+            makeToast(t`Creating backup…`, 'info');
+
+            const backupFileResponse = await requestManager.createBackupFile({ flags }).response;
             const backupFileUrl = backupFileResponse.data?.createBackup.url;
             if (!backupFileUrl) {
-                makeToast(t`Could not create backup`, 'error', getErrorMessage(backupFileResponse.error));
+                throw new Error(getErrorMessage(backupFileResponse.error));
+            }
+
+            return requestManager.getBackupFile(requestManager.getValidUrlFor(backupFileUrl, ''));
+        };
+
+        try {
+            const result = await saveFileAs(fileName, loadBackup);
+
+            if (result === 'unsupported') {
+                // 没有另存为对话框（非安全上下文、Firefox/Safari、Android WebView）
+                // 就退回静默下载。
+                const url = URL.createObjectURL(await loadBackup());
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = fileName;
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+                // 立即 revoke 会把还没起步的下载打断
+                window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
                 return;
             }
 
-            const link = document.createElement('a');
-            link.href = requestManager.getValidUrlFor(backupFileUrl, '');
-            link.download = '';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            if (result === 'saved') {
+                makeToast(t`Backup created`, 'success');
+            }
         } catch (e) {
             makeToast(t`Could not create backup`, 'error', getErrorMessage(e));
         }

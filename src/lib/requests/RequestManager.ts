@@ -3293,6 +3293,14 @@ export class RequestManager {
         );
     }
 
+    /**
+     * 取备份导出的字节。`/api/v1/backup/export/file` 返回的是二进制流，fetcher
+     * 默认的 JSON 校验会直接判成失败，所以这里显式关掉。
+     */
+    public getBackupFile(url: string): Promise<Blob> {
+        return this.restClient.fetcher(url, { checkResponseIsJson: false }).then((response) => response.blob());
+    }
+
     public restoreBackupFile(
         input: RestoreBackupInput,
         options?: MutationOptions<RestoreBackupMutation, RestoreBackupMutationVariables>,
