@@ -27,6 +27,10 @@ export type AboutServerPayload = {
     dataDir: Scalars['String']['output'];
     /** Epoch seconds of the last automatic backup (0 = never ran yet). Suwayomi-next 扩展字段：WebUI「数据与存储」页在自动备份频率下显示为副标题。 */
     lastAutoBackupAt: Scalars['LongString']['output'];
+    /** 发布根（exe 在 `bin/` 下时是它的上级）。Suwayomi-next 扩展字段：设置里可以填 `%APPDIR%` 占位符，WebUI 要用它把占位符还原成能直接用的绝对路径。 */
+    appDir: Scalars['String']['output'];
+    /** appdata 根（缓存 / 库 / 设置 / 扩展的父目录）。Suwayomi-next 扩展字段：WebUI「数据与存储」页只读展示 —— 它决定数据库放在哪，改不了也存不进库里。 */
+    appdataDir: Scalars['String']['output'];
 };
 
 export type AboutWebUi = {

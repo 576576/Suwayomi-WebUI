@@ -13,11 +13,14 @@ import ListItemText from '@mui/material/ListItemText';
 import Tooltip from '@mui/material/Tooltip';
 import { useState } from 'react';
 import { useLingui } from '@lingui/react/macro';
+import noop from 'lodash/fp/noop';
 import type { TextSettingProps } from '@/base/components/settings/text/TextSetting.tsx';
 import { TextSettingDialog } from '@/base/components/settings/text/TextSettingDialog.tsx';
 import { copyToClipboard } from '@/lib/HelperFunctions.ts';
 
-export type PathSettingProps = TextSettingProps & {
+export type PathSettingProps = Omit<TextSettingProps, 'handleChange'> & {
+    /** 提交回调；`readOnly` 的行不渲染编辑对话框，这一项不会被调用。 */
+    handleChange?: (value: string) => void;
     /**
      * 行上展示的路径。
      *
@@ -39,10 +42,17 @@ export type PathSettingProps = TextSettingProps & {
      * Android 上用系统目录授权对话框替掉它（见 `lib/platform/AndroidBridge.ts`）。
      */
     onEdit?: () => void;
+    /**
+     * 只读：不渲染铅笔按钮、不挂编辑对话框，整行单击仍可复制。
+     *
+     * 用于服务端**启动时就定死**、界面上改不了的路径 —— appdata 根决定数据库放在
+     * 哪，存不进库里，没有「改完重启生效」这回事。
+     */
+    readOnly?: boolean;
 };
 
 /**
- * 一条「目录路径」设置项（存储位置、下载位置……）。
+ * 一条「目录路径」设置项（存储位置、应用数据位置……）。
  *
  * 与 [`TextSetting`] 的差别只在交互：**整行单击 = 复制路径**，右侧铅笔按钮才打开
  * 编辑对话框。这些路径日常用途是「抄下来粘进文件管理器/终端」，读远多于写，
@@ -54,6 +64,7 @@ export const PathSetting = ({
     copyValue = displayedPath,
     disabled = false,
     onEdit,
+    readOnly = false,
     ...props
 }: PathSettingProps) => {
     const { t } = useLingui();
@@ -72,27 +83,30 @@ export const PathSetting = ({
                         },
                     }}
                 />
-                <Tooltip title={t`Edit`}>
-                    <IconButton
-                        edge="end"
-                        disabled={disabled}
-                        onClick={(event) => {
-                            // 别让行上的「复制」也跟着触发
-                            event.stopPropagation();
-                            if (onEdit) {
-                                onEdit();
-                                return;
-                            }
-                            setIsDialogOpen(true);
-                        }}
-                    >
-                        <EditIcon fontSize="small" />
-                    </IconButton>
-                </Tooltip>
+                {readOnly ? null : (
+                    <Tooltip title={t`Edit`}>
+                        <IconButton
+                            edge="end"
+                            disabled={disabled}
+                            onClick={(event) => {
+                                // 别让行上的「复制」也跟着触发
+                                event.stopPropagation();
+                                if (onEdit) {
+                                    onEdit();
+                                    return;
+                                }
+                                setIsDialogOpen(true);
+                            }}
+                        >
+                            <EditIcon fontSize="small" />
+                        </IconButton>
+                    </Tooltip>
+                )}
             </ListItemButton>
-            {onEdit ? null : (
+            {readOnly || onEdit ? null : (
                 <TextSettingDialog
                     {...props}
+                    handleChange={props.handleChange ?? noop}
                     disabled={disabled}
                     placeholder={props.placeholder ?? displayedPath}
                     isDialogOpen={isDialogOpen}

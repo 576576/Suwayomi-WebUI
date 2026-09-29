@@ -485,6 +485,10 @@ msgid "App credentials"
 msgstr "App credentials"
 
 #: src/features/backup/screens/Backup.tsx
+msgid "App data location"
+msgstr "App data location"
+
+#: src/features/backup/screens/Backup.tsx
 msgid "App directory"
 msgstr "App directory"
 
@@ -625,10 +629,6 @@ msgstr "Background color"
 #: src/features/backup/screens/Backup.tsx
 msgid "Backup & Restore"
 msgstr "Backup & Restore"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "Backup location"
-msgstr "Backup location"
 
 #: src/features/backup/screens/Backup.tsx
 msgid "Backup restored."
@@ -1570,10 +1570,6 @@ msgstr "Download badges"
 msgid "Download index rebuilt: {chaptersText}"
 msgstr "Download index rebuilt: {chaptersText}"
 
-#: src/features/backup/screens/Backup.tsx
-msgid "Download location"
-msgstr "Download location"
-
 #: src/features/downloads/screens/DownloadSettings.tsx
 msgid "Download new chapters"
 msgstr "Download new chapters"
@@ -2334,10 +2330,6 @@ msgstr "Local source"
 #: src/features/source/browse/screens/SourceMangas.tsx
 msgid "Local source guide"
 msgstr "Local source guide"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "Local source location"
-msgstr "Local source location"
 
 #: src/base/components/modals/LoginDialog.tsx
 #: src/features/authentication/screens/LoginPage.tsx
@@ -3762,18 +3754,6 @@ msgid "The next chapter has a different scanlator then the current one.\n"
 msgstr "The next chapter has a different scanlator then the current one.\n"
 "Current: {currentScanlator}\n"
 "Next: {nextScanlator}"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "The path to the directory on the server where automated backups should get saved in"
-msgstr "The path to the directory on the server where automated backups should get saved in"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "The path to the directory on the server where downloads should get saved in"
-msgstr "The path to the directory on the server where downloads should get saved in"
-
-#: src/features/backup/screens/Backup.tsx
-msgid "The path to the directory on the server where local source files are saved in"
-msgstr "The path to the directory on the server where local source files are saved in"
 
 #: src/features/reader/services/ReaderControls.ts
 msgid "The previous chapter has a different scanlator then the current one.\n"
