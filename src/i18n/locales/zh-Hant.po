@@ -474,6 +474,10 @@ msgid "Alternative title: {altTitle}"
 msgstr ""
 
 #: src/features/backup/screens/Backup.tsx
+msgid "App data location"
+msgstr "應用程式資料位置"
+
+#: src/features/backup/screens/Backup.tsx
 msgid "App directory"
 msgstr "程式目錄"
 
@@ -593,6 +597,10 @@ msgstr "背景色"
 #: src/features/backup/screens/Backup.tsx
 msgid "Backup cleanup"
 msgstr "清理備份"
+
+#: src/features/backup/screens/Backup.tsx
+msgid "Backup created"
+msgstr "備份已建立。"
 
 #: src/features/backup/screens/Backup.tsx
 msgid "Backup data"
