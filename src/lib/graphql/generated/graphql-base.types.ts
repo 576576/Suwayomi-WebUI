@@ -439,8 +439,8 @@ export type CreateCategoryPayload = {
 };
 
 export enum DatabaseType {
-    H2 = 'H2',
     Postgresql = 'POSTGRESQL',
+    Rusqlite = 'RUSQLITE',
 }
 
 export type DeleteCategoryInput = {

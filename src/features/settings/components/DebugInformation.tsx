@@ -75,6 +75,12 @@ const PRIVACY_UNSAFE_SERVER_SETTINGS: (keyof ServerSettings)[] = [
     'databaseUrl',
     'syncYomiHost',
 ];
+
+/**
+ * 后端没有对应实现的开关：它在 schema 里只作兼容字段存在，展示出来等于给一个点了不生效的
+ * 选项。Hikari 是参考实现（JVM）的连接池，本仓后端没有它。
+ */
+const UNSUPPORTED_SERVER_SETTINGS: (keyof ServerSettings)[] = ['useHikariConnectionPool'];
 const getBrowserDebugInfo = async (serverAddress: string) => {
     const nav = navigator;
 
@@ -331,7 +337,9 @@ export const DebugInformation = () => {
             },
             Settings: {
                 Server: omitBy(
-                    (_value, key) => PRIVACY_UNSAFE_SERVER_SETTINGS.includes(key as keyof ServerSettings),
+                    (_value, key) =>
+                        PRIVACY_UNSAFE_SERVER_SETTINGS.includes(key as keyof ServerSettings) ||
+                        UNSUPPORTED_SERVER_SETTINGS.includes(key as keyof ServerSettings),
                     serverSettingsRequest.data?.settings ?? STABLE_EMPTY_OBJECT,
                 ),
                 WebUI: {
