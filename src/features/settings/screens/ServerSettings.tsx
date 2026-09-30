@@ -112,8 +112,9 @@ const logOut = async () => {
  * 服务器地址在登录/闪屏页、两个版本更新提示在 About）。其中又只保留后端有对应实现的：
  * 服务器绑定 / 认证 / OPDS / KOReader 同步 / 同步。没恢复的几类及原因：
  * `SOCKS 代理`、`绕过 Cloudflare`、`杂项`（调试日志、托盘图标、日志轮转）在 Rust 侧
- * 没有任何实现；`数据库` 在本项目由 `SUWAYOMI_DB_BACKEND` / `SUWAYOMI_DATABASE_URL`
- * 决定，H2 与 Hikari 无对应实现；`WebView` 分区更是已移除（CEF 换成独立托盘程序）。
+ * 没有任何实现；`数据库` 的后端由 `SUWAYOMI_DB_BACKEND` 选择（选 PostgreSQL 时连接串
+ * 取自 `SUWAYOMI_DB_URL`；接线方案见 Suwayomi-next 的 `docs/agent/plans/database-settings.md`），
+ * H2 与 Hikari 无对应实现；`WebView` 分区更是已移除（CEF 换成独立托盘程序）。
  *
  * 这一层只负责取数与加载/错误态；表单本身在 `ServerSettingsEditor` 里，因为草稿状态
  * 必须等到数据就绪之后才能初始化（早期 return 之前不能挂 hook）。
