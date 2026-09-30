@@ -1351,14 +1351,14 @@ export type MangaType = {
     description?: Maybe<Scalars['String']['output']>;
     downloadCount: Scalars['Int']['output'];
     /**
-     * 对齐上游 `FirstUnreadChapterForMangaDataLoader`：未读章节中 sourceOrder 最小者
+     * 对齐参考实现 `FirstUnreadChapterForMangaDataLoader`：未读章节中 sourceOrder 最小者
      * （「继续阅读」应指向最靠前的未读章节，旧实现按 sourceOrder 倒序取首个未读）。
      */
     firstUnreadChapter?: Maybe<ChapterType>;
     genre: Array<Scalars['String']['output']>;
     hasDuplicateChapters: Scalars['Boolean']['output'];
     /**
-     * 对齐上游 `HighestNumberedChapterForMangaDataLoader`：仅在 chapter_number > 0
+     * 对齐参考实现 `HighestNumberedChapterForMangaDataLoader`：仅在 chapter_number > 0
      * 的章节中取最大编号（编号 0 / 负数表示未知编号，不应参与）。
      */
     highestNumberedChapter?: Maybe<ChapterType>;
@@ -1368,21 +1368,21 @@ export type MangaType = {
     initialized: Scalars['Boolean']['output'];
     lastFetchedAt?: Maybe<Scalars['LongString']['output']>;
     /**
-     * 对齐上游 `LastReadChapterForMangaDataLoader`：按 lastReadAt 降序取首条
+     * 对齐参考实现 `LastReadChapterForMangaDataLoader`：按 lastReadAt 降序取首条
      * （**不过滤是否已读**，与 latestReadChapter 的语义正好互换）。
      * 书架「按最后一次阅读」排序依赖该字段，旧实现取「已读中 sourceOrder 最大」，
      * 导致阅读后排序键不更新、顺序不刷新。
      */
     lastReadChapter?: Maybe<ChapterType>;
     /**
-     * 对齐上游 `LatestFetchedChapterForMangaDataLoader`：fetchedAt 降序，
+     * 对齐参考实现 `LatestFetchedChapterForMangaDataLoader`：fetchedAt 降序，
      * 同一时间戳时以 sourceOrder 降序作为次级排序。
      */
     latestFetchedChapter?: Maybe<ChapterType>;
-    /** 对齐上游 `LatestReadChapterForMangaDataLoader`：已读章节中 sourceOrder 最大者。 */
+    /** 对齐参考实现 `LatestReadChapterForMangaDataLoader`：已读章节中 sourceOrder 最大者。 */
     latestReadChapter?: Maybe<ChapterType>;
     /**
-     * 对齐上游 `LatestUploadedChapterForMangaDataLoader`：date_upload 降序，
+     * 对齐参考实现 `LatestUploadedChapterForMangaDataLoader`：date_upload 降序，
      * 同一时间戳时以 sourceOrder 降序作为次级排序。
      */
     latestUploadedChapter?: Maybe<ChapterType>;
@@ -1393,13 +1393,13 @@ export type MangaType = {
     status: MangaStatus;
     thumbnailUrl?: Maybe<Scalars['String']['output']>;
     /**
-     * 上游把这一项声明成可空的（`thumbnailUrlLastFetched: LongString`）；0 表示
+     * 参考实现把这一项声明成可空的（`thumbnailUrlLastFetched: LongString`）；0 表示
      * 封面从未抓取过，这里就返回 null，而不是把哨兵值 0 当时间戳发出去。
      */
     thumbnailUrlLastFetched?: Maybe<Scalars['LongString']['output']>;
     title: Scalars['String']['output'];
     /**
-     * 对齐上游 `TrackRecordsForMangaIdDataLoader`：按 manga_id 查询绑定记录。
+     * 对齐参考实现 `TrackRecordsForMangaIdDataLoader`：按 manga_id 查询绑定记录。
      * 旧实现恒返回空列表，导致 WebUI 书架的「按追踪器筛选」永远筛不出结果。
      */
     trackRecords: TrackRecordNodeList;
@@ -1478,7 +1478,7 @@ export type Mutation = {
     bindTrackRecord: BindTrackRecordPayload;
     clearCachedImages: ClearCachedImagesPayload;
     /**
-     * 入参可省：上游把它声明成可选（`input: ClearCookiesAndCacheInput`，
+     * 入参可省：参考实现把它声明成可选（`input: ClearCookiesAndCacheInput`，
      * Kotlin 侧默认 `= ClearCookiesAndCacheInput()`），WebUI 的
      * `WEBVIEW_CLEAR_CACHE_COOKIES` 就不带参数。声明成必填会让那条 mutation
      * 校验不过。
@@ -1545,7 +1545,7 @@ export type Mutation = {
     refreshToken: RefreshTokenPayload;
     /**
      * Mirrors Mihon `BaseTracker.refreshUser()` —— 重新拉站点上的用户级设置（评分制）
-     * 并落库，`tracker.scores` 随之更新。上游 Suwayomi 没有对应 mutation。
+     * 并落库，`tracker.scores` 随之更新。参考实现 Suwayomi 没有对应 mutation。
      */
     refreshTrackerUser: RefreshTrackerUserPayload;
     removeExtensionStore: RemoveExtensionStorePayload;
@@ -3212,7 +3212,7 @@ export type TrackerOrderInput = {
 
 export type TrackerType = {
     __typename?: 'TrackerType';
-    /** 已登录时给 null（上游 `TrackerType` 构造时就是这么定的）。 */
+    /** 已登录时给 null（参考实现 `TrackerType` 构造时就是这么定的）。 */
     authUrl?: Maybe<Scalars['String']['output']>;
     icon: Scalars['String']['output'];
     id: Scalars['Int']['output'];

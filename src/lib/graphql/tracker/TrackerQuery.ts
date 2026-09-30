@@ -57,7 +57,7 @@ export const TRACKER_SEARCH = gql`
     }
 `;
 
-// `oauthApp` 是 Suwayomi-next 自己加的字段（上游 schema 没有），所以单独查询 +
+// `oauthApp` 是 Suwayomi-next 自己加的字段（参考实现 schema 没有），所以单独查询 +
 // 手写类型（见 TrackerExtensions.ts），不塞进 `generated/` 用的那些片段。
 export const TRACKER_OAUTH_APPS = gql`
     query TRACKER_OAUTH_APPS {

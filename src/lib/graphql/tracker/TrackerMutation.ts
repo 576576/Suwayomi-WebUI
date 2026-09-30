@@ -61,7 +61,7 @@ export const TRACKER_REFRESH_USER = gql`
     }
 `;
 
-// `updateTrackerOAuthApp` 是 Suwayomi-next 自己加的 mutation（上游 schema 没有），
+// `updateTrackerOAuthApp` 是 Suwayomi-next 自己加的 mutation（参考实现 schema 没有），
 // 类型手写在 TrackerExtensions.ts。
 export const TRACKER_UPDATE_OAUTH_APP = gql`
     ${TRACKER_SETTING_FIELDS}

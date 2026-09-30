@@ -9,7 +9,7 @@
 import type { TrackerType } from '@/lib/graphql/generated/graphql-base.types.ts';
 
 /**
- * `refreshTrackerUser` 是 Suwayomi-next 自己加的（上游 Suwayomi 没有这个 mutation，
+ * `refreshTrackerUser` 是 Suwayomi-next 自己加的（参考实现 Suwayomi 没有这个 mutation，
  * 对应 Mihon `BaseTracker.refreshUser()`），所以 `generated/` 里没有它的类型。
  */
 export type TrackerRefreshUserMutationVariables = {
@@ -35,7 +35,7 @@ export type TrackerOAuthApp = {
     redirectUri: string;
 };
 
-/** `oauthApp` 不在上游 schema 里，单独一个 query 取，别动 `generated/` 用的那些片段。 */
+/** `oauthApp` 不在参考实现 schema 里，单独一个 query 取，别动 `generated/` 用的那些片段。 */
 export type TrackerOAuthAppsQuery = {
     __typename?: 'Query';
     trackers: {
