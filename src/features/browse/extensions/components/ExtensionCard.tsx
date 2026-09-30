@@ -124,7 +124,9 @@ export function ExtensionCard(props: IProps) {
             default:
                 break;
         }
-        if (!action) {return;}
+        if (!action) {
+            return;
+        }
 
         const runAction = () => {
             requestExtensionAction(action as ExtensionAction).catch(

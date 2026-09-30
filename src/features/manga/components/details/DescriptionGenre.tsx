@@ -51,7 +51,9 @@ export const DescriptionGenre = ({
     // description here.
     const effectiveDescription = useMemo(() => {
         const d = description?.trim();
-        if (d) {return d;}
+        if (d) {
+            return d;
+        }
         const at = (altTitles ?? []).map((s) => (s ?? '').trim()).filter(Boolean);
         return at.length > 0 ? at.join('\n\n') : '';
     }, [description, altTitles]);
