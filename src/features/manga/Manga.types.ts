@@ -25,10 +25,10 @@ import type { MigrationMatch } from '@/features/migration/Migration.types.ts';
 import type {
     MangaType as MangaTypeGql,
     Maybe,
-    MetaType,
     SourceType,
     TrackRecordType,
 } from '@/lib/graphql/generated/graphql-base.types.ts';
+import type { GqlMeta } from '@/features/metadata/Metadata.types.ts';
 import type { UsePressResult } from '@/base/hooks/usePress.ts';
 
 export type MangaCardMode = 'default' | 'source' | 'migrate.select.bulk' | 'migrate.select.single' | 'duplicate';
@@ -62,7 +62,7 @@ export type MangaDescriptionInfo = Pick<MangaTypeGql, 'description'>;
 export type MangaAltTitlesInfo = Pick<MangaTypeGql, 'altTitles'>;
 export type MangaStatusInfo = Pick<MangaTypeGql, 'status'>;
 export type MangaUrlInfo = Pick<MangaTypeGql, 'realUrl'>;
-export type MangaMetaInfo = { meta?: Pick<MetaType, 'key' | 'value'>[] };
+export type MangaMetaInfo = { meta?: GqlMeta[] };
 
 type MangaCardSpecificProps = MangaCardBaseProps & MangaThumbnailInfo;
 

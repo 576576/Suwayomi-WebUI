@@ -334,10 +334,6 @@ msgstr "{missingChapterCount, plural, one {Missing # chapter} other {Missing # c
 msgid "{otherResultsCount, plural, one {# more match} other {# more matches}}"
 msgstr "{otherResultsCount, plural, one {# more match} other {# more matches}}"
 
-#: src/features/app-updates/components/VersionInfo.tsx
-msgid "{progress}% | Updating…"
-msgstr "{progress}% | Updating…"
-
 #: src/features/backup/Backup.utils.ts
 msgid "{ttl, plural, one {Delete backups that are older than # day} other {Delete backups that are older than # days}}"
 msgstr "{ttl, plural, one {Delete backups that are older than # day} other {Delete backups that are older than # days}}"
@@ -457,6 +453,10 @@ msgstr "Age rating"
 msgid "All"
 msgstr "All"
 
+#: src/features/backup/Backup.constants.ts
+msgid "All read entries"
+msgstr "All read entries"
+
 #: src/features/downloads/screens/DownloadSettings.tsx
 msgid "Allow deleting bookmarked chapters"
 msgstr "Allow deleting bookmarked chapters"
@@ -491,6 +491,10 @@ msgstr "App data location"
 #: src/features/backup/screens/Backup.tsx
 msgid "App directory"
 msgstr "App directory"
+
+#: src/features/backup/Backup.constants.ts
+msgid "App settings"
+msgstr "App settings"
 
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/Settings.tsx
@@ -941,7 +945,6 @@ msgstr "Cleared the cache"
 msgid "Click key to remove binding"
 msgstr "Click key to remove binding"
 
-#: src/features/backup/Backup.constants.ts
 #: src/features/migration/components/MigrationOptionsDialog.tsx
 msgid "Client data"
 msgstr "Client data"
@@ -1771,6 +1774,7 @@ msgstr "Extension info"
 msgid "Extension installed"
 msgstr "Extension installed"
 
+#: src/features/backup/Backup.constants.ts
 #: src/features/browse/screens/BrowseSettings.tsx
 #: src/features/extension/store/screens/ExtensionStores.tsx
 msgid "Extension stores"
@@ -2069,6 +2073,10 @@ msgstr "In Library"
 #: src/features/migration/components/migration-entry/MigrationEntrySearchExcludeActions.tsx
 msgid "Include"
 msgstr "Include"
+
+#: src/features/backup/Backup.constants.ts
+msgid "Include sensitive settings (e.g., tracker login tokens)"
+msgstr "Include sensitive settings (e.g., tracker login tokens)"
 
 #: src/features/category/components/CategoriesInclusionSetting.tsx
 msgid "Include: {includedCategoriesText}"
@@ -3355,7 +3363,6 @@ msgstr "Server bindings"
 msgid "Server channel"
 msgstr "Server channel"
 
-#: src/features/backup/Backup.constants.ts
 #: src/features/settings/screens/AdvancedSettings.tsx
 #: src/features/settings/screens/ServerSettings.tsx
 msgid "Server settings"
@@ -3536,6 +3543,10 @@ msgstr "Source Configuration"
 #: src/features/migration/components/migration-entry/MigrationSourceEntry.tsx
 msgid "Source entry — {sourceTitle}"
 msgstr "Source entry — {sourceTitle}"
+
+#: src/features/backup/Backup.constants.ts
+msgid "Source settings"
+msgstr "Source settings"
 
 #: src/features/chapter/components/ChapterOptions.tsx
 msgid "Source title"
@@ -4020,10 +4031,6 @@ msgstr "Update available"
 #: src/features/updates/components/UpdateChecker.tsx
 msgid "Update category"
 msgstr "Update category"
-
-#: src/features/app-updates/components/VersionInfo.tsx
-msgid "Update failed"
-msgstr "Update failed"
 
 #: src/features/settings/components/webUI/WebUIUpdateIntervalSetting.tsx
 msgid "Update interval"

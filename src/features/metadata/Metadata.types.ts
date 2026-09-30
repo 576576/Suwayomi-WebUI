@@ -10,7 +10,6 @@ import type { MetadataServerSettingKeys, SearchMetadataKeys } from '@/features/s
 import type { MangaMetadataKeys } from '@/features/manga/Manga.types.ts';
 import type { SourceMetadataKeys } from '@/features/source/Source.types.ts';
 import type { CategoryMetadataKeys } from '@/features/category/Category.types.ts';
-import type { MetaType } from '@/lib/graphql/generated/graphql-base.types.ts';
 import type { IReaderSettings } from '@/features/reader/Reader.types.ts';
 
 export interface IMetadataMigration {
@@ -32,7 +31,14 @@ export type Metadata<Keys extends string = string, Values = string> = {
     [key in Keys]: Values;
 };
 
-export type GqlMetaHolder = { meta?: MetaType[] };
+/**
+ * 元数据的一条 key/value。服务端各个 Meta 类型（Global/Manga/Chapter/Source/Category）
+ * 都有这两个字段，但本 fork 的 schema 没有把它们抽成 `MetaType` 接口，所以这里用
+ * 结构类型 —— 上面那些具体的 Meta 类型都能直接赋给它。
+ */
+export type GqlMeta = { key: string; value: string };
+
+export type GqlMetaHolder = { meta?: GqlMeta[] };
 
 export type MetadataHolder<Keys extends string = string, Values = string> = {
     meta?: Metadata<Keys, Values>;

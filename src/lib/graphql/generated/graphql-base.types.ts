@@ -13,33 +13,47 @@ export type Scalars = {
     Upload: { input: unknown; output: unknown };
 };
 
+/** Mirrors `AboutServerPayload` — full field set. */
 export type AboutServerPayload = {
     __typename?: 'AboutServerPayload';
+    /**
+     * 发布根（exe 在 `bin/` 下时是它的上级）。Suwayomi-next 扩展字段：设置里可以填
+     * `%APPDIR%` 占位符，WebUI 要用它把占位符还原成能直接用的绝对路径。
+     */
+    appDir: Scalars['String']['output'];
+    /**
+     * appdata 根（缓存 / 库 / 设置 / 扩展的父目录）。Suwayomi-next 扩展字段：WebUI
+     * 「数据与存储」页只读展示 —— 它决定数据库放在哪，改不了也存不进库里。
+     */
+    appdataDir: Scalars['String']['output'];
     buildTime: Scalars['LongString']['output'];
     buildType: Scalars['String']['output'];
+    /**
+     * User data root (backups/downloads/local source live under it) —
+     * displayed by the WebUI "Data & Storage" settings page.
+     */
+    dataDir: Scalars['String']['output'];
     discord: Scalars['String']['output'];
     github: Scalars['String']['output'];
+    /**
+     * Epoch seconds of the last automatic backup (0 = never ran yet).
+     * Suwayomi-next 扩展字段：WebUI「数据与存储」页在自动备份频率下显示为副标题。
+     */
+    lastAutoBackupAt: Scalars['LongString']['output'];
     name: Scalars['String']['output'];
     platformInfo: PlatformInfo;
     /** @deprecated The version includes the revision as the patch number */
     revision: Scalars['String']['output'];
     version: Scalars['String']['output'];
-    dataDir: Scalars['String']['output'];
-    /** Epoch seconds of the last automatic backup (0 = never ran yet). Suwayomi-next 扩展字段：WebUI「数据与存储」页在自动备份频率下显示为副标题。 */
-    lastAutoBackupAt: Scalars['LongString']['output'];
-    /** 发布根（exe 在 `bin/` 下时是它的上级）。Suwayomi-next 扩展字段：设置里可以填 `%APPDIR%` 占位符，WebUI 要用它把占位符还原成能直接用的绝对路径。 */
-    appDir: Scalars['String']['output'];
-    /** appdata 根（缓存 / 库 / 设置 / 扩展的父目录）。Suwayomi-next 扩展字段：WebUI「数据与存储」页只读展示 —— 它决定数据库放在哪，改不了也存不进库里。 */
-    appdataDir: Scalars['String']['output'];
 };
 
 export type AboutWebUi = {
     __typename?: 'AboutWebUI';
+    /** Build time as Unix epoch seconds (line 3 of version.txt; 0 when absent). */
+    buildTime: Scalars['LongString']['output'];
     channel: WebUiChannel;
     tag: Scalars['String']['output'];
     updateTimestamp: Scalars['LongString']['output'];
-    /** Build time as Unix epoch seconds (line 3 of version.txt; 0 when absent). */
-    buildTime: Scalars['LongString']['output'];
 };
 
 export type AddExtensionStoreInput = {
@@ -80,7 +94,6 @@ export type BackupRestoreStatus = {
 export type BindTrackInput = {
     clientMutationId?: InputMaybe<Scalars['String']['input']>;
     mangaId: Scalars['Int']['input'];
-    /** This will only work if the tracker of the track record supports private tracking */
     private?: InputMaybe<Scalars['Boolean']['input']>;
     remoteId: Scalars['LongString']['input'];
     trackerId: Scalars['Int']['input'];
@@ -122,14 +135,14 @@ export type BooleanFilterInput = {
     notIn?: InputMaybe<Array<Scalars['Boolean']['input']>>;
 };
 
+/** Mirrors `CategoryCondition` (core). */
 export type CategoryConditionInput = {
     default?: InputMaybe<Scalars['Boolean']['input']>;
     id?: InputMaybe<Scalars['Int']['input']>;
     name?: InputMaybe<Scalars['String']['input']>;
-    order?: InputMaybe<Scalars['Int']['input']>;
 };
 
-export type CategoryEdge = Edge & {
+export type CategoryEdge = {
     __typename?: 'CategoryEdge';
     cursor: Scalars['Cursor']['output'];
     node: CategoryType;
@@ -150,7 +163,7 @@ export enum CategoryJobStatus {
     Updating = 'UPDATING',
 }
 
-export type CategoryMetaType = MetaType & {
+export type CategoryMetaType = {
     __typename?: 'CategoryMetaType';
     category: CategoryType;
     categoryId: Scalars['Int']['output'];
@@ -164,7 +177,7 @@ export type CategoryMetaTypeInput = {
     value: Scalars['String']['input'];
 };
 
-export type CategoryNodeList = NodeList & {
+export type CategoryNodeList = {
     __typename?: 'CategoryNodeList';
     edges: Array<CategoryEdge>;
     nodes: Array<CategoryType>;
@@ -178,6 +191,7 @@ export enum CategoryOrderBy {
     Order = 'ORDER',
 }
 
+/** Mirrors `CategoryOrderInput` (shape parity; currently unused by categories). */
 export type CategoryOrderInput = {
     by: CategoryOrderBy;
     byType?: InputMaybe<SortOrder>;
@@ -207,23 +221,11 @@ export enum CbzMediaType {
     Modern = 'MODERN',
 }
 
+/** Mirrors `ChapterCondition` (core filters). */
 export type ChapterConditionInput = {
-    chapterNumber?: InputMaybe<Scalars['Float']['input']>;
-    fetchedAt?: InputMaybe<Scalars['LongString']['input']>;
     id?: InputMaybe<Scalars['Int']['input']>;
-    isBookmarked?: InputMaybe<Scalars['Boolean']['input']>;
-    isDownloaded?: InputMaybe<Scalars['Boolean']['input']>;
-    isRead?: InputMaybe<Scalars['Boolean']['input']>;
-    lastPageRead?: InputMaybe<Scalars['Int']['input']>;
-    lastReadAt?: InputMaybe<Scalars['LongString']['input']>;
     mangaId?: InputMaybe<Scalars['Int']['input']>;
-    name?: InputMaybe<Scalars['String']['input']>;
-    pageCount?: InputMaybe<Scalars['Int']['input']>;
-    realUrl?: InputMaybe<Scalars['String']['input']>;
-    scanlator?: InputMaybe<Scalars['String']['input']>;
     sourceOrder?: InputMaybe<Scalars['Int']['input']>;
-    uploadDate?: InputMaybe<Scalars['LongString']['input']>;
-    url?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ChapterDownloadReorderInput = {
@@ -231,7 +233,7 @@ export type ChapterDownloadReorderInput = {
     to: Scalars['Int']['input'];
 };
 
-export type ChapterEdge = Edge & {
+export type ChapterEdge = {
     __typename?: 'ChapterEdge';
     cursor: Scalars['Cursor']['output'];
     node: ChapterType;
@@ -260,9 +262,8 @@ export type ChapterFilterInput = {
     url?: InputMaybe<StringFilterInput>;
 };
 
-export type ChapterMetaType = MetaType & {
+export type ChapterMetaType = {
     __typename?: 'ChapterMetaType';
-    chapter: ChapterType;
     chapterId: Scalars['Int']['output'];
     key: Scalars['String']['output'];
     value: Scalars['String']['output'];
@@ -274,7 +275,7 @@ export type ChapterMetaTypeInput = {
     value: Scalars['String']['input'];
 };
 
-export type ChapterNodeList = NodeList & {
+export type ChapterNodeList = {
     __typename?: 'ChapterNodeList';
     edges: Array<ChapterEdge>;
     nodes: Array<ChapterType>;
@@ -287,11 +288,13 @@ export enum ChapterOrderBy {
     FetchedAt = 'FETCHED_AT',
     Id = 'ID',
     LastReadAt = 'LAST_READ_AT',
+    MangaId = 'MANGA_ID',
     Name = 'NAME',
     SourceOrder = 'SOURCE_ORDER',
     UploadDate = 'UPLOAD_DATE',
 }
 
+/** Mirrors `ChapterOrderInput` (shape parity; currently unused by chapters). */
 export type ChapterOrderInput = {
     by: ChapterOrderBy;
     byType?: InputMaybe<SortOrder>;
@@ -384,6 +387,7 @@ export type ConnectKoSyncAccountInput = {
     username: Scalars['String']['input'];
 };
 
+/** Mirrors `ContentWarning` enum (source/extension content rating). */
 export enum ContentWarning {
     Mixed = 'MIXED',
     Nsfw = 'NSFW',
@@ -661,22 +665,7 @@ export type DoubleFilterInput = {
 };
 
 export type DownloadChangedInput = {
-    /** Sets a max number of updates that can be contained in a download update message.Everything above this limit will be omitted and the "downloadStatus" should be re-fetched via the corresponding query. Due to the graphql subscription execution strategy not supporting batching for data loaders, the data loaders run into the n+1 problem, which can cause the server to get unresponsive until the status update has been handled. This is an issue e.g. when mass en- or dequeuing downloads. */
     maxUpdates?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type DownloadEdge = Edge & {
-    __typename?: 'DownloadEdge';
-    cursor: Scalars['Cursor']['output'];
-    node: DownloadType;
-};
-
-export type DownloadNodeList = NodeList & {
-    __typename?: 'DownloadNodeList';
-    edges: Array<DownloadEdge>;
-    nodes: Array<DownloadType>;
-    pageInfo: PageInfo;
-    totalCount: Scalars['Int']['output'];
 };
 
 export enum DownloadState {
@@ -721,11 +710,13 @@ export enum DownloadUpdateType {
 
 export type DownloadUpdates = {
     __typename?: 'DownloadUpdates';
-    /** The current download queue at the time of sending initial message. Is null for all following messages */
     initial?: Maybe<Array<DownloadType>>;
-    /** Indicates whether updates have been omitted based on the "maxUpdates" subscription variable. In case updates have been omitted, the "downloadStatus" query should be re-fetched. */
     omittedUpdates: Scalars['Boolean']['output'];
     state: DownloaderState;
+    /**
+     * 相对上一条事件的队列差量。WebUI 的下载页按它增量维护缓存 ——
+     * 只给 [`Self::initial`]（整条快照）的话，页面上队列不会随下载推进更新。
+     */
     updates: Array<DownloadUpdate>;
 };
 
@@ -733,13 +724,6 @@ export enum DownloaderState {
     Started = 'STARTED',
     Stopped = 'STOPPED',
 }
-
-export type Edge = {
-    /** A cursor for use in pagination. */
-    cursor: Scalars['Cursor']['output'];
-    /** The [T] at the end of the edge. */
-    node: Node;
-};
 
 export type EditTextPreference = {
     __typename?: 'EditTextPreference';
@@ -778,25 +762,17 @@ export type EnqueueChapterDownloadsPayload = {
 };
 
 export type ExtensionConditionInput = {
-    apkName?: InputMaybe<Scalars['String']['input']>;
-    apkUrl?: InputMaybe<Scalars['String']['input']>;
     contentWarning?: InputMaybe<ContentWarning>;
-    extensionLib?: InputMaybe<Scalars['String']['input']>;
     hasUpdate?: InputMaybe<Scalars['Boolean']['input']>;
-    iconUrl?: InputMaybe<Scalars['String']['input']>;
     isInstalled?: InputMaybe<Scalars['Boolean']['input']>;
     isObsolete?: InputMaybe<Scalars['Boolean']['input']>;
-    jarUrl?: InputMaybe<Scalars['String']['input']>;
     lang?: InputMaybe<Scalars['String']['input']>;
     name?: InputMaybe<Scalars['String']['input']>;
     pkgName?: InputMaybe<Scalars['String']['input']>;
     storeIndexUrl?: InputMaybe<Scalars['String']['input']>;
-    versionCode?: InputMaybe<Scalars['Int']['input']>;
-    versionCodeLong?: InputMaybe<Scalars['LongString']['input']>;
-    versionName?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type ExtensionEdge = Edge & {
+export type ExtensionEdge = {
     __typename?: 'ExtensionEdge';
     cursor: Scalars['Cursor']['output'];
     node: ExtensionType;
@@ -804,26 +780,15 @@ export type ExtensionEdge = Edge & {
 
 export type ExtensionFilterInput = {
     and?: InputMaybe<Array<ExtensionFilterInput>>;
-    apkName?: InputMaybe<StringFilterInput>;
-    apkUrl?: InputMaybe<StringFilterInput>;
     contentWarning?: InputMaybe<ContentWarningFilterInput>;
-    extensionLib?: InputMaybe<StringFilterInput>;
-    hasUpdate?: InputMaybe<BooleanFilterInput>;
-    iconUrl?: InputMaybe<StringFilterInput>;
-    isInstalled?: InputMaybe<BooleanFilterInput>;
-    isObsolete?: InputMaybe<BooleanFilterInput>;
-    jarUrl?: InputMaybe<StringFilterInput>;
     lang?: InputMaybe<StringFilterInput>;
     name?: InputMaybe<StringFilterInput>;
     not?: InputMaybe<ExtensionFilterInput>;
     or?: InputMaybe<Array<ExtensionFilterInput>>;
     pkgName?: InputMaybe<StringFilterInput>;
-    storeIndexUrl?: InputMaybe<StringFilterInput>;
-    versionCodeLong?: InputMaybe<LongFilterInput>;
-    versionName?: InputMaybe<StringFilterInput>;
 };
 
-export type ExtensionNodeList = NodeList & {
+export type ExtensionNodeList = {
     __typename?: 'ExtensionNodeList';
     edges: Array<ExtensionEdge>;
     nodes: Array<ExtensionType>;
@@ -832,7 +797,6 @@ export type ExtensionNodeList = NodeList & {
 };
 
 export enum ExtensionOrderBy {
-    /** @deprecated  */
     ApkName = 'APK_NAME',
     Name = 'NAME',
     PkgName = 'PKG_NAME',
@@ -849,7 +813,7 @@ export type ExtensionStoreConditionInput = {
     name?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type ExtensionStoreEdge = Edge & {
+export type ExtensionStoreEdge = {
     __typename?: 'ExtensionStoreEdge';
     cursor: Scalars['Cursor']['output'];
     node: ExtensionStoreType;
@@ -863,7 +827,7 @@ export type ExtensionStoreFilterInput = {
     or?: InputMaybe<Array<ExtensionStoreFilterInput>>;
 };
 
-export type ExtensionStoreNodeList = NodeList & {
+export type ExtensionStoreNodeList = {
     __typename?: 'ExtensionStoreNodeList';
     edges: Array<ExtensionStoreEdge>;
     nodes: Array<ExtensionStoreType>;
@@ -896,7 +860,6 @@ export type ExtensionStoreType = {
 
 export type ExtensionType = {
     __typename?: 'ExtensionType';
-    /** This will be nullable in the future */
     apkName?: Maybe<Scalars['String']['output']>;
     apkUrl?: Maybe<Scalars['String']['output']>;
     contentWarning: ContentWarning;
@@ -905,18 +868,15 @@ export type ExtensionType = {
     hasUpdate: Scalars['Boolean']['output'];
     iconUrl: Scalars['String']['output'];
     isInstalled: Scalars['Boolean']['output'];
-    /** @deprecated Removed in extension api v1.6, replace with contentWarning */
     isNsfw: Scalars['Boolean']['output'];
     isObsolete: Scalars['Boolean']['output'];
     jarUrl?: Maybe<Scalars['String']['output']>;
     lang: Scalars['String']['output'];
     name: Scalars['String']['output'];
     pkgName: Scalars['String']['output'];
-    /** @deprecated Removed in extension api v1.6, replace with storeIndexUrl */
     repo?: Maybe<Scalars['String']['output']>;
     source: SourceNodeList;
     storeIndexUrl?: Maybe<Scalars['String']['output']>;
-    /** @deprecated Type was changed to Long, will be switched back to this variable name in the future., replace with versionCodeLong */
     versionCode: Scalars['Int']['output'];
     versionCodeLong: Scalars['LongString']['output'];
     versionName: Scalars['String']['output'];
@@ -1016,6 +976,7 @@ export type FetchTrackPayload = {
     trackRecord: TrackRecordType;
 };
 
+/** Mirrors `union Filter = ...`. */
 export type Filter =
     | CheckBoxFilter
     | GroupFilter
@@ -1028,15 +989,14 @@ export type Filter =
 
 export type FilterChangeInput = {
     checkBoxState?: InputMaybe<Scalars['Boolean']['input']>;
-    groupChange?: InputMaybe<FilterChangeInput>;
-    position: Scalars['Int']['input'];
-    selectState?: InputMaybe<Scalars['Int']['input']>;
+    position?: InputMaybe<Scalars['Int']['input']>;
     sortState?: InputMaybe<SortSelectionInput>;
+    state?: InputMaybe<Scalars['Int']['input']>;
     textState?: InputMaybe<Scalars['String']['input']>;
     triState?: InputMaybe<TriState>;
 };
 
-export type GlobalMetaNodeList = NodeList & {
+export type GlobalMetaNodeList = {
     __typename?: 'GlobalMetaNodeList';
     edges: Array<MetaEdge>;
     nodes: Array<GlobalMetaType>;
@@ -1044,7 +1004,8 @@ export type GlobalMetaNodeList = NodeList & {
     totalCount: Scalars['Int']['output'];
 };
 
-export type GlobalMetaType = MetaType & {
+/** Mirrors `GlobalMetaType.kt`. */
+export type GlobalMetaType = {
     __typename?: 'GlobalMetaType';
     key: Scalars['String']['output'];
     value: Scalars['String']['output'];
@@ -1116,6 +1077,7 @@ export type KoSyncConnectPayload = {
     status: KoSyncStatusPayload;
 };
 
+/** Mirrors `KoSyncStatusPayload`. */
 export type KoSyncStatusPayload = {
     __typename?: 'KoSyncStatusPayload';
     isLoggedIn: Scalars['Boolean']['output'];
@@ -1156,7 +1118,6 @@ export type LibraryUpdateStatus = {
 };
 
 export type LibraryUpdateStatusChangedInput = {
-    /** Sets a max number of updates that can be contained in a updater update message.Everything above this limit will be omitted and the "updateStatus" should be re-fetched via the corresponding query. Due to the graphql subscription execution strategy not supporting batching for data loaders, the data loaders run into the n+1 problem, which can cause the server to get unresponsive until the status update has been handled. This is an issue e.g. when starting an update. */
     maxUpdates?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -1253,27 +1214,30 @@ export type LongFilterInput = {
     notIn?: InputMaybe<Array<Scalars['LongString']['input']>>;
 };
 
+/** Mirrors `MangaCondition` from `MangaQuery.kt` (core filters). */
 export type MangaConditionInput = {
     artist?: InputMaybe<Scalars['String']['input']>;
     author?: InputMaybe<Scalars['String']['input']>;
+    /**
+     * Restrict to manga belonging to the given categories
+     * (WebUI library screen sends `categoryIds`).
+     */
     categoryIds?: InputMaybe<Array<Scalars['Int']['input']>>;
-    chaptersLastFetchedAt?: InputMaybe<Scalars['LongString']['input']>;
     description?: InputMaybe<Scalars['String']['input']>;
-    genre?: InputMaybe<Array<Scalars['String']['input']>>;
     id?: InputMaybe<Scalars['Int']['input']>;
     inLibrary?: InputMaybe<Scalars['Boolean']['input']>;
-    inLibraryAt?: InputMaybe<Scalars['LongString']['input']>;
     initialized?: InputMaybe<Scalars['Boolean']['input']>;
-    lastFetchedAt?: InputMaybe<Scalars['LongString']['input']>;
-    realUrl?: InputMaybe<Scalars['String']['input']>;
+    /**
+     * LongString so WebUI source ids (strings, e.g. "0") match the schema;
+     * plain i64 would surface as `Int` and reject string input.
+     */
     sourceId?: InputMaybe<Scalars['LongString']['input']>;
     status?: InputMaybe<MangaStatus>;
-    thumbnailUrl?: InputMaybe<Scalars['String']['input']>;
     title?: InputMaybe<Scalars['String']['input']>;
     url?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type MangaEdge = Edge & {
+export type MangaEdge = {
     __typename?: 'MangaEdge';
     cursor: Scalars['Cursor']['output'];
     node: MangaType;
@@ -1310,7 +1274,7 @@ export enum MangaJobStatus {
     Skipped = 'SKIPPED',
 }
 
-export type MangaMetaType = MetaType & {
+export type MangaMetaType = {
     __typename?: 'MangaMetaType';
     key: Scalars['String']['output'];
     manga: MangaType;
@@ -1324,7 +1288,7 @@ export type MangaMetaTypeInput = {
     value: Scalars['String']['input'];
 };
 
-export type MangaNodeList = NodeList & {
+export type MangaNodeList = {
     __typename?: 'MangaNodeList';
     edges: Array<MangaEdge>;
     nodes: Array<MangaType>;
@@ -1332,6 +1296,7 @@ export type MangaNodeList = NodeList & {
     totalCount: Scalars['Int']['output'];
 };
 
+/** Mirrors `MangaOrderBy` from `MangaQuery.kt`. */
 export enum MangaOrderBy {
     Id = 'ID',
     InLibraryAt = 'IN_LIBRARY_AT',
@@ -1385,18 +1350,41 @@ export type MangaType = {
     chaptersLastFetchedAt?: Maybe<Scalars['LongString']['output']>;
     description?: Maybe<Scalars['String']['output']>;
     downloadCount: Scalars['Int']['output'];
+    /**
+     * 对齐上游 `FirstUnreadChapterForMangaDataLoader`：未读章节中 sourceOrder 最小者
+     * （「继续阅读」应指向最靠前的未读章节，旧实现按 sourceOrder 倒序取首个未读）。
+     */
     firstUnreadChapter?: Maybe<ChapterType>;
     genre: Array<Scalars['String']['output']>;
     hasDuplicateChapters: Scalars['Boolean']['output'];
+    /**
+     * 对齐上游 `HighestNumberedChapterForMangaDataLoader`：仅在 chapter_number > 0
+     * 的章节中取最大编号（编号 0 / 负数表示未知编号，不应参与）。
+     */
     highestNumberedChapter?: Maybe<ChapterType>;
     id: Scalars['Int']['output'];
     inLibrary: Scalars['Boolean']['output'];
     inLibraryAt: Scalars['LongString']['output'];
     initialized: Scalars['Boolean']['output'];
     lastFetchedAt?: Maybe<Scalars['LongString']['output']>;
+    /**
+     * 对齐上游 `LastReadChapterForMangaDataLoader`：按 lastReadAt 降序取首条
+     * （**不过滤是否已读**，与 latestReadChapter 的语义正好互换）。
+     * 书架「按最后一次阅读」排序依赖该字段，旧实现取「已读中 sourceOrder 最大」，
+     * 导致阅读后排序键不更新、顺序不刷新。
+     */
     lastReadChapter?: Maybe<ChapterType>;
+    /**
+     * 对齐上游 `LatestFetchedChapterForMangaDataLoader`：fetchedAt 降序，
+     * 同一时间戳时以 sourceOrder 降序作为次级排序。
+     */
     latestFetchedChapter?: Maybe<ChapterType>;
+    /** 对齐上游 `LatestReadChapterForMangaDataLoader`：已读章节中 sourceOrder 最大者。 */
     latestReadChapter?: Maybe<ChapterType>;
+    /**
+     * 对齐上游 `LatestUploadedChapterForMangaDataLoader`：date_upload 降序，
+     * 同一时间戳时以 sourceOrder 降序作为次级排序。
+     */
     latestUploadedChapter?: Maybe<ChapterType>;
     meta: Array<MangaMetaType>;
     realUrl?: Maybe<Scalars['String']['output']>;
@@ -1404,8 +1392,16 @@ export type MangaType = {
     sourceId: Scalars['LongString']['output'];
     status: MangaStatus;
     thumbnailUrl?: Maybe<Scalars['String']['output']>;
+    /**
+     * 上游把这一项声明成可空的（`thumbnailUrlLastFetched: LongString`）；0 表示
+     * 封面从未抓取过，这里就返回 null，而不是把哨兵值 0 当时间戳发出去。
+     */
     thumbnailUrlLastFetched?: Maybe<Scalars['LongString']['output']>;
     title: Scalars['String']['output'];
+    /**
+     * 对齐上游 `TrackRecordsForMangaIdDataLoader`：按 manga_id 查询绑定记录。
+     * 旧实现恒返回空列表，导致 WebUI 书架的「按追踪器筛选」永远筛不出结果。
+     */
     trackRecords: TrackRecordNodeList;
     unreadCount: Scalars['Int']['output'];
     updateStrategy: UpdateStrategy;
@@ -1418,12 +1414,14 @@ export type MangaUpdateType = {
     status: MangaJobStatus;
 };
 
+/** Mirrors `MetaCondition` from `MetaQuery.kt`. */
 export type MetaConditionInput = {
     key?: InputMaybe<Scalars['String']['input']>;
     value?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type MetaEdge = Edge & {
+/** TrackRecordNodeList — full implementation lives in `track.rs`. */
+export type MetaEdge = {
     __typename?: 'MetaEdge';
     cursor: Scalars['Cursor']['output'];
     node: GlobalMetaType;
@@ -1452,11 +1450,6 @@ export type MetaOrderInput = {
     byType?: InputMaybe<SortOrder>;
 };
 
-export type MetaType = {
-    key: Scalars['String']['output'];
-    value: Scalars['String']['output'];
-};
-
 export type MultiSelectListPreference = {
     __typename?: 'MultiSelectListPreference';
     currentValue?: Maybe<Array<Scalars['String']['output']>>;
@@ -1474,91 +1467,136 @@ export type MultiSelectListPreference = {
 
 export type Mutation = {
     __typename?: 'Mutation';
-    addExtensionStore?: Maybe<AddExtensionStorePayload>;
+    /** Mirrors `addExtensionStore` — inserts the store row. */
+    addExtensionStore: AddExtensionStorePayload;
+    /** Mirrors `bindTrack`. */
     bindTrack: BindTrackPayload;
-    bindTrackRecord?: Maybe<BindTrackRecordPayload>;
+    /**
+     * Mirrors `bindTrackRecord` — 返回并进后的那一行（目标漫画原本已有记录时
+     * 是目标行，不是入参的那一行）。
+     */
+    bindTrackRecord: BindTrackRecordPayload;
     clearCachedImages: ClearCachedImagesPayload;
+    /**
+     * 入参可省：上游把它声明成可选（`input: ClearCookiesAndCacheInput`，
+     * Kotlin 侧默认 `= ClearCookiesAndCacheInput()`），WebUI 的
+     * `WEBVIEW_CLEAR_CACHE_COOKIES` 就不带参数。声明成必填会让那条 mutation
+     * 校验不过。
+     */
     clearCookiesAndCache: ClearCookiesAndCachePayload;
-    clearDownloader?: Maybe<ClearDownloaderPayload>;
+    clearDownloader: ClearDownloaderPayload;
+    /** Mirrors `connectKoSyncAccount`. */
     connectKoSyncAccount: KoSyncConnectPayload;
     createBackup: CreateBackupPayload;
-    createCategory?: Maybe<CreateCategoryPayload>;
-    deleteCategory?: Maybe<DeleteCategoryPayload>;
-    deleteCategoryMeta?: Maybe<DeleteCategoryMetaPayload>;
-    deleteCategoryMetas?: Maybe<DeleteCategoryMetasPayload>;
-    deleteChapterMeta?: Maybe<DeleteChapterMetaPayload>;
-    deleteChapterMetas?: Maybe<DeleteChapterMetasPayload>;
-    deleteDownloadedChapter?: Maybe<DeleteDownloadedChapterPayload>;
-    deleteDownloadedChapters?: Maybe<DeleteDownloadedChaptersPayload>;
-    deleteGlobalMeta?: Maybe<DeleteGlobalMetaPayload>;
-    deleteGlobalMetas?: Maybe<DeleteGlobalMetasPayload>;
-    deleteMangaMeta?: Maybe<DeleteMangaMetaPayload>;
-    deleteMangaMetas?: Maybe<DeleteMangaMetasPayload>;
-    deleteSourceMeta?: Maybe<DeleteSourceMetaPayload>;
-    deleteSourceMetas?: Maybe<DeleteSourceMetasPayload>;
-    dequeueChapterDownload?: Maybe<DequeueChapterDownloadPayload>;
-    dequeueChapterDownloads?: Maybe<DequeueChapterDownloadsPayload>;
-    enqueueChapterDownload?: Maybe<EnqueueChapterDownloadPayload>;
-    enqueueChapterDownloads?: Maybe<EnqueueChapterDownloadsPayload>;
-    fetchChapterPages?: Maybe<FetchChapterPagesPayload>;
-    /** @deprecated Deprecated in Tachiyomix 1.6, replace with fetchMangaAndChapters */
-    fetchChapters?: Maybe<FetchChaptersPayload>;
-    fetchExtensions?: Maybe<FetchExtensionsPayload>;
-    /** @deprecated Deprecated in Tachiyomix 1.6, replace with fetchMangaAndChapters */
-    fetchManga?: Maybe<FetchMangaPayload>;
-    fetchMangaAndChapters?: Maybe<FetchMangaAndChaptersPayload>;
-    fetchSourceManga?: Maybe<FetchSourceMangaPayload>;
+    createCategory: CreateCategoryPayload;
+    deleteCategory: DeleteCategoryPayload;
+    deleteCategoryMeta: DeleteCategoryMetaPayload;
+    deleteCategoryMetas: DeleteCategoryMetasPayload;
+    deleteChapterMeta: DeleteChapterMetaPayload;
+    deleteChapterMetas: DeleteChapterMetasPayload;
+    /** Mirrors `deleteDownloadedChapter` — clears the downloaded flag. */
+    deleteDownloadedChapter: DeleteDownloadedChapterPayload;
+    deleteDownloadedChapters: DeleteDownloadedChaptersPayload;
+    deleteGlobalMeta: DeleteGlobalMetaPayload;
+    deleteGlobalMetas: DeleteGlobalMetasPayload;
+    deleteMangaMeta: DeleteMangaMetaPayload;
+    deleteMangaMetas: DeleteMangaMetasPayload;
+    deleteSourceMeta: DeleteSourceMetaPayload;
+    deleteSourceMetas: DeleteSourceMetasPayload;
+    dequeueChapterDownload: DequeueChapterDownloadPayload;
+    dequeueChapterDownloads: DequeueChapterDownloadsPayload;
+    enqueueChapterDownload: EnqueueChapterDownloadPayload;
+    enqueueChapterDownloads: EnqueueChapterDownloadsPayload;
+    fetchChapterPages: FetchChapterPagesPayload;
+    fetchChapters: FetchChaptersPayload;
+    /**
+     * Mirrors `fetchExtensions` — refreshes the repo indexes, syncs the
+     * sandbox's loaded sources, then lists extensions & stores from DB.
+     */
+    fetchExtensions: FetchExtensionsPayload;
+    fetchManga: FetchMangaPayload;
+    fetchMangaAndChapters: FetchMangaAndChaptersPayload;
+    fetchSourceManga: FetchSourceMangaPayload;
+    /** Mirrors `fetchTrack` — 先拉站点上的最新状态，再回读本地行。 */
     fetchTrack: FetchTrackPayload;
-    installExternalExtension?: Maybe<InstallExternalExtensionPayload>;
+    installExternalExtension: InstallExternalExtensionPayload;
+    /**
+     * Mirrors `login` — UI_LOGIN 模式下 WebUI 的登录入口。
+     *
+     * 用户名密码比对成功即签发一对 JWT；失败返回与其它未认证请求同样的
+     * `UnauthorizedException` 文案（WebUI 靠它识别认证失败）。
+     */
     login: LoginPayload;
+    /** Mirrors `loginTrackerCredentials`. */
     loginTrackerCredentials: LoginTrackerCredentialsPayload;
+    /** Mirrors `loginTrackerOAuth` — `callbackUrl` 即浏览器回调地址，用户名密码不参与。 */
     loginTrackerOAuth: LoginTrackerOAuthPayload;
+    /** Mirrors `logoutKoSyncAccount`. */
     logoutKoSyncAccount: LogoutKoSyncAccountPayload;
+    /** Mirrors `logoutTracker` — 未登录时报错，不做静默成功。 */
     logoutTracker: LogoutTrackerPayload;
-    pullKoSyncProgress?: Maybe<PullKoSyncProgressPayload>;
-    pushKoSyncProgress?: Maybe<PushKoSyncProgressPayload>;
+    /** Mirrors `pullKoSyncProgress`. */
+    pullKoSyncProgress: PullKoSyncProgressPayload;
+    /** Mirrors `pushKoSyncProgress`. */
+    pushKoSyncProgress: PushKoSyncProgressPayload;
+    /** 「存储管理 → 重建下载索引」：用磁盘重新对账下载，返回扫到的章节数。 */
     rebuildDownloadIndex: RebuildDownloadIndexPayload;
+    /** Mirrors `refreshToken` — 用 refresh token 换新的 access token。 */
     refreshToken: RefreshTokenPayload;
-    removeExtensionStore?: Maybe<RemoveExtensionStorePayload>;
-    reorderChapterDownload?: Maybe<ReorderChapterDownloadPayload>;
-    reorderChapterDownloads?: Maybe<ReorderChapterDownloadPayload>;
+    /**
+     * Mirrors Mihon `BaseTracker.refreshUser()` —— 重新拉站点上的用户级设置（评分制）
+     * 并落库，`tracker.scores` 随之更新。上游 Suwayomi 没有对应 mutation。
+     */
+    refreshTrackerUser: RefreshTrackerUserPayload;
+    removeExtensionStore: RemoveExtensionStorePayload;
+    reorderChapterDownload: ReorderChapterDownloadPayload;
+    reorderChapterDownloads: ReorderChapterDownloadsPayload;
     resetSettings: ResetSettingsPayload;
-    resetWebUIUpdateStatus?: Maybe<WebUiUpdateStatus>;
     restoreBackup: RestoreBackupPayload;
-    setCategoryMeta?: Maybe<SetCategoryMetaPayload>;
-    setCategoryMetas?: Maybe<SetCategoryMetasPayload>;
-    setChapterMeta?: Maybe<SetChapterMetaPayload>;
-    setChapterMetas?: Maybe<SetChapterMetasPayload>;
-    setGlobalMeta?: Maybe<SetGlobalMetaPayload>;
-    setGlobalMetas?: Maybe<SetGlobalMetasPayload>;
-    setMangaMeta?: Maybe<SetMangaMetaPayload>;
-    setMangaMetas?: Maybe<SetMangaMetasPayload>;
+    setCategoryMeta: SetCategoryMetaPayload;
+    setCategoryMetas: SetCategoryMetasPayload;
+    setChapterMeta: SetChapterMetaPayload;
+    setChapterMetas: SetChapterMetasPayload;
+    setGlobalMeta: SetGlobalMetaPayload;
+    setGlobalMetas: SetGlobalMetasPayload;
+    setMangaMeta: SetMangaMetaPayload;
+    setMangaMetas: SetMangaMetasPayload;
     setSettings: SetSettingsPayload;
-    setSourceMeta?: Maybe<SetSourceMetaPayload>;
-    setSourceMetas?: Maybe<SetSourceMetasPayload>;
-    startDownloader?: Maybe<StartDownloaderPayload>;
+    setSourceMeta: SetSourceMetaPayload;
+    setSourceMetas: SetSourceMetasPayload;
+    startDownloader: StartDownloaderPayload;
     startSync: StartSyncPayload;
-    stopDownloader?: Maybe<StopDownloaderPayload>;
-    trackProgress?: Maybe<TrackProgressPayload>;
+    stopDownloader: StopDownloaderPayload;
+    /** Mirrors `trackProgress` — 先把当前阅读进度推给站点，再返回该漫画的全部记录。 */
+    trackProgress: TrackProgressPayload;
+    /**
+     * Mirrors `unbindTrack` — 本地行总是删；`deleteRemoteTrack` 只在站点支持删除
+     * 时才会连带删掉站点上的记录。删除后回读，所以 `trackRecord` 恒为 null。
+     */
     unbindTrack: UnbindTrackPayload;
-    updateCategories?: Maybe<UpdateCategoriesPayload>;
-    updateCategory?: Maybe<UpdateCategoryPayload>;
-    updateCategoryManga?: Maybe<UpdateCategoryMangaPayload>;
-    updateCategoryOrder?: Maybe<UpdateCategoryOrderPayload>;
-    updateChapter?: Maybe<UpdateChapterPayload>;
-    updateChapters?: Maybe<UpdateChaptersPayload>;
-    updateExtension?: Maybe<UpdateExtensionPayload>;
-    updateExtensions?: Maybe<UpdateExtensionsPayload>;
-    updateLibrary?: Maybe<UpdateLibraryPayload>;
-    updateLibraryManga?: Maybe<UpdateLibraryMangaPayload>;
-    updateManga?: Maybe<UpdateMangaPayload>;
-    updateMangaCategories?: Maybe<UpdateMangaCategoriesPayload>;
-    updateMangas?: Maybe<UpdateMangasPayload>;
-    updateMangasCategories?: Maybe<UpdateMangasCategoriesPayload>;
-    updateSourcePreference?: Maybe<UpdateSourcePreferencePayload>;
+    updateCategories: UpdateCategoriesPayload;
+    updateCategory: UpdateCategoryPayload;
+    updateCategoryManga: UpdateCategoryMangaPayload;
+    updateCategoryOrder: UpdateCategoryOrderPayload;
+    updateChapter: UpdateChapterPayload;
+    updateChapters: UpdateChaptersPayload;
+    updateExtension: UpdateExtensionPayload;
+    updateExtensions: UpdateExtensionsPayload;
+    updateLibrary: UpdateLibraryPayload;
+    updateLibraryManga: UpdateLibraryMangaPayload;
+    updateManga: UpdateMangaPayload;
+    updateMangaCategories: UpdateMangaCategoriesPayload;
+    updateMangas: UpdateMangasPayload;
+    updateMangasCategories: UpdateMangasCategoriesPayload;
+    updateSourcePreference: UpdateSourcePreferencePayload;
     updateStop: UpdateStopPayload;
+    /** Mirrors `updateTrack` — 由 `domain::tracker` 负责状态/进度的连带推导，再推给站点。 */
     updateTrack: UpdateTrackPayload;
-    updateWebUI?: Maybe<WebUiUpdatePayload>;
+    /**
+     * 改站点的 OAuth 应用凭据（设置页的齿轮）。写完立刻生效并落盘 —— 下一次登录
+     * 用的就是新 `clientId`。填空白等于回到内置默认值。
+     */
+    updateTrackerOAuthApp: UpdateTrackerOAuthAppPayload;
 };
 
 export type MutationAddExtensionStoreArgs = {
@@ -1590,7 +1628,7 @@ export type MutationConnectKoSyncAccountArgs = {
 };
 
 export type MutationCreateBackupArgs = {
-    input?: InputMaybe<CreateBackupInput>;
+    input: CreateBackupInput;
 };
 
 export type MutationCreateCategoryArgs = {
@@ -1731,6 +1769,10 @@ export type MutationRebuildDownloadIndexArgs = {
 
 export type MutationRefreshTokenArgs = {
     input: RefreshTokenInput;
+};
+
+export type MutationRefreshTrackerUserArgs = {
+    input: RefreshTrackerUserInput;
 };
 
 export type MutationRemoveExtensionStoreArgs = {
@@ -1885,38 +1927,8 @@ export type MutationUpdateTrackArgs = {
     input: UpdateTrackInput;
 };
 
-export type MutationUpdateWebUiArgs = {
-    input: WebUiUpdateInput;
-};
-
-export type Node =
-    | CategoryMetaType
-    | CategoryType
-    | ChapterMetaType
-    | ChapterType
-    | DownloadType
-    | DownloadUpdate
-    | ExtensionStoreType
-    | ExtensionType
-    | GlobalMetaType
-    | MangaMetaType
-    | MangaType
-    | PartialSettingsType
-    | SettingsType
-    | SourceMetaType
-    | SourceType
-    | TrackRecordType
-    | TrackerType;
-
-export type NodeList = {
-    /** A list of edges which contains the [T] and cursor to aid in pagination. */
-    edges: Array<Edge>;
-    /** A list of [T] objects. */
-    nodes: Array<Node>;
-    /** Information to aid in pagination. */
-    pageInfo: PageInfo;
-    /** The count of all nodes you could get from the connection. */
-    totalCount: Scalars['Int']['output'];
+export type MutationUpdateTrackerOAuthAppArgs = {
+    input: UpdateTrackerOAuthAppInput;
 };
 
 export type OsInfo = {
@@ -1928,148 +1940,48 @@ export type OsInfo = {
 
 export type PageInfo = {
     __typename?: 'PageInfo';
-    /** When paginating forwards, the cursor to continue. */
     endCursor?: Maybe<Scalars['Cursor']['output']>;
-    /** When paginating forwards, are there more items? */
     hasNextPage: Scalars['Boolean']['output'];
-    /** When paginating backwards, are there more items? */
     hasPreviousPage: Scalars['Boolean']['output'];
-    /** When paginating backwards, the cursor to continue. */
     startCursor?: Maybe<Scalars['Cursor']['output']>;
 };
 
 export type PartialBackupFlagsInput = {
+    /** 服务端设置（9001）与各 meta 节（9000）。 */
+    includeAppSettings?: InputMaybe<Scalars['Boolean']['input']>;
     includeCategories?: InputMaybe<Scalars['Boolean']['input']>;
     includeChapters?: InputMaybe<Scalars['Boolean']['input']>;
-    includeClientData?: InputMaybe<Scalars['Boolean']['input']>;
+    /** 插件仓库（106）。 */
+    includeExtensionStores?: InputMaybe<Scalars['Boolean']['input']>;
     includeHistory?: InputMaybe<Scalars['Boolean']['input']>;
     includeManga?: InputMaybe<Scalars['Boolean']['input']>;
-    includeServerSettings?: InputMaybe<Scalars['Boolean']['input']>;
+    /** 凭据与认证信息，默认关闭。 */
+    includePrivateSettings?: InputMaybe<Scalars['Boolean']['input']>;
+    /** 除库内作品外，还带上「有已读章节但不在库」的作品。 */
+    includeReadEntries?: InputMaybe<Scalars['Boolean']['input']>;
+    /** 扩展自己存的图源设置（105）。 */
+    includeSourceSettings?: InputMaybe<Scalars['Boolean']['input']>;
     includeTracking?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type PartialSettingsType = Settings & {
-    __typename?: 'PartialSettingsType';
-    authMode?: Maybe<AuthMode>;
-    authPassword?: Maybe<Scalars['String']['output']>;
-    authUsername?: Maybe<Scalars['String']['output']>;
-    autoBackupIncludeCategories?: Maybe<Scalars['Boolean']['output']>;
-    autoBackupIncludeChapters?: Maybe<Scalars['Boolean']['output']>;
-    autoBackupIncludeClientData?: Maybe<Scalars['Boolean']['output']>;
-    autoBackupIncludeHistory?: Maybe<Scalars['Boolean']['output']>;
-    autoBackupIncludeManga?: Maybe<Scalars['Boolean']['output']>;
-    autoBackupIncludeServerSettings?: Maybe<Scalars['Boolean']['output']>;
-    autoBackupIncludeTracking?: Maybe<Scalars['Boolean']['output']>;
-    /** @deprecated Replaced with autoDownloadNewChaptersLimit, replace with autoDownloadNewChaptersLimit */
-    autoDownloadAheadLimit?: Maybe<Scalars['Int']['output']>;
-    autoDownloadIgnoreReUploads?: Maybe<Scalars['Boolean']['output']>;
-    autoDownloadNewChapters?: Maybe<Scalars['Boolean']['output']>;
-    autoDownloadNewChaptersLimit?: Maybe<Scalars['Int']['output']>;
-    backupInterval?: Maybe<Scalars['Int']['output']>;
-    backupPath?: Maybe<Scalars['String']['output']>;
-    backupTTL?: Maybe<Scalars['Int']['output']>;
-    backupTime?: Maybe<Scalars['String']['output']>;
-    /** @deprecated Removed - prefer authMode, replace with authMode */
-    basicAuthEnabled?: Maybe<Scalars['Boolean']['output']>;
-    /** @deprecated Removed - prefer authPassword, replace with authPassword */
-    basicAuthPassword?: Maybe<Scalars['String']['output']>;
-    /** @deprecated Removed - prefer authUsername, replace with authUsername */
-    basicAuthUsername?: Maybe<Scalars['String']['output']>;
-    databasePassword?: Maybe<Scalars['String']['output']>;
-    databaseType?: Maybe<DatabaseType>;
-    databaseUrl?: Maybe<Scalars['String']['output']>;
-    databaseUsername?: Maybe<Scalars['String']['output']>;
-    dataDir?: Maybe<Scalars['String']['output']>;
-    debugLogsEnabled?: Maybe<Scalars['Boolean']['output']>;
-    downloadAsCbz?: Maybe<Scalars['Boolean']['output']>;
-    downloadConversions?: Maybe<Array<SettingsDownloadConversionType>>;
-    downloadsPath?: Maybe<Scalars['String']['output']>;
-    electronPath?: Maybe<Scalars['String']['output']>;
-    excludeCompleted?: Maybe<Scalars['Boolean']['output']>;
-    excludeEntryWithUnreadChapters?: Maybe<Scalars['Boolean']['output']>;
-    excludeNotStarted?: Maybe<Scalars['Boolean']['output']>;
-    excludeUnreadChapters?: Maybe<Scalars['Boolean']['output']>;
-    /** @deprecated Replaced with addExtensionStore and removeExtensionStore mutations */
-    extensionRepos?: Maybe<Array<Scalars['String']['output']>>;
-    flareSolverrAsResponseFallback?: Maybe<Scalars['Boolean']['output']>;
-    flareSolverrEnabled?: Maybe<Scalars['Boolean']['output']>;
-    flareSolverrSessionName?: Maybe<Scalars['String']['output']>;
-    flareSolverrSessionTtl?: Maybe<Scalars['Int']['output']>;
-    flareSolverrTimeout?: Maybe<Scalars['Int']['output']>;
-    flareSolverrUrl?: Maybe<Scalars['String']['output']>;
-    globalUpdateInterval?: Maybe<Scalars['Float']['output']>;
-    /** @deprecated Removed - does not do anything */
-    gqlDebugLogsEnabled?: Maybe<Scalars['Boolean']['output']>;
-    initialOpenInBrowserEnabled?: Maybe<Scalars['Boolean']['output']>;
-    ip?: Maybe<Scalars['String']['output']>;
-    jwtAudience?: Maybe<Scalars['String']['output']>;
-    jwtRefreshExpiry?: Maybe<Scalars['Duration']['output']>;
-    jwtTokenExpiry?: Maybe<Scalars['Duration']['output']>;
-    kcefEnabled?: Maybe<Scalars['Boolean']['output']>;
-    koreaderSyncChecksumMethod?: Maybe<KoreaderSyncChecksumMethod>;
-    /** @deprecated Moved to preference store. Is supposed to be random and gets auto generated, replace with MOVE TO PREFERENCES */
-    koreaderSyncDeviceId?: Maybe<Scalars['String']['output']>;
-    koreaderSyncPercentageTolerance?: Maybe<Scalars['Float']['output']>;
-    /** @deprecated Moved to preference store. User is supposed to use a login/logout mutation, replace with MOVE TO PREFERENCES */
-    koreaderSyncServerUrl?: Maybe<Scalars['String']['output']>;
-    /** @deprecated Replaced with koreaderSyncStrategyForward and koreaderSyncStrategyBackward, replace with koreaderSyncStrategyForward, koreaderSyncStrategyBackward */
-    koreaderSyncStrategy?: Maybe<KoreaderSyncLegacyStrategy>;
-    koreaderSyncStrategyBackward?: Maybe<KoreaderSyncConflictStrategy>;
-    koreaderSyncStrategyForward?: Maybe<KoreaderSyncConflictStrategy>;
-    /** @deprecated Moved to preference store. User is supposed to use a login/logout mutation, replace with MOVE TO PREFERENCES */
-    koreaderSyncUserkey?: Maybe<Scalars['String']['output']>;
-    /** @deprecated Moved to preference store. User is supposed to use a login/logout mutation, replace with MOVE TO PREFERENCES */
-    koreaderSyncUsername?: Maybe<Scalars['String']['output']>;
-    localSourcePath?: Maybe<Scalars['String']['output']>;
-    maxLogFileSize?: Maybe<Scalars['String']['output']>;
-    maxLogFiles?: Maybe<Scalars['Int']['output']>;
-    maxLogFolderSize?: Maybe<Scalars['String']['output']>;
-    maxSourcesInParallel?: Maybe<Scalars['Int']['output']>;
-    opdsCbzMimetype?: Maybe<CbzMediaType>;
-    opdsChapterSortOrder?: Maybe<SortOrder>;
-    opdsEnablePageReadProgress?: Maybe<Scalars['Boolean']['output']>;
-    opdsItemsPerPage?: Maybe<Scalars['Int']['output']>;
-    opdsMarkAsReadOnDownload?: Maybe<Scalars['Boolean']['output']>;
-    opdsShowOnlyDownloadedChapters?: Maybe<Scalars['Boolean']['output']>;
-    opdsShowOnlyUnreadChapters?: Maybe<Scalars['Boolean']['output']>;
-    opdsSkipChapterMetadataFeed?: Maybe<Scalars['Boolean']['output']>;
-    opdsUseBinaryFileSizes?: Maybe<Scalars['Boolean']['output']>;
-    port?: Maybe<Scalars['Int']['output']>;
-    serveConversions?: Maybe<Array<SettingsDownloadConversionType>>;
-    socksProxyEnabled?: Maybe<Scalars['Boolean']['output']>;
-    socksProxyHost?: Maybe<Scalars['String']['output']>;
-    socksProxyPassword?: Maybe<Scalars['String']['output']>;
-    socksProxyPort?: Maybe<Scalars['String']['output']>;
-    socksProxyUsername?: Maybe<Scalars['String']['output']>;
-    socksProxyVersion?: Maybe<Scalars['Int']['output']>;
-    syncDataCategories?: Maybe<Scalars['Boolean']['output']>;
-    syncDataChapters?: Maybe<Scalars['Boolean']['output']>;
-    syncDataHistory?: Maybe<Scalars['Boolean']['output']>;
-    syncDataManga?: Maybe<Scalars['Boolean']['output']>;
-    syncDataTracking?: Maybe<Scalars['Boolean']['output']>;
-    syncInterval?: Maybe<Scalars['Duration']['output']>;
-    syncYomiApiKey?: Maybe<Scalars['String']['output']>;
-    syncYomiEnabled?: Maybe<Scalars['Boolean']['output']>;
-    syncYomiHost?: Maybe<Scalars['String']['output']>;
-    systemTrayEnabled?: Maybe<Scalars['Boolean']['output']>;
-    updateMangas?: Maybe<Scalars['Boolean']['output']>;
-    useHikariConnectionPool?: Maybe<Scalars['Boolean']['output']>;
-    webUIChannel?: Maybe<WebUiChannel>;
-    webUIFlavor?: Maybe<WebUiFlavor>;
-    webUIInterface?: Maybe<WebUiInterface>;
-    webUIUpdateCheckInterval?: Maybe<Scalars['Float']['output']>;
-};
-
+/**
+ * Mirrors `PartialSettingsTypeInput` — the full mutable settings surface of
+ * the upstream WebUI (77 fields), aligned with `graphql-base.types.ts`.
+ */
 export type PartialSettingsTypeInput = {
     authMode?: InputMaybe<AuthMode>;
     authPassword?: InputMaybe<Scalars['String']['input']>;
     authUsername?: InputMaybe<Scalars['String']['input']>;
+    autoBackupFrequency?: InputMaybe<Scalars['Int']['input']>;
+    autoBackupIncludeAppSettings?: InputMaybe<Scalars['Boolean']['input']>;
     autoBackupIncludeCategories?: InputMaybe<Scalars['Boolean']['input']>;
     autoBackupIncludeChapters?: InputMaybe<Scalars['Boolean']['input']>;
-    autoBackupIncludeClientData?: InputMaybe<Scalars['Boolean']['input']>;
+    autoBackupIncludeExtensionStores?: InputMaybe<Scalars['Boolean']['input']>;
     autoBackupIncludeHistory?: InputMaybe<Scalars['Boolean']['input']>;
     autoBackupIncludeManga?: InputMaybe<Scalars['Boolean']['input']>;
-    autoBackupIncludeServerSettings?: InputMaybe<Scalars['Boolean']['input']>;
+    autoBackupIncludePrivateSettings?: InputMaybe<Scalars['Boolean']['input']>;
+    autoBackupIncludeReadEntries?: InputMaybe<Scalars['Boolean']['input']>;
+    autoBackupIncludeSourceSettings?: InputMaybe<Scalars['Boolean']['input']>;
     autoBackupIncludeTracking?: InputMaybe<Scalars['Boolean']['input']>;
     autoDownloadIgnoreReUploads?: InputMaybe<Scalars['Boolean']['input']>;
     autoDownloadNewChapters?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2157,6 +2069,7 @@ export type PlatformInfo = {
     os: OsInfo;
 };
 
+/** Mirrors `union Preference = ...`. */
 export type Preference =
     | CheckBoxPreference
     | EditTextPreference
@@ -2190,39 +2103,77 @@ export type PushKoSyncProgressPayload = {
 
 export type Query = {
     __typename?: 'Query';
+    /** Mirrors `aboutServer()` — full payload. */
     aboutServer: AboutServerPayload;
+    /**
+     * Mirrors `aboutWebUI()` — version from `<webui_dir>/version.txt`
+     * (line 1) with the channel on line 2 (written by the WebUI's own build).
+     */
     aboutWebUI: AboutWebUi;
     categories: CategoryNodeList;
     category: CategoryType;
     chapter: ChapterType;
     chapters: ChapterNodeList;
+    /**
+     * Mirrors `checkForServerUpdates()` — compares the local server build
+     * with the latest 576576/Suwayomi-next release on GitHub. Empty when
+     * up-to-date or the check fails.
+     */
     checkForServerUpdates: Array<CheckForServerUpdatesPayload>;
+    /**
+     * Mirrors `checkForWebUIUpdate()` — compares the deployed WebUI version
+     * (line 1 of `version.txt`) with the latest 576576/Suwayomi-WebUI release. Empty tag on network failure
+     * (the WebUI then shows "unable to check for updates").
+     */
     checkForWebUIUpdate: WebUiUpdateCheck;
+    /** Mirrors `downloadStatus()` — current download queue / progress. */
     downloadStatus: DownloadStatus;
+    /** Mirrors `extension(pkgName:)` — single extension. */
     extension: ExtensionType;
+    /** Mirrors `extensionStore(indexUrl:)`. */
     extensionStore: ExtensionStoreType;
+    /** Mirrors `extensionStores(condition:, order:)`. */
     extensionStores: ExtensionStoreNodeList;
+    /** Mirrors `extensions(condition:, order:)`. */
     extensions: ExtensionNodeList;
-    getWebUIUpdateStatus: WebUiUpdateStatus;
+    /** Mirrors `koSyncStatus()`. */
     koSyncStatus: KoSyncStatusPayload;
+    /** Mirrors `lastSyncStatus()` — SyncYomi status. */
     lastSyncStatus?: Maybe<SyncStatus>;
+    /** Mirrors `lastUpdateTimestamp()` — epoch-millis of the last finished global update. */
     lastUpdateTimestamp: LastUpdateTimestampPayload;
+    /** Mirrors `libraryUpdateStatus()` — live status/progress of the global updater. */
     libraryUpdateStatus: LibraryUpdateStatus;
     manga: MangaType;
     mangas: MangaNodeList;
+    /** Mirrors `meta(key:)` — single global meta entry. */
     meta: GlobalMetaType;
+    /** Mirrors `metas(condition:)` — global meta list. */
     metas: GlobalMetaNodeList;
-    restoreStatus?: Maybe<BackupRestoreStatus>;
+    /** Mirrors `restoreStatus(id:)` — result of the last restore with that id. */
+    restoreStatus: BackupRestoreStatus;
+    /**
+     * Mirrors `searchTracker(input:)` — 结果会落 `track_search` 并参与绑定；
+     * 未登录时直接报错。
+     */
     searchTracker: SearchTrackerPayload;
+    /** Mirrors `settings()` — full settings registry. */
     settings: SettingsType;
+    /** Mirrors `source(id:)` — single source by id. */
     source: SourceType;
+    /** Mirrors `sources(condition:, order:)`. */
     sources: SourceNodeList;
+    /** Mirrors `trackRecord(id:)`. */
     trackRecord: TrackRecordType;
+    /** Mirrors `trackRecords(condition:, order:)`. */
     trackRecords: TrackRecordNodeList;
+    /** Mirrors `tracker(id:)` — single tracker metadata. */
     tracker: TrackerType;
+    /** Mirrors `trackers(condition:, order:)`. */
     trackers: TrackerNodeList;
-    /** @deprecated Replaced with libraryUpdateStatus, replace with libraryUpdateStatus */
+    /** Mirrors `updateStatus()` — deprecated library update status. */
     updateStatus: UpdateStatus;
+    /** Mirrors `validateBackup(input:)` — reports missing sources without restoring. */
     validateBackup: ValidateBackupResult;
 };
 
@@ -2372,6 +2323,13 @@ export type QueryValidateBackupArgs = {
     input: ValidateBackupInput;
 };
 
+/**
+ * 「重建下载索引」：强制用磁盘上的 `<数据目录>/downloads/**` 重新对账数据库。
+ *
+ * 与 `reconcile_downloads` 同一套逻辑（启动时也会跑一次），差别只是这里由用户
+ * 手动触发 —— 手工往下载目录里丢了 CBZ、或换了存储位置之后，不用重启就能重新
+ * 扫出来。没有开关参数：它只读磁盘、只补/修下载标记，不删用户文件。
+ */
 export type RebuildDownloadIndexInput = {
     clientMutationId?: InputMaybe<Scalars['String']['input']>;
 };
@@ -2392,6 +2350,17 @@ export type RefreshTokenPayload = {
     __typename?: 'RefreshTokenPayload';
     accessToken: Scalars['String']['output'];
     clientMutationId?: Maybe<Scalars['String']['output']>;
+};
+
+export type RefreshTrackerUserInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    trackerId: Scalars['Int']['input'];
+};
+
+export type RefreshTrackerUserPayload = {
+    __typename?: 'RefreshTrackerUserPayload';
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+    tracker: TrackerType;
 };
 
 export type RemoveExtensionStoreInput = {
@@ -2422,6 +2391,12 @@ export type ReorderChapterDownloadsInput = {
     reorders: Array<ChapterDownloadReorderInput>;
 };
 
+export type ReorderChapterDownloadsPayload = {
+    __typename?: 'ReorderChapterDownloadsPayload';
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+    downloadStatus: DownloadStatus;
+};
+
 export type ResetSettingsInput = {
     clientMutationId?: InputMaybe<Scalars['String']['input']>;
 };
@@ -2450,6 +2425,7 @@ export type SearchTrackerInput = {
     trackerId: Scalars['Int']['input'];
 };
 
+/** Mirrors `SearchTrackerPayload`. */
 export type SearchTrackerPayload = {
     __typename?: 'SearchTrackerPayload';
     trackSearches: Array<TrackSearchType>;
@@ -2612,143 +2588,26 @@ export type SetSourceMetasPayload = {
     sources: Array<SourceType>;
 };
 
-export type Settings = {
-    authMode?: Maybe<AuthMode>;
-    authPassword?: Maybe<Scalars['String']['output']>;
-    authUsername?: Maybe<Scalars['String']['output']>;
-    autoBackupIncludeCategories?: Maybe<Scalars['Boolean']['output']>;
-    autoBackupIncludeChapters?: Maybe<Scalars['Boolean']['output']>;
-    autoBackupIncludeClientData?: Maybe<Scalars['Boolean']['output']>;
-    autoBackupIncludeHistory?: Maybe<Scalars['Boolean']['output']>;
-    autoBackupIncludeManga?: Maybe<Scalars['Boolean']['output']>;
-    autoBackupIncludeServerSettings?: Maybe<Scalars['Boolean']['output']>;
-    autoBackupIncludeTracking?: Maybe<Scalars['Boolean']['output']>;
-    /** @deprecated Replaced with autoDownloadNewChaptersLimit, replace with autoDownloadNewChaptersLimit */
-    autoDownloadAheadLimit?: Maybe<Scalars['Int']['output']>;
-    autoDownloadIgnoreReUploads?: Maybe<Scalars['Boolean']['output']>;
-    autoDownloadNewChapters?: Maybe<Scalars['Boolean']['output']>;
-    autoDownloadNewChaptersLimit?: Maybe<Scalars['Int']['output']>;
-    backupInterval?: Maybe<Scalars['Int']['output']>;
-    backupPath?: Maybe<Scalars['String']['output']>;
-    backupTTL?: Maybe<Scalars['Int']['output']>;
-    backupTime?: Maybe<Scalars['String']['output']>;
-    /** @deprecated Removed - prefer authMode, replace with authMode */
-    basicAuthEnabled?: Maybe<Scalars['Boolean']['output']>;
-    /** @deprecated Removed - prefer authPassword, replace with authPassword */
-    basicAuthPassword?: Maybe<Scalars['String']['output']>;
-    /** @deprecated Removed - prefer authUsername, replace with authUsername */
-    basicAuthUsername?: Maybe<Scalars['String']['output']>;
-    databasePassword?: Maybe<Scalars['String']['output']>;
-    databaseType?: Maybe<DatabaseType>;
-    databaseUrl?: Maybe<Scalars['String']['output']>;
-    databaseUsername?: Maybe<Scalars['String']['output']>;
-    dataDir?: Maybe<Scalars['String']['output']>;
-    debugLogsEnabled?: Maybe<Scalars['Boolean']['output']>;
-    downloadAsCbz?: Maybe<Scalars['Boolean']['output']>;
-    downloadConversions?: Maybe<Array<SettingsDownloadConversion>>;
-    downloadsPath?: Maybe<Scalars['String']['output']>;
-    electronPath?: Maybe<Scalars['String']['output']>;
-    excludeCompleted?: Maybe<Scalars['Boolean']['output']>;
-    excludeEntryWithUnreadChapters?: Maybe<Scalars['Boolean']['output']>;
-    excludeNotStarted?: Maybe<Scalars['Boolean']['output']>;
-    excludeUnreadChapters?: Maybe<Scalars['Boolean']['output']>;
-    /** @deprecated Replaced with addExtensionStore and removeExtensionStore mutations */
-    extensionRepos?: Maybe<Array<Scalars['String']['output']>>;
-    flareSolverrAsResponseFallback?: Maybe<Scalars['Boolean']['output']>;
-    flareSolverrEnabled?: Maybe<Scalars['Boolean']['output']>;
-    flareSolverrSessionName?: Maybe<Scalars['String']['output']>;
-    flareSolverrSessionTtl?: Maybe<Scalars['Int']['output']>;
-    flareSolverrTimeout?: Maybe<Scalars['Int']['output']>;
-    flareSolverrUrl?: Maybe<Scalars['String']['output']>;
-    globalUpdateInterval?: Maybe<Scalars['Float']['output']>;
-    /** @deprecated Removed - does not do anything */
-    gqlDebugLogsEnabled?: Maybe<Scalars['Boolean']['output']>;
-    initialOpenInBrowserEnabled?: Maybe<Scalars['Boolean']['output']>;
-    ip?: Maybe<Scalars['String']['output']>;
-    jwtAudience?: Maybe<Scalars['String']['output']>;
-    jwtRefreshExpiry?: Maybe<Scalars['Duration']['output']>;
-    jwtTokenExpiry?: Maybe<Scalars['Duration']['output']>;
-    kcefEnabled?: Maybe<Scalars['Boolean']['output']>;
-    koreaderSyncChecksumMethod?: Maybe<KoreaderSyncChecksumMethod>;
-    /** @deprecated Moved to preference store. Is supposed to be random and gets auto generated, replace with MOVE TO PREFERENCES */
-    koreaderSyncDeviceId?: Maybe<Scalars['String']['output']>;
-    koreaderSyncPercentageTolerance?: Maybe<Scalars['Float']['output']>;
-    /** @deprecated Moved to preference store. User is supposed to use a login/logout mutation, replace with MOVE TO PREFERENCES */
-    koreaderSyncServerUrl?: Maybe<Scalars['String']['output']>;
-    /** @deprecated Replaced with koreaderSyncStrategyForward and koreaderSyncStrategyBackward, replace with koreaderSyncStrategyForward, koreaderSyncStrategyBackward */
-    koreaderSyncStrategy?: Maybe<KoreaderSyncLegacyStrategy>;
-    koreaderSyncStrategyBackward?: Maybe<KoreaderSyncConflictStrategy>;
-    koreaderSyncStrategyForward?: Maybe<KoreaderSyncConflictStrategy>;
-    /** @deprecated Moved to preference store. User is supposed to use a login/logout mutation, replace with MOVE TO PREFERENCES */
-    koreaderSyncUserkey?: Maybe<Scalars['String']['output']>;
-    /** @deprecated Moved to preference store. User is supposed to use a login/logout mutation, replace with MOVE TO PREFERENCES */
-    koreaderSyncUsername?: Maybe<Scalars['String']['output']>;
-    localSourcePath?: Maybe<Scalars['String']['output']>;
-    maxLogFileSize?: Maybe<Scalars['String']['output']>;
-    maxLogFiles?: Maybe<Scalars['Int']['output']>;
-    maxLogFolderSize?: Maybe<Scalars['String']['output']>;
-    maxSourcesInParallel?: Maybe<Scalars['Int']['output']>;
-    opdsCbzMimetype?: Maybe<CbzMediaType>;
-    opdsChapterSortOrder?: Maybe<SortOrder>;
-    opdsEnablePageReadProgress?: Maybe<Scalars['Boolean']['output']>;
-    opdsItemsPerPage?: Maybe<Scalars['Int']['output']>;
-    opdsMarkAsReadOnDownload?: Maybe<Scalars['Boolean']['output']>;
-    opdsShowOnlyDownloadedChapters?: Maybe<Scalars['Boolean']['output']>;
-    opdsShowOnlyUnreadChapters?: Maybe<Scalars['Boolean']['output']>;
-    opdsSkipChapterMetadataFeed?: Maybe<Scalars['Boolean']['output']>;
-    opdsUseBinaryFileSizes?: Maybe<Scalars['Boolean']['output']>;
-    port?: Maybe<Scalars['Int']['output']>;
-    serveConversions?: Maybe<Array<SettingsDownloadConversion>>;
-    socksProxyEnabled?: Maybe<Scalars['Boolean']['output']>;
-    socksProxyHost?: Maybe<Scalars['String']['output']>;
-    socksProxyPassword?: Maybe<Scalars['String']['output']>;
-    socksProxyPort?: Maybe<Scalars['String']['output']>;
-    socksProxyUsername?: Maybe<Scalars['String']['output']>;
-    socksProxyVersion?: Maybe<Scalars['Int']['output']>;
-    syncDataCategories?: Maybe<Scalars['Boolean']['output']>;
-    syncDataChapters?: Maybe<Scalars['Boolean']['output']>;
-    syncDataHistory?: Maybe<Scalars['Boolean']['output']>;
-    syncDataManga?: Maybe<Scalars['Boolean']['output']>;
-    syncDataTracking?: Maybe<Scalars['Boolean']['output']>;
-    syncInterval?: Maybe<Scalars['Duration']['output']>;
-    syncYomiApiKey?: Maybe<Scalars['String']['output']>;
-    syncYomiEnabled?: Maybe<Scalars['Boolean']['output']>;
-    syncYomiHost?: Maybe<Scalars['String']['output']>;
-    systemTrayEnabled?: Maybe<Scalars['Boolean']['output']>;
-    updateMangas?: Maybe<Scalars['Boolean']['output']>;
-    useHikariConnectionPool?: Maybe<Scalars['Boolean']['output']>;
-    webUIChannel?: Maybe<WebUiChannel>;
-    webUIFlavor?: Maybe<WebUiFlavor>;
-    webUIInterface?: Maybe<WebUiInterface>;
-    webUIUpdateCheckInterval?: Maybe<Scalars['Float']['output']>;
-};
-
-export type SettingsDownloadConversion = {
-    callTimeout?: Maybe<Scalars['Duration']['output']>;
-    compressionLevel?: Maybe<Scalars['Float']['output']>;
-    connectTimeout?: Maybe<Scalars['Duration']['output']>;
-    headers?: Maybe<Array<SettingsDownloadConversionHeader>>;
-    mimeType: Scalars['String']['output'];
-    target: Scalars['String']['output'];
-};
-
-export type SettingsDownloadConversionHeader = {
-    name: Scalars['String']['output'];
-    value: Scalars['String']['output'];
-};
-
-export type SettingsDownloadConversionHeaderType = SettingsDownloadConversionHeader & {
+/** Mirrors `SettingsDownloadConversionHeaderType`. */
+export type SettingsDownloadConversionHeaderType = {
     __typename?: 'SettingsDownloadConversionHeaderType';
     name: Scalars['String']['output'];
     value: Scalars['String']['output'];
 };
 
+/** Mirrors `SettingsDownloadConversionHeaderTypeInput` (WebUI r3474). */
 export type SettingsDownloadConversionHeaderTypeInput = {
     name: Scalars['String']['input'];
     value: Scalars['String']['input'];
 };
 
-export type SettingsDownloadConversionType = SettingsDownloadConversion & {
+/**
+ * Mirrors `SettingsDownloadConversionType`.
+ *
+ * 三个字段都可空：`callTimeout`/`connectTimeout`/`headers` 是可选覆盖项，缺省表示沿用
+ * 全局默认值；把它们当必填会凭空造出一个「0 秒超时 / 空 headers」的假值。
+ */
+export type SettingsDownloadConversionType = {
     __typename?: 'SettingsDownloadConversionType';
     callTimeout?: Maybe<Scalars['Duration']['output']>;
     compressionLevel?: Maybe<Scalars['Float']['output']>;
@@ -2758,6 +2617,7 @@ export type SettingsDownloadConversionType = SettingsDownloadConversion & {
     target: Scalars['String']['output'];
 };
 
+/** Mirrors `SettingsDownloadConversionTypeInput` (WebUI r3474). */
 export type SettingsDownloadConversionTypeInput = {
     callTimeout?: InputMaybe<Scalars['Duration']['input']>;
     compressionLevel?: InputMaybe<Scalars['Float']['input']>;
@@ -2767,19 +2627,28 @@ export type SettingsDownloadConversionTypeInput = {
     target: Scalars['String']['input'];
 };
 
-export type SettingsType = Settings & {
+/** Mirrors `SettingsType` — 96 fields generated from ServerConfig in Kotlin. */
+export type SettingsType = {
     __typename?: 'SettingsType';
     authMode: AuthMode;
     authPassword: Scalars['String']['output'];
     authUsername: Scalars['String']['output'];
+    /**
+     * Auto backup cadence in minutes (0 = disabled). UI slider offers
+     * off / 1-12 hours / 1-6 days / weekly; default 43200 (12 hours).
+     */
+    autoBackupFrequency: Scalars['Int']['output'];
+    autoBackupIncludeAppSettings: Scalars['Boolean']['output'];
     autoBackupIncludeCategories: Scalars['Boolean']['output'];
     autoBackupIncludeChapters: Scalars['Boolean']['output'];
-    autoBackupIncludeClientData: Scalars['Boolean']['output'];
+    autoBackupIncludeExtensionStores: Scalars['Boolean']['output'];
     autoBackupIncludeHistory: Scalars['Boolean']['output'];
     autoBackupIncludeManga: Scalars['Boolean']['output'];
-    autoBackupIncludeServerSettings: Scalars['Boolean']['output'];
+    autoBackupIncludePrivateSettings: Scalars['Boolean']['output'];
+    autoBackupIncludeReadEntries: Scalars['Boolean']['output'];
+    autoBackupIncludeSourceSettings: Scalars['Boolean']['output'];
     autoBackupIncludeTracking: Scalars['Boolean']['output'];
-    /** @deprecated Replaced with autoDownloadNewChaptersLimit, replace with autoDownloadNewChaptersLimit */
+    /** @deprecated Replaced with autoDownloadNewChaptersLimit */
     autoDownloadAheadLimit: Scalars['Int']['output'];
     autoDownloadIgnoreReUploads: Scalars['Boolean']['output'];
     autoDownloadNewChapters: Scalars['Boolean']['output'];
@@ -2788,17 +2657,22 @@ export type SettingsType = Settings & {
     backupPath: Scalars['String']['output'];
     backupTTL: Scalars['Int']['output'];
     backupTime: Scalars['String']['output'];
-    /** @deprecated Removed - prefer authMode, replace with authMode */
+    /** @deprecated Removed - prefer authMode */
     basicAuthEnabled: Scalars['Boolean']['output'];
-    /** @deprecated Removed - prefer authPassword, replace with authPassword */
+    /** @deprecated Removed - prefer authPassword */
     basicAuthPassword: Scalars['String']['output'];
-    /** @deprecated Removed - prefer authUsername, replace with authUsername */
+    /** @deprecated Removed - prefer authUsername */
     basicAuthUsername: Scalars['String']['output'];
+    /**
+     * 数据（存储位置）目录；留空 = 用默认目录。改动重启后生效。
+     * **数据库文件不在这里** —— 它在 appdata 根下的 `db/`（见
+     * `suwayomi_core::config::AppPaths::db`），所以这个目录可以随便换而不会把设置本身弄丢。
+     */
+    dataDir: Scalars['String']['output'];
     databasePassword: Scalars['String']['output'];
     databaseType: DatabaseType;
     databaseUrl: Scalars['String']['output'];
     databaseUsername: Scalars['String']['output'];
-    dataDir: Scalars['String']['output'];
     debugLogsEnabled: Scalars['Boolean']['output'];
     downloadAsCbz: Scalars['Boolean']['output'];
     downloadConversions: Array<SettingsDownloadConversionType>;
@@ -2826,18 +2700,18 @@ export type SettingsType = Settings & {
     jwtTokenExpiry: Scalars['Duration']['output'];
     kcefEnabled: Scalars['Boolean']['output'];
     koreaderSyncChecksumMethod: KoreaderSyncChecksumMethod;
-    /** @deprecated Moved to preference store. Is supposed to be random and gets auto generated, replace with MOVE TO PREFERENCES */
+    /** @deprecated Moved to preference store */
     koreaderSyncDeviceId: Scalars['String']['output'];
     koreaderSyncPercentageTolerance: Scalars['Float']['output'];
-    /** @deprecated Moved to preference store. User is supposed to use a login/logout mutation, replace with MOVE TO PREFERENCES */
+    /** @deprecated Moved to preference store */
     koreaderSyncServerUrl: Scalars['String']['output'];
-    /** @deprecated Replaced with koreaderSyncStrategyForward and koreaderSyncStrategyBackward, replace with koreaderSyncStrategyForward, koreaderSyncStrategyBackward */
+    /** @deprecated Replaced with koreaderSyncStrategyForward and koreaderSyncStrategyBackward */
     koreaderSyncStrategy: KoreaderSyncLegacyStrategy;
     koreaderSyncStrategyBackward: KoreaderSyncConflictStrategy;
     koreaderSyncStrategyForward: KoreaderSyncConflictStrategy;
-    /** @deprecated Moved to preference store. User is supposed to use a login/logout mutation, replace with MOVE TO PREFERENCES */
+    /** @deprecated Moved to preference store */
     koreaderSyncUserkey: Scalars['String']['output'];
-    /** @deprecated Moved to preference store. User is supposed to use a login/logout mutation, replace with MOVE TO PREFERENCES */
+    /** @deprecated Moved to preference store */
     koreaderSyncUsername: Scalars['String']['output'];
     localSourcePath: Scalars['String']['output'];
     maxLogFileSize: Scalars['String']['output'];
@@ -2888,13 +2762,10 @@ export type SortFilter = {
 
 export enum SortOrder {
     Asc = 'ASC',
-    AscNullsFirst = 'ASC_NULLS_FIRST',
-    AscNullsLast = 'ASC_NULLS_LAST',
     Desc = 'DESC',
-    DescNullsFirst = 'DESC_NULLS_FIRST',
-    DescNullsLast = 'DESC_NULLS_LAST',
 }
 
+/** Mirrors `SortSelection` (SortFilter.default). */
 export type SortSelection = {
     __typename?: 'SortSelection';
     ascending: Scalars['Boolean']['output'];
@@ -2906,6 +2777,7 @@ export type SortSelectionInput = {
     index: Scalars['Int']['input'];
 };
 
+/** Mirrors `SourceConditionInput`. */
 export type SourceConditionInput = {
     contentWarning?: InputMaybe<ContentWarning>;
     id?: InputMaybe<Scalars['LongString']['input']>;
@@ -2913,7 +2785,7 @@ export type SourceConditionInput = {
     name?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type SourceEdge = Edge & {
+export type SourceEdge = {
     __typename?: 'SourceEdge';
     cursor: Scalars['Cursor']['output'];
     node: SourceType;
@@ -2929,10 +2801,9 @@ export type SourceFilterInput = {
     or?: InputMaybe<Array<SourceFilterInput>>;
 };
 
-export type SourceMetaType = MetaType & {
+export type SourceMetaType = {
     __typename?: 'SourceMetaType';
     key: Scalars['String']['output'];
-    source: SourceType;
     sourceId: Scalars['LongString']['output'];
     value: Scalars['String']['output'];
 };
@@ -2943,7 +2814,7 @@ export type SourceMetaTypeInput = {
     value: Scalars['String']['input'];
 };
 
-export type SourceNodeList = NodeList & {
+export type SourceNodeList = {
     __typename?: 'SourceNodeList';
     edges: Array<SourceEdge>;
     nodes: Array<SourceType>;
@@ -2967,13 +2838,12 @@ export type SourcePreferenceChangeInput = {
     editTextState?: InputMaybe<Scalars['String']['input']>;
     listState?: InputMaybe<Scalars['String']['input']>;
     multiSelectState?: InputMaybe<Array<Scalars['String']['input']>>;
-    position: Scalars['Int']['input'];
+    position?: InputMaybe<Scalars['Int']['input']>;
     switchState?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type SourceType = {
     __typename?: 'SourceType';
-    /** @deprecated , replace with homeUrl */
     baseUrl?: Maybe<Scalars['String']['output']>;
     contentWarning: ContentWarning;
     displayName: Scalars['String']['output'];
@@ -2983,7 +2853,14 @@ export type SourceType = {
     iconUrl: Scalars['String']['output'];
     id: Scalars['LongString']['output'];
     isConfigurable: Scalars['Boolean']['output'];
-    /** @deprecated , replace with contentWarning */
+    /**
+     * True when the source's extension is listed by an extension store
+     * (`extension_store` table) — the WebUI uses this to drive the "migrate"
+     * picker on the sources list. Without this field the library/browse page
+     * queries fail with "Unknown field 'isMigratable'" and the spinner
+     * hangs forever.
+     */
+    isMigratable: Scalars['Boolean']['output'];
     isNsfw: Scalars['Boolean']['output'];
     lang: Scalars['String']['output'];
     manga: MangaNodeList;
@@ -3077,6 +2954,9 @@ export type StringFilterInput = {
     notEqualTo?: InputMaybe<Scalars['String']['input']>;
     notEqualToAll?: InputMaybe<Array<Scalars['String']['input']>>;
     notEqualToAny?: InputMaybe<Array<Scalars['String']['input']>>;
+    notEqualToInsensitive?: InputMaybe<Scalars['String']['input']>;
+    notEqualToInsensitiveAll?: InputMaybe<Array<Scalars['String']['input']>>;
+    notEqualToInsensitiveAny?: InputMaybe<Array<Scalars['String']['input']>>;
     notIn?: InputMaybe<Array<Scalars['String']['input']>>;
     notInInsensitive?: InputMaybe<Array<Scalars['String']['input']>>;
     notIncludes?: InputMaybe<Scalars['String']['input']>;
@@ -3107,14 +2987,23 @@ export type StringFilterInput = {
 
 export type Subscription = {
     __typename?: 'Subscription';
-    /** @deprecated Replaced with downloadStatusChanged, replace with downloadStatusChanged(input) */
+    /** Mirrors `downloadChanged` (deprecated). Streams live queue snapshots. */
     downloadChanged: DownloadStatus;
+    /**
+     * Mirrors `downloadStatusChanged(input:)`. Streams live queue snapshots
+     * from the download manager's broadcast channel.
+     */
     downloadStatusChanged: DownloadUpdates;
+    /**
+     * Mirrors `libraryUpdateStatusChanged(input:)`.
+     * Streams live `LibraryUpdateStatus` snapshots from the updater's
+     * broadcast channel (real events once `updateLibrary` starts a job).
+     */
     libraryUpdateStatusChanged: UpdaterUpdates;
+    /** Mirrors `syncStatusChanged`. */
     syncStatusChanged: SyncStatus;
-    /** @deprecated Replaced with updates, replace with updates(input) */
+    /** Mirrors `updateStatusChanged` (deprecated). */
     updateStatusChanged: UpdateStatus;
-    webUIUpdateStatusChange: WebUiUpdateStatus;
 };
 
 export type SubscriptionDownloadStatusChangedArgs = {
@@ -3180,23 +3069,15 @@ export type TrackProgressPayload = {
 };
 
 export type TrackRecordConditionInput = {
-    finishDate?: InputMaybe<Scalars['LongString']['input']>;
     id?: InputMaybe<Scalars['Int']['input']>;
-    lastChapterRead?: InputMaybe<Scalars['Float']['input']>;
-    libraryId?: InputMaybe<Scalars['LongString']['input']>;
     mangaId?: InputMaybe<Scalars['Int']['input']>;
-    private?: InputMaybe<Scalars['Boolean']['input']>;
     remoteId?: InputMaybe<Scalars['LongString']['input']>;
-    remoteUrl?: InputMaybe<Scalars['String']['input']>;
-    score?: InputMaybe<Scalars['Float']['input']>;
-    startDate?: InputMaybe<Scalars['LongString']['input']>;
     status?: InputMaybe<Scalars['Int']['input']>;
     title?: InputMaybe<Scalars['String']['input']>;
-    totalChapters?: InputMaybe<Scalars['Int']['input']>;
     trackerId?: InputMaybe<Scalars['Int']['input']>;
 };
 
-export type TrackRecordEdge = Edge & {
+export type TrackRecordEdge = {
     __typename?: 'TrackRecordEdge';
     cursor: Scalars['Cursor']['output'];
     node: TrackRecordType;
@@ -3204,25 +3085,14 @@ export type TrackRecordEdge = Edge & {
 
 export type TrackRecordFilterInput = {
     and?: InputMaybe<Array<TrackRecordFilterInput>>;
-    finishDate?: InputMaybe<LongFilterInput>;
-    id?: InputMaybe<IntFilterInput>;
-    lastChapterRead?: InputMaybe<DoubleFilterInput>;
-    libraryId?: InputMaybe<LongFilterInput>;
     mangaId?: InputMaybe<IntFilterInput>;
     not?: InputMaybe<TrackRecordFilterInput>;
     or?: InputMaybe<Array<TrackRecordFilterInput>>;
-    private?: InputMaybe<BooleanFilterInput>;
-    remoteId?: InputMaybe<LongFilterInput>;
-    remoteUrl?: InputMaybe<StringFilterInput>;
-    score?: InputMaybe<DoubleFilterInput>;
-    startDate?: InputMaybe<LongFilterInput>;
-    status?: InputMaybe<IntFilterInput>;
     title?: InputMaybe<StringFilterInput>;
-    totalChapters?: InputMaybe<IntFilterInput>;
     trackerId?: InputMaybe<IntFilterInput>;
 };
 
-export type TrackRecordNodeList = NodeList & {
+export type TrackRecordNodeList = {
     __typename?: 'TrackRecordNodeList';
     edges: Array<TrackRecordEdge>;
     nodes: Array<TrackRecordType>;
@@ -3251,6 +3121,7 @@ export type TrackRecordOrderInput = {
 
 export type TrackRecordType = {
     __typename?: 'TrackRecordType';
+    /** Mirrors `displayScore` — 用追踪器的展示口径渲染 `score`。 */
     displayScore: Scalars['String']['output'];
     finishDate: Scalars['LongString']['output'];
     id: Scalars['Int']['output'];
@@ -3266,14 +3137,14 @@ export type TrackRecordType = {
     status: Scalars['Int']['output'];
     title: Scalars['String']['output'];
     totalChapters: Scalars['Int']['output'];
-    tracker: TrackerType;
+    tracker?: Maybe<TrackerType>;
     trackerId: Scalars['Int']['output'];
 };
 
+/** Mirrors `TrackSearchType`. */
 export type TrackSearchType = {
     __typename?: 'TrackSearchType';
     coverUrl: Scalars['String']['output'];
-    displayScore: Scalars['String']['output'];
     finishedReadingDate: Scalars['LongString']['output'];
     id: Scalars['Int']['output'];
     lastChapterRead: Scalars['Float']['output'];
@@ -3289,7 +3160,6 @@ export type TrackSearchType = {
     summary: Scalars['String']['output'];
     title: Scalars['String']['output'];
     totalChapters: Scalars['Int']['output'];
-    tracker: TrackerType;
     trackerId: Scalars['Int']['output'];
     trackingUrl: Scalars['String']['output'];
 };
@@ -3307,18 +3177,26 @@ export type TrackerConditionInput = {
     name?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type TrackerEdge = Edge & {
+export type TrackerEdge = {
     __typename?: 'TrackerEdge';
     cursor: Scalars['Cursor']['output'];
     node: TrackerType;
 };
 
-export type TrackerNodeList = NodeList & {
+export type TrackerNodeList = {
     __typename?: 'TrackerNodeList';
     edges: Array<TrackerEdge>;
     nodes: Array<TrackerType>;
     pageInfo: PageInfo;
     totalCount: Scalars['Int']['output'];
+};
+
+/** 站点应用凭据（`trackers.json` 里的那一份）。 */
+export type TrackerOAuthAppType = {
+    __typename?: 'TrackerOAuthAppType';
+    clientId: Scalars['String']['output'];
+    clientSecret: Scalars['String']['output'];
+    redirectUri: Scalars['String']['output'];
 };
 
 export enum TrackerOrderBy {
@@ -3334,12 +3212,15 @@ export type TrackerOrderInput = {
 
 export type TrackerType = {
     __typename?: 'TrackerType';
+    /** 已登录时给 null（上游 `TrackerType` 构造时就是这么定的）。 */
     authUrl?: Maybe<Scalars['String']['output']>;
     icon: Scalars['String']['output'];
     id: Scalars['Int']['output'];
     isLoggedIn: Scalars['Boolean']['output'];
     isTokenExpired: Scalars['Boolean']['output'];
     name: Scalars['String']['output'];
+    /** 站点应用凭据；非 OAuth 站点（MangaUpdates）为 null。 */
+    oauthApp?: Maybe<TrackerOAuthAppType>;
     scores: Array<Scalars['String']['output']>;
     statuses: Array<TrackStatusType>;
     supportsPrivateTracking: Scalars['Boolean']['output'];
@@ -3348,6 +3229,7 @@ export type TrackerType = {
     trackRecords: TrackRecordNodeList;
 };
 
+/** Mirrors `TriState` (TriStateFilter.default). */
 export enum TriState {
     Exclude = 'EXCLUDE',
     Ignore = 'IGNORE',
@@ -3362,7 +3244,6 @@ export type TriStateFilter = {
 
 export type UnbindTrackInput = {
     clientMutationId?: InputMaybe<Scalars['String']['input']>;
-    /** This will only work if the tracker of the track record supports deleting tracks */
     deleteRemoteTrack?: InputMaybe<Scalars['Boolean']['input']>;
     recordId: Scalars['Int']['input'];
 };
@@ -3579,13 +3460,7 @@ export type UpdateSourcePreferencePayload = {
     source: SourceType;
 };
 
-export enum UpdateState {
-    Downloading = 'DOWNLOADING',
-    Error = 'ERROR',
-    Finished = 'FINISHED',
-    Idle = 'IDLE',
-}
-
+/** Mirrors `UpdateStatus` — deprecated query payload (idle). */
 export type UpdateStatus = {
     __typename?: 'UpdateStatus';
     completeJobs: UpdateStatusType;
@@ -3624,14 +3499,11 @@ export enum UpdateStrategy {
 
 export type UpdateTrackInput = {
     clientMutationId?: InputMaybe<Scalars['String']['input']>;
-    /** This will only work if the tracker of the track record supports reading dates */
     finishDate?: InputMaybe<Scalars['LongString']['input']>;
     lastChapterRead?: InputMaybe<Scalars['Float']['input']>;
-    /** This will only work if the tracker of the track record supports private tracking */
     private?: InputMaybe<Scalars['Boolean']['input']>;
     recordId: Scalars['Int']['input'];
     scoreString?: InputMaybe<Scalars['String']['input']>;
-    /** This will only work if the tracker of the track record supports reading dates */
     startDate?: InputMaybe<Scalars['LongString']['input']>;
     status?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -3640,6 +3512,21 @@ export type UpdateTrackPayload = {
     __typename?: 'UpdateTrackPayload';
     clientMutationId?: Maybe<Scalars['String']['output']>;
     trackRecord?: Maybe<TrackRecordType>;
+};
+
+/** 站点应用凭据（`trackers.json`）。留空 = 回到内置默认值。 */
+export type UpdateTrackerOAuthAppInput = {
+    clientId?: InputMaybe<Scalars['String']['input']>;
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    clientSecret?: InputMaybe<Scalars['String']['input']>;
+    redirectUri?: InputMaybe<Scalars['String']['input']>;
+    trackerId: Scalars['Int']['input'];
+};
+
+export type UpdateTrackerOAuthAppPayload = {
+    __typename?: 'UpdateTrackerOAuthAppPayload';
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+    tracker: TrackerType;
 };
 
 export type UpdaterJobsInfoType = {
@@ -3654,11 +3541,9 @@ export type UpdaterJobsInfoType = {
 export type UpdaterUpdates = {
     __typename?: 'UpdaterUpdates';
     categoryUpdates: Array<CategoryUpdateType>;
-    /** The current update status at the time of sending the initial message. Is null for all following messages */
     initial?: Maybe<LibraryUpdateStatus>;
     jobsInfo: UpdaterJobsInfoType;
     mangaUpdates: Array<MangaUpdateType>;
-    /** Indicates whether updates have been omitted based on the "maxUpdates" subscription variable. In case updates have been omitted, the "updateStatus" query should be re-fetched. */
     omittedUpdates: Scalars['Boolean']['output'];
 };
 
@@ -3705,27 +3590,4 @@ export type WebUiUpdateCheck = {
     channel: WebUiChannel;
     tag: Scalars['String']['output'];
     updateAvailable: Scalars['Boolean']['output'];
-};
-
-export type WebUiUpdateInfo = {
-    __typename?: 'WebUIUpdateInfo';
-    channel: WebUiChannel;
-    tag: Scalars['String']['output'];
-};
-
-export type WebUiUpdateInput = {
-    clientMutationId?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type WebUiUpdatePayload = {
-    __typename?: 'WebUIUpdatePayload';
-    clientMutationId?: Maybe<Scalars['String']['output']>;
-    updateStatus: WebUiUpdateStatus;
-};
-
-export type WebUiUpdateStatus = {
-    __typename?: 'WebUIUpdateStatus';
-    info: WebUiUpdateInfo;
-    progress: Scalars['Int']['output'];
-    state: UpdateState;
 };

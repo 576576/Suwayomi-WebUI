@@ -62,7 +62,6 @@ const typePolicies: TypedTypePolicies = {
     ExtensionStoreType: { keyFields: ['indexUrl'] },
     AboutServerPayload: { keyFields: [] },
     AboutWebUI: { keyFields: [] },
-    WebUIUpdateInfo: { keyFields: [] },
     WebUIUpdateCheck: { keyFields: [] },
     SettingsType: { keyFields: [] },
     DownloadStatus: {
@@ -79,7 +78,6 @@ const typePolicies: TypedTypePolicies = {
     CategoryUpdateType: { keyFields: ['category'] },
     MangaUpdateType: { keyFields: ['manga'] },
     UpdaterJobsInfoType: { keyFields: [] },
-    WebUIUpdateStatus: { keyFields: [] },
     UpdateStatus: { keyFields: [] },
     KoSyncStatusPayload: { keyFields: [] },
     SyncStatus: { keyFields: [] },
@@ -137,12 +135,6 @@ const typePolicies: TypedTypePolicies = {
                 merge(_, incoming) {
                     return incoming;
                 },
-            },
-            getWebUIUpdateStatus(_, { toReference }) {
-                return toReference({
-                    __typename: 'WebUIUpdateStatus',
-                    key: {},
-                });
             },
             updateStatus(_, { toReference }) {
                 return toReference({ __typename: 'UpdateStatus', key: {} });

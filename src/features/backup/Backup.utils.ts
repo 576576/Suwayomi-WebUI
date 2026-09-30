@@ -16,22 +16,28 @@ import { BACKUP_FLAGS_TO_TRANSLATION } from '@/features/backup/Backup.constants.
 import omit from 'lodash/fp/omit';
 
 export const convertToAutoBackupFlags = (flags: BackupFlagInclusionState): AutoBackupFlagInclusionState => ({
+    autoBackupIncludeAppSettings: flags.includeAppSettings,
     autoBackupIncludeCategories: flags.includeCategories,
     autoBackupIncludeChapters: flags.includeChapters,
-    autoBackupIncludeClientData: flags.includeClientData,
+    autoBackupIncludeExtensionStores: flags.includeExtensionStores,
     autoBackupIncludeHistory: flags.includeHistory,
     autoBackupIncludeManga: flags.includeManga,
-    autoBackupIncludeServerSettings: flags.includeServerSettings,
+    autoBackupIncludePrivateSettings: flags.includePrivateSettings,
+    autoBackupIncludeReadEntries: flags.includeReadEntries,
+    autoBackupIncludeSourceSettings: flags.includeSourceSettings,
     autoBackupIncludeTracking: flags.includeTracking,
 });
 
 export const convertToBackupFlags = (flags: AutoBackupFlagInclusionState): BackupFlagInclusionState => ({
+    includeAppSettings: flags.autoBackupIncludeAppSettings,
     includeCategories: flags.autoBackupIncludeCategories,
     includeChapters: flags.autoBackupIncludeChapters,
-    includeClientData: flags.autoBackupIncludeClientData,
+    includeExtensionStores: flags.autoBackupIncludeExtensionStores,
     includeHistory: flags.autoBackupIncludeHistory,
     includeManga: flags.autoBackupIncludeManga,
-    includeServerSettings: flags.autoBackupIncludeServerSettings,
+    includePrivateSettings: flags.autoBackupIncludePrivateSettings,
+    includeReadEntries: flags.autoBackupIncludeReadEntries,
+    includeSourceSettings: flags.autoBackupIncludeSourceSettings,
     includeTracking: flags.autoBackupIncludeTracking,
 });
 

@@ -11,72 +11,27 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import DownloadIcon from '@mui/icons-material/Download';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import DownloadingIcon from '@mui/icons-material/Downloading';
 import { t } from '@lingui/core/macro';
-import { UpdateState } from '@/lib/graphql/generated/graphql-base.types.ts';
 
-export type BaseVersionInfoProps = {
+export type VersionInfoProps = {
     version: string;
     isCheckingForUpdate: boolean;
     isUpdateAvailable: boolean;
     updateCheckError: any;
     checkForUpdate: () => void;
-};
-export type LinkVersionInfoProps = {
-    downloadAsLink: true;
     url: string;
 };
-export type TriggerVersionInfoProps = {
-    triggerUpdate: () => void;
-    updateState: UpdateState;
-    progress: number;
-};
-export type VersionInfoProps =
-    | (BaseVersionInfoProps & PropertiesNever<TriggerVersionInfoProps> & LinkVersionInfoProps)
-    | (BaseVersionInfoProps & TriggerVersionInfoProps & PropertiesNever<LinkVersionInfoProps>);
 
-const getUpdateCheckButtonIcon = (
-    isLoading: boolean,
-    isUpdateAvailable: boolean,
-    updateState?: UpdateState,
-    asLink: boolean = false,
-) => {
-    const isUpdateInProgress = updateState === UpdateState.Downloading;
-    if (isUpdateInProgress) {
-        return <DownloadingIcon />;
-    }
-
+const getUpdateCheckButtonIcon = (isLoading: boolean, isUpdateAvailable: boolean) => {
     if (isLoading) {
         return <CircularProgress size={15} />;
     }
 
-    const isRefreshRequired = !isUpdateAvailable || updateState === UpdateState.Error;
-    if (isRefreshRequired) {
-        return <RefreshIcon />;
-    }
-
-    return asLink ? <OpenInNewIcon /> : <DownloadIcon />;
+    return isUpdateAvailable ? <OpenInNewIcon /> : <RefreshIcon />;
 };
 
-const getUpdateCheckButtonText = (
-    isLoading: boolean,
-    isUpdateAvailable: boolean,
-    error: any,
-    updateState?: UpdateState,
-    progress: number = 0,
-) => {
-    const isUpdating = updateState === UpdateState.Downloading;
-    if (isUpdating) {
-        return t`${progress}% | Updating…`;
-    }
-
-    const didUpdateFail = updateState === UpdateState.Error;
-    if (didUpdateFail) {
-        return t`Update failed`;
-    }
-
+const getUpdateCheckButtonText = (isLoading: boolean, isUpdateAvailable: boolean, error: any) => {
     if (isLoading) {
         return t`Checking for update`;
     }
@@ -92,33 +47,21 @@ const getUpdateCheckButtonText = (
     return t`This is the latest version`;
 };
 
+/**
+ * 服务端与 WebUI 各一行「版本 + 检查更新」。更新本身不在这里触发 —— WebUI 的产物
+ * 由桌面托盘负责替换，所以这里只能重新检查、或跳到发布页。
+ */
 export const VersionInfo = ({
     version,
     isCheckingForUpdate,
     isUpdateAvailable,
     updateCheckError,
     checkForUpdate,
-    triggerUpdate,
-    updateState,
-    progress,
-    downloadAsLink,
     url,
 }: VersionInfoProps) => {
-    const isUpdateInProgress = updateState === UpdateState.Downloading;
-
     const onClick = () => {
-        if (isUpdateInProgress) {
-            return;
-        }
-
-        const shouldCheckForUpdate = !isUpdateAvailable || updateCheckError || updateState === UpdateState.Error;
-        if (shouldCheckForUpdate) {
+        if (!isUpdateAvailable || updateCheckError) {
             checkForUpdate();
-            return;
-        }
-
-        if (isUpdateAvailable) {
-            triggerUpdate?.();
         }
     };
 
@@ -135,31 +78,19 @@ export const VersionInfo = ({
                 sx={{
                     marginTop: '5px',
                     backgroundColor: 'transparent',
-                    pointerEvents: isUpdateInProgress ? 'none' : 'unset',
                 }}
                 size="small"
                 variant="outlined"
-                startIcon={getUpdateCheckButtonIcon(
-                    isCheckingForUpdate,
-                    isUpdateAvailable,
-                    updateState,
-                    downloadAsLink,
-                )}
+                startIcon={getUpdateCheckButtonIcon(isCheckingForUpdate, isUpdateAvailable)}
                 onClick={onClick}
-                {...(!!url && isUpdateAvailable
+                {...(isUpdateAvailable
                     ? {
                           href: url,
                           target: '_blank',
                       }
                     : undefined)}
             >
-                {getUpdateCheckButtonText(
-                    isCheckingForUpdate,
-                    isUpdateAvailable,
-                    updateCheckError,
-                    updateState,
-                    progress,
-                )}
+                {getUpdateCheckButtonText(isCheckingForUpdate, isUpdateAvailable, updateCheckError)}
             </Button>
         </Stack>
     );

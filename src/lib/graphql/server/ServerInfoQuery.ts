@@ -7,7 +7,7 @@
  */
 
 import gql from 'graphql-tag';
-import { ABOUT_WEBUI, WEBUI_UPDATE_CHECK, WEBUI_UPDATE_STATUS } from '@/lib/graphql/server/InfoFragments.ts';
+import { ABOUT_WEBUI, WEBUI_UPDATE_CHECK } from '@/lib/graphql/server/InfoFragments.ts';
 
 export const GET_ABOUT = gql`
     ${ABOUT_WEBUI}
@@ -60,15 +60,6 @@ export const CHECK_FOR_WEBUI_UPDATE = gql`
     query CHECK_FOR_WEBUI_UPDATE {
         checkForWebUIUpdate {
             ...WEBUI_UPDATE_CHECK
-        }
-    }
-`;
-
-export const GET_WEBUI_UPDATE_STATUS = gql`
-    ${WEBUI_UPDATE_STATUS}
-    query GET_WEBUI_UPDATE_STATUS {
-        getWebUIUpdateStatus {
-            ...WEBUI_UPDATE_STATUS
         }
     }
 `;

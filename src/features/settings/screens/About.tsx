@@ -126,7 +126,6 @@ export function About() {
                                 isUpdateAvailable={isServerUpdateAvailable}
                                 updateCheckError={serverUpdateCheckError}
                                 checkForUpdate={checkForServerUpdate}
-                                downloadAsLink
                                 url="https://github.com/576576/Suwayomi-next/releases"
                             />
                         }
@@ -161,7 +160,6 @@ export function About() {
                                 isUpdateAvailable={isWebUIUpdateAvailable}
                                 updateCheckError={webUIUpdateCheckError}
                                 checkForUpdate={checkForWebUIUpdate}
-                                downloadAsLink
                                 url="https://github.com/576576/Suwayomi-WebUI/releases"
                             />
                         }

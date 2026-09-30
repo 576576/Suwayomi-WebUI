@@ -358,9 +358,17 @@ export const SYNC_INTERVAL_SELECT_VALUES_WITH_CUSTOM: SelectSettingValue<string>
     [SYNC_INTERVAL_CUSTOM_VALUE, { text: msg`Custom` }],
 ];
 
+/**
+ * SyncYomi 只同步作品/分类/章节/历史/追踪（`syncData*` 那五项），其余开关在它的
+ * 对话框里不出现 —— 服务端构造同步用的 `BackupFlags` 时也把这五项之外全部关掉
+ * （见 `sync_yomi.rs::build_backup_flags`）。两边必须一致，否则界面上勾了却不会同步。
+ */
 export const SYNC_SETTINGS_HIDDEN_BACKUP_FLAGS = [
-    'includeServerSettings',
-    'includeClientData',
+    'includeReadEntries',
+    'includeAppSettings',
+    'includeExtensionStores',
+    'includeSourceSettings',
+    'includePrivateSettings',
 ] as const satisfies BackupFlag[];
 
 export const SYNC_START_RESULT_TRANSLATION: Record<StartSyncResult, MessageDescriptor> = {

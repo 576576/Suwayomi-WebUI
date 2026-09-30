@@ -16,8 +16,8 @@ import type { MetadataUpdateSettings } from '@/features/app-updates/AppUpdateChe
 import type { MetadataThemeSettings } from '@/features/theme/AppTheme.types.ts';
 import type {
     Maybe,
-    SettingsDownloadConversion,
-    SettingsDownloadConversionHeader,
+    SettingsDownloadConversionType,
+    SettingsDownloadConversionHeaderType,
 } from '@/lib/graphql/generated/graphql-base.types.ts';
 import type { MetadataHistorySettings } from '@/features/history/History.types.ts';
 import type { GetServerSettingsQuery } from '@/lib/graphql/generated/graphql.ts';
@@ -41,11 +41,7 @@ export interface ISearchSettings {
     fuzzySearch: boolean;
 }
 
-export type ServerSettings = Omit<GetServerSettingsQuery['settings'], '__typename'> & {
-    // Not yet in the checked-in codegen output (koreader doc drift blocks
-    // gql:codegen); the field exists in the server schema.
-    autoBackupFrequency?: number;
-};
+export type ServerSettings = Omit<GetServerSettingsQuery['settings'], '__typename'>;
 
 export type WebUISettingsType = Pick<
     ServerSettings,
@@ -75,14 +71,14 @@ export enum ImageProcessingType {
     SERVE = 'serve',
 }
 
-export type TSettingsDownloadConversionKeyValueItem = SettingsDownloadConversionHeader & {
+export type TSettingsDownloadConversionKeyValueItem = SettingsDownloadConversionHeaderType & {
     /**
      * The conversion object does not have a stable key, which causes issues when editing the settings
      */
     id: number;
 };
 
-export type TSettingsDownloadConversion = Omit<SettingsDownloadConversion, 'headers'> & {
+export type TSettingsDownloadConversion = Omit<SettingsDownloadConversionType, 'headers'> & {
     /**
      * The conversion object does not have a stable key, which causes issues when editing the settings
      */

@@ -34,7 +34,7 @@ import {
 } from '@/features/settings/ImageProcessing.utils.ts';
 import { Processing } from '@/features/settings/components/images/Processing.tsx';
 import { STABLE_EMPTY_ARRAY } from '@/base/Base.constants.ts';
-import type { PartialSettingsType } from '@/lib/graphql/generated/graphql-base.types.ts';
+import type { PartialSettingsTypeInput } from '@/lib/graphql/generated/graphql-base.types.ts';
 
 export const ImageProcessingSetting = ({ type }: { type: ImageProcessingType }) => {
     const { t } = useLingui();
@@ -58,7 +58,7 @@ export const ImageProcessingSetting = ({ type }: { type: ImageProcessingType }) 
         tmpConversions,
     );
 
-    const updateSetting = (value: PartialSettingsType[typeof settingKey]): Promise<any> => {
+    const updateSetting = (value: PartialSettingsTypeInput[typeof settingKey]): Promise<any> => {
         const mutation = mutateSettings({ variables: { input: { settings: { [settingKey]: value } } } });
         mutation.catch((e) => makeToast(t`Failed to save changes`, 'error', getErrorMessage(e)));
 

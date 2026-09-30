@@ -14,32 +14,28 @@ export enum BackupFlagGroup {
     SETTINGS = 'settings',
 }
 
-export type BackupFlag = keyof PartialBackupFlagsInput;
+/**
+ * 服务端仍接受这两个已废弃的字段（旧客户端在传），但界面上不再有对应开关 ——
+ * 它们的语义已经并入「应用设置」。
+ */
+export type BackupFlag = Exclude<keyof PartialBackupFlagsInput, 'includeClientData' | 'includeServerSettings'>;
 
 export type BackupFlagInclusionState = Record<BackupFlag, boolean>;
 
 export type AutoBackupFlag = Pick<
     ServerSettings,
+    | 'autoBackupIncludeAppSettings'
     | 'autoBackupIncludeCategories'
     | 'autoBackupIncludeChapters'
-    | 'autoBackupIncludeClientData'
+    | 'autoBackupIncludeExtensionStores'
     | 'autoBackupIncludeHistory'
     | 'autoBackupIncludeManga'
-    | 'autoBackupIncludeServerSettings'
+    | 'autoBackupIncludePrivateSettings'
+    | 'autoBackupIncludeReadEntries'
+    | 'autoBackupIncludeSourceSettings'
     | 'autoBackupIncludeTracking'
 >;
 
 export type AutoBackupFlagInclusionState = Record<keyof AutoBackupFlag, boolean>;
 
-export type BackupSettingsType = Pick<
-    ServerSettings,
-    | 'dataDir'
-    | 'autoBackupFrequency'
-    | 'autoBackupIncludeCategories'
-    | 'autoBackupIncludeChapters'
-    | 'autoBackupIncludeClientData'
-    | 'autoBackupIncludeHistory'
-    | 'autoBackupIncludeManga'
-    | 'autoBackupIncludeServerSettings'
-    | 'autoBackupIncludeTracking'
->;
+export type BackupSettingsType = Pick<ServerSettings, 'dataDir' | 'autoBackupFrequency' | keyof AutoBackupFlag>;

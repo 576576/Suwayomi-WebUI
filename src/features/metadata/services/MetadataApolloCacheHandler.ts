@@ -8,15 +8,15 @@
 
 import type { FieldFunctionOptions } from '@apollo/client/cache';
 import type { Reference } from '@apollo/client/utilities';
-import type { MetaType } from '@/lib/graphql/generated/graphql-base.types.ts';
+import type { GqlMeta } from '@/features/metadata/Metadata.types.ts';
 
 type ReadFieldFunction = FieldFunctionOptions['readField'];
 
 export const updateMetadataList = (
-    meta: MetaType[],
+    meta: GqlMeta[],
     existingMetas: Reference[] | undefined,
     readField: ReadFieldFunction,
-    createMetaRef: (meta: MetaType) => Reference | undefined,
+    createMetaRef: (meta: GqlMeta) => Reference | undefined,
     deleted: boolean = false,
 ) => {
     if (!existingMetas) {

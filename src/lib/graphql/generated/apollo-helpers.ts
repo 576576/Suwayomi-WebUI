@@ -1,35 +1,36 @@
 import { FieldPolicy, FieldReadFunction, TypePolicies, TypePolicy } from '@apollo/client/cache';
 export type AboutServerPayloadKeySpecifier = (
+    | 'appDir'
+    | 'appdataDir'
     | 'buildTime'
     | 'buildType'
+    | 'dataDir'
     | 'discord'
     | 'github'
+    | 'lastAutoBackupAt'
     | 'name'
     | 'platformInfo'
     | 'revision'
     | 'version'
-    | 'dataDir'
-    | 'lastAutoBackupAt'
-    | 'appDir'
-    | 'appdataDir'
     | AboutServerPayloadKeySpecifier
 )[];
 export type AboutServerPayloadFieldPolicy = {
+    appDir?: FieldPolicy<any> | FieldReadFunction<any>;
+    appdataDir?: FieldPolicy<any> | FieldReadFunction<any>;
     buildTime?: FieldPolicy<any> | FieldReadFunction<any>;
     buildType?: FieldPolicy<any> | FieldReadFunction<any>;
+    dataDir?: FieldPolicy<any> | FieldReadFunction<any>;
     discord?: FieldPolicy<any> | FieldReadFunction<any>;
     github?: FieldPolicy<any> | FieldReadFunction<any>;
+    lastAutoBackupAt?: FieldPolicy<any> | FieldReadFunction<any>;
     name?: FieldPolicy<any> | FieldReadFunction<any>;
     platformInfo?: FieldPolicy<any> | FieldReadFunction<any>;
     revision?: FieldPolicy<any> | FieldReadFunction<any>;
     version?: FieldPolicy<any> | FieldReadFunction<any>;
-    dataDir?: FieldPolicy<any> | FieldReadFunction<any>;
-    lastAutoBackupAt?: FieldPolicy<any> | FieldReadFunction<any>;
-    appDir?: FieldPolicy<any> | FieldReadFunction<any>;
-    appdataDir?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type AboutWebUIKeySpecifier = ('channel' | 'tag' | 'updateTimestamp' | AboutWebUIKeySpecifier)[];
+export type AboutWebUIKeySpecifier = ('buildTime' | 'channel' | 'tag' | 'updateTimestamp' | AboutWebUIKeySpecifier)[];
 export type AboutWebUIFieldPolicy = {
+    buildTime?: FieldPolicy<any> | FieldReadFunction<any>;
     channel?: FieldPolicy<any> | FieldReadFunction<any>;
     tag?: FieldPolicy<any> | FieldReadFunction<any>;
     updateTimestamp?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -130,9 +131,8 @@ export type ChapterEdgeFieldPolicy = {
     cursor?: FieldPolicy<any> | FieldReadFunction<any>;
     node?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type ChapterMetaTypeKeySpecifier = ('chapter' | 'chapterId' | 'key' | 'value' | ChapterMetaTypeKeySpecifier)[];
+export type ChapterMetaTypeKeySpecifier = ('chapterId' | 'key' | 'value' | ChapterMetaTypeKeySpecifier)[];
 export type ChapterMetaTypeFieldPolicy = {
-    chapter?: FieldPolicy<any> | FieldReadFunction<any>;
     chapterId?: FieldPolicy<any> | FieldReadFunction<any>;
     key?: FieldPolicy<any> | FieldReadFunction<any>;
     value?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -411,24 +411,6 @@ export type DequeueChapterDownloadsPayloadFieldPolicy = {
     clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
     downloadStatus?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type DownloadEdgeKeySpecifier = ('cursor' | 'node' | DownloadEdgeKeySpecifier)[];
-export type DownloadEdgeFieldPolicy = {
-    cursor?: FieldPolicy<any> | FieldReadFunction<any>;
-    node?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type DownloadNodeListKeySpecifier = (
-    | 'edges'
-    | 'nodes'
-    | 'pageInfo'
-    | 'totalCount'
-    | DownloadNodeListKeySpecifier
-)[];
-export type DownloadNodeListFieldPolicy = {
-    edges?: FieldPolicy<any> | FieldReadFunction<any>;
-    nodes?: FieldPolicy<any> | FieldReadFunction<any>;
-    pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
-    totalCount?: FieldPolicy<any> | FieldReadFunction<any>;
-};
 export type DownloadStatusKeySpecifier = ('queue' | 'state' | DownloadStatusKeySpecifier)[];
 export type DownloadStatusFieldPolicy = {
     queue?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -468,11 +450,6 @@ export type DownloadUpdatesFieldPolicy = {
     omittedUpdates?: FieldPolicy<any> | FieldReadFunction<any>;
     state?: FieldPolicy<any> | FieldReadFunction<any>;
     updates?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type EdgeKeySpecifier = ('cursor' | 'node' | EdgeKeySpecifier)[];
-export type EdgeFieldPolicy = {
-    cursor?: FieldPolicy<any> | FieldReadFunction<any>;
-    node?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type EditTextPreferenceKeySpecifier = (
     | 'currentValue'
@@ -859,6 +836,7 @@ export type MangaNodeListFieldPolicy = {
 };
 export type MangaTypeKeySpecifier = (
     | 'age'
+    | 'altTitles'
     | 'artist'
     | 'author'
     | 'bookmarkCount'
@@ -897,6 +875,7 @@ export type MangaTypeKeySpecifier = (
 )[];
 export type MangaTypeFieldPolicy = {
     age?: FieldPolicy<any> | FieldReadFunction<any>;
+    altTitles?: FieldPolicy<any> | FieldReadFunction<any>;
     artist?: FieldPolicy<any> | FieldReadFunction<any>;
     author?: FieldPolicy<any> | FieldReadFunction<any>;
     bookmarkCount?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -941,11 +920,6 @@ export type MetaEdgeKeySpecifier = ('cursor' | 'node' | MetaEdgeKeySpecifier)[];
 export type MetaEdgeFieldPolicy = {
     cursor?: FieldPolicy<any> | FieldReadFunction<any>;
     node?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type MetaTypeKeySpecifier = ('key' | 'value' | MetaTypeKeySpecifier)[];
-export type MetaTypeFieldPolicy = {
-    key?: FieldPolicy<any> | FieldReadFunction<any>;
-    value?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type MultiSelectListPreferenceKeySpecifier = (
     | 'currentValue'
@@ -1016,12 +990,13 @@ export type MutationKeySpecifier = (
     | 'logoutTracker'
     | 'pullKoSyncProgress'
     | 'pushKoSyncProgress'
+    | 'rebuildDownloadIndex'
     | 'refreshToken'
+    | 'refreshTrackerUser'
     | 'removeExtensionStore'
     | 'reorderChapterDownload'
     | 'reorderChapterDownloads'
     | 'resetSettings'
-    | 'resetWebUIUpdateStatus'
     | 'restoreBackup'
     | 'setCategoryMeta'
     | 'setCategoryMetas'
@@ -1056,7 +1031,7 @@ export type MutationKeySpecifier = (
     | 'updateSourcePreference'
     | 'updateStop'
     | 'updateTrack'
-    | 'updateWebUI'
+    | 'updateTrackerOAuthApp'
     | MutationKeySpecifier
 )[];
 export type MutationFieldPolicy = {
@@ -1101,12 +1076,13 @@ export type MutationFieldPolicy = {
     logoutTracker?: FieldPolicy<any> | FieldReadFunction<any>;
     pullKoSyncProgress?: FieldPolicy<any> | FieldReadFunction<any>;
     pushKoSyncProgress?: FieldPolicy<any> | FieldReadFunction<any>;
+    rebuildDownloadIndex?: FieldPolicy<any> | FieldReadFunction<any>;
     refreshToken?: FieldPolicy<any> | FieldReadFunction<any>;
+    refreshTrackerUser?: FieldPolicy<any> | FieldReadFunction<any>;
     removeExtensionStore?: FieldPolicy<any> | FieldReadFunction<any>;
     reorderChapterDownload?: FieldPolicy<any> | FieldReadFunction<any>;
     reorderChapterDownloads?: FieldPolicy<any> | FieldReadFunction<any>;
     resetSettings?: FieldPolicy<any> | FieldReadFunction<any>;
-    resetWebUIUpdateStatus?: FieldPolicy<any> | FieldReadFunction<any>;
     restoreBackup?: FieldPolicy<any> | FieldReadFunction<any>;
     setCategoryMeta?: FieldPolicy<any> | FieldReadFunction<any>;
     setCategoryMetas?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1141,14 +1117,7 @@ export type MutationFieldPolicy = {
     updateSourcePreference?: FieldPolicy<any> | FieldReadFunction<any>;
     updateStop?: FieldPolicy<any> | FieldReadFunction<any>;
     updateTrack?: FieldPolicy<any> | FieldReadFunction<any>;
-    updateWebUI?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type NodeListKeySpecifier = ('edges' | 'nodes' | 'pageInfo' | 'totalCount' | NodeListKeySpecifier)[];
-export type NodeListFieldPolicy = {
-    edges?: FieldPolicy<any> | FieldReadFunction<any>;
-    nodes?: FieldPolicy<any> | FieldReadFunction<any>;
-    pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
-    totalCount?: FieldPolicy<any> | FieldReadFunction<any>;
+    updateTrackerOAuthApp?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type OSInfoKeySpecifier = ('build' | 'name' | 'version' | OSInfoKeySpecifier)[];
 export type OSInfoFieldPolicy = {
@@ -1168,203 +1137,6 @@ export type PageInfoFieldPolicy = {
     hasNextPage?: FieldPolicy<any> | FieldReadFunction<any>;
     hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>;
     startCursor?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type PartialSettingsTypeKeySpecifier = (
-    | 'authMode'
-    | 'authPassword'
-    | 'authUsername'
-    | 'autoBackupIncludeCategories'
-    | 'autoBackupIncludeChapters'
-    | 'autoBackupIncludeClientData'
-    | 'autoBackupIncludeHistory'
-    | 'autoBackupIncludeManga'
-    | 'autoBackupIncludeServerSettings'
-    | 'autoBackupIncludeTracking'
-    | 'autoDownloadAheadLimit'
-    | 'autoDownloadIgnoreReUploads'
-    | 'autoDownloadNewChapters'
-    | 'autoDownloadNewChaptersLimit'
-    | 'backupInterval'
-    | 'backupPath'
-    | 'backupTTL'
-    | 'backupTime'
-    | 'basicAuthEnabled'
-    | 'basicAuthPassword'
-    | 'basicAuthUsername'
-    | 'databasePassword'
-    | 'databaseType'
-    | 'databaseUrl'
-    | 'databaseUsername'
-    | 'debugLogsEnabled'
-    | 'downloadAsCbz'
-    | 'downloadConversions'
-    | 'downloadsPath'
-    | 'electronPath'
-    | 'excludeCompleted'
-    | 'excludeEntryWithUnreadChapters'
-    | 'excludeNotStarted'
-    | 'excludeUnreadChapters'
-    | 'extensionRepos'
-    | 'flareSolverrAsResponseFallback'
-    | 'flareSolverrEnabled'
-    | 'flareSolverrSessionName'
-    | 'flareSolverrSessionTtl'
-    | 'flareSolverrTimeout'
-    | 'flareSolverrUrl'
-    | 'globalUpdateInterval'
-    | 'gqlDebugLogsEnabled'
-    | 'initialOpenInBrowserEnabled'
-    | 'ip'
-    | 'jwtAudience'
-    | 'jwtRefreshExpiry'
-    | 'jwtTokenExpiry'
-    | 'kcefEnabled'
-    | 'koreaderSyncChecksumMethod'
-    | 'koreaderSyncDeviceId'
-    | 'koreaderSyncPercentageTolerance'
-    | 'koreaderSyncServerUrl'
-    | 'koreaderSyncStrategy'
-    | 'koreaderSyncStrategyBackward'
-    | 'koreaderSyncStrategyForward'
-    | 'koreaderSyncUserkey'
-    | 'koreaderSyncUsername'
-    | 'localSourcePath'
-    | 'maxLogFileSize'
-    | 'maxLogFiles'
-    | 'maxLogFolderSize'
-    | 'maxSourcesInParallel'
-    | 'opdsCbzMimetype'
-    | 'opdsChapterSortOrder'
-    | 'opdsEnablePageReadProgress'
-    | 'opdsItemsPerPage'
-    | 'opdsMarkAsReadOnDownload'
-    | 'opdsShowOnlyDownloadedChapters'
-    | 'opdsShowOnlyUnreadChapters'
-    | 'opdsSkipChapterMetadataFeed'
-    | 'opdsUseBinaryFileSizes'
-    | 'port'
-    | 'serveConversions'
-    | 'socksProxyEnabled'
-    | 'socksProxyHost'
-    | 'socksProxyPassword'
-    | 'socksProxyPort'
-    | 'socksProxyUsername'
-    | 'socksProxyVersion'
-    | 'syncDataCategories'
-    | 'syncDataChapters'
-    | 'syncDataHistory'
-    | 'syncDataManga'
-    | 'syncDataTracking'
-    | 'syncInterval'
-    | 'syncYomiApiKey'
-    | 'syncYomiEnabled'
-    | 'syncYomiHost'
-    | 'systemTrayEnabled'
-    | 'updateMangas'
-    | 'useHikariConnectionPool'
-    | 'webUIChannel'
-    | 'webUIFlavor'
-    | 'webUIInterface'
-    | 'webUIUpdateCheckInterval'
-    | PartialSettingsTypeKeySpecifier
-)[];
-export type PartialSettingsTypeFieldPolicy = {
-    authMode?: FieldPolicy<any> | FieldReadFunction<any>;
-    authPassword?: FieldPolicy<any> | FieldReadFunction<any>;
-    authUsername?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoBackupIncludeCategories?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoBackupIncludeChapters?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoBackupIncludeClientData?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoBackupIncludeHistory?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoBackupIncludeManga?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoBackupIncludeServerSettings?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoBackupIncludeTracking?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoDownloadAheadLimit?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoDownloadIgnoreReUploads?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoDownloadNewChapters?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoDownloadNewChaptersLimit?: FieldPolicy<any> | FieldReadFunction<any>;
-    backupInterval?: FieldPolicy<any> | FieldReadFunction<any>;
-    backupPath?: FieldPolicy<any> | FieldReadFunction<any>;
-    backupTTL?: FieldPolicy<any> | FieldReadFunction<any>;
-    backupTime?: FieldPolicy<any> | FieldReadFunction<any>;
-    basicAuthEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
-    basicAuthPassword?: FieldPolicy<any> | FieldReadFunction<any>;
-    basicAuthUsername?: FieldPolicy<any> | FieldReadFunction<any>;
-    databasePassword?: FieldPolicy<any> | FieldReadFunction<any>;
-    databaseType?: FieldPolicy<any> | FieldReadFunction<any>;
-    databaseUrl?: FieldPolicy<any> | FieldReadFunction<any>;
-    databaseUsername?: FieldPolicy<any> | FieldReadFunction<any>;
-    debugLogsEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
-    downloadAsCbz?: FieldPolicy<any> | FieldReadFunction<any>;
-    downloadConversions?: FieldPolicy<any> | FieldReadFunction<any>;
-    downloadsPath?: FieldPolicy<any> | FieldReadFunction<any>;
-    electronPath?: FieldPolicy<any> | FieldReadFunction<any>;
-    excludeCompleted?: FieldPolicy<any> | FieldReadFunction<any>;
-    excludeEntryWithUnreadChapters?: FieldPolicy<any> | FieldReadFunction<any>;
-    excludeNotStarted?: FieldPolicy<any> | FieldReadFunction<any>;
-    excludeUnreadChapters?: FieldPolicy<any> | FieldReadFunction<any>;
-    extensionRepos?: FieldPolicy<any> | FieldReadFunction<any>;
-    flareSolverrAsResponseFallback?: FieldPolicy<any> | FieldReadFunction<any>;
-    flareSolverrEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
-    flareSolverrSessionName?: FieldPolicy<any> | FieldReadFunction<any>;
-    flareSolverrSessionTtl?: FieldPolicy<any> | FieldReadFunction<any>;
-    flareSolverrTimeout?: FieldPolicy<any> | FieldReadFunction<any>;
-    flareSolverrUrl?: FieldPolicy<any> | FieldReadFunction<any>;
-    globalUpdateInterval?: FieldPolicy<any> | FieldReadFunction<any>;
-    gqlDebugLogsEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
-    initialOpenInBrowserEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
-    ip?: FieldPolicy<any> | FieldReadFunction<any>;
-    jwtAudience?: FieldPolicy<any> | FieldReadFunction<any>;
-    jwtRefreshExpiry?: FieldPolicy<any> | FieldReadFunction<any>;
-    jwtTokenExpiry?: FieldPolicy<any> | FieldReadFunction<any>;
-    kcefEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
-    koreaderSyncChecksumMethod?: FieldPolicy<any> | FieldReadFunction<any>;
-    koreaderSyncDeviceId?: FieldPolicy<any> | FieldReadFunction<any>;
-    koreaderSyncPercentageTolerance?: FieldPolicy<any> | FieldReadFunction<any>;
-    koreaderSyncServerUrl?: FieldPolicy<any> | FieldReadFunction<any>;
-    koreaderSyncStrategy?: FieldPolicy<any> | FieldReadFunction<any>;
-    koreaderSyncStrategyBackward?: FieldPolicy<any> | FieldReadFunction<any>;
-    koreaderSyncStrategyForward?: FieldPolicy<any> | FieldReadFunction<any>;
-    koreaderSyncUserkey?: FieldPolicy<any> | FieldReadFunction<any>;
-    koreaderSyncUsername?: FieldPolicy<any> | FieldReadFunction<any>;
-    localSourcePath?: FieldPolicy<any> | FieldReadFunction<any>;
-    maxLogFileSize?: FieldPolicy<any> | FieldReadFunction<any>;
-    maxLogFiles?: FieldPolicy<any> | FieldReadFunction<any>;
-    maxLogFolderSize?: FieldPolicy<any> | FieldReadFunction<any>;
-    maxSourcesInParallel?: FieldPolicy<any> | FieldReadFunction<any>;
-    opdsCbzMimetype?: FieldPolicy<any> | FieldReadFunction<any>;
-    opdsChapterSortOrder?: FieldPolicy<any> | FieldReadFunction<any>;
-    opdsEnablePageReadProgress?: FieldPolicy<any> | FieldReadFunction<any>;
-    opdsItemsPerPage?: FieldPolicy<any> | FieldReadFunction<any>;
-    opdsMarkAsReadOnDownload?: FieldPolicy<any> | FieldReadFunction<any>;
-    opdsShowOnlyDownloadedChapters?: FieldPolicy<any> | FieldReadFunction<any>;
-    opdsShowOnlyUnreadChapters?: FieldPolicy<any> | FieldReadFunction<any>;
-    opdsSkipChapterMetadataFeed?: FieldPolicy<any> | FieldReadFunction<any>;
-    opdsUseBinaryFileSizes?: FieldPolicy<any> | FieldReadFunction<any>;
-    port?: FieldPolicy<any> | FieldReadFunction<any>;
-    serveConversions?: FieldPolicy<any> | FieldReadFunction<any>;
-    socksProxyEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
-    socksProxyHost?: FieldPolicy<any> | FieldReadFunction<any>;
-    socksProxyPassword?: FieldPolicy<any> | FieldReadFunction<any>;
-    socksProxyPort?: FieldPolicy<any> | FieldReadFunction<any>;
-    socksProxyUsername?: FieldPolicy<any> | FieldReadFunction<any>;
-    socksProxyVersion?: FieldPolicy<any> | FieldReadFunction<any>;
-    syncDataCategories?: FieldPolicy<any> | FieldReadFunction<any>;
-    syncDataChapters?: FieldPolicy<any> | FieldReadFunction<any>;
-    syncDataHistory?: FieldPolicy<any> | FieldReadFunction<any>;
-    syncDataManga?: FieldPolicy<any> | FieldReadFunction<any>;
-    syncDataTracking?: FieldPolicy<any> | FieldReadFunction<any>;
-    syncInterval?: FieldPolicy<any> | FieldReadFunction<any>;
-    syncYomiApiKey?: FieldPolicy<any> | FieldReadFunction<any>;
-    syncYomiEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
-    syncYomiHost?: FieldPolicy<any> | FieldReadFunction<any>;
-    systemTrayEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
-    updateMangas?: FieldPolicy<any> | FieldReadFunction<any>;
-    useHikariConnectionPool?: FieldPolicy<any> | FieldReadFunction<any>;
-    webUIChannel?: FieldPolicy<any> | FieldReadFunction<any>;
-    webUIFlavor?: FieldPolicy<any> | FieldReadFunction<any>;
-    webUIInterface?: FieldPolicy<any> | FieldReadFunction<any>;
-    webUIUpdateCheckInterval?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type PlatformInfoKeySpecifier = ('arch' | 'headless' | 'jvm' | 'os' | PlatformInfoKeySpecifier)[];
 export type PlatformInfoFieldPolicy = {
@@ -1409,7 +1181,6 @@ export type QueryKeySpecifier = (
     | 'extensionStore'
     | 'extensionStores'
     | 'extensions'
-    | 'getWebUIUpdateStatus'
     | 'koSyncStatus'
     | 'lastSyncStatus'
     | 'lastUpdateTimestamp'
@@ -1445,7 +1216,6 @@ export type QueryFieldPolicy = {
     extensionStore?: FieldPolicy<any> | FieldReadFunction<any>;
     extensionStores?: FieldPolicy<any> | FieldReadFunction<any>;
     extensions?: FieldPolicy<any> | FieldReadFunction<any>;
-    getWebUIUpdateStatus?: FieldPolicy<any> | FieldReadFunction<any>;
     koSyncStatus?: FieldPolicy<any> | FieldReadFunction<any>;
     lastSyncStatus?: FieldPolicy<any> | FieldReadFunction<any>;
     lastUpdateTimestamp?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1466,10 +1236,28 @@ export type QueryFieldPolicy = {
     updateStatus?: FieldPolicy<any> | FieldReadFunction<any>;
     validateBackup?: FieldPolicy<any> | FieldReadFunction<any>;
 };
+export type RebuildDownloadIndexPayloadKeySpecifier = (
+    | 'chapters'
+    | 'clientMutationId'
+    | RebuildDownloadIndexPayloadKeySpecifier
+)[];
+export type RebuildDownloadIndexPayloadFieldPolicy = {
+    chapters?: FieldPolicy<any> | FieldReadFunction<any>;
+    clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
+};
 export type RefreshTokenPayloadKeySpecifier = ('accessToken' | 'clientMutationId' | RefreshTokenPayloadKeySpecifier)[];
 export type RefreshTokenPayloadFieldPolicy = {
     accessToken?: FieldPolicy<any> | FieldReadFunction<any>;
     clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type RefreshTrackerUserPayloadKeySpecifier = (
+    | 'clientMutationId'
+    | 'tracker'
+    | RefreshTrackerUserPayloadKeySpecifier
+)[];
+export type RefreshTrackerUserPayloadFieldPolicy = {
+    clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
+    tracker?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type RemoveExtensionStorePayloadKeySpecifier = (
     | 'clientMutationId'
@@ -1486,6 +1274,15 @@ export type ReorderChapterDownloadPayloadKeySpecifier = (
     | ReorderChapterDownloadPayloadKeySpecifier
 )[];
 export type ReorderChapterDownloadPayloadFieldPolicy = {
+    clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
+    downloadStatus?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type ReorderChapterDownloadsPayloadKeySpecifier = (
+    | 'clientMutationId'
+    | 'downloadStatus'
+    | ReorderChapterDownloadsPayloadKeySpecifier
+)[];
+export type ReorderChapterDownloadsPayloadFieldPolicy = {
     clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
     downloadStatus?: FieldPolicy<any> | FieldReadFunction<any>;
 };
@@ -1598,229 +1395,6 @@ export type SetSourceMetasPayloadFieldPolicy = {
     metas?: FieldPolicy<any> | FieldReadFunction<any>;
     sources?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type SettingsKeySpecifier = (
-    | 'authMode'
-    | 'authPassword'
-    | 'authUsername'
-    | 'autoBackupIncludeCategories'
-    | 'autoBackupIncludeChapters'
-    | 'autoBackupIncludeClientData'
-    | 'autoBackupIncludeHistory'
-    | 'autoBackupIncludeManga'
-    | 'autoBackupIncludeServerSettings'
-    | 'autoBackupIncludeTracking'
-    | 'autoDownloadAheadLimit'
-    | 'autoDownloadIgnoreReUploads'
-    | 'autoDownloadNewChapters'
-    | 'autoDownloadNewChaptersLimit'
-    | 'backupInterval'
-    | 'backupPath'
-    | 'backupTTL'
-    | 'backupTime'
-    | 'basicAuthEnabled'
-    | 'basicAuthPassword'
-    | 'basicAuthUsername'
-    | 'databasePassword'
-    | 'databaseType'
-    | 'databaseUrl'
-    | 'databaseUsername'
-    | 'debugLogsEnabled'
-    | 'downloadAsCbz'
-    | 'downloadConversions'
-    | 'downloadsPath'
-    | 'electronPath'
-    | 'excludeCompleted'
-    | 'excludeEntryWithUnreadChapters'
-    | 'excludeNotStarted'
-    | 'excludeUnreadChapters'
-    | 'extensionRepos'
-    | 'flareSolverrAsResponseFallback'
-    | 'flareSolverrEnabled'
-    | 'flareSolverrSessionName'
-    | 'flareSolverrSessionTtl'
-    | 'flareSolverrTimeout'
-    | 'flareSolverrUrl'
-    | 'globalUpdateInterval'
-    | 'gqlDebugLogsEnabled'
-    | 'initialOpenInBrowserEnabled'
-    | 'ip'
-    | 'jwtAudience'
-    | 'jwtRefreshExpiry'
-    | 'jwtTokenExpiry'
-    | 'kcefEnabled'
-    | 'koreaderSyncChecksumMethod'
-    | 'koreaderSyncDeviceId'
-    | 'koreaderSyncPercentageTolerance'
-    | 'koreaderSyncServerUrl'
-    | 'koreaderSyncStrategy'
-    | 'koreaderSyncStrategyBackward'
-    | 'koreaderSyncStrategyForward'
-    | 'koreaderSyncUserkey'
-    | 'koreaderSyncUsername'
-    | 'localSourcePath'
-    | 'maxLogFileSize'
-    | 'maxLogFiles'
-    | 'maxLogFolderSize'
-    | 'maxSourcesInParallel'
-    | 'opdsCbzMimetype'
-    | 'opdsChapterSortOrder'
-    | 'opdsEnablePageReadProgress'
-    | 'opdsItemsPerPage'
-    | 'opdsMarkAsReadOnDownload'
-    | 'opdsShowOnlyDownloadedChapters'
-    | 'opdsShowOnlyUnreadChapters'
-    | 'opdsSkipChapterMetadataFeed'
-    | 'opdsUseBinaryFileSizes'
-    | 'port'
-    | 'serveConversions'
-    | 'socksProxyEnabled'
-    | 'socksProxyHost'
-    | 'socksProxyPassword'
-    | 'socksProxyPort'
-    | 'socksProxyUsername'
-    | 'socksProxyVersion'
-    | 'syncDataCategories'
-    | 'syncDataChapters'
-    | 'syncDataHistory'
-    | 'syncDataManga'
-    | 'syncDataTracking'
-    | 'syncInterval'
-    | 'syncYomiApiKey'
-    | 'syncYomiEnabled'
-    | 'syncYomiHost'
-    | 'systemTrayEnabled'
-    | 'updateMangas'
-    | 'useHikariConnectionPool'
-    | 'webUIChannel'
-    | 'webUIFlavor'
-    | 'webUIInterface'
-    | 'webUIUpdateCheckInterval'
-    | SettingsKeySpecifier
-)[];
-export type SettingsFieldPolicy = {
-    authMode?: FieldPolicy<any> | FieldReadFunction<any>;
-    authPassword?: FieldPolicy<any> | FieldReadFunction<any>;
-    authUsername?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoBackupIncludeCategories?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoBackupIncludeChapters?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoBackupIncludeClientData?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoBackupIncludeHistory?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoBackupIncludeManga?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoBackupIncludeServerSettings?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoBackupIncludeTracking?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoDownloadAheadLimit?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoDownloadIgnoreReUploads?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoDownloadNewChapters?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoDownloadNewChaptersLimit?: FieldPolicy<any> | FieldReadFunction<any>;
-    backupInterval?: FieldPolicy<any> | FieldReadFunction<any>;
-    backupPath?: FieldPolicy<any> | FieldReadFunction<any>;
-    backupTTL?: FieldPolicy<any> | FieldReadFunction<any>;
-    backupTime?: FieldPolicy<any> | FieldReadFunction<any>;
-    basicAuthEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
-    basicAuthPassword?: FieldPolicy<any> | FieldReadFunction<any>;
-    basicAuthUsername?: FieldPolicy<any> | FieldReadFunction<any>;
-    databasePassword?: FieldPolicy<any> | FieldReadFunction<any>;
-    databaseType?: FieldPolicy<any> | FieldReadFunction<any>;
-    databaseUrl?: FieldPolicy<any> | FieldReadFunction<any>;
-    databaseUsername?: FieldPolicy<any> | FieldReadFunction<any>;
-    debugLogsEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
-    downloadAsCbz?: FieldPolicy<any> | FieldReadFunction<any>;
-    downloadConversions?: FieldPolicy<any> | FieldReadFunction<any>;
-    downloadsPath?: FieldPolicy<any> | FieldReadFunction<any>;
-    electronPath?: FieldPolicy<any> | FieldReadFunction<any>;
-    excludeCompleted?: FieldPolicy<any> | FieldReadFunction<any>;
-    excludeEntryWithUnreadChapters?: FieldPolicy<any> | FieldReadFunction<any>;
-    excludeNotStarted?: FieldPolicy<any> | FieldReadFunction<any>;
-    excludeUnreadChapters?: FieldPolicy<any> | FieldReadFunction<any>;
-    extensionRepos?: FieldPolicy<any> | FieldReadFunction<any>;
-    flareSolverrAsResponseFallback?: FieldPolicy<any> | FieldReadFunction<any>;
-    flareSolverrEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
-    flareSolverrSessionName?: FieldPolicy<any> | FieldReadFunction<any>;
-    flareSolverrSessionTtl?: FieldPolicy<any> | FieldReadFunction<any>;
-    flareSolverrTimeout?: FieldPolicy<any> | FieldReadFunction<any>;
-    flareSolverrUrl?: FieldPolicy<any> | FieldReadFunction<any>;
-    globalUpdateInterval?: FieldPolicy<any> | FieldReadFunction<any>;
-    gqlDebugLogsEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
-    initialOpenInBrowserEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
-    ip?: FieldPolicy<any> | FieldReadFunction<any>;
-    jwtAudience?: FieldPolicy<any> | FieldReadFunction<any>;
-    jwtRefreshExpiry?: FieldPolicy<any> | FieldReadFunction<any>;
-    jwtTokenExpiry?: FieldPolicy<any> | FieldReadFunction<any>;
-    kcefEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
-    koreaderSyncChecksumMethod?: FieldPolicy<any> | FieldReadFunction<any>;
-    koreaderSyncDeviceId?: FieldPolicy<any> | FieldReadFunction<any>;
-    koreaderSyncPercentageTolerance?: FieldPolicy<any> | FieldReadFunction<any>;
-    koreaderSyncServerUrl?: FieldPolicy<any> | FieldReadFunction<any>;
-    koreaderSyncStrategy?: FieldPolicy<any> | FieldReadFunction<any>;
-    koreaderSyncStrategyBackward?: FieldPolicy<any> | FieldReadFunction<any>;
-    koreaderSyncStrategyForward?: FieldPolicy<any> | FieldReadFunction<any>;
-    koreaderSyncUserkey?: FieldPolicy<any> | FieldReadFunction<any>;
-    koreaderSyncUsername?: FieldPolicy<any> | FieldReadFunction<any>;
-    localSourcePath?: FieldPolicy<any> | FieldReadFunction<any>;
-    maxLogFileSize?: FieldPolicy<any> | FieldReadFunction<any>;
-    maxLogFiles?: FieldPolicy<any> | FieldReadFunction<any>;
-    maxLogFolderSize?: FieldPolicy<any> | FieldReadFunction<any>;
-    maxSourcesInParallel?: FieldPolicy<any> | FieldReadFunction<any>;
-    opdsCbzMimetype?: FieldPolicy<any> | FieldReadFunction<any>;
-    opdsChapterSortOrder?: FieldPolicy<any> | FieldReadFunction<any>;
-    opdsEnablePageReadProgress?: FieldPolicy<any> | FieldReadFunction<any>;
-    opdsItemsPerPage?: FieldPolicy<any> | FieldReadFunction<any>;
-    opdsMarkAsReadOnDownload?: FieldPolicy<any> | FieldReadFunction<any>;
-    opdsShowOnlyDownloadedChapters?: FieldPolicy<any> | FieldReadFunction<any>;
-    opdsShowOnlyUnreadChapters?: FieldPolicy<any> | FieldReadFunction<any>;
-    opdsSkipChapterMetadataFeed?: FieldPolicy<any> | FieldReadFunction<any>;
-    opdsUseBinaryFileSizes?: FieldPolicy<any> | FieldReadFunction<any>;
-    port?: FieldPolicy<any> | FieldReadFunction<any>;
-    serveConversions?: FieldPolicy<any> | FieldReadFunction<any>;
-    socksProxyEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
-    socksProxyHost?: FieldPolicy<any> | FieldReadFunction<any>;
-    socksProxyPassword?: FieldPolicy<any> | FieldReadFunction<any>;
-    socksProxyPort?: FieldPolicy<any> | FieldReadFunction<any>;
-    socksProxyUsername?: FieldPolicy<any> | FieldReadFunction<any>;
-    socksProxyVersion?: FieldPolicy<any> | FieldReadFunction<any>;
-    syncDataCategories?: FieldPolicy<any> | FieldReadFunction<any>;
-    syncDataChapters?: FieldPolicy<any> | FieldReadFunction<any>;
-    syncDataHistory?: FieldPolicy<any> | FieldReadFunction<any>;
-    syncDataManga?: FieldPolicy<any> | FieldReadFunction<any>;
-    syncDataTracking?: FieldPolicy<any> | FieldReadFunction<any>;
-    syncInterval?: FieldPolicy<any> | FieldReadFunction<any>;
-    syncYomiApiKey?: FieldPolicy<any> | FieldReadFunction<any>;
-    syncYomiEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
-    syncYomiHost?: FieldPolicy<any> | FieldReadFunction<any>;
-    systemTrayEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
-    updateMangas?: FieldPolicy<any> | FieldReadFunction<any>;
-    useHikariConnectionPool?: FieldPolicy<any> | FieldReadFunction<any>;
-    webUIChannel?: FieldPolicy<any> | FieldReadFunction<any>;
-    webUIFlavor?: FieldPolicy<any> | FieldReadFunction<any>;
-    webUIInterface?: FieldPolicy<any> | FieldReadFunction<any>;
-    webUIUpdateCheckInterval?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type SettingsDownloadConversionKeySpecifier = (
-    | 'callTimeout'
-    | 'compressionLevel'
-    | 'connectTimeout'
-    | 'headers'
-    | 'mimeType'
-    | 'target'
-    | SettingsDownloadConversionKeySpecifier
-)[];
-export type SettingsDownloadConversionFieldPolicy = {
-    callTimeout?: FieldPolicy<any> | FieldReadFunction<any>;
-    compressionLevel?: FieldPolicy<any> | FieldReadFunction<any>;
-    connectTimeout?: FieldPolicy<any> | FieldReadFunction<any>;
-    headers?: FieldPolicy<any> | FieldReadFunction<any>;
-    mimeType?: FieldPolicy<any> | FieldReadFunction<any>;
-    target?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type SettingsDownloadConversionHeaderKeySpecifier = (
-    | 'name'
-    | 'value'
-    | SettingsDownloadConversionHeaderKeySpecifier
-)[];
-export type SettingsDownloadConversionHeaderFieldPolicy = {
-    name?: FieldPolicy<any> | FieldReadFunction<any>;
-    value?: FieldPolicy<any> | FieldReadFunction<any>;
-};
 export type SettingsDownloadConversionHeaderTypeKeySpecifier = (
     | 'name'
     | 'value'
@@ -1851,12 +1425,16 @@ export type SettingsTypeKeySpecifier = (
     | 'authMode'
     | 'authPassword'
     | 'authUsername'
+    | 'autoBackupFrequency'
+    | 'autoBackupIncludeAppSettings'
     | 'autoBackupIncludeCategories'
     | 'autoBackupIncludeChapters'
-    | 'autoBackupIncludeClientData'
+    | 'autoBackupIncludeExtensionStores'
     | 'autoBackupIncludeHistory'
     | 'autoBackupIncludeManga'
-    | 'autoBackupIncludeServerSettings'
+    | 'autoBackupIncludePrivateSettings'
+    | 'autoBackupIncludeReadEntries'
+    | 'autoBackupIncludeSourceSettings'
     | 'autoBackupIncludeTracking'
     | 'autoDownloadAheadLimit'
     | 'autoDownloadIgnoreReUploads'
@@ -1869,6 +1447,7 @@ export type SettingsTypeKeySpecifier = (
     | 'basicAuthEnabled'
     | 'basicAuthPassword'
     | 'basicAuthUsername'
+    | 'dataDir'
     | 'databasePassword'
     | 'databaseType'
     | 'databaseUrl'
@@ -1950,12 +1529,16 @@ export type SettingsTypeFieldPolicy = {
     authMode?: FieldPolicy<any> | FieldReadFunction<any>;
     authPassword?: FieldPolicy<any> | FieldReadFunction<any>;
     authUsername?: FieldPolicy<any> | FieldReadFunction<any>;
+    autoBackupFrequency?: FieldPolicy<any> | FieldReadFunction<any>;
+    autoBackupIncludeAppSettings?: FieldPolicy<any> | FieldReadFunction<any>;
     autoBackupIncludeCategories?: FieldPolicy<any> | FieldReadFunction<any>;
     autoBackupIncludeChapters?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoBackupIncludeClientData?: FieldPolicy<any> | FieldReadFunction<any>;
+    autoBackupIncludeExtensionStores?: FieldPolicy<any> | FieldReadFunction<any>;
     autoBackupIncludeHistory?: FieldPolicy<any> | FieldReadFunction<any>;
     autoBackupIncludeManga?: FieldPolicy<any> | FieldReadFunction<any>;
-    autoBackupIncludeServerSettings?: FieldPolicy<any> | FieldReadFunction<any>;
+    autoBackupIncludePrivateSettings?: FieldPolicy<any> | FieldReadFunction<any>;
+    autoBackupIncludeReadEntries?: FieldPolicy<any> | FieldReadFunction<any>;
+    autoBackupIncludeSourceSettings?: FieldPolicy<any> | FieldReadFunction<any>;
     autoBackupIncludeTracking?: FieldPolicy<any> | FieldReadFunction<any>;
     autoDownloadAheadLimit?: FieldPolicy<any> | FieldReadFunction<any>;
     autoDownloadIgnoreReUploads?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1968,6 +1551,7 @@ export type SettingsTypeFieldPolicy = {
     basicAuthEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
     basicAuthPassword?: FieldPolicy<any> | FieldReadFunction<any>;
     basicAuthUsername?: FieldPolicy<any> | FieldReadFunction<any>;
+    dataDir?: FieldPolicy<any> | FieldReadFunction<any>;
     databasePassword?: FieldPolicy<any> | FieldReadFunction<any>;
     databaseType?: FieldPolicy<any> | FieldReadFunction<any>;
     databaseUrl?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -2060,10 +1644,9 @@ export type SourceEdgeFieldPolicy = {
     cursor?: FieldPolicy<any> | FieldReadFunction<any>;
     node?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type SourceMetaTypeKeySpecifier = ('key' | 'source' | 'sourceId' | 'value' | SourceMetaTypeKeySpecifier)[];
+export type SourceMetaTypeKeySpecifier = ('key' | 'sourceId' | 'value' | SourceMetaTypeKeySpecifier)[];
 export type SourceMetaTypeFieldPolicy = {
     key?: FieldPolicy<any> | FieldReadFunction<any>;
-    source?: FieldPolicy<any> | FieldReadFunction<any>;
     sourceId?: FieldPolicy<any> | FieldReadFunction<any>;
     value?: FieldPolicy<any> | FieldReadFunction<any>;
 };
@@ -2084,6 +1667,7 @@ export type SourceTypeKeySpecifier = (
     | 'iconUrl'
     | 'id'
     | 'isConfigurable'
+    | 'isMigratable'
     | 'isNsfw'
     | 'lang'
     | 'manga'
@@ -2103,6 +1687,7 @@ export type SourceTypeFieldPolicy = {
     iconUrl?: FieldPolicy<any> | FieldReadFunction<any>;
     id?: FieldPolicy<any> | FieldReadFunction<any>;
     isConfigurable?: FieldPolicy<any> | FieldReadFunction<any>;
+    isMigratable?: FieldPolicy<any> | FieldReadFunction<any>;
     isNsfw?: FieldPolicy<any> | FieldReadFunction<any>;
     lang?: FieldPolicy<any> | FieldReadFunction<any>;
     manga?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -2140,7 +1725,6 @@ export type SubscriptionKeySpecifier = (
     | 'libraryUpdateStatusChanged'
     | 'syncStatusChanged'
     | 'updateStatusChanged'
-    | 'webUIUpdateStatusChange'
     | SubscriptionKeySpecifier
 )[];
 export type SubscriptionFieldPolicy = {
@@ -2149,7 +1733,6 @@ export type SubscriptionFieldPolicy = {
     libraryUpdateStatusChanged?: FieldPolicy<any> | FieldReadFunction<any>;
     syncStatusChanged?: FieldPolicy<any> | FieldReadFunction<any>;
     updateStatusChanged?: FieldPolicy<any> | FieldReadFunction<any>;
-    webUIUpdateStatusChange?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type SwitchPreferenceKeySpecifier = (
     | 'currentValue'
@@ -2263,7 +1846,6 @@ export type TrackRecordTypeFieldPolicy = {
 };
 export type TrackSearchTypeKeySpecifier = (
     | 'coverUrl'
-    | 'displayScore'
     | 'finishedReadingDate'
     | 'id'
     | 'lastChapterRead'
@@ -2279,14 +1861,12 @@ export type TrackSearchTypeKeySpecifier = (
     | 'summary'
     | 'title'
     | 'totalChapters'
-    | 'tracker'
     | 'trackerId'
     | 'trackingUrl'
     | TrackSearchTypeKeySpecifier
 )[];
 export type TrackSearchTypeFieldPolicy = {
     coverUrl?: FieldPolicy<any> | FieldReadFunction<any>;
-    displayScore?: FieldPolicy<any> | FieldReadFunction<any>;
     finishedReadingDate?: FieldPolicy<any> | FieldReadFunction<any>;
     id?: FieldPolicy<any> | FieldReadFunction<any>;
     lastChapterRead?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -2302,7 +1882,6 @@ export type TrackSearchTypeFieldPolicy = {
     summary?: FieldPolicy<any> | FieldReadFunction<any>;
     title?: FieldPolicy<any> | FieldReadFunction<any>;
     totalChapters?: FieldPolicy<any> | FieldReadFunction<any>;
-    tracker?: FieldPolicy<any> | FieldReadFunction<any>;
     trackerId?: FieldPolicy<any> | FieldReadFunction<any>;
     trackingUrl?: FieldPolicy<any> | FieldReadFunction<any>;
 };
@@ -2329,6 +1908,17 @@ export type TrackerNodeListFieldPolicy = {
     pageInfo?: FieldPolicy<any> | FieldReadFunction<any>;
     totalCount?: FieldPolicy<any> | FieldReadFunction<any>;
 };
+export type TrackerOAuthAppTypeKeySpecifier = (
+    | 'clientId'
+    | 'clientSecret'
+    | 'redirectUri'
+    | TrackerOAuthAppTypeKeySpecifier
+)[];
+export type TrackerOAuthAppTypeFieldPolicy = {
+    clientId?: FieldPolicy<any> | FieldReadFunction<any>;
+    clientSecret?: FieldPolicy<any> | FieldReadFunction<any>;
+    redirectUri?: FieldPolicy<any> | FieldReadFunction<any>;
+};
 export type TrackerTypeKeySpecifier = (
     | 'authUrl'
     | 'icon'
@@ -2336,6 +1926,7 @@ export type TrackerTypeKeySpecifier = (
     | 'isLoggedIn'
     | 'isTokenExpired'
     | 'name'
+    | 'oauthApp'
     | 'scores'
     | 'statuses'
     | 'supportsPrivateTracking'
@@ -2351,6 +1942,7 @@ export type TrackerTypeFieldPolicy = {
     isLoggedIn?: FieldPolicy<any> | FieldReadFunction<any>;
     isTokenExpired?: FieldPolicy<any> | FieldReadFunction<any>;
     name?: FieldPolicy<any> | FieldReadFunction<any>;
+    oauthApp?: FieldPolicy<any> | FieldReadFunction<any>;
     scores?: FieldPolicy<any> | FieldReadFunction<any>;
     statuses?: FieldPolicy<any> | FieldReadFunction<any>;
     supportsPrivateTracking?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -2523,6 +2115,15 @@ export type UpdateTrackPayloadFieldPolicy = {
     clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
     trackRecord?: FieldPolicy<any> | FieldReadFunction<any>;
 };
+export type UpdateTrackerOAuthAppPayloadKeySpecifier = (
+    | 'clientMutationId'
+    | 'tracker'
+    | UpdateTrackerOAuthAppPayloadKeySpecifier
+)[];
+export type UpdateTrackerOAuthAppPayloadFieldPolicy = {
+    clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
+    tracker?: FieldPolicy<any> | FieldReadFunction<any>;
+};
 export type UpdaterJobsInfoTypeKeySpecifier = (
     | 'finishedJobs'
     | 'isRunning'
@@ -2576,22 +2177,6 @@ export type WebUIUpdateCheckFieldPolicy = {
     channel?: FieldPolicy<any> | FieldReadFunction<any>;
     tag?: FieldPolicy<any> | FieldReadFunction<any>;
     updateAvailable?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type WebUIUpdateInfoKeySpecifier = ('channel' | 'tag' | WebUIUpdateInfoKeySpecifier)[];
-export type WebUIUpdateInfoFieldPolicy = {
-    channel?: FieldPolicy<any> | FieldReadFunction<any>;
-    tag?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type WebUIUpdatePayloadKeySpecifier = ('clientMutationId' | 'updateStatus' | WebUIUpdatePayloadKeySpecifier)[];
-export type WebUIUpdatePayloadFieldPolicy = {
-    clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
-    updateStatus?: FieldPolicy<any> | FieldReadFunction<any>;
-};
-export type WebUIUpdateStatusKeySpecifier = ('info' | 'progress' | 'state' | WebUIUpdateStatusKeySpecifier)[];
-export type WebUIUpdateStatusFieldPolicy = {
-    info?: FieldPolicy<any> | FieldReadFunction<any>;
-    progress?: FieldPolicy<any> | FieldReadFunction<any>;
-    state?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type StrictTypedTypePolicies = {
     AboutServerPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
@@ -2797,14 +2382,6 @@ export type StrictTypedTypePolicies = {
             | (() => undefined | DequeueChapterDownloadsPayloadKeySpecifier);
         fields?: DequeueChapterDownloadsPayloadFieldPolicy;
     };
-    DownloadEdge?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
-        keyFields?: false | DownloadEdgeKeySpecifier | (() => undefined | DownloadEdgeKeySpecifier);
-        fields?: DownloadEdgeFieldPolicy;
-    };
-    DownloadNodeList?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
-        keyFields?: false | DownloadNodeListKeySpecifier | (() => undefined | DownloadNodeListKeySpecifier);
-        fields?: DownloadNodeListFieldPolicy;
-    };
     DownloadStatus?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | DownloadStatusKeySpecifier | (() => undefined | DownloadStatusKeySpecifier);
         fields?: DownloadStatusFieldPolicy;
@@ -2820,10 +2397,6 @@ export type StrictTypedTypePolicies = {
     DownloadUpdates?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | DownloadUpdatesKeySpecifier | (() => undefined | DownloadUpdatesKeySpecifier);
         fields?: DownloadUpdatesFieldPolicy;
-    };
-    Edge?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
-        keyFields?: false | EdgeKeySpecifier | (() => undefined | EdgeKeySpecifier);
-        fields?: EdgeFieldPolicy;
     };
     EditTextPreference?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | EditTextPreferenceKeySpecifier | (() => undefined | EditTextPreferenceKeySpecifier);
@@ -3007,10 +2580,6 @@ export type StrictTypedTypePolicies = {
         keyFields?: false | MetaEdgeKeySpecifier | (() => undefined | MetaEdgeKeySpecifier);
         fields?: MetaEdgeFieldPolicy;
     };
-    MetaType?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
-        keyFields?: false | MetaTypeKeySpecifier | (() => undefined | MetaTypeKeySpecifier);
-        fields?: MetaTypeFieldPolicy;
-    };
     MultiSelectListPreference?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?:
             | false
@@ -3022,10 +2591,6 @@ export type StrictTypedTypePolicies = {
         keyFields?: false | MutationKeySpecifier | (() => undefined | MutationKeySpecifier);
         fields?: MutationFieldPolicy;
     };
-    NodeList?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
-        keyFields?: false | NodeListKeySpecifier | (() => undefined | NodeListKeySpecifier);
-        fields?: NodeListFieldPolicy;
-    };
     OSInfo?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | OSInfoKeySpecifier | (() => undefined | OSInfoKeySpecifier);
         fields?: OSInfoFieldPolicy;
@@ -3033,10 +2598,6 @@ export type StrictTypedTypePolicies = {
     PageInfo?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | PageInfoKeySpecifier | (() => undefined | PageInfoKeySpecifier);
         fields?: PageInfoFieldPolicy;
-    };
-    PartialSettingsType?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
-        keyFields?: false | PartialSettingsTypeKeySpecifier | (() => undefined | PartialSettingsTypeKeySpecifier);
-        fields?: PartialSettingsTypeFieldPolicy;
     };
     PlatformInfo?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | PlatformInfoKeySpecifier | (() => undefined | PlatformInfoKeySpecifier);
@@ -3060,9 +2621,23 @@ export type StrictTypedTypePolicies = {
         keyFields?: false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier);
         fields?: QueryFieldPolicy;
     };
+    RebuildDownloadIndexPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+        keyFields?:
+            | false
+            | RebuildDownloadIndexPayloadKeySpecifier
+            | (() => undefined | RebuildDownloadIndexPayloadKeySpecifier);
+        fields?: RebuildDownloadIndexPayloadFieldPolicy;
+    };
     RefreshTokenPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | RefreshTokenPayloadKeySpecifier | (() => undefined | RefreshTokenPayloadKeySpecifier);
         fields?: RefreshTokenPayloadFieldPolicy;
+    };
+    RefreshTrackerUserPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+        keyFields?:
+            | false
+            | RefreshTrackerUserPayloadKeySpecifier
+            | (() => undefined | RefreshTrackerUserPayloadKeySpecifier);
+        fields?: RefreshTrackerUserPayloadFieldPolicy;
     };
     RemoveExtensionStorePayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?:
@@ -3077,6 +2652,13 @@ export type StrictTypedTypePolicies = {
             | ReorderChapterDownloadPayloadKeySpecifier
             | (() => undefined | ReorderChapterDownloadPayloadKeySpecifier);
         fields?: ReorderChapterDownloadPayloadFieldPolicy;
+    };
+    ReorderChapterDownloadsPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+        keyFields?:
+            | false
+            | ReorderChapterDownloadsPayloadKeySpecifier
+            | (() => undefined | ReorderChapterDownloadsPayloadKeySpecifier);
+        fields?: ReorderChapterDownloadsPayloadFieldPolicy;
     };
     ResetSettingsPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | ResetSettingsPayloadKeySpecifier | (() => undefined | ResetSettingsPayloadKeySpecifier);
@@ -3144,24 +2726,6 @@ export type StrictTypedTypePolicies = {
     SetSourceMetasPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | SetSourceMetasPayloadKeySpecifier | (() => undefined | SetSourceMetasPayloadKeySpecifier);
         fields?: SetSourceMetasPayloadFieldPolicy;
-    };
-    Settings?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
-        keyFields?: false | SettingsKeySpecifier | (() => undefined | SettingsKeySpecifier);
-        fields?: SettingsFieldPolicy;
-    };
-    SettingsDownloadConversion?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
-        keyFields?:
-            | false
-            | SettingsDownloadConversionKeySpecifier
-            | (() => undefined | SettingsDownloadConversionKeySpecifier);
-        fields?: SettingsDownloadConversionFieldPolicy;
-    };
-    SettingsDownloadConversionHeader?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
-        keyFields?:
-            | false
-            | SettingsDownloadConversionHeaderKeySpecifier
-            | (() => undefined | SettingsDownloadConversionHeaderKeySpecifier);
-        fields?: SettingsDownloadConversionHeaderFieldPolicy;
     };
     SettingsDownloadConversionHeaderType?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?:
@@ -3268,6 +2832,10 @@ export type StrictTypedTypePolicies = {
     TrackerNodeList?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | TrackerNodeListKeySpecifier | (() => undefined | TrackerNodeListKeySpecifier);
         fields?: TrackerNodeListFieldPolicy;
+    };
+    TrackerOAuthAppType?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+        keyFields?: false | TrackerOAuthAppTypeKeySpecifier | (() => undefined | TrackerOAuthAppTypeKeySpecifier);
+        fields?: TrackerOAuthAppTypeFieldPolicy;
     };
     TrackerType?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | TrackerTypeKeySpecifier | (() => undefined | TrackerTypeKeySpecifier);
@@ -3388,6 +2956,13 @@ export type StrictTypedTypePolicies = {
         keyFields?: false | UpdateTrackPayloadKeySpecifier | (() => undefined | UpdateTrackPayloadKeySpecifier);
         fields?: UpdateTrackPayloadFieldPolicy;
     };
+    UpdateTrackerOAuthAppPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+        keyFields?:
+            | false
+            | UpdateTrackerOAuthAppPayloadKeySpecifier
+            | (() => undefined | UpdateTrackerOAuthAppPayloadKeySpecifier);
+        fields?: UpdateTrackerOAuthAppPayloadFieldPolicy;
+    };
     UpdaterJobsInfoType?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | UpdaterJobsInfoTypeKeySpecifier | (() => undefined | UpdaterJobsInfoTypeKeySpecifier);
         fields?: UpdaterJobsInfoTypeFieldPolicy;
@@ -3411,18 +2986,6 @@ export type StrictTypedTypePolicies = {
     WebUIUpdateCheck?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | WebUIUpdateCheckKeySpecifier | (() => undefined | WebUIUpdateCheckKeySpecifier);
         fields?: WebUIUpdateCheckFieldPolicy;
-    };
-    WebUIUpdateInfo?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
-        keyFields?: false | WebUIUpdateInfoKeySpecifier | (() => undefined | WebUIUpdateInfoKeySpecifier);
-        fields?: WebUIUpdateInfoFieldPolicy;
-    };
-    WebUIUpdatePayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
-        keyFields?: false | WebUIUpdatePayloadKeySpecifier | (() => undefined | WebUIUpdatePayloadKeySpecifier);
-        fields?: WebUIUpdatePayloadFieldPolicy;
-    };
-    WebUIUpdateStatus?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
-        keyFields?: false | WebUIUpdateStatusKeySpecifier | (() => undefined | WebUIUpdateStatusKeySpecifier);
-        fields?: WebUIUpdateStatusFieldPolicy;
     };
 };
 export type TypedTypePolicies = StrictTypedTypePolicies & TypePolicies;

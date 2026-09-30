@@ -6,8 +6,12 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-import type { MetaType } from '@/lib/graphql/generated/graphql-base.types.ts';
-import type { AllowedMetadataValueTypes, AppMetadataKeys, Metadata } from '@/features/metadata/Metadata.types.ts';
+import type {
+    AllowedMetadataValueTypes,
+    AppMetadataKeys,
+    GqlMeta,
+    Metadata,
+} from '@/features/metadata/Metadata.types.ts';
 import { APP_METADATA } from '@/features/metadata/Metadata.constants.ts';
 
 export const convertValueFromMetadata = <T extends AllowedMetadataValueTypes = AllowedMetadataValueTypes>(
@@ -17,7 +21,7 @@ export const convertValueFromMetadata = <T extends AllowedMetadataValueTypes = A
 ): T => APP_METADATA[key as AppMetadataKeys].convert(value, defaultValue);
 
 export const convertFromGqlMeta = (
-    gqlMetadata?: MetaType[],
+    gqlMetadata?: GqlMeta[],
     filter: (key: string) => boolean = () => true,
 ): Metadata | undefined => {
     if (!gqlMetadata) {
@@ -34,7 +38,7 @@ export const convertFromGqlMeta = (
     return metadata;
 };
 
-export const convertToGqlMeta = (metadata?: Metadata): MetaType[] | undefined => {
+export const convertToGqlMeta = (metadata?: Metadata): GqlMeta[] | undefined => {
     if (!metadata) {
         return undefined;
     }

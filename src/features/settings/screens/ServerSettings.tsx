@@ -64,8 +64,13 @@ const convertSyncDataToBackupFlags = (settings: ServerSettingsType): BackupFlagI
     includeCategories: settings.syncDataCategories,
     includeHistory: settings.syncDataHistory,
     includeTracking: settings.syncDataTracking,
-    includeClientData: false,
-    includeServerSettings: false,
+    // 剩下五项 SyncYomi 不同步，界面上也不展示（SYNC_SETTINGS_HIDDEN_BACKUP_FLAGS），
+    // 这里恒为 false 以与服务端构造同步用 BackupFlags 时的取值一致。
+    includeReadEntries: false,
+    includeAppSettings: false,
+    includeExtensionStores: false,
+    includeSourceSettings: false,
+    includePrivateSettings: false,
 });
 
 const convertBackupFlagsToSyncData = (flags: BackupFlagInclusionState): Partial<ServerSettingsType> => ({

@@ -43,9 +43,14 @@ import { saveFileAs } from '@/lib/platform/SaveFile.ts';
 
 let backupRestoreId: string | undefined;
 
-const resetBackupState = () => {
-    const input = document.getElementById('backup-file') as HTMLInputElement;
+/**
+ * 清掉 <input type=file> 里选中的文件。不清的话，再选同一个文件浏览器不会派发
+ * change，用户会以为「点了没反应」。
+ */
+const resetBackupState = (input: HTMLInputElement | null) => {
     if (input) {
+        // 这里就是要把参数指向的 DOM 节点清空
+        // oxlint-disable-next-line no-param-reassign
         input.value = '';
     }
 };
@@ -331,16 +336,25 @@ export function Backup() {
         } catch (e) {
             makeToast(t`Could not validate backup`, 'error', getErrorMessage(e));
         } finally {
-            resetBackupState();
+            resetBackupState(inputRef.current);
         }
 
         return false;
     };
 
     const restoreBackup = async (backup: File) => {
-        const flags = await AwaitableComponent.show(BackupFlagInclusionDialog, {
-            title: t`Restore Backup`,
-        });
+        let flags: BackupFlagInclusionState;
+        try {
+            flags = await AwaitableComponent.show(BackupFlagInclusionDialog, {
+                title: t`Restore Backup`,
+            });
+        } catch (_) {
+            // 用户关掉对话框。这里必须接住：`submitBackup` 是被事件监听器直接调用的，
+            // 没人 catch，漏出去就是一条 unhandled rejection。同时要把 input 的值清掉，
+            // 否则再选同一个文件不会触发 change。
+            resetBackupState(inputRef.current);
+            return;
+        }
 
         try {
             makeToast(t`Restoring backup…`, 'info');
@@ -351,7 +365,7 @@ export function Backup() {
         } catch (e) {
             makeToast(t`Could not restore backup`, 'error', getErrorMessage(e));
         } finally {
-            resetBackupState();
+            resetBackupState(inputRef.current);
         }
     };
 

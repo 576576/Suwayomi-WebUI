@@ -457,6 +457,10 @@ msgstr "年龄分级"
 msgid "All"
 msgstr "全部"
 
+#: src/features/backup/Backup.constants.ts
+msgid "All read entries"
+msgstr "所有已读作品"
+
 #: src/features/downloads/screens/DownloadSettings.tsx
 msgid "Allow deleting bookmarked chapters"
 msgstr "允许删除已添加书签的章节"
@@ -491,6 +495,10 @@ msgstr "应用数据位置"
 #: src/features/backup/screens/Backup.tsx
 msgid "App directory"
 msgstr "程序目录"
+
+#: src/features/backup/Backup.constants.ts
+msgid "App settings"
+msgstr "应用设置"
 
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/Settings.tsx
@@ -2071,6 +2079,10 @@ msgstr "在书架中"
 msgid "Include"
 msgstr "包含"
 
+#: src/features/backup/Backup.constants.ts
+msgid "Include sensitive settings (e.g., tracker login tokens)"
+msgstr "包含敏感设置（例如追踪登录令牌）"
+
 #: src/features/category/components/CategoriesInclusionSetting.tsx
 msgid "Include: {includedCategoriesText}"
 msgstr "包含: {includedCategoriesText}"
@@ -3530,6 +3542,10 @@ msgstr "图源配置"
 #: src/features/migration/components/migration-entry/MigrationSourceEntry.tsx
 msgid "Source entry — {sourceTitle}"
 msgstr "图源作品 — {sourceTitle}"
+
+#: src/features/backup/Backup.constants.ts
+msgid "Source settings"
+msgstr "图源设置"
 
 #: src/features/chapter/components/ChapterOptions.tsx
 msgid "Source title"

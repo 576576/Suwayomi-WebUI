@@ -198,11 +198,11 @@ const useSourceManga = (
         {
             ...pages[pages.length - 1],
             data: {
-                __typename: 'Mutation',
                 ...lastLoadedPage!.data,
+                __typename: 'Mutation',
                 fetchSourceManga: {
-                    __typename: 'FetchSourceMangaPayload',
                     ...lastLoadedPage!.data!.fetchSourceManga,
+                    __typename: 'FetchSourceMangaPayload',
                     hasNextPage:
                         pages.length > lastLoadedPageIndex + 1
                             ? false

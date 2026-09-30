@@ -20,9 +20,11 @@ import { useLingui } from '@lingui/react/macro';
 import { CheckboxInput } from '@/base/components/inputs/CheckboxInput.tsx';
 import {
     BACKUP_FLAG_GROUP_TO_TRANSLATION,
+    BACKUP_FLAG_IS_ENABLED,
     BACKUP_FLAGS,
     BACKUP_FLAGS_BY_GROUP,
     BACKUP_FLAGS_TO_TRANSLATION,
+    hasBackupContent,
 } from '@/features/backup/Backup.constants.ts';
 import type { BackupFlag, BackupFlagGroup, BackupFlagInclusionState } from '@/features/backup/Backup.types.ts';
 
@@ -64,6 +66,7 @@ export const BackupFlagInclusionDialog = ({
                                             key={flag}
                                             label={t(BACKUP_FLAGS_TO_TRANSLATION[flag])}
                                             checked={includeStateByFlag[flag]}
+                                            disabled={!BACKUP_FLAG_IS_ENABLED[flag](includeStateByFlag)}
                                             onChange={(_, checked) => {
                                                 setIncludeStateByFlag({
                                                     ...includeStateByFlag,
@@ -80,7 +83,11 @@ export const BackupFlagInclusionDialog = ({
                 <Button autoFocus onClick={onDismiss} color="primary">
                     {t`Cancel`}
                 </Button>
-                <Button onClick={() => onSubmit(includeStateByFlag)} color="primary">
+                <Button
+                    onClick={() => onSubmit(includeStateByFlag)}
+                    color="primary"
+                    disabled={!hasBackupContent(includeStateByFlag)}
+                >
                     {t`Ok`}
                 </Button>
             </DialogActions>

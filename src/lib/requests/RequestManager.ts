@@ -1696,8 +1696,8 @@ export class RequestManager {
                 data: {
                     ...cachedExtensions.data,
                     fetchExtensions: {
-                        __typename: 'FetchExtensionsPayload',
                         ...cachedExtensions.data.fetchExtensions,
+                        __typename: 'FetchExtensionsPayload',
                         extensions: isExtensionCached
                             ? cachedExtensions.data.fetchExtensions!.extensions.map((extension) => {
                                   const isUpdatedExtension = installedExtension?.pkgName === extension.pkgName;
@@ -1762,8 +1762,8 @@ export class RequestManager {
                 data: {
                     ...cachedExtensions.data,
                     fetchExtensions: {
-                        __typename: 'FetchExtensionsPayload',
                         ...cachedExtensions.data.fetchExtensions,
+                        __typename: 'FetchExtensionsPayload',
                         extensions:
                             cachedExtensions.data.fetchExtensions?.extensions
                                 .filter((extension) => {
@@ -1828,8 +1828,8 @@ export class RequestManager {
                 data: {
                     ...cachedExtensions.data,
                     fetchExtensions: {
-                        __typename: 'FetchExtensionsPayload',
                         ...cachedExtensions.data.fetchExtensions,
+                        __typename: 'FetchExtensionsPayload',
                         extensions:
                             cachedExtensions.data.fetchExtensions?.extensions
                                 .filter((extension) => {
@@ -3481,7 +3481,7 @@ export class RequestManager {
                 optimisticResponse: {
                     __typename: 'Mutation',
                     reorderChapterDownloads: {
-                        __typename: 'ReorderChapterDownloadPayload',
+                        __typename: 'ReorderChapterDownloadsPayload',
                         downloadStatus: {
                             ...cachedDownloadStatus,
                             queue: updatedQueue,

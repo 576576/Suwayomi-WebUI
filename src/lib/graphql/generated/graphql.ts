@@ -42,7 +42,7 @@ export type RebuildDownloadIndexMutation = {
 };
 
 export type ValidateBackupQueryVariables = Exact<{
-    backup: unknown;
+    input: Types.ValidateBackupInput;
 }>;
 
 export type ValidateBackupQuery = {
@@ -65,7 +65,7 @@ export type GetRestoreStatusQuery = {
         mangaProgress: number;
         state: Types.BackupRestoreState;
         totalManga: number;
-    } | null;
+    };
 };
 
 export type CategoryMetaFieldsFragment = {
@@ -120,7 +120,7 @@ export type CreateCategoryMutation = {
             default: boolean;
             order: number;
         };
-    } | null;
+    };
 };
 
 export type DeleteCategoryMutationVariables = Exact<{
@@ -132,7 +132,7 @@ export type DeleteCategoryMutation = {
     deleteCategory: {
         __typename: 'DeleteCategoryPayload';
         category: { __typename: 'CategoryType'; id: number } | null;
-    } | null;
+    };
 };
 
 export type UpdateCategoryMutationVariables = Exact<{
@@ -155,7 +155,7 @@ export type UpdateCategoryMutation = {
             includeInDownload?: Types.IncludeOrExclude;
             name?: string;
         };
-    } | null;
+    };
 };
 
 export type UpdateCategoriesMutationVariables = Exact<{
@@ -178,7 +178,7 @@ export type UpdateCategoriesMutation = {
             includeInDownload?: Types.IncludeOrExclude;
             name?: string;
         }>;
-    } | null;
+    };
 };
 
 export type UpdateCategoryOrderMutationVariables = Exact<{
@@ -190,7 +190,7 @@ export type UpdateCategoryOrderMutation = {
     updateCategoryOrder: {
         __typename: 'UpdateCategoryOrderPayload';
         categories: Array<{ __typename: 'CategoryType'; id: number; order: number }>;
-    } | null;
+    };
 };
 
 export type UpdateCategoryMetadataMutationVariables = Exact<{
@@ -209,19 +209,19 @@ export type UpdateCategoryMetadataMutation = {
     preUpdateDeletedMeta?: {
         __typename: 'DeleteCategoryMetasPayload';
         metas: Array<{ __typename: 'CategoryMetaType'; categoryId: number; key: string; value: string }>;
-    } | null;
+    };
     updatedMeta?: {
         __typename: 'SetCategoryMetasPayload';
         metas: Array<{ __typename: 'CategoryMetaType'; categoryId: number; key: string; value: string }>;
-    } | null;
+    };
     postUpdateDeletedMeta?: {
         __typename: 'DeleteCategoryMetasPayload';
         metas: Array<{ __typename: 'CategoryMetaType'; categoryId: number; key: string; value: string }>;
-    } | null;
+    };
     migrationMeta?: {
         __typename: 'SetCategoryMetasPayload';
         metas: Array<{ __typename: 'CategoryMetaType'; categoryId: number; key: string; value: string }>;
-    } | null;
+    };
 };
 
 export type GetCategoriesBaseQueryVariables = Exact<{
@@ -342,6 +342,7 @@ export type GetCategoryMangasQuery = {
                 artist: string | null;
                 author: string | null;
                 description: string | null;
+                altTitles: Array<string>;
                 id: number;
                 title: string;
                 thumbnailUrl: string | null;
@@ -545,7 +546,7 @@ export type GetChapterPagesFetchMutation = {
             isDownloaded: boolean;
             manga: { __typename: 'MangaType'; id: number; downloadCount: number };
         };
-    } | null;
+    };
 };
 
 export type UpdateChapterMutationVariables = Exact<{
@@ -580,7 +581,7 @@ export type UpdateChapterMutation = {
                 firstUnreadChapter: { __typename: 'ChapterType'; id: number } | null;
             };
         };
-    } | null;
+    };
     deleteDownloadedChapter?: {
         __typename: 'DeleteDownloadedChapterPayload';
         chapters: {
@@ -589,7 +590,7 @@ export type UpdateChapterMutation = {
             isDownloaded: boolean;
             manga: { __typename: 'MangaType'; id: number; downloadCount: number };
         };
-    } | null;
+    };
     trackProgress?: {
         __typename: 'TrackProgressPayload';
         trackRecords: Array<{
@@ -608,7 +609,7 @@ export type UpdateChapterMutation = {
             finishDate: string;
             private: boolean;
         }>;
-    } | null;
+    };
 };
 
 export type UpdateChaptersMutationVariables = Exact<{
@@ -643,7 +644,7 @@ export type UpdateChaptersMutation = {
                 firstUnreadChapter: { __typename: 'ChapterType'; id: number } | null;
             };
         }>;
-    } | null;
+    };
     deleteDownloadedChapters?: {
         __typename: 'DeleteDownloadedChaptersPayload';
         chapters: Array<{
@@ -652,7 +653,7 @@ export type UpdateChaptersMutation = {
             isDownloaded: boolean;
             manga: { __typename: 'MangaType'; id: number; downloadCount: number };
         }>;
-    } | null;
+    };
     trackProgress?: {
         __typename: 'TrackProgressPayload';
         trackRecords: Array<{
@@ -671,7 +672,7 @@ export type UpdateChaptersMutation = {
             finishDate: string;
             private: boolean;
         }>;
-    } | null;
+    };
 };
 
 export type UpdateChapterMetadataMutationVariables = Exact<{
@@ -690,19 +691,19 @@ export type UpdateChapterMetadataMutation = {
     preUpdateDeletedMeta?: {
         __typename: 'DeleteChapterMetasPayload';
         metas: Array<{ __typename: 'ChapterMetaType'; chapterId: number; key: string; value: string }>;
-    } | null;
+    };
     updatedMeta?: {
         __typename: 'SetChapterMetasPayload';
         metas: Array<{ __typename: 'ChapterMetaType'; chapterId: number; key: string; value: string }>;
-    } | null;
+    };
     postUpdateDeletedMeta?: {
         __typename: 'DeleteChapterMetasPayload';
         metas: Array<{ __typename: 'ChapterMetaType'; chapterId: number; key: string; value: string }>;
-    } | null;
+    };
     migrationMeta?: {
         __typename: 'SetChapterMetasPayload';
         metas: Array<{ __typename: 'ChapterMetaType'; chapterId: number; key: string; value: string }>;
-    } | null;
+    };
 };
 
 export type GetChaptersReaderQueryVariables = Exact<{
@@ -1130,7 +1131,7 @@ export type ClearDownloaderMutation = {
                 };
             }>;
         };
-    } | null;
+    };
 };
 
 export type DeleteDownloadedChapterMutationVariables = Exact<{
@@ -1147,7 +1148,7 @@ export type DeleteDownloadedChapterMutation = {
             isDownloaded: boolean;
             manga: { __typename: 'MangaType'; id: number; downloadCount: number };
         };
-    } | null;
+    };
 };
 
 export type DeleteDownloadedChaptersMutationVariables = Exact<{
@@ -1164,7 +1165,7 @@ export type DeleteDownloadedChaptersMutation = {
             isDownloaded: boolean;
             manga: { __typename: 'MangaType'; id: number; downloadCount: number };
         }>;
-    } | null;
+    };
 };
 
 export type DequeueChapterDownloadMutationVariables = Exact<{
@@ -1217,7 +1218,7 @@ export type DequeueChapterDownloadMutation = {
                 };
             }>;
         };
-    } | null;
+    };
 };
 
 export type DequeueChapterDownloadsMutationVariables = Exact<{
@@ -1270,7 +1271,7 @@ export type DequeueChapterDownloadsMutation = {
                 };
             }>;
         };
-    } | null;
+    };
 };
 
 export type EnqueueChapterDownloadMutationVariables = Exact<{
@@ -1323,7 +1324,7 @@ export type EnqueueChapterDownloadMutation = {
                 };
             }>;
         };
-    } | null;
+    };
 };
 
 export type EnqueueChapterDownloadsMutationVariables = Exact<{
@@ -1376,7 +1377,7 @@ export type EnqueueChapterDownloadsMutation = {
                 };
             }>;
         };
-    } | null;
+    };
 };
 
 export type ReorderChapterDownloadMutationVariables = Exact<{
@@ -1429,7 +1430,7 @@ export type ReorderChapterDownloadMutation = {
                 };
             }>;
         };
-    } | null;
+    };
 };
 
 export type ReorderChapterDownloadsMutationVariables = Exact<{
@@ -1439,7 +1440,7 @@ export type ReorderChapterDownloadsMutationVariables = Exact<{
 export type ReorderChapterDownloadsMutation = {
     __typename: 'Mutation';
     reorderChapterDownloads: {
-        __typename: 'ReorderChapterDownloadPayload';
+        __typename: 'ReorderChapterDownloadsPayload';
         downloadStatus: {
             __typename: 'DownloadStatus';
             state: Types.DownloaderState;
@@ -1482,7 +1483,7 @@ export type ReorderChapterDownloadsMutation = {
                 };
             }>;
         };
-    } | null;
+    };
 };
 
 export type StartDownloaderMutationVariables = Exact<{
@@ -1494,7 +1495,7 @@ export type StartDownloaderMutation = {
     startDownloader: {
         __typename: 'StartDownloaderPayload';
         downloadStatus: { __typename: 'DownloadStatus'; state: Types.DownloaderState };
-    } | null;
+    };
 };
 
 export type StopDownloaderMutationVariables = Exact<{
@@ -1506,7 +1507,7 @@ export type StopDownloaderMutation = {
     stopDownloader: {
         __typename: 'StopDownloaderPayload';
         downloadStatus: { __typename: 'DownloadStatus'; state: Types.DownloaderState };
-    } | null;
+    };
 };
 
 export type GetDownloadStatusQueryVariables = Exact<{ [key: string]: never }>;
@@ -1665,7 +1666,7 @@ export type GetExtensionsFetchMutation = {
             signingKey: string;
             extensions: { __typename: 'ExtensionNodeList'; totalCount: number };
         }>;
-    } | null;
+    };
 };
 
 export type UpdateExtensionMutationVariables = Exact<{
@@ -1692,7 +1693,7 @@ export type UpdateExtensionMutation = {
             extensionLib: string | null;
             extensionStore: { __typename: 'ExtensionStoreType'; indexUrl: string; name: string } | null;
         } | null;
-    } | null;
+    };
 };
 
 export type UpdateExtensionsMutationVariables = Exact<{
@@ -1719,7 +1720,7 @@ export type UpdateExtensionsMutation = {
             extensionLib: string | null;
             extensionStore: { __typename: 'ExtensionStoreType'; indexUrl: string; name: string } | null;
         }>;
-    } | null;
+    };
 };
 
 export type InstallExternalExtensionMutationVariables = Exact<{
@@ -1746,7 +1747,7 @@ export type InstallExternalExtensionMutation = {
             extensionLib: string | null;
             extensionStore: { __typename: 'ExtensionStoreType'; indexUrl: string; name: string } | null;
         };
-    } | null;
+    };
 };
 
 export type GetExtensionQueryVariables = Exact<{
@@ -1848,7 +1849,7 @@ export type AddExtensionStoreMutation = {
             signingKey: string;
             extensions: { __typename: 'ExtensionNodeList'; totalCount: number };
         };
-    } | null;
+    };
 };
 
 export type RemoveExtensionStoreMutationVariables = Exact<{
@@ -1871,7 +1872,7 @@ export type RemoveExtensionStoreMutation = {
             signingKey: string;
             extensions: { __typename: 'ExtensionNodeList'; totalCount: number };
         } | null;
-    } | null;
+    };
 };
 
 export type GetExtensionStoreQueryVariables = Exact<{
@@ -2065,6 +2066,7 @@ export type MangaLibraryFieldsFragment = {
     artist: string | null;
     author: string | null;
     description: string | null;
+    altTitles: Array<string>;
     id: number;
     title: string;
     thumbnailUrl: string | null;
@@ -2142,6 +2144,7 @@ export type MangaScreenFieldsFragment = {
     artist: string | null;
     author: string | null;
     description: string | null;
+    altTitles: Array<string>;
     status: Types.MangaStatus;
     realUrl: string | null;
     sourceId: string;
@@ -2222,6 +2225,7 @@ export type RefreshMangaMutation = {
             artist: string | null;
             author: string | null;
             description: string | null;
+            altTitles: Array<string>;
             status: Types.MangaStatus;
             realUrl: string | null;
             sourceId: string;
@@ -2290,7 +2294,7 @@ export type RefreshMangaMutation = {
             isDownloaded: boolean;
             isBookmarked: boolean;
         }>;
-    } | null;
+    };
 };
 
 export type GetMangaToMigrateToFetchMutationVariables = Exact<{
@@ -2324,7 +2328,7 @@ export type GetMangaToMigrateToFetchMutation = {
             isBookmarked: boolean;
             manga: { __typename: 'MangaType'; id: number };
         }>;
-    } | null;
+    };
 };
 
 export type UpdateMangaMutationVariables = Exact<{
@@ -2350,11 +2354,11 @@ export type UpdateMangaMutation = {
                 }>;
             };
         };
-    } | null;
+    };
     updateManga: {
         __typename: 'UpdateMangaPayload';
         manga: { __typename: 'MangaType'; id: number; inLibrary: boolean; inLibraryAt: string };
-    } | null;
+    };
 };
 
 export type UpdateMangasMutationVariables = Exact<{
@@ -2380,7 +2384,7 @@ export type UpdateMangasMutation = {
                 }>;
             };
         }>;
-    } | null;
+    };
     updateMangas: {
         __typename: 'UpdateMangasPayload';
         mangas: Array<{
@@ -2398,7 +2402,7 @@ export type UpdateMangasMutation = {
                 }>;
             };
         }>;
-    } | null;
+    };
 };
 
 export type UpdateMangaCategoriesMutationVariables = Exact<{
@@ -2422,7 +2426,7 @@ export type UpdateMangaCategoriesMutation = {
                 }>;
             };
         };
-    } | null;
+    };
 };
 
 export type UpdateMangasCategoriesMutationVariables = Exact<{
@@ -2446,7 +2450,7 @@ export type UpdateMangasCategoriesMutation = {
                 }>;
             };
         }>;
-    } | null;
+    };
 };
 
 export type UpdateMangaMetadataMutationVariables = Exact<{
@@ -2465,19 +2469,19 @@ export type UpdateMangaMetadataMutation = {
     preUpdateDeletedMeta?: {
         __typename: 'DeleteMangaMetasPayload';
         metas: Array<{ __typename: 'MangaMetaType'; mangaId: number; key: string; value: string }>;
-    } | null;
+    };
     updatedMeta?: {
         __typename: 'SetMangaMetasPayload';
         metas: Array<{ __typename: 'MangaMetaType'; mangaId: number; key: string; value: string }>;
-    } | null;
+    };
     postUpdateDeletedMeta?: {
         __typename: 'DeleteMangaMetasPayload';
         metas: Array<{ __typename: 'MangaMetaType'; mangaId: number; key: string; value: string }>;
-    } | null;
+    };
     migrationMeta?: {
         __typename: 'SetMangaMetasPayload';
         metas: Array<{ __typename: 'MangaMetaType'; mangaId: number; key: string; value: string }>;
-    } | null;
+    };
 };
 
 export type GetMangaMetaQueryVariables = Exact<{
@@ -2738,6 +2742,7 @@ export type GetMangasLibraryQuery = {
             artist: string | null;
             author: string | null;
             description: string | null;
+            altTitles: Array<string>;
             id: number;
             title: string;
             thumbnailUrl: string | null;
@@ -2917,19 +2922,19 @@ export type UpdateGlobalMetadataMutation = {
     preUpdateDeletedMeta?: {
         __typename: 'DeleteGlobalMetasPayload';
         metas: Array<{ __typename: 'GlobalMetaType'; key: string; value: string }>;
-    } | null;
+    };
     updatedMeta?: {
         __typename: 'SetGlobalMetasPayload';
         metas: Array<{ __typename: 'GlobalMetaType'; key: string; value: string }>;
-    } | null;
+    };
     postUpdateDeletedMeta?: {
         __typename: 'DeleteGlobalMetasPayload';
         metas: Array<{ __typename: 'GlobalMetaType'; key: string; value: string }>;
-    } | null;
+    };
     migrationMeta?: {
         __typename: 'SetGlobalMetasPayload';
         metas: Array<{ __typename: 'GlobalMetaType'; key: string; value: string }>;
-    } | null;
+    };
 };
 
 export type GetGlobalMetadataQueryVariables = Exact<{
@@ -2981,43 +2986,6 @@ export type WebuiUpdateCheckFragment = {
     channel: Types.WebUiChannel;
     tag: string;
     updateAvailable: boolean;
-};
-
-export type WebuiUpdateInfoFragment = { __typename: 'WebUIUpdateInfo'; channel: Types.WebUiChannel; tag: string };
-
-export type WebuiUpdateStatusFragment = {
-    __typename: 'WebUIUpdateStatus';
-    progress: number;
-    state: Types.UpdateState;
-    info: { __typename: 'WebUIUpdateInfo'; channel: Types.WebUiChannel; tag: string };
-};
-
-export type UpdateWebuiMutationVariables = Exact<{
-    input?: Types.WebUiUpdateInput | null | undefined;
-}>;
-
-export type UpdateWebuiMutation = {
-    __typename: 'Mutation';
-    updateWebUI: {
-        __typename: 'WebUIUpdatePayload';
-        updateStatus: {
-            __typename: 'WebUIUpdateStatus';
-            progress: number;
-            state: Types.UpdateState;
-            info: { __typename: 'WebUIUpdateInfo'; channel: Types.WebUiChannel; tag: string };
-        };
-    } | null;
-};
-
-export type ResetWebuiUpdateStatusMutationVariables = Exact<{ [key: string]: never }>;
-
-export type ResetWebuiUpdateStatusMutation = {
-    __typename: 'Mutation';
-    resetWebUIUpdateStatus: {
-        __typename: 'WebUIUpdateStatus';
-        state: Types.UpdateState;
-        info: { __typename: 'WebUIUpdateInfo'; channel: Types.WebUiChannel; tag: string };
-    } | null;
 };
 
 export type GetAboutQueryVariables = Exact<{ [key: string]: never }>;
@@ -3077,30 +3045,6 @@ export type CheckForWebuiUpdateQuery = {
     };
 };
 
-export type GetWebuiUpdateStatusQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GetWebuiUpdateStatusQuery = {
-    __typename: 'Query';
-    getWebUIUpdateStatus: {
-        __typename: 'WebUIUpdateStatus';
-        progress: number;
-        state: Types.UpdateState;
-        info: { __typename: 'WebUIUpdateInfo'; channel: Types.WebUiChannel; tag: string };
-    };
-};
-
-export type WebuiUpdateSubscriptionVariables = Exact<{ [key: string]: never }>;
-
-export type WebuiUpdateSubscription = {
-    __typename: 'Subscription';
-    webUIUpdateStatusChange: {
-        __typename: 'WebUIUpdateStatus';
-        progress: number;
-        state: Types.UpdateState;
-        info: { __typename: 'WebUIUpdateInfo'; channel: Types.WebUiChannel; tag: string };
-    };
-};
-
 export type ServerSettingsFragment = {
     __typename: 'SettingsType';
     ip: string;
@@ -3144,13 +3088,18 @@ export type ServerSettingsFragment = {
     backupTime: string;
     backupInterval: number;
     backupTTL: number;
+    autoBackupFrequency: number;
+    autoBackupIncludeAppSettings: boolean;
     autoBackupIncludeCategories: boolean;
     autoBackupIncludeChapters: boolean;
-    autoBackupIncludeClientData: boolean;
+    autoBackupIncludeExtensionStores: boolean;
     autoBackupIncludeHistory: boolean;
     autoBackupIncludeManga: boolean;
-    autoBackupIncludeServerSettings: boolean;
+    autoBackupIncludePrivateSettings: boolean;
+    autoBackupIncludeReadEntries: boolean;
+    autoBackupIncludeSourceSettings: boolean;
     autoBackupIncludeTracking: boolean;
+    dataDir: string;
     localSourcePath: string;
     flareSolverrEnabled: boolean;
     flareSolverrUrl: string;
@@ -3257,13 +3206,18 @@ export type ResetServerSettingsMutation = {
             backupTime: string;
             backupInterval: number;
             backupTTL: number;
+            autoBackupFrequency: number;
+            autoBackupIncludeAppSettings: boolean;
             autoBackupIncludeCategories: boolean;
             autoBackupIncludeChapters: boolean;
-            autoBackupIncludeClientData: boolean;
+            autoBackupIncludeExtensionStores: boolean;
             autoBackupIncludeHistory: boolean;
             autoBackupIncludeManga: boolean;
-            autoBackupIncludeServerSettings: boolean;
+            autoBackupIncludePrivateSettings: boolean;
+            autoBackupIncludeReadEntries: boolean;
+            autoBackupIncludeSourceSettings: boolean;
             autoBackupIncludeTracking: boolean;
+            dataDir: string;
             localSourcePath: string;
             flareSolverrEnabled: boolean;
             flareSolverrUrl: string;
@@ -3380,13 +3334,18 @@ export type UpdateServerSettingsMutation = {
             backupTime: string;
             backupInterval: number;
             backupTTL: number;
+            autoBackupFrequency: number;
+            autoBackupIncludeAppSettings: boolean;
             autoBackupIncludeCategories: boolean;
             autoBackupIncludeChapters: boolean;
-            autoBackupIncludeClientData: boolean;
+            autoBackupIncludeExtensionStores: boolean;
             autoBackupIncludeHistory: boolean;
             autoBackupIncludeManga: boolean;
-            autoBackupIncludeServerSettings: boolean;
+            autoBackupIncludePrivateSettings: boolean;
+            autoBackupIncludeReadEntries: boolean;
+            autoBackupIncludeSourceSettings: boolean;
             autoBackupIncludeTracking: boolean;
+            dataDir: string;
             localSourcePath: string;
             flareSolverrEnabled: boolean;
             flareSolverrUrl: string;
@@ -3499,12 +3458,16 @@ export type GetServerSettingsQuery = {
         backupTime: string;
         backupInterval: number;
         backupTTL: number;
+        autoBackupFrequency: number;
+        autoBackupIncludeAppSettings: boolean;
         autoBackupIncludeCategories: boolean;
         autoBackupIncludeChapters: boolean;
-        autoBackupIncludeClientData: boolean;
+        autoBackupIncludeExtensionStores: boolean;
         autoBackupIncludeHistory: boolean;
         autoBackupIncludeManga: boolean;
-        autoBackupIncludeServerSettings: boolean;
+        autoBackupIncludePrivateSettings: boolean;
+        autoBackupIncludeReadEntries: boolean;
+        autoBackupIncludeSourceSettings: boolean;
         autoBackupIncludeTracking: boolean;
         dataDir: string;
         localSourcePath: string;
@@ -3874,7 +3837,7 @@ export type GetSourceMangasFetchMutation = {
             initialized: boolean;
             sourceId: string;
         }>;
-    } | null;
+    };
 };
 
 export type GetMigrationSourceMangasFetchMutationVariables = Exact<{
@@ -3919,7 +3882,7 @@ export type GetMigrationSourceMangasFetchMutation = {
             latestUploadedChapter: { __typename: 'ChapterType'; id: number; uploadDate: string } | null;
             highestNumberedChapter: { __typename: 'ChapterType'; id: number; chapterNumber: number } | null;
         }>;
-    } | null;
+    };
 };
 
 export type UpdateSourcePreferencesMutationVariables = Exact<{
@@ -3994,7 +3957,7 @@ export type UpdateSourcePreferencesMutation = {
                   }
             >;
         };
-    } | null;
+    };
 };
 
 export type UpdateSourceMetadataMutationVariables = Exact<{
@@ -4013,19 +3976,19 @@ export type UpdateSourceMetadataMutation = {
     preUpdateDeletedMeta?: {
         __typename: 'DeleteSourceMetasPayload';
         metas: Array<{ __typename: 'SourceMetaType'; sourceId: string; key: string; value: string }>;
-    } | null;
+    };
     updatedMeta?: {
         __typename: 'SetSourceMetasPayload';
         metas: Array<{ __typename: 'SourceMetaType'; sourceId: string; key: string; value: string }>;
-    } | null;
+    };
     postUpdateDeletedMeta?: {
         __typename: 'DeleteSourceMetasPayload';
         metas: Array<{ __typename: 'SourceMetaType'; sourceId: string; key: string; value: string }>;
-    } | null;
+    };
     migrationMeta?: {
         __typename: 'SetSourceMetasPayload';
         metas: Array<{ __typename: 'SourceMetaType'; sourceId: string; key: string; value: string }>;
-    } | null;
+    };
 };
 
 export type GetSourceBrowseQueryVariables = Exact<{
@@ -4524,6 +4487,47 @@ export type TrackerLogoutMutation = {
     };
 };
 
+export type TrackerRefreshUserMutationVariables = Exact<{
+    input: Types.RefreshTrackerUserInput;
+}>;
+
+export type TrackerRefreshUserMutation = {
+    __typename: 'Mutation';
+    refreshTrackerUser: {
+        __typename: 'RefreshTrackerUserPayload';
+        tracker: {
+            __typename: 'TrackerType';
+            scores: Array<string>;
+            authUrl: string | null;
+            id: number;
+            name: string;
+            icon: string;
+            isLoggedIn: boolean;
+            isTokenExpired: boolean;
+        };
+    };
+};
+
+export type TrackerUpdateOauthAppMutationVariables = Exact<{
+    input: Types.UpdateTrackerOAuthAppInput;
+}>;
+
+export type TrackerUpdateOauthAppMutation = {
+    __typename: 'Mutation';
+    updateTrackerOAuthApp: {
+        __typename: 'UpdateTrackerOAuthAppPayload';
+        tracker: {
+            __typename: 'TrackerType';
+            authUrl: string | null;
+            id: number;
+            name: string;
+            icon: string;
+            isLoggedIn: boolean;
+            isTokenExpired: boolean;
+        };
+    };
+};
+
 export type TrackerBindMutationVariables = Exact<{
     input: Types.BindTrackInput;
 }>;
@@ -4593,7 +4597,7 @@ export type TrackerBindTrackRecordMutation = {
                 };
             };
         };
-    } | null;
+    };
 };
 
 export type TrackerUnbindMutationVariables = Exact<{
@@ -4779,6 +4783,25 @@ export type TrackerSearchQuery = {
             summary: string;
             score: number;
             totalChapters: number;
+        }>;
+    };
+};
+
+export type TrackerOauthAppsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type TrackerOauthAppsQuery = {
+    __typename: 'Query';
+    trackers: {
+        __typename: 'TrackerNodeList';
+        nodes: Array<{
+            __typename: 'TrackerType';
+            id: number;
+            oauthApp: {
+                __typename: 'TrackerOAuthAppType';
+                clientId: string;
+                clientSecret: string;
+                redirectUri: string;
+            } | null;
         }>;
     };
 };
@@ -5000,7 +5023,7 @@ export type UpdateLibraryMutation = {
                 };
             }>;
         };
-    } | null;
+    };
 };
 
 export type StopUpdaterMutationVariables = Exact<{

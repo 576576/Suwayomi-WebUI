@@ -22,8 +22,7 @@ import {
 } from '@/features/settings/Settings.constants.ts';
 import type {
     Maybe,
-    SettingsDownloadConversion,
-    SettingsDownloadConversionHeader,
+    SettingsDownloadConversionHeaderType,
     SettingsDownloadConversionType,
 } from '@/lib/graphql/generated/graphql-base.types.ts';
 import { UrlUtil } from '@/lib/UrlUtil.ts';
@@ -48,7 +47,7 @@ const hasDuplicateKeyValueItems = (headers: SettingsDownloadConversionType['head
 export const isDuplicateConversion = (
     mimeType: string,
     index: number,
-    conversions: SettingsDownloadConversion[],
+    conversions: SettingsDownloadConversionType[],
 ): boolean => conversions.slice(0, index).some((conversion) => conversion.mimeType === mimeType);
 
 export const isUrlTargetMode = (target: string): boolean => target !== '' && !!target.match(/^https?:\/\/.+/);
@@ -110,7 +109,7 @@ export const getTargetMode = (target: string): ImageProcessingTargetMode => {
     return ImageProcessingTargetMode.IMAGE;
 };
 
-export const extractSearchParams = (url: string): SettingsDownloadConversionHeader[] => {
+export const extractSearchParams = (url: string): SettingsDownloadConversionHeaderType[] => {
     const urlObject = UrlUtil.asUrl(url);
 
     return [...(urlObject?.searchParams ?? []).entries()].map(([key, value]) => ({
@@ -120,7 +119,7 @@ export const extractSearchParams = (url: string): SettingsDownloadConversionHead
 };
 
 export const addStableIdToKeyValueItems = (
-    items: (SettingsDownloadConversionHeader | TSettingsDownloadConversionKeyValueItem)[],
+    items: (SettingsDownloadConversionHeaderType | TSettingsDownloadConversionKeyValueItem)[],
 ): TSettingsDownloadConversionKeyValueItem[] =>
     items.map((item) => ({
         // oxlint-disable-next-line no-plusplus
@@ -129,7 +128,7 @@ export const addStableIdToKeyValueItems = (
     }));
 
 export const addStableIdToConversions = (
-    conversions: (SettingsDownloadConversion | TSettingsDownloadConversion)[],
+    conversions: (SettingsDownloadConversionType | TSettingsDownloadConversion)[],
 ): TSettingsDownloadConversion[] =>
     conversions.map((conversion) => ({
         // oxlint-disable-next-line no-plusplus
@@ -174,7 +173,9 @@ const toValidServerMimeType = (mimeType: string): string => {
     return `${MIME_TYPE_PREFIX}${mimeType}`;
 };
 
-export const toValidServerConversions = (conversions: TSettingsDownloadConversion[]): SettingsDownloadConversion[] =>
+export const toValidServerConversions = (
+    conversions: TSettingsDownloadConversion[],
+): SettingsDownloadConversionType[] =>
     conversions
         .filter(({ mimeType, target }) => !!mimeType && !!target)
         .map(({ id, mode, searchParams, ...conversion }) => ({
