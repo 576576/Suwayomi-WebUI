@@ -1,4 +1,4 @@
-name: update_i18n_languages.yml
+name: Update i18n Languages
 
 on:
   push:
@@ -33,8 +33,6 @@ jobs:
 
       - uses: pnpm/action-setup@v6
         name: Install pnpm
-        with:
-          version: 11.1.2
 
       - name: Cache node_modules
         uses: actions/cache@v6

@@ -1,10 +1,18 @@
 name: Release
 
+# 唯一入口：推送 main → 自动 alpha；手动 dispatch → alpha / beta / release。
 on:
+  push:
+    branches: [main]
+    # 纯文档改动不出包（paths-ignore 只在改动全部命中时才跳过）。
+    paths-ignore:
+      - 'docs/**'
+      - '*.md'
+      - '**/*.md'
   workflow_dispatch:
     inputs:
       channel:
-        description: 'Channel'
+        description: 发布通道
         required: true
         default: alpha
         type: choice
@@ -14,76 +22,101 @@ on:
           - release
 
 jobs:
-  release:
-    name: Build artifacts and publish release
+  prep:
+    name: 准备构建参数
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
+    outputs:
+      channel: ${{ steps.out.outputs.channel }}
+      channel_name: ${{ steps.out.outputs.channel_name }}
+      version_tag: ${{ steps.out.outputs.version_tag }}
     steps:
-      - name: Checkout main branch
-        uses: actions/checkout@v7
+      - uses: actions/checkout@v7
         with:
-          ref: main
-          path: main
+          # 版本号要数提交数，浅克隆数不出来。
           fetch-depth: 0
-
-      - name: Compute Version
-        id: ver
+      - id: out
+        name: 算版本号
         shell: bash
         run: |
-          cd main
+          set -euo pipefail
+          EVENT="${{ github.event_name }}"
+
+          if [ "$EVENT" = "workflow_dispatch" ]; then
+            CHANNEL="${{ github.event.inputs.channel }}"
+          else
+            CHANNEL="alpha"
+          fi
+
           COUNT="$(git rev-list HEAD --count)"
-          if [ "${{ inputs.channel }}" = "release" ]; then
+          if [ "$CHANNEL" = "release" ]; then
             # 稳定版：commit 数按位拆点成 3.x.y（千位=主版、百位=次版、余下=补丁），
             # 如 r3516 -> 3.5.16，单调递增且可与 r{count} 数字等价比较。
             TAG="$((COUNT/1000)).$(((COUNT/100)%10)).$((COUNT%100))"
           else
-            # alpha/beta 保持 r{count}（与旧产物/自动版本比较兼容）
+            # alpha / beta 保持 r{count}（与旧产物/自动版本比较兼容）
             TAG="r${COUNT}"
           fi
-          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
-          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-          echo "version tag: $TAG (channel ${{ inputs.channel }}, commits $COUNT)"
 
-      - name: Set up NodeJs
-        uses: actions/setup-node@v7
-        with:
-          node-version-file: './main/package.json'
-
-      - uses: pnpm/action-setup@v6
-        name: Install pnpm
-        with:
-          version: 11.1.2
-
-      - name: Build webUI
-        env:
-          CHANNEL: ${{ inputs.channel }}
-          SUWAYOMI_WEBUI_TAG: ${{ steps.ver.outputs.tag }}
-        run: |
-          cd main
-          pnpm ci
-          pnpm build
           case "$CHANNEL" in
-            beta) chan="Beta" ;;
-            release) chan="Release" ;;
-            *) chan="Alpha" ;;
+            beta) NAME="Beta" ;;
+            release) NAME="Release" ;;
+            *) NAME="Alpha" ;;
           esac
-          SUWAYOMI_WEBUI_CHANNEL="$chan" pnpm build-zip
+
+          {
+            echo "channel=$CHANNEL"
+            echo "channel_name=$NAME"
+            echo "version_tag=$TAG"
+          } >> "$GITHUB_OUTPUT"
+          echo "版本：$TAG（通道 $CHANNEL，提交数 $COUNT）"
+
+  lint:
+    name: 质量门禁（复用 lint.yml）
+    permissions:
+      contents: read
+    uses: ./.github/workflows/lint.yml
+
+  build:
+    name: 构建（复用 build.yml）
+    needs: [prep, lint]
+    permissions:
+      contents: read
+    uses: ./.github/workflows/build.yml
+    with:
+      channel: ${{ needs.prep.outputs.channel_name }}
+      version_tag: ${{ needs.prep.outputs.version_tag }}
+      pack_zip: true
+
+  publish:
+    name: 发布 ${{ needs.prep.outputs.channel }} (${{ needs.prep.outputs.version_tag }})
+    needs: [prep, build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: webui-zip
+          path: out
 
       - name: Create Tag
+        env:
+          TAG: ${{ needs.prep.outputs.version_tag }}
         run: |
-          TAG="${{ steps.ver.outputs.tag }}"
-          cd main
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          git tag $TAG
-          git push origin $TAG
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag "$TAG"
+          git push origin "$TAG"
 
       - name: Upload Release
         uses: ncipollo/release-action@v1
         with:
           token: ${{ github.token }}
-          artifacts: "main/buildZip/*"
-          tag: ${{ steps.ver.outputs.tag }}
-          prerelease: ${{ inputs.channel != 'release' }}
+          artifacts: "out/*.zip"
+          tag: ${{ needs.prep.outputs.version_tag }}
+          prerelease: ${{ needs.prep.outputs.channel != 'release' }}

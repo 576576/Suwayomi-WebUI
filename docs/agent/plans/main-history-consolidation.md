@@ -55,11 +55,11 @@ i18n 交错推进），rebase 重排会把每个中间态都撞成冲突，而�
 
 ## 风险与回退
 
-| 风险                                                          | 应对                                                                                        |
-| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `main` 已 push，重写后要 `git push --force`                   | 压之前 `git branch backup/main-pre-consolidation` 留一条退路；压完确认无误再删              |
-| `build-alpha` / `release` 两个 workflow 挂在 `main` 与 tag 上 | 强推会让后续 run 基于新历史；`versionToServerVersionMapping.json` 的 `PREVIEW` 映射不受影响 |
-| 正在进行的 PR 分支以旧 `main` 为 base                         | 与本次无关（PR 分支不压缩），但它们的 base 会变成已消失的对象 —— 需要 rebase 才好看 diff    |
+| 风险                                                                 | 应对                                                                                        |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `main` 已 push，重写后要 `git push --force`                          | 压之前 `git branch backup/main-pre-consolidation` 留一条退路；压完确认无误再删              |
+| `release` 与 `pr` 两个 workflow 挂在 `main` 上（`release` 还打 tag） | 强推会让后续 run 基于新历史；`versionToServerVersionMapping.json` 的 `PREVIEW` 映射不受影响 |
+| 正在进行的 PR 分支以旧 `main` 为 base                                | 与本次无关（PR 分支不压缩），但它们的 base 会变成已消失的对象 —— 需要 rebase 才好看 diff    |
 
 ## 怎么算做完
 

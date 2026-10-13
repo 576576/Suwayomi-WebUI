@@ -41,7 +41,7 @@ merge 进来，而那会与 fork 自有的对应实现冲突。
 
 ## 本地验证与 CI
 
-CI（`.github/workflows/build_pull_request.yml`）四步，本地逐条对应着跑一遍即可：
+CI（`.github/workflows/pr.yml` → `lint.yml` + `build.yml`）四步，本地逐条对应着跑一遍即可：
 
 ```sh
 ./node_modules/.bin/oxlint src tools      # = pnpm lint
@@ -52,6 +52,9 @@ CI（`.github/workflows/build_pull_request.yml`）四步，本地逐条对应着
 
 直接调二进制比 `pnpm lint` / `pnpm format:check` 快得多 —— 后者先做 pnpm 依赖状态检查，单次 4-5 分钟且易失败。
 只验构建时 `vite build` 约 25 秒。
+
+workflow 的切分与上游不同：上游只有 `build_pull_request.yml`，本 fork 换成 `pr.yml` + 可复用的 `lint.yml` /
+`build.yml`（外加 `release.yml` / `clear.yml` / `update_i18n_languages.yml`）。同步上游时不要把旧的合回来。
 
 - pre-commit（husky → lint-staged）会跑 `oxfmt --write` / `oxlint --fix` / **全量** `pnpm tsc` /
   `pnpm i18n:extract`，并把 `.po` 一起 `git add`。单次 1-2 分钟，cherry-pick 十几个提交要按 20+ 分钟估。

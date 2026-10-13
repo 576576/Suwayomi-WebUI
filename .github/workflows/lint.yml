@@ -1,9 +1,13 @@
-name: CI Pull Request
+name: Lint
+
+# 质量门禁：静态检查 / 格式 / 类型。由 release.yml 与 pr.yml 调起，或手动 dispatch 单跑。
 on:
-  pull_request:
+  workflow_call:
+  workflow_dispatch:
+
 jobs:
-  build:
-    name: ci-pull-request
+  check:
+    name: check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -15,8 +19,6 @@ jobs:
 
       - uses: pnpm/action-setup@v6
         name: Install pnpm
-        with:
-          version: 11.1.2
 
       - name: Install modules
         run: pnpm ci
@@ -29,6 +31,3 @@ jobs:
 
       - name: Run TSC
         run: pnpm tsc
-
-      - name: Build app
-        run: pnpm build

@@ -1,0 +1,26 @@
+name: PR
+
+# PR 把关：只跑门禁与构建，不打包、不发布。
+#
+# 不配 paths-ignore：被跳过的 PR 一条 check 都没有，设成 required 会一直停在 pending。
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: pr-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: 质量门禁（复用 lint.yml）
+    permissions:
+      contents: read
+    uses: ./.github/workflows/lint.yml
+
+  build:
+    name: 构建检查（复用 build.yml）
+    permissions:
+      contents: read
+    uses: ./.github/workflows/build.yml

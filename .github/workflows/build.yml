@@ -1,0 +1,61 @@
+name: Build
+
+# 可复用构建（只由 workflow_call 触发）：装依赖、构建；pack_zip 勾上时再打包 zip 并上传 artifact。
+on:
+  workflow_call:
+    inputs:
+      channel:
+        description: version.txt 里的通道段（Alpha / Beta / Release / Local）
+        required: false
+        type: string
+        default: Local
+      version_tag:
+        description: version.txt 与 zip 名里的 tag；空串则用 r{提交数}
+        required: false
+        type: string
+        default: ''
+      pack_zip:
+        description: 是否打包 zip 并上传 artifact（PR 上关掉）
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up NodeJs
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: 'package.json'
+
+      - uses: pnpm/action-setup@v6
+        name: Install pnpm
+
+      - name: Install modules
+        run: pnpm ci
+
+      - name: Build app
+        env:
+          SUWAYOMI_WEBUI_TAG: ${{ inputs.version_tag }}
+          SUWAYOMI_WEBUI_CHANNEL: ${{ inputs.channel }}
+        run: pnpm build
+
+      - name: Build zip
+        if: ${{ inputs.pack_zip }}
+        env:
+          SUWAYOMI_WEBUI_TAG: ${{ inputs.version_tag }}
+          SUWAYOMI_WEBUI_CHANNEL: ${{ inputs.channel }}
+        run: pnpm build-zip
+
+      - name: Upload zip
+        if: ${{ inputs.pack_zip }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: webui-zip
+          path: buildZip/*.zip
+          # 默认只告警：打不出 zip 时上传一个空 artifact，等到发布那步才报错、且看不出原因。
+          if-no-files-found: error
