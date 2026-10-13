@@ -113,7 +113,8 @@ const logOut = async () => {
  * 服务器绑定 / 认证 / OPDS / KOReader 同步 / 同步。没恢复的几类及原因：
  * `SOCKS 代理`、`绕过 Cloudflare`、`杂项`（调试日志、托盘图标、日志轮转）在 Rust 侧
  * 没有任何实现；`数据库` 的后端由 `SUWAYOMI_DB_BACKEND` 选择（选 PostgreSQL 时连接串
- * 取自 `SUWAYOMI_DB_URL`；接线方案见 Suwayomi-next 的 `docs/agent/plans/database-settings.md`），
+ * 取自 `SUWAYOMI_DB_URL`；接线方案见
+ * https://github.com/576576/Suwayomi-next/blob/main/docs/agent/plans/database-settings.md），
  * Hikari 是参考实现（JVM）的连接池、本仓后端没有它；`WebView` 分区更是已移除（CEF 换成独立托盘程序）。
  *
  * 这一层只负责取数与加载/错误态；表单本身在 `ServerSettingsEditor` 里，因为草稿状态
