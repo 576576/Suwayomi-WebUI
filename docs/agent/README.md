@@ -6,6 +6,7 @@
 
 | 文件                  | 内容                                                                                                                                  |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `tech-stack.md`       | 技术栈与工具链：构建与运行时、各层用什么库、oxlint / oxfmt / lint-staged 的口径、哪些目录是生成物、常用命令与 CI 四步                 |
 | `fork-workflow.md`    | 本 fork 与上游的关系：向上游贡献的边界、同步上游的方式、本地验证与 CI 四步、预览与截图产物的落点                                      |
 | `graphql-codegen.md`  | `src/lib/graphql/generated/` 的来源约束：schema 必须指向本 fork 的 Rust server、`CODEGEN_SERVER_URL_GQL` 的覆盖方式、末尾必须过 oxfmt |
 | `server-contracts.md` | 服务端契约在本仓的落点：REST `chapterIndex` 的 0-based 口径、OPDS 尾斜杠会落到 SPA fallback、设置项与备份字段增删时本仓要同步什么     |
