@@ -170,14 +170,14 @@ const buildTexts = (packages: CollectedPackage[]) => {
 
 const quote = (value: string): string => JSON.stringify(value);
 
+const optional = (key: string, value: string | undefined): string[] =>
+    value ? [`        ${key}: ${quote(value)},`] : [];
+
 const render = (
     packages: CollectedPackage[],
     texts: ReturnType<typeof buildTexts>['texts'],
     idsByText: Map<string, string>,
 ) => {
-    const optional = (key: string, value: string | undefined): string[] =>
-        value ? [`        ${key}: ${quote(value)},`] : [];
-
     const packageLines = packages.flatMap((pkg) => [
         '    {',
         `        name: ${quote(pkg.name)},`,

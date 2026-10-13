@@ -5,4 +5,4 @@ allowBuilds:
     core-js: true
     esbuild: true
 overrides:
-    '@swc/core': 1.15.11
+    '@swc/core': 1.16.13

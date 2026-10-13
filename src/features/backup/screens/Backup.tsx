@@ -66,6 +66,19 @@ const FREQ_MINUTES = [
     432000, 518400, 604800,
 ];
 
+const findNearestStepIndex = (minutes: number): number => {
+    let best = 0;
+    let bestDiff = Infinity;
+    FREQ_MINUTES.forEach((m, i) => {
+        const diff = Math.abs(m - minutes);
+        if (diff < bestDiff) {
+            bestDiff = diff;
+            best = i;
+        }
+    });
+    return best;
+};
+
 const AutoBackupFrequencySetting: React.FC<{
     value: number;
     lastBackupAt: number;
@@ -73,21 +86,7 @@ const AutoBackupFrequencySetting: React.FC<{
 }> = ({ value, lastBackupAt, handleChange }) => {
     const { t } = useLingui();
 
-    // nearest step index for the stored minutes
-    const findIndex = (minutes: number): number => {
-        let best = 0;
-        let bestDiff = Infinity;
-        FREQ_MINUTES.forEach((m, i) => {
-            const diff = Math.abs(m - minutes);
-            if (diff < bestDiff) {
-                bestDiff = diff;
-                best = i;
-            }
-        });
-        return best;
-    };
-
-    const step = findIndex(value);
+    const step = findNearestStepIndex(value);
 
     // Dragging must track the pointer immediately and only persist on
     // release: the server value (parent `value`) does not round-trip until
