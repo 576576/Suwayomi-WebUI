@@ -14,13 +14,13 @@ concurrency:
 
 jobs:
   lint:
-    name: 质量门禁（复用 lint.yml）
+    name: 质量门禁
     permissions:
       contents: read
     uses: ./.github/workflows/lint.yml
 
   build:
-    name: 构建检查（复用 build.yml）
+    name: 构建检查
     permissions:
       contents: read
     uses: ./.github/workflows/build.yml

@@ -76,7 +76,7 @@
 `.github/workflows/` 六个 workflow：可复用的 `lint.yml`（门禁 = `pnpm lint` → `pnpm format:check` → `pnpm tsc`）
 与 `build.yml`（装依赖、`pnpm build`，`pack_zip` 勾上时再 `pnpm build-zip`），唯一入口 `release.yml`
 （推送 main → 自动 alpha；手动 dispatch → alpha / beta / release），PR 把关 `pr.yml`（调上面两个），
-另有 `clear.yml`（预发布清理）与 `update_i18n_languages.yml`（翻译资源）。
+另有 `clear.yml`（预发布清理）与 `update_i18n.yml`（翻译资源）。
 
 **fork 的 PR 要先由维护者批准 workflow 才会跑**（run 结论 `action_required`），本地四条命令全绿不等于 CI 跑过 ——
 详见 [`fork-workflow.md`](fork-workflow.md#本地验证与-ci)。

@@ -71,13 +71,13 @@ jobs:
           echo "版本：$TAG（通道 $CHANNEL，提交数 $COUNT）"
 
   lint:
-    name: 质量门禁（复用 lint.yml）
+    name: 质量门禁
     permissions:
       contents: read
     uses: ./.github/workflows/lint.yml
 
   build:
-    name: 构建（复用 build.yml）
+    name: 构建
     needs: [prep, lint]
     permissions:
       contents: read
